@@ -15,10 +15,30 @@ export function LandingNavigation() {
   const closeMobileMenu = () => {
     setIsMobileMenuOpen(false);
   };
+
+  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+    e.preventDefault();
+    closeMobileMenu(); // Close mobile menu if open
+    
+    const element = document.getElementById(targetId);
+    if (element) {
+      // Use larger offset on mobile screens
+      const isMobile = window.innerWidth < 768; // md breakpoint
+      const headerOffset = isMobile ? 380 : 60; // 380px for mobile, 60px for desktop
+
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+  };
   return (
     <nav className="bg-white shadow-sm border-b border-border sticky top-0 z-50">
       <div className="max-w-8xl mx-auto px-1 sm:px-3 md:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-12 md:h-16">
           <div className="flex items-center justify-start">
             <Link
               href="/"
@@ -41,6 +61,7 @@ export function LandingNavigation() {
             <div className="hidden md:flex items-center lg:gap-4 gap-2">
               <Link
                 href="/#features"
+                onClick={(e) => handleAnchorClick(e, 'features')}
                 className="text-text-secondary hover:text-text hidden xl:inline-block"
               >
                 المميزات
@@ -48,6 +69,7 @@ export function LandingNavigation() {
               
               <Link
                 href="/#faq"
+                onClick={(e) => handleAnchorClick(e, 'faq')}
                 className="text-text-secondary hover:text-text hidden xl:inline-block"
               >
                 الأسئلة الشائعة
@@ -66,9 +88,10 @@ export function LandingNavigation() {
               </Link>
               <Link
                 href="/#contact"
+                onClick={(e) => handleAnchorClick(e, 'contact')}
                 className="text-text-secondary hover:text-text"
               >
-                اتصل بنا
+                تواصل معنا
               </Link>
             </div>
 
@@ -132,7 +155,7 @@ export function LandingNavigation() {
             <div className="space-y-2">
               <Link
                 href="/#features"
-                onClick={closeMobileMenu}
+                onClick={(e) => handleAnchorClick(e, 'features')}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
                 المميزات
@@ -153,17 +176,17 @@ export function LandingNavigation() {
               </Link>
               <Link
                 href="/#faq"
-                onClick={closeMobileMenu}
+                onClick={(e) => handleAnchorClick(e, 'faq')}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
                 الأسئلة الشائعة
               </Link>
               <Link
                 href="/#contact"
-                onClick={closeMobileMenu}
+                onClick={(e) => handleAnchorClick(e, 'contact')}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
-                اتصل بنا
+                تواصل معنا
               </Link>
             </div>
 
