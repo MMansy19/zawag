@@ -108,13 +108,10 @@ export function ImageUploader({
               <h3 className="text-lg font-medium text-gray-900 mb-2">
                 رفع صورة شخصية
               </h3>
-              <p className="text-sm text-gray-600 mb-4">
-                انقر لاختيار صورة شخصية (اختياري)
-              </p>
               <Button
                 type="button"
                 onClick={handleUploadClick}
-                className="flex items-center gap-2"
+                className="flex items-center gap-2 mx-auto my-2"
               >
                 <Upload className="h-4 w-4" />
                 اختيار صورة

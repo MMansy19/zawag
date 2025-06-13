@@ -13,7 +13,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputId = id || React.useId();
 
     return (
-      <div className="space-y-2">
+      <div className="space-y-3.5">
         {label && (
           <label
             htmlFor={inputId}

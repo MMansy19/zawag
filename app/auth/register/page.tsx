@@ -1,6 +1,5 @@
 import { Metadata } from "next";
-import { AuthContainer } from "@/components/auth/auth-container";
-import { RegisterForm } from "@/components/auth/register-form";
+import { RegistrationWizard } from "@/components/auth/registration-wizard";
 
 export const metadata: Metadata = {
   title: "إنشاء حساب جديد",
@@ -8,16 +7,19 @@ export const metadata: Metadata = {
 };
 
 export default function RegisterPage() {
-  // TODO: Add session check when NextAuth is properly configured
-
   return (
-    <AuthContainer
-      title="انضم إلى عائلة الزواج السعيد"
-      subtitle="انشئ حساباً جديداً للبدء في رحلة البحث عن شريك الحياة"
-      linkText="لديك حساب بالفعل؟ سجل دخولك"
-      linkHref="/auth/login"
-    >
-      <RegisterForm />
-    </AuthContainer>
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            انضم إلى عائلة الزواج السعيد
+          </h1>
+          <p className="text-gray-600">
+            انشئ حساباً جديداً للبدء في رحلة البحث عن شريك الحياة
+          </p>
+        </div>
+        <RegistrationWizard />
+      </div>
+    </div>
   );
 }

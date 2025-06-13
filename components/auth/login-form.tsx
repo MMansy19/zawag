@@ -52,7 +52,6 @@ export function LoginForm() {
           id="email"
           className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
           placeholder="أدخل بريدك الإلكتروني"
-          dir="ltr"
         />
         {errors.email && (
           <p className="mt-1 text-sm text-error">{errors.email.message}</p>
