@@ -303,6 +303,73 @@ export const fileUploadSchema = z.object({
     ),
 });
 
+// Complete Profile Schema (combining all profile-related schemas)
+export const profileSchema = z
+  .object({
+    name: z
+      .string()
+      .min(
+        VALIDATION_RULES.NAME.MIN_LENGTH,
+        `الاسم يجب أن يكون على الأقل ${VALIDATION_RULES.NAME.MIN_LENGTH} أحرف`,
+      )
+      .max(
+        VALIDATION_RULES.NAME.MAX_LENGTH,
+        `الاسم يجب أن يكون أقل من ${VALIDATION_RULES.NAME.MAX_LENGTH} حرف`,
+      ),
+    age: z
+      .number()
+      .min(
+        VALIDATION_RULES.AGE.MIN,
+        `العمر يجب أن يكون على الأقل ${VALIDATION_RULES.AGE.MIN} سنة`,
+      )
+      .max(
+        VALIDATION_RULES.AGE.MAX,
+        `العمر يجب أن يكون أقل من ${VALIDATION_RULES.AGE.MAX} سنة`,
+      ),
+    gender: z.enum(["male", "female"], { required_error: "يرجى اختيار الجنس" }),
+    country: z.string().min(1, "يرجى اختيار البلد"),
+    city: z.string().min(1, "يرجى إدخال المدينة"),
+    nationality: z.string().min(1, "يرجى إدخال الجنسية"),
+    maritalStatus: z.enum(["single", "divorced", "widowed"], {
+      required_error: "يرجى اختيار الحالة الاجتماعية",
+    }),
+    education: z.string().min(1, "يرجى اختيار المستوى التعليمي"),
+    occupation: z.string().min(1, "يرجى اختيار المهنة"),
+    prays: z.boolean(),
+    fasts: z.boolean(),
+    religiousLevel: z.enum(["basic", "practicing", "very-religious"], {
+      required_error: "يرجى اختيار مستوى الالتزام الديني",
+    }),
+    hasHijab: z.boolean().optional(),
+    hasBeard: z.boolean().optional(),
+    bio: z
+      .string()
+      .max(
+        VALIDATION_RULES.BIO.MAX_LENGTH,
+        `النبذة الشخصية يجب أن تكون أقل من ${VALIDATION_RULES.BIO.MAX_LENGTH} حرف`,
+      )
+      .optional(),
+    guardianName: z.string().optional(),
+    guardianPhone: z
+      .string()
+      .regex(/^\+?[1-9]\d{1,14}$/, "رقم هاتف غير صحيح")
+      .optional(),
+    guardianEmail: z.string().email("بريد إلكتروني غير صحيح").optional(),
+  })
+  .refine(
+    (data) => {
+      // If any guardian info is provided, name is required
+      if (data.guardianPhone || data.guardianEmail) {
+        return data.guardianName && data.guardianName.length > 0;
+      }
+      return true;
+    },
+    {
+      message: "اسم الولي مطلوب عند إدخال معلومات الاتصال",
+      path: ["guardianName"],
+    },
+  );
+
 // Type exports for use in components
 export type RegisterFormData = z.infer<typeof registerSchema>;
 export type LoginFormData = z.infer<typeof loginSchema>;
@@ -315,6 +382,7 @@ export type EducationWorkFormData = z.infer<typeof educationWorkSchema>;
 export type PreferencesFormData = z.infer<typeof preferencesSchema>;
 export type GuardianInfoFormData = z.infer<typeof guardianInfoSchema>;
 export type BioFormData = z.infer<typeof bioSchema>;
+export type ProfileFormData = z.infer<typeof profileSchema>;
 export type PrivacySettingsFormData = z.infer<typeof privacySettingsSchema>;
 export type SearchFiltersFormData = z.infer<typeof searchFiltersSchema>;
 export type MarriageRequestFormData = z.infer<typeof marriageRequestSchema>;

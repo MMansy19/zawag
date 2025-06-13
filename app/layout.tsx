@@ -40,7 +40,7 @@ export const metadata: Metadata = {
   creator: "الزواج المبارك",
   publisher: "الزواج المبارك",
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+    process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000",
   ),
   alternates: {
     canonical: "/",
@@ -80,9 +80,11 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
-  verification: {
-    google: process.env.GOOGLE_VERIFICATION_ID,
-  },
+  ...(process.env["GOOGLE_VERIFICATION_ID"] && {
+    verification: {
+      google: process.env["GOOGLE_VERIFICATION_ID"],
+    },
+  }),
 };
 
 export default function RootLayout({
