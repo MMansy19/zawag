@@ -240,7 +240,7 @@ module.exports = {
   },
   plugins: [
     // RTL support for Arabic
-    require("@tailwindcss/rtl"),
+    require("tailwindcss-rtl"),
 
     // Custom plugin for Islamic design utilities
     function ({ addUtilities, addComponents, theme }) {
