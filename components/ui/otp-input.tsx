@@ -11,12 +11,12 @@ interface OTPInputProps {
   className?: string;
 }
 
-export function OTPInput({ 
-  length = 6, 
-  onComplete, 
-  onChange, 
+export function OTPInput({
+  length = 6,
+  onComplete,
+  onChange,
   error,
-  className 
+  className,
 }: OTPInputProps) {
   const [otp, setOtp] = useState<string[]>(new Array(length).fill(""));
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -24,7 +24,7 @@ export function OTPInput({
   useEffect(() => {
     const otpValue = otp.join("");
     onChange?.(otpValue);
-    
+
     if (otpValue.length === length) {
       onComplete?.(otpValue);
     }
@@ -32,7 +32,7 @@ export function OTPInput({
 
   const handleChange = (element: HTMLInputElement, index: number) => {
     const value = element.value;
-    
+
     // Only allow digits
     if (!/^\d*$/.test(value)) return;
 
@@ -46,11 +46,14 @@ export function OTPInput({
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
+  const handleKeyDown = (
+    e: React.KeyboardEvent<HTMLInputElement>,
+    index: number,
+  ) => {
     // Handle backspace
     if (e.key === "Backspace") {
       const newOtp = [...otp];
-      
+
       if (otp[index]) {
         // Clear current field
         newOtp[index] = "";
@@ -62,7 +65,7 @@ export function OTPInput({
         inputRefs.current[index - 1]?.focus();
       }
     }
-    
+
     // Handle arrow keys
     if (e.key === "ArrowLeft" && index > 0) {
       inputRefs.current[index - 1]?.focus();
@@ -76,7 +79,7 @@ export function OTPInput({
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text/plain");
     const digits = pastedData.replace(/\D/g, "").slice(0, length);
-      if (digits.length > 0) {
+    if (digits.length > 0) {
       const newOtp = [...otp];
       for (let i = 0; i < digits.length && i < length; i++) {
         const digit = digits[i];
@@ -85,7 +88,7 @@ export function OTPInput({
         }
       }
       setOtp(newOtp);
-      
+
       // Focus on the next empty field or the last field
       const nextIndex = Math.min(digits.length, length - 1);
       inputRefs.current[nextIndex]?.focus();
@@ -111,19 +114,17 @@ export function OTPInput({
               "w-12 h-12 text-center text-lg font-semibold border-2 rounded-lg",
               "focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
               "transition-all duration-200",
-              error 
-                ? "border-red-500 focus:ring-red-500" 
+              error
+                ? "border-red-500 focus:ring-red-500"
                 : "border-gray-300 focus:border-primary",
-              digit && "border-primary bg-primary/5"
+              digit && "border-primary bg-primary/5",
             )}
             maxLength={1}
             autoComplete="off"
           />
         ))}
       </div>
-      {error && (
-        <p className="text-sm text-red-600 text-center">{error}</p>
-      )}
+      {error && <p className="text-sm text-red-600 text-center">{error}</p>}
     </div>
   );
 }

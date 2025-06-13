@@ -3,6 +3,19 @@
 import { useState } from "react";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { UsersManagement } from "@/components/admin/users-management";
+import { RequestsTable } from "@/components/admin/requests-table";
+import { FlaggedList } from "@/components/admin/flagged-list";
+import { ChatOverviewPanel } from "@/components/admin/chat-overview-panel";
+import { ReportTable } from "@/components/admin/report-table";
+import { SettingsForm } from "@/components/admin/settings-form";
+import { NotificationsBox } from "@/components/admin/notifications-box";
+import {
+  mockUsers,
+  mockMarriageRequests,
+  mockFlaggedMessages,
+  mockActiveChats,
+  getAdminStats,
+} from "@/lib/static-data/admin-mock-data";
 
 const tabs = [
   { id: "users", label: "المستخدمين", icon: "👥" },
@@ -10,71 +23,30 @@ const tabs = [
   { id: "messages", label: "الرسائل المبلغ عنها", icon: "🚨" },
   { id: "chats", label: "المحادثات النشطة", icon: "💬" },
   { id: "reports", label: "التقارير", icon: "📋" },
+  { id: "notifications", label: "الإشعارات", icon: "🔔" },
   { id: "settings", label: "الإعدادات", icon: "⚙️" },
 ];
 
 export function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("users");
+  const stats = getAdminStats();
 
   const renderTabContent = () => {
     switch (activeTab) {
       case "users":
         return <UsersManagement />;
       case "requests":
-        return (
-          <Card>
-            <CardHeader>
-              <h2 className="text-2xl font-bold">إدارة طلبات الزواج</h2>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">قريباً...</p>
-            </CardContent>
-          </Card>
-        );
+        return <RequestsTable />;
       case "messages":
-        return (
-          <Card>
-            <CardHeader>
-              <h2 className="text-2xl font-bold">الرسائل المبلغ عنها</h2>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">قريباً...</p>
-            </CardContent>
-          </Card>
-        );
+        return <FlaggedList />;
       case "chats":
-        return (
-          <Card>
-            <CardHeader>
-              <h2 className="text-2xl font-bold">المحادثات النشطة</h2>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">قريباً...</p>
-            </CardContent>
-          </Card>
-        );
+        return <ChatOverviewPanel />;
       case "reports":
-        return (
-          <Card>
-            <CardHeader>
-              <h2 className="text-2xl font-bold">التقارير</h2>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">قريباً...</p>
-            </CardContent>
-          </Card>
-        );
+        return <ReportTable />;
+      case "notifications":
+        return <NotificationsBox />;
       case "settings":
-        return (
-          <Card>
-            <CardHeader>
-              <h2 className="text-2xl font-bold">إعدادات النظام</h2>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-600">قريباً...</p>
-            </CardContent>
-          </Card>
-        );
+        return <SettingsForm />;
       default:
         return null;
     }
@@ -98,7 +70,7 @@ export function AdminDashboard() {
               <div className="flex items-center">
                 <div className="text-2xl mr-4">👥</div>
                 <div>
-                  <p className="text-2xl font-bold">1,234</p>
+                  <p className="text-2xl font-bold">{stats.totalUsers}</p>
                   <p className="text-gray-600 text-sm">إجمالي المستخدمين</p>
                 </div>
               </div>
@@ -110,7 +82,7 @@ export function AdminDashboard() {
               <div className="flex items-center">
                 <div className="text-2xl mr-4">💍</div>
                 <div>
-                  <p className="text-2xl font-bold">56</p>
+                  <p className="text-2xl font-bold">{stats.pendingRequests}</p>
                   <p className="text-gray-600 text-sm">طلبات الزواج</p>
                 </div>
               </div>
@@ -122,7 +94,7 @@ export function AdminDashboard() {
               <div className="flex items-center">
                 <div className="text-2xl mr-4">💬</div>
                 <div>
-                  <p className="text-2xl font-bold">23</p>
+                  <p className="text-2xl font-bold">{stats.activeChats}</p>
                   <p className="text-gray-600 text-sm">محادثات نشطة</p>
                 </div>
               </div>
@@ -134,7 +106,7 @@ export function AdminDashboard() {
               <div className="flex items-center">
                 <div className="text-2xl mr-4">🚨</div>
                 <div>
-                  <p className="text-2xl font-bold">7</p>
+                  <p className="text-2xl font-bold">{stats.pendingReports}</p>
                   <p className="text-gray-600 text-sm">تقارير معلقة</p>
                 </div>
               </div>

@@ -8,7 +8,12 @@ import * as z from "zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { OTPInput } from "@/components/ui/otp-input";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { showToast } from "@/components/ui/toaster";
 import { ImageUploader } from "@/components/profile/image-uploader";
 
@@ -18,7 +23,7 @@ const registrationSchema = z.object({
   email: z.string().email("البريد الإلكتروني غير صحيح"),
   password: z.string().min(6, "كلمة المرور يجب أن تكون 6 أحرف على الأقل"),
   otp: z.string().length(6, "رمز التحقق يجب أن يكون 6 أرقام"),
-  
+
   // Step 2: Basic Info
   firstName: z.string().min(2, "الاسم الأول مطلوب"),
   lastName: z.string().min(2, "اسم العائلة مطلوب"),
@@ -26,20 +31,20 @@ const registrationSchema = z.object({
   gender: z.enum(["male", "female"], { required_error: "الجنس مطلوب" }),
   country: z.string().min(1, "البلد مطلوب"),
   maritalStatus: z.enum(["single", "divorced", "widowed"]),
-  
+
   // Step 3: Religious Info
   prays: z.boolean(),
   fasts: z.boolean(),
   religiousLevel: z.enum(["basic", "practicing", "very-religious"]),
   wearsHijab: z.boolean().optional(),
   hasBeard: z.boolean().optional(),
-  
+
   // Step 4: Education & Work
   education: z.string().min(1, "المستوى التعليمي مطلوب"),
   occupation: z.string().min(1, "المهنة مطلوبة"),
   city: z.string().min(1, "المدينة مطلوبة"),
   nationality: z.string().min(1, "الجنسية مطلوبة"),
-  
+
   // Step 5: Preferences
   preferences: z.object({
     ageRange: z.object({
@@ -50,7 +55,7 @@ const registrationSchema = z.object({
     religiousLevel: z.array(z.string()).optional(),
     education: z.array(z.string()).optional(),
   }),
-  
+
   // Step 7: Guardian (optional)
   guardianName: z.string().optional(),
   guardianPhone: z.string().optional(),
@@ -90,9 +95,17 @@ export function RegistrationWizard() {
   const watchedGender = watch("gender");
 
   const steps = [
-    { id: 1, title: "إنشاء الحساب", description: "البريد الإلكتروني وكلمة المرور" },
+    {
+      id: 1,
+      title: "إنشاء الحساب",
+      description: "البريد الإلكتروني وكلمة المرور",
+    },
     { id: 2, title: "المعلومات الأساسية", description: "الاسم والعمر والجنس" },
-    { id: 3, title: "المعلومات الدينية", description: "مستوى التدين والممارسات" },
+    {
+      id: 3,
+      title: "المعلومات الدينية",
+      description: "مستوى التدين والممارسات",
+    },
     { id: 4, title: "التعليم والعمل", description: "المؤهلات والمهنة والموقع" },
     { id: 5, title: "تفضيلات الزواج", description: "المواصفات المرغوبة" },
     { id: 6, title: "الصورة الشخصية", description: "رفع صورة (اختياري)" },
@@ -108,7 +121,7 @@ export function RegistrationWizard() {
       setIsSubmitting(true);
       // TODO: Implement OTP sending
       console.log("Sending OTP to:", watch("email"));
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       setOtpSent(true);
       showToast.success("تم إرسال رمز التحقق");
     } catch (error) {
@@ -125,7 +138,7 @@ export function RegistrationWizard() {
       console.log("Registration data:", data);
       console.log("Profile picture:", profilePicture);
 
-      await new Promise(resolve => setTimeout(resolve, 2000));
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       showToast.success("تم إنشاء الحساب بنجاح!");
       router.push("/dashboard");
     } catch (error: any) {
@@ -138,13 +151,20 @@ export function RegistrationWizard() {
   const nextStep = async () => {
     // Validate current step before proceeding
     let fieldsToValidate: (keyof RegistrationFormData)[] = [];
-    
+
     switch (currentStep) {
       case 1:
         fieldsToValidate = ["email", "password", "otp"];
         break;
       case 2:
-        fieldsToValidate = ["firstName", "lastName", "age", "gender", "country", "maritalStatus"];
+        fieldsToValidate = [
+          "firstName",
+          "lastName",
+          "age",
+          "gender",
+          "country",
+          "maritalStatus",
+        ];
         break;
       case 3:
         fieldsToValidate = ["prays", "fasts", "religiousLevel"];
@@ -208,7 +228,8 @@ export function RegistrationWizard() {
                 className="w-full"
               >
                 {isSubmitting ? "جارٍ الإرسال..." : "إرسال رمز التحقق"}
-              </Button>            ) : (
+              </Button>
+            ) : (
               <div className="space-y-4">
                 <OTPInput
                   length={6}
@@ -216,9 +237,7 @@ export function RegistrationWizard() {
                   error={errors.otp?.message}
                 />
                 <div className="text-center">
-                  <p className="text-sm text-gray-600 mb-2">
-                    لم تستلم الرمز؟
-                  </p>
+                  <p className="text-sm text-gray-600 mb-2">لم تستلم الرمز؟</p>
                   <Button
                     type="button"
                     variant="outline"
@@ -263,7 +282,9 @@ export function RegistrationWizard() {
                 max="80"
               />
               <div>
-                <label className="block text-sm font-medium text-gray-700">الجنس</label>
+                <label className="block text-sm font-medium text-gray-700">
+                  الجنس
+                </label>
                 <select
                   {...register("gender")}
                   className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
@@ -273,7 +294,9 @@ export function RegistrationWizard() {
                   <option value="female">أنثى</option>
                 </select>
                 {errors.gender && (
-                  <p className="text-sm text-red-600">{errors.gender.message}</p>
+                  <p className="text-sm text-red-600">
+                    {errors.gender.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -286,7 +309,9 @@ export function RegistrationWizard() {
             />
 
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">الحالة الاجتماعية</label>
+              <label className="block text-sm font-medium text-gray-700">
+                الحالة الاجتماعية
+              </label>
               <select
                 {...register("maritalStatus")}
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
@@ -297,7 +322,9 @@ export function RegistrationWizard() {
                 <option value="widowed">أرمل/أرملة</option>
               </select>
               {errors.maritalStatus && (
-                <p className="text-sm text-red-600">{errors.maritalStatus.message}</p>
+                <p className="text-sm text-red-600">
+                  {errors.maritalStatus.message}
+                </p>
               )}
             </div>
           </div>
@@ -307,7 +334,9 @@ export function RegistrationWizard() {
         return (
           <div className="space-y-4">
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">مستوى التدين</label>
+              <label className="block text-sm font-medium text-gray-700">
+                مستوى التدين
+              </label>
               <select
                 {...register("religiousLevel")}
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
@@ -406,14 +435,18 @@ export function RegistrationWizard() {
                 حدد المواصفات التي تفضلها في شريك الحياة
               </p>
             </div>
-            
+
             <div className="space-y-2">
-              <label className="block text-sm font-medium text-gray-700">الفئة العمرية المفضلة</label>
+              <label className="block text-sm font-medium text-gray-700">
+                الفئة العمرية المفضلة
+              </label>
               <div className="grid grid-cols-2 gap-4">
                 <Input
                   label="من"
                   type="number"
-                  {...register("preferences.ageRange.min", { valueAsNumber: true })}
+                  {...register("preferences.ageRange.min", {
+                    valueAsNumber: true,
+                  })}
                   error={errors.preferences?.ageRange?.min?.message}
                   placeholder="18"
                   min="18"
@@ -422,7 +455,9 @@ export function RegistrationWizard() {
                 <Input
                   label="إلى"
                   type="number"
-                  {...register("preferences.ageRange.max", { valueAsNumber: true })}
+                  {...register("preferences.ageRange.max", {
+                    valueAsNumber: true,
+                  })}
                   error={errors.preferences?.ageRange?.max?.message}
                   placeholder="40"
                   min="18"
@@ -445,14 +480,17 @@ export function RegistrationWizard() {
           <div className="space-y-4">
             <div className="mb-4 p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-700">
-                {watchedGender === "male" 
+                {watchedGender === "male"
                   ? "الصورة الشخصية اختيارية للإخوة وستظهر فقط للمطابقات المقبولة"
                   : "الصورة الشخصية غير متاحة للأخوات حفاظاً على الخصوصية"}
               </p>
-            </div>            {watchedGender === "male" ? (
+            </div>{" "}
+            {watchedGender === "male" ? (
               <ImageUploader
                 onImageSelect={(file) => setProfilePicture(file)}
-                currentImage={profilePicture ? URL.createObjectURL(profilePicture) : null}
+                currentImage={
+                  profilePicture ? URL.createObjectURL(profilePicture) : null
+                }
               />
             ) : (
               <div className="text-center py-12">
@@ -511,24 +549,47 @@ export function RegistrationWizard() {
                 تأكد من صحة جميع البيانات قبل إنشاء الحساب
               </p>
             </div>
-            
+
             <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
-              <div><strong>البريد الإلكتروني:</strong> {watch("email")}</div>
-              <div><strong>الاسم:</strong> {watch("firstName")} {watch("lastName")}</div>
-              <div><strong>العمر:</strong> {watch("age")} سنة</div>
-              <div><strong>الجنس:</strong> {watch("gender") === "male" ? "ذكر" : "أنثى"}</div>
-              <div><strong>البلد:</strong> {watch("country")}</div>
-              <div><strong>المهنة:</strong> {watch("occupation")}</div>
+              <div>
+                <strong>البريد الإلكتروني:</strong> {watch("email")}
+              </div>
+              <div>
+                <strong>الاسم:</strong> {watch("firstName")} {watch("lastName")}
+              </div>
+              <div>
+                <strong>العمر:</strong> {watch("age")} سنة
+              </div>
+              <div>
+                <strong>الجنس:</strong>{" "}
+                {watch("gender") === "male" ? "ذكر" : "أنثى"}
+              </div>
+              <div>
+                <strong>البلد:</strong> {watch("country")}
+              </div>
+              <div>
+                <strong>المهنة:</strong> {watch("occupation")}
+              </div>
               {watch("guardianName") && (
-                <div><strong>الولي:</strong> {watch("guardianName")}</div>
+                <div>
+                  <strong>الولي:</strong> {watch("guardianName")}
+                </div>
               )}
             </div>
-            
+
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <svg
+                    className="h-5 w-5 text-green-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </div>
                 <div className="mr-3">
@@ -536,7 +597,9 @@ export function RegistrationWizard() {
                     جاهز لإنشاء الحساب
                   </h3>
                   <div className="mt-2 text-sm text-green-700">
-                    <p>سيتم مراجعة ملفك الشخصي من قِبل الإدارة خلال 24-48 ساعة</p>
+                    <p>
+                      سيتم مراجعة ملفك الشخصي من قِبل الإدارة خلال 24-48 ساعة
+                    </p>
                   </div>
                 </div>
               </div>
@@ -595,8 +658,8 @@ export function RegistrationWizard() {
           </Button>
 
           {currentStep < totalSteps ? (
-            <Button 
-              type="button" 
+            <Button
+              type="button"
               onClick={nextStep}
               disabled={currentStep === 1 && !otpSent}
             >

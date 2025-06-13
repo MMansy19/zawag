@@ -25,24 +25,24 @@ const CustomToast = ({
   const Icon = icons[type];
 
   const typeClasses = {
-    success: "border-secondary bg-secondary/10 text-secondary",
-    error: "border-error bg-error/10 text-error",
-    warning: "border-accent bg-accent/10 text-accent",
-    info: "border-primary bg-primary/10 text-primary",
+    success: "border-secondary bg-secondary",
+    error: "border-error bg-error",
+    warning: "border-accent bg-accent",
+    info: "border-primary bg-primary",
   };
 
   return (
     <div
       className={cn(
-        "flex items-center gap-3 p-4 rounded-lg border shadow-lg bg-background",
+        "flex items-center gap-3 p-4 rounded-lg border shadow-lg bg-background text-white",
         typeClasses[type],
       )}
     >
       <Icon className="h-5 w-5 flex-shrink-0" />
-      <p className="flex-1 text-sm font-medium text-text">{message}</p>
+      <p className="flex-1 text-sm font-medium">{message}</p>
       <button
         onClick={onClose}
-        className="flex-shrink-0 text-text-secondary hover:text-text"
+        className="flex-shrink-0 text-white hover:text-gray-300 transition-colors"
       >
         <X className="h-4 w-4" />
       </button>
