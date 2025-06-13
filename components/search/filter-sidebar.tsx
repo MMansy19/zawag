@@ -5,40 +5,43 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { COUNTRIES, MARITAL_STATUS } from "@/lib/constants";
+import { COUNTRIES, MARITAL_STATUS_OPTIONS } from "@/lib/constants";
 
 interface FilterValues {
-  country?: string;
-  city?: string;
-  minAge?: number;
-  maxAge?: number;
-  maritalStatus?: string;
-  education?: string;
-  occupation?: string;
-  religiousLevel?: string;
-  prays?: boolean;
-  fasts?: boolean;
-  hijab?: boolean;
-  beard?: boolean;
+  country?: string | undefined;
+  city?: string | undefined;
+  minAge?: number | undefined;
+  maxAge?: number | undefined;
+  maritalStatus?: string | undefined;
+  education?: string | undefined;
+  occupation?: string | undefined;
+  religiousLevel?: string | undefined;
+  prays?: boolean | undefined;
+  fasts?: boolean | undefined;
+  hijab?: boolean | undefined;
+  beard?: boolean | undefined;
 }
 
 export function FilterSidebar() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  
   const [filters, setFilters] = useState<FilterValues>({
     country: searchParams.get("country") || "",
     city: searchParams.get("city") || "",
-    minAge: Number(searchParams.get("minAge")) || undefined,
-    maxAge: Number(searchParams.get("maxAge")) || undefined,
+    minAge: searchParams.get("minAge")
+      ? Number(searchParams.get("minAge"))
+      : undefined,
+    maxAge: searchParams.get("maxAge")
+      ? Number(searchParams.get("maxAge"))
+      : undefined,
     maritalStatus: searchParams.get("maritalStatus") || "",
     education: searchParams.get("education") || "",
     occupation: searchParams.get("occupation") || "",
     religiousLevel: searchParams.get("religiousLevel") || "",
-    prays: searchParams.get("prays") === "true" || undefined,
-    fasts: searchParams.get("fasts") === "true" || undefined,
-    hijab: searchParams.get("hijab") === "true" || undefined,
-    beard: searchParams.get("beard") === "true" || undefined,
+    prays: searchParams.get("prays") === "true" ? true : undefined,
+    fasts: searchParams.get("fasts") === "true" ? true : undefined,
+    hijab: searchParams.get("hijab") === "true" ? true : undefined,
+    beard: searchParams.get("beard") === "true" ? true : undefined,
   });
 
   const handleFilterChange = (key: keyof FilterValues, value: any) => {
@@ -47,13 +50,13 @@ export function FilterSidebar() {
 
   const applyFilters = () => {
     const query = new URLSearchParams();
-    
+
     Object.entries(filters).forEach(([key, value]) => {
       if (value !== undefined && value !== "" && value !== null) {
         query.set(key, String(value));
       }
     });
-    
+
     router.push(`/dashboard/search?${query.toString()}`);
   };
 
@@ -71,7 +74,7 @@ export function FilterSidebar() {
         {/* Location Filters */}
         <div className="space-y-3">
           <h4 className="font-medium text-sm">الموقع</h4>
-          
+
           <div>
             <label className="block text-sm font-medium mb-1">البلد</label>
             <select
@@ -79,10 +82,10 @@ export function FilterSidebar() {
               onChange={(e) => handleFilterChange("country", e.target.value)}
               className="w-full border border-border rounded-md px-3 py-2 text-sm"
             >
-              <option value="">جميع البلدان</option>
+              <option value="">جميع البلدان</option>{" "}
               {COUNTRIES.map((country) => (
-                <option key={country} value={country}>
-                  {country}
+                <option key={country.code} value={country.name}>
+                  {country.name}
                 </option>
               ))}
             </select>
@@ -104,7 +107,12 @@ export function FilterSidebar() {
               label="من"
               type="number"
               value={filters.minAge || ""}
-              onChange={(e) => handleFilterChange("minAge", e.target.value ? Number(e.target.value) : undefined)}
+              onChange={(e) =>
+                handleFilterChange(
+                  "minAge",
+                  e.target.value ? Number(e.target.value) : undefined,
+                )
+              }
               placeholder="18"
               min="18"
               max="80"
@@ -113,7 +121,12 @@ export function FilterSidebar() {
               label="إلى"
               type="number"
               value={filters.maxAge || ""}
-              onChange={(e) => handleFilterChange("maxAge", e.target.value ? Number(e.target.value) : undefined)}
+              onChange={(e) =>
+                handleFilterChange(
+                  "maxAge",
+                  e.target.value ? Number(e.target.value) : undefined,
+                )
+              }
               placeholder="80"
               min="18"
               max="80"
@@ -123,16 +136,20 @@ export function FilterSidebar() {
 
         {/* Marital Status */}
         <div>
-          <label className="block text-sm font-medium mb-1">الحالة الزوجية</label>
+          <label className="block text-sm font-medium mb-1">
+            الحالة الزوجية
+          </label>
           <select
             value={filters.maritalStatus || ""}
-            onChange={(e) => handleFilterChange("maritalStatus", e.target.value)}
+            onChange={(e) =>
+              handleFilterChange("maritalStatus", e.target.value)
+            }
             className="w-full border border-border rounded-md px-3 py-2 text-sm"
           >
-            <option value="">جميع الحالات</option>
-            {MARITAL_STATUS.map((status) => (
-              <option key={status} value={status}>
-                {status}
+            <option value="">جميع الحالات</option>{" "}
+            {MARITAL_STATUS_OPTIONS.map((status) => (
+              <option key={status.value} value={status.value}>
+                {status.label}
               </option>
             ))}
           </select>
@@ -141,14 +158,14 @@ export function FilterSidebar() {
         {/* Education & Work */}
         <div className="space-y-3">
           <h4 className="font-medium text-sm">التعليم والعمل</h4>
-          
+
           <Input
             label="التعليم"
             value={filters.education || ""}
             onChange={(e) => handleFilterChange("education", e.target.value)}
             placeholder="مثل: بكالوريوس، ماجستير"
           />
-          
+
           <Input
             label="المهنة"
             value={filters.occupation || ""}
@@ -160,12 +177,16 @@ export function FilterSidebar() {
         {/* Religious Filters */}
         <div className="space-y-3">
           <h4 className="font-medium text-sm">المعلومات الدينية</h4>
-          
+
           <div>
-            <label className="block text-sm font-medium mb-1">مستوى التدين</label>
+            <label className="block text-sm font-medium mb-1">
+              مستوى التدين
+            </label>
             <select
               value={filters.religiousLevel || ""}
-              onChange={(e) => handleFilterChange("religiousLevel", e.target.value)}
+              onChange={(e) =>
+                handleFilterChange("religiousLevel", e.target.value)
+              }
               className="w-full border border-border rounded-md px-3 py-2 text-sm"
             >
               <option value="">جميع المستويات</option>
@@ -180,37 +201,45 @@ export function FilterSidebar() {
               <input
                 type="checkbox"
                 checked={filters.prays || false}
-                onChange={(e) => handleFilterChange("prays", e.target.checked || undefined)}
+                onChange={(e) =>
+                  handleFilterChange("prays", e.target.checked || undefined)
+                }
                 className="ml-2"
               />
               <span className="text-sm">يصلي بانتظام</span>
             </label>
-            
+
             <label className="flex items-center">
               <input
                 type="checkbox"
                 checked={filters.fasts || false}
-                onChange={(e) => handleFilterChange("fasts", e.target.checked || undefined)}
+                onChange={(e) =>
+                  handleFilterChange("fasts", e.target.checked || undefined)
+                }
                 className="ml-2"
               />
               <span className="text-sm">يصوم</span>
             </label>
-            
+
             <label className="flex items-center">
               <input
                 type="checkbox"
                 checked={filters.hijab || false}
-                onChange={(e) => handleFilterChange("hijab", e.target.checked || undefined)}
+                onChange={(e) =>
+                  handleFilterChange("hijab", e.target.checked || undefined)
+                }
                 className="ml-2"
               />
               <span className="text-sm">ترتدي الحجاب</span>
             </label>
-            
+
             <label className="flex items-center">
               <input
                 type="checkbox"
                 checked={filters.beard || false}
-                onChange={(e) => handleFilterChange("beard", e.target.checked || undefined)}
+                onChange={(e) =>
+                  handleFilterChange("beard", e.target.checked || undefined)
+                }
                 className="ml-2"
               />
               <span className="text-sm">يربي لحية</span>

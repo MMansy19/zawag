@@ -10,7 +10,12 @@ export interface User {
   createdAt: string;
   updatedAt: string;
   lastLoginAt?: string;
+  lastActiveAt?: string;
   profile?: Profile;
+  // Computed properties for admin interface
+  name?: string; // Will be populated from profile
+  isActive?: boolean; // Computed from status
+  isVerified?: boolean; // Computed from email/phone verification
 }
 
 export interface Profile {
@@ -19,6 +24,7 @@ export interface Profile {
   // Basic Info
   name: string;
   age: number;
+  birthDate?: string; // Optional birth date field
   gender: "male" | "female";
   country: string;
   city: string;
@@ -30,7 +36,9 @@ export interface Profile {
   fasts: boolean;
   hasHijab?: boolean; // for sisters
   hasBeard?: boolean; // for brothers
-  religiousLevel: "basic" | "practicing" | "very-religious";
+  hijab?: boolean; // Alternative property name
+  beard?: boolean; // Alternative property name
+  religiousLevel: "basic" | "practicing" | "very-religious" | "moderate"; // Added moderate
 
   // Education & Work
   education: string;
@@ -41,6 +49,7 @@ export interface Profile {
   bio?: string;
   isComplete: boolean;
   isApproved: boolean;
+  isVerified?: boolean; // Verification status
   privacySettings: PrivacySettings;
 
   // Guardian Info (optional)

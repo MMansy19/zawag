@@ -8,7 +8,12 @@ import { profileSchema, type ProfileFormData } from "@/lib/validation";
 import { useAuth } from "@/providers/auth-provider";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 import { showToast } from "@/components/ui/toaster";
 
 export function ProfileWizard() {
@@ -38,8 +43,16 @@ export function ProfileWizard() {
   const steps = [
     { id: 1, title: "المعلومات الأساسية", description: "الاسم والعمر والجنس" },
     { id: 2, title: "الموقع والجنسية", description: "البلد والمدينة والجنسية" },
-    { id: 3, title: "الحالة الاجتماعية", description: "الحالة الزوجية والتعليم" },
-    { id: 4, title: "المعلومات الدينية", description: "مستوى التدين والممارسات" },
+    {
+      id: 3,
+      title: "الحالة الاجتماعية",
+      description: "الحالة الزوجية والتعليم",
+    },
+    {
+      id: 4,
+      title: "المعلومات الدينية",
+      description: "مستوى التدين والممارسات",
+    },
     { id: 5, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
     { id: 6, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
   ];
@@ -54,10 +67,10 @@ export function ProfileWizard() {
     try {
       // TODO: Implement profile creation API call
       console.log("Creating profile:", data);
-      
+
       // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+
       showToast.success("تم إنشاء الملف الشخصي بنجاح!");
       router.push("/dashboard");
     } catch (error: any) {
@@ -169,7 +182,9 @@ export function ProfileWizard() {
                 <option value="widowed">أرمل/أرملة</option>
               </select>
               {errors.maritalStatus && (
-                <p className="text-sm text-red-600">{errors.maritalStatus.message}</p>
+                <p className="text-sm text-red-600">
+                  {errors.maritalStatus.message}
+                </p>
               )}
             </div>
             <Input
@@ -203,7 +218,7 @@ export function ProfileWizard() {
                 <option value="very-religious">متدين جداً</option>
               </select>
             </div>
-            
+
             <div className="space-y-2">
               <label className="flex items-center">
                 <input
@@ -321,8 +336,8 @@ export function ProfileWizard() {
                   step.id === currentStep
                     ? "bg-primary-600 text-white"
                     : step.id < currentStep
-                    ? "bg-green-500 text-white"
-                    : "bg-gray-200 text-gray-500"
+                      ? "bg-green-500 text-white"
+                      : "bg-gray-200 text-gray-500"
                 }`}
               >
                 {step.id}
@@ -341,9 +356,7 @@ export function ProfileWizard() {
       </CardHeader>
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <CardContent>
-          {renderStep()}
-        </CardContent>
+        <CardContent>{renderStep()}</CardContent>
 
         <CardFooter className="flex justify-between">
           <Button
@@ -354,7 +367,7 @@ export function ProfileWizard() {
           >
             السابق
           </Button>
-          
+
           {currentStep < totalSteps ? (
             <Button type="button" onClick={nextStep}>
               التالي

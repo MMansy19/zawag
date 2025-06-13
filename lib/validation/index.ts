@@ -118,9 +118,12 @@ export const religiousInfoSchema = z.object({
   fasts: z.boolean(),
   hasHijab: z.boolean().optional(),
   hasBeard: z.boolean().optional(),
-  religiousLevel: z.enum(["basic", "practicing", "very-religious"], {
-    required_error: "يرجى اختيار مستوى الالتزام الديني",
-  }),
+  religiousLevel: z.enum(
+    ["basic", "practicing", "very-religious", "moderate"],
+    {
+      required_error: "يرجى اختيار مستوى الالتزام الديني",
+    },
+  ),
 });
 
 export const educationWorkSchema = z.object({
@@ -337,9 +340,12 @@ export const profileSchema = z
     occupation: z.string().min(1, "يرجى اختيار المهنة"),
     prays: z.boolean(),
     fasts: z.boolean(),
-    religiousLevel: z.enum(["basic", "practicing", "very-religious"], {
-      required_error: "يرجى اختيار مستوى الالتزام الديني",
-    }),
+    religiousLevel: z.enum(
+      ["basic", "practicing", "very-religious", "moderate"],
+      {
+        required_error: "يرجى اختيار مستوى الالتزام الديني",
+      },
+    ),
     hasHijab: z.boolean().optional(),
     hasBeard: z.boolean().optional(),
     bio: z

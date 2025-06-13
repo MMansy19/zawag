@@ -224,6 +224,14 @@ export const adminApi = {
   performUserAction: (data: AdminUserActionFormData) =>
     ApiClient.post(`${API_ENDPOINTS.ADMIN.USERS}/action`, data),
 
+  suspendUser: (userId: string, reason?: string) =>
+    ApiClient.post(`${API_ENDPOINTS.ADMIN.USERS}/${userId}/suspend`, {
+      reason,
+    }),
+
+  activateUser: (userId: string) =>
+    ApiClient.post(`${API_ENDPOINTS.ADMIN.USERS}/${userId}/activate`),
+
   // Marriage Requests Management
   getMarriageRequests: (page = 1, limit = 20, filters?: any) =>
     ApiClient.get<{
