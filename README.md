@@ -39,6 +39,7 @@
 ## 🌟 Features
 
 ### 👤 User Management & Authentication
+
 - **Smart Registration System**: 8-step guided profile creation with Islamic values integration
 - **OTP Verification**: Secure phone/email verification with SMS and email support
 - **Profile Builder Wizard**: Comprehensive profile creation with privacy controls
@@ -48,6 +49,7 @@
 - **Account Security**: Two-factor authentication and secure password policies
 
 ### 🔍 Advanced Search & Discovery
+
 - **Smart Filtering System**: Age, location, education, profession, and religious criteria
 - **Privacy-Respecting Search**: Users control who can view their profiles
 - **Compatibility Scoring**: AI-powered compatibility assessment based on Islamic principles
@@ -57,6 +59,7 @@
 - **Advanced Filters**: Detailed filtering by lifestyle, family background, and preferences
 
 ### 💬 Communication & Interaction
+
 - **Secure Marriage Requests**: Formal introduction system with parental involvement options
 - **Moderated Chat System**: Real-time messaging with Islamic guidelines enforcement
 - **Rate-Limited Messaging**: Prevents spam and encourages meaningful conversations
@@ -66,6 +69,7 @@
 - **Video Call Integration**: Secure video calling with family supervision options
 
 ### 🛡️ Privacy & Security
+
 - **End-to-End Encryption**: Military-grade encryption for all sensitive communications
 - **Islamic Privacy Controls**: Respects Islamic guidelines for male-female interactions
 - **Parental Oversight**: Optional parental involvement and supervision features
@@ -75,6 +79,7 @@
 - **Activity Logging**: Comprehensive audit trails for security monitoring
 
 ### 🤖 AI-Powered Moderation
+
 - **Arabic Content Analysis**: Advanced NLP for Arabic and English content moderation
 - **Islamic Guidelines Enforcement**: Automatic detection of inappropriate content
 - **Behavioral Analysis**: Pattern recognition for identifying suspicious activities
@@ -83,6 +88,7 @@
 - **Cultural Sensitivity AI**: Respects Islamic cultural norms in content analysis
 
 ### 👨‍💼 Admin & Management
+
 - **Comprehensive Dashboard**: Real-time analytics and user management
 - **Content Moderation Panel**: Review and moderate user-generated content
 - **User Management System**: Account status management and user support
@@ -92,6 +98,7 @@
 - **Notification Management**: Platform-wide and targeted user notifications
 
 ### 🌍 Internationalization & Accessibility
+
 - **Full RTL Support**: Complete right-to-left layout for Arabic language
 - **Multi-language Support**: Arabic and English with seamless switching
 - **WCAG 2.1 AA Compliance**: Full accessibility for users with disabilities
@@ -101,6 +108,7 @@
 - **Font Size Controls**: Adjustable text sizes for better readability
 
 ### 📱 Mobile & Cross-Platform
+
 - **Mobile-First Design**: Optimized for smartphones and tablets
 - **Progressive Web App**: Installable web app with offline capabilities
 - **Cross-Browser Support**: Compatible with all modern browsers
@@ -109,6 +117,7 @@
 - **Offline Mode**: Basic functionality available without internet connection
 
 ### 🔔 Communication & Notifications
+
 - **Real-time Notifications**: Instant alerts for messages, requests, and matches
 - **Email Integration**: Professional email notifications with Islamic greetings
 - **SMS Notifications**: Critical alerts via SMS with global support
@@ -117,6 +126,7 @@
 - **Prayer Time Reminders**: Optional Islamic prayer time notifications
 
 ### 📊 Analytics & Insights
+
 - **Success Rate Tracking**: Monitor successful marriages through the platform
 - **User Engagement Analytics**: Understand user behavior and preferences
 - **Performance Monitoring**: Real-time performance and uptime tracking
@@ -128,6 +138,7 @@
 🌐 **Experience the platform**: [https://islamic-zawaj-platform.vercel.app](https://islamic-zawaj-platform.vercel.app)
 
 ### Demo Credentials
+
 - **Regular User**: demo@zawaj.com / Demo123!
 - **Admin User**: admin@zawaj.com / Admin123!
 
@@ -531,11 +542,12 @@ This project is proprietary and confidential. Unauthorized copying, distribution
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/your-profile)
 [![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@domain.com)
 
-*Specialized in building culturally sensitive applications for the Muslim community*
+_Specialized in building culturally sensitive applications for the Muslim community_
 
 </div>
 
 ### 🤝 Contributing Team
+
 - **Islamic Scholars**: Religious guidance and cultural sensitivity review
 - **UX/UI Designers**: Islamic-inspired design and user experience
 - **Security Experts**: Privacy and data protection specialists
@@ -575,7 +587,7 @@ This project is proprietary and confidential. Unauthorized copying, distribution
 
 **May Allah bless this project and make it a means of bringing together righteous Muslim couples in halal marriages. May it be a source of barakah and contribute to strengthening the Muslim ummah through blessed unions.**
 
-*Ameen Ya Rabb al-Alameen*
+_Ameen Ya Rabb al-Alameen_
 
 </div>
 

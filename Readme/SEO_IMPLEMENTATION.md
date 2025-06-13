@@ -1,11 +1,13 @@
 # SEO Implementation Guide for الزواج السعيد
 
 ## Overview
+
 This document outlines the comprehensive SEO improvements implemented for the Islamic marriage platform "الزواج السعيد" (Zawaj).
 
 ## SEO Features Implemented
 
 ### 1. Logo Integration
+
 - ✅ SVG logo created and added to `/public/logo.png`
 - ✅ Logo integrated in header navigation
 - ✅ Logo integrated in footer
@@ -13,6 +15,7 @@ This document outlines the comprehensive SEO improvements implemented for the Is
 - ✅ Favicon created and configured
 
 ### 2. Metadata Enhancement
+
 - ✅ Comprehensive meta tags for all pages
 - ✅ Open Graph tags for social media sharing
 - ✅ Twitter Card optimization
@@ -20,6 +23,7 @@ This document outlines the comprehensive SEO improvements implemented for the Is
 - ✅ Structured data (JSON-LD) implementation
 
 ### 3. Technical SEO
+
 - ✅ `sitemap.xml` generation
 - ✅ `robots.txt` configuration
 - ✅ Web app manifest for PWA support
@@ -30,34 +34,41 @@ This document outlines the comprehensive SEO improvements implemented for the Is
 ### 4. Page-Specific SEO
 
 #### Homepage (`/`)
+
 - **Title**: "الزواج السعيد - منصة الزواج الإسلامية الآمنة | البحث عن شريك الحياة"
 - **Focus Keywords**: زواج إسلامي, البحث عن شريك الحياة, منصة الزواج الإسلامية
 - **Features**: Hero section, features showcase, testimonials, stats
 
 #### Registration (`/auth/register`)
+
 - **Title**: "إنشاء حساب جديد مجاني - الزواج السعيد"
 - **Focus Keywords**: إنشاء حساب مجاني, تسجيل جديد, حساب زواج جديد
 - **CTA**: Free registration, 100k+ members
 
 #### Login (`/auth/login`)
+
 - **Title**: "تسجيل الدخول - الزواج السعيد"
 - **Robot Settings**: `noindex, follow` (private page)
 
 #### How We Work (`/how-we-work`)
+
 - **Title**: "كيف نعمل - طريقة عمل منصة الزواج السعيد"
 - **Focus Keywords**: كيف نعمل, طريقة عمل الزواج السعيد, خطوات الزواج الإسلامي
 
 #### Terms & Privacy (`/terms-privacy`)
+
 - **Title**: "الشروط والخصوصية - الزواج السعيد"
 - **Focus Keywords**: شروط الاستخدام, سياسة الخصوصية, حماية البيانات
 
 ### 5. Social Media Optimization
+
 - ✅ Custom Open Graph images for different page types
 - ✅ Twitter Card optimization
 - ✅ Social media meta tags
 - ✅ Proper aspect ratios (1200x630 for OG images)
 
 ### 6. Performance & Accessibility
+
 - ✅ Image optimization with Next.js Image component
 - ✅ Proper loading priorities
 - ✅ Semantic HTML structure
@@ -95,6 +106,7 @@ components/
 ## Keywords Strategy
 
 ### Primary Keywords (Arabic)
+
 - زواج إسلامي
 - الزواج السعيد
 - البحث عن شريك الحياة
@@ -102,6 +114,7 @@ components/
 - الزواج الحلال
 
 ### Secondary Keywords (Arabic)
+
 - تطبيق الزواج
 - موقع الزواج
 - الزواج الشرعي
@@ -109,6 +122,7 @@ components/
 - نكاح
 
 ### English Keywords
+
 - Islamic marriage
 - Muslim matrimony
 - Halal marriage platform
@@ -118,26 +132,30 @@ components/
 ## Implementation Checklist
 
 ### Required Environment Variables
+
 ```env
 NEXT_PUBLIC_APP_URL=https://zawaj.com
 GOOGLE_VERIFICATION_ID=your_verification_id
 ```
 
 ### Additional Assets Needed
+
 - [ ] Generate PNG versions of favicon (16x16, 32x32, 180x180, 192x192, 512x512)
 - [ ] Create social media cover images
 - [ ] Add screenshot images for PWA manifest
 - [ ] Generate Apple touch icons
 
 ### Google Search Console Setup
+
 1. Add property for your domain
 2. Submit sitemap: `https://zawaj.com/sitemap.xml`
 3. Verify ownership using meta tag or file upload
 4. Monitor indexing and search performance
 
 ### Social Media Setup
+
 1. **Facebook**: Business page at https://www.facebook.com/Al.Zawaj2
-2. **Twitter**: Business account with handle @Al_Zawaj_ at https://x.com/Al_Zawaj_
+2. **Twitter**: Business account with handle @Al*Zawaj* at https://x.com/Al_Zawaj_
 3. **YouTube**: Channel @Al-Zawaj at https://www.youtube.com/@Al-Zawaj
 4. **TikTok**: Account @alzawaj.alsaeid at https://www.tiktok.com/@alzawaj.alsaeid
 5. **WhatsApp**: Business number +21695765691
@@ -146,6 +164,7 @@ GOOGLE_VERIFICATION_ID=your_verification_id
 ## Monitoring & Analytics
 
 ### Key Metrics to Track
+
 - Organic search traffic
 - Click-through rates (CTR)
 - Average position in search results
@@ -154,6 +173,7 @@ GOOGLE_VERIFICATION_ID=your_verification_id
 - Mobile usability scores
 
 ### Tools Recommended
+
 - Google Search Console
 - Google Analytics 4
 - PageSpeed Insights
@@ -172,6 +192,7 @@ GOOGLE_VERIFICATION_ID=your_verification_id
 ## Support
 
 For questions about SEO implementation, contact the development team or refer to:
+
 - [Next.js SEO Guide](https://nextjs.org/learn/seo/introduction-to-seo)
 - [Google SEO Starter Guide](https://developers.google.com/search/docs/beginner/seo-starter-guide)
 - [Schema.org Islamic Organization](https://schema.org/ReligiousOrganization)
