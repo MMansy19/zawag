@@ -57,7 +57,7 @@ export function Providers({ children }: ProvidersProps) {
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
-        {process.env.NODE_ENV === "development" && <ReactQueryDevtools />}
+        {/* {process.env.NODE_ENV === "development" && <ReactQueryDevtools />} */}
       </QueryClientProvider>
     </ErrorBoundary>
   );

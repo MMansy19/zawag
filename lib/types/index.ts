@@ -301,3 +301,33 @@ export interface ThemeConfig {
     xl: string;
   };
 }
+
+export interface ProfileFormData {
+  name?: string;
+  age?: number;
+  gender?: "male" | "female";
+  maritalStatus?: "single" | "divorced" | "widowed";
+  country?: string;
+  city?: string;
+  nationality?: string;
+  education?: string;
+  occupation?: string;
+  religiousLevel?: "basic" | "practicing" | "very-religious" | "moderate";
+  prays?: boolean;
+  fasts?: boolean;
+  hasHijab?: boolean;
+  hasBeard?: boolean;
+  bio?: string;
+  guardianName?: string;
+  guardianPhone?: string;
+  guardianEmail?: string;
+  preferences?: {
+    ageRange?: {
+      min?: number;
+      max?: number;
+    };
+    country?: string;
+    religiousLevel?: string[];
+    education?: string[];
+  };
+}

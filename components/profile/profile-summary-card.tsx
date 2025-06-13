@@ -3,7 +3,7 @@
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { ProfileFormData } from "@/lib/validation";
+import { ProfileFormData } from "@/lib/types";
 import { Edit } from "lucide-react";
 
 interface ProfileSummaryCardProps {

@@ -62,7 +62,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden md:flex space-x-8 space-x-reverse">
+            <nav className="hidden lg:flex space-x-8 space-x-reverse">
               {navigation.slice(0, 5).map((item) => (
                 <Link
                   key={item.name}
@@ -280,7 +280,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     href={item.href}
                     className={`flex items-center gap-3 px-3 py-3 rounded-lg text-sm font-medium transition-all duration-200 ${
                       isActive(item.href)
-                        ? "bg-gradient-to-r from-primary to-primary-600 text-white shadow-lg transform scale-105"
+                        ? "bg-primary text-white shadow-lg hover:text-white"
                         : "text-gray-600 hover:text-gray-900 hover:bg-gray-50 hover:transform hover:scale-102"
                     }`}
                   >

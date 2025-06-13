@@ -9,6 +9,7 @@ import { MarriageRequest } from "@/lib/types";
 import { requestsApi } from "@/lib/api";
 import { showToast } from "@/components/ui/toaster";
 import { useChat } from "@/providers/chat-provider";
+import { CheckCircle, X, Clock } from "lucide-react";
 
 interface RequestCardProps {
   request: MarriageRequest;
@@ -268,9 +269,12 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
         {/* Status Information */}
         {request.status === "accepted" && (
           <div className="mt-4 p-3 bg-green-50 rounded-md">
-            <p className="text-sm text-green-800">
-              ✅ تم قبول الطلب! يمكنك الآن بدء المحادثة.
-            </p>
+            <div className="flex items-center gap-2">
+              <CheckCircle className="h-4 w-4 text-green-600" />
+              <p className="text-sm text-green-800">
+                تم قبول الطلب! يمكنك الآن بدء المحادثة.
+              </p>
+            </div>
             <Button
               size="sm"
               className="mt-2"
@@ -283,13 +287,19 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
 
         {request.status === "rejected" && (
           <div className="mt-4 p-3 bg-red-50 rounded-md">
-            <p className="text-sm text-red-800">❌ تم رفض الطلب</p>
+            <div className="flex items-center gap-2">
+              <X className="h-4 w-4 text-red-600" />
+              <p className="text-sm text-red-800">تم رفض الطلب</p>
+            </div>
           </div>
         )}
 
         {request.status === "expired" && (
           <div className="mt-4 p-3 bg-gray-50 rounded-md">
-            <p className="text-sm text-gray-800">⏰ انتهت صلاحية الطلب</p>
+            <div className="flex items-center gap-2">
+              <Clock className="h-4 w-4 text-gray-600" />
+              <p className="text-sm text-gray-800">انتهت صلاحية الطلب</p>
+            </div>
             <p className="text-xs text-gray-600 mt-1">
               يمكنك إرسال طلب جديد إذا كنت لا تزال مهتماً
             </p>

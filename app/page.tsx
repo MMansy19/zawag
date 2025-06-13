@@ -6,6 +6,9 @@ import { LandingStats } from "@/components/landing/stats";
 import { LandingCTA } from "@/components/landing/cta";
 import { LandingFooter } from "@/components/landing/footer";
 import { LandingNavigation } from "@/components/landing/navigation";
+import { LandingContact } from "@/components/landing/contact";
+import { LandingSocial } from "@/components/landing/social";
+import { LandingFAQ } from "@/components/landing/faq";
 
 export const metadata: Metadata = {
   title: "الصفحة الرئيسية",
@@ -19,8 +22,19 @@ export default function HomePage() {
       <LandingNavigation />
       <LandingHero />
       <LandingFeatures />
-      <LandingStats />
+      <section id="stats">
+        <LandingStats />
+      </section>
       <LandingTestimonials />
+      <section id="faq">
+        <LandingFAQ />
+      </section>
+      <section id="contact">
+        <LandingContact />
+      </section>
+      <section id="social">
+        <LandingSocial />
+      </section>
       <LandingCTA />
       <LandingFooter />
     </main>

@@ -99,7 +99,7 @@ export default function RootLayout({
       className={`${notoKufiArabic.variable} ${amiri.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-gradient-to-b from-primary-50 to-white font-arabic antialiased">
+      <body className="min-h-screen bg-background text-foreground font-arabic antialiased ">
         <Providers>
           {children}
           <Toaster />
