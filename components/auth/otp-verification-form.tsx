@@ -4,7 +4,6 @@ import { useState, useRef, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Link from "next/link";
 
 const otpSchema = z.object({
   otp: z.string().length(6, "رمز التحقق يجب أن يكون 6 أرقام"),
@@ -161,15 +160,6 @@ export function OTPVerificationForm() {
       >
         {isLoading ? "جارٍ التحقق..." : "تأكيد الرمز"}
       </button>
-
-      <div className="text-center">
-        <Link
-          href="/auth/login"
-          className="text-sm text-primary hover:text-primary-hover"
-        >
-          العودة إلى تسجيل الدخول
-        </Link>
-      </div>
     </form>
   );
 }
