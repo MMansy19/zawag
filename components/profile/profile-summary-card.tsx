@@ -50,24 +50,32 @@ export function ProfileSummaryCard({ data, onEdit }: ProfileSummaryCardProps) {
             </div>
             <div>
               <label className="text-sm font-medium text-gray-600">العمر</label>
-              <p className="text-sm font-medium">{data.age || "غير محدد"} سنة</p>
+              <p className="text-sm font-medium">
+                {data.age || "غير محدد"} سنة
+              </p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-600">الجنس</label>
               <p className="text-sm font-medium">
-                {data.gender === "male" ? "ذكر" : data.gender === "female" ? "أنثى" : "غير محدد"}
+                {data.gender === "male"
+                  ? "ذكر"
+                  : data.gender === "female"
+                    ? "أنثى"
+                    : "غير محدد"}
               </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-600">الحالة الزوجية</label>
+              <label className="text-sm font-medium text-gray-600">
+                الحالة الزوجية
+              </label>
               <p className="text-sm font-medium">
-                {data.maritalStatus === "single" 
-                  ? "أعزب/عزباء" 
-                  : data.maritalStatus === "divorced" 
-                  ? "مطلق/مطلقة"
-                  : data.maritalStatus === "widowed"
-                  ? "أرمل/أرملة"
-                  : "غير محدد"}
+                {data.maritalStatus === "single"
+                  ? "أعزب/عزباء"
+                  : data.maritalStatus === "divorced"
+                    ? "مطلق/مطلقة"
+                    : data.maritalStatus === "widowed"
+                      ? "أرمل/أرملة"
+                      : "غير محدد"}
               </p>
             </div>
           </div>
@@ -92,15 +100,23 @@ export function ProfileSummaryCard({ data, onEdit }: ProfileSummaryCardProps) {
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium text-gray-600">البلد</label>
-              <p className="text-sm font-medium">{data.country || "غير محدد"}</p>
+              <p className="text-sm font-medium">
+                {data.country || "غير محدد"}
+              </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-600">المدينة</label>
+              <label className="text-sm font-medium text-gray-600">
+                المدينة
+              </label>
               <p className="text-sm font-medium">{data.city || "غير محدد"}</p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-600">الجنسية</label>
-              <p className="text-sm font-medium">{data.nationality || "غير محدد"}</p>
+              <label className="text-sm font-medium text-gray-600">
+                الجنسية
+              </label>
+              <p className="text-sm font-medium">
+                {data.nationality || "غير محدد"}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -123,12 +139,20 @@ export function ProfileSummaryCard({ data, onEdit }: ProfileSummaryCardProps) {
         <CardContent className="space-y-3">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium text-gray-600">المستوى التعليمي</label>
-              <p className="text-sm font-medium">{data.education || "غير محدد"}</p>
+              <label className="text-sm font-medium text-gray-600">
+                المستوى التعليمي
+              </label>
+              <p className="text-sm font-medium">
+                {data.education || "غير محدد"}
+              </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-600">المهنة</label>
-              <p className="text-sm font-medium">{data.occupation || "غير محدد"}</p>
+              <label className="text-sm font-medium text-gray-600">
+                المهنة
+              </label>
+              <p className="text-sm font-medium">
+                {data.occupation || "غير محدد"}
+              </p>
             </div>
           </div>
         </CardContent>
@@ -150,17 +174,19 @@ export function ProfileSummaryCard({ data, onEdit }: ProfileSummaryCardProps) {
         </CardHeader>
         <CardContent className="space-y-3">
           <div>
-            <label className="text-sm font-medium text-gray-600">مستوى التدين</label>
+            <label className="text-sm font-medium text-gray-600">
+              مستوى التدين
+            </label>
             <p className="text-sm font-medium">
-              {data.religiousLevel === "basic" 
+              {data.religiousLevel === "basic"
                 ? "أساسي"
                 : data.religiousLevel === "practicing"
-                ? "ملتزم"
-                : data.religiousLevel === "very-religious"
-                ? "متدين جداً"
-                : data.religiousLevel === "moderate"
-                ? "متوسط"
-                : "غير محدد"}
+                  ? "ملتزم"
+                  : data.religiousLevel === "very-religious"
+                    ? "متدين جداً"
+                    : data.religiousLevel === "moderate"
+                      ? "متوسط"
+                      : "غير محدد"}
             </p>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -212,19 +238,25 @@ export function ProfileSummaryCard({ data, onEdit }: ProfileSummaryCardProps) {
             <div className="grid grid-cols-2 gap-4">
               {data.guardianName && (
                 <div>
-                  <label className="text-sm font-medium text-gray-600">اسم الولي</label>
+                  <label className="text-sm font-medium text-gray-600">
+                    اسم الولي
+                  </label>
                   <p className="text-sm font-medium">{data.guardianName}</p>
                 </div>
               )}
               {data.guardianPhone && (
                 <div>
-                  <label className="text-sm font-medium text-gray-600">رقم الهاتف</label>
+                  <label className="text-sm font-medium text-gray-600">
+                    رقم الهاتف
+                  </label>
                   <p className="text-sm font-medium">{data.guardianPhone}</p>
                 </div>
               )}
               {data.guardianEmail && (
                 <div className="col-span-2">
-                  <label className="text-sm font-medium text-gray-600">البريد الإلكتروني</label>
+                  <label className="text-sm font-medium text-gray-600">
+                    البريد الإلكتروني
+                  </label>
                   <p className="text-sm font-medium">{data.guardianEmail}</p>
                 </div>
               )}
@@ -250,23 +282,36 @@ export function ProfileSummaryCard({ data, onEdit }: ProfileSummaryCardProps) {
         <CardContent className="space-y-3">
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="text-sm font-medium text-gray-600">الفئة العمرية</label>
+              <label className="text-sm font-medium text-gray-600">
+                الفئة العمرية
+              </label>
               <p className="text-sm font-medium">
-                {formatAgeRange(data.preferences?.ageRange?.min, data.preferences?.ageRange?.max)}
+                {formatAgeRange(
+                  data.preferences?.ageRange?.min,
+                  data.preferences?.ageRange?.max,
+                )}
               </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-600">البلد المفضل</label>
-              <p className="text-sm font-medium">{data.preferences?.country || "أي بلد"}</p>
+              <label className="text-sm font-medium text-gray-600">
+                البلد المفضل
+              </label>
+              <p className="text-sm font-medium">
+                {data.preferences?.country || "أي بلد"}
+              </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-600">مستوى التدين</label>
+              <label className="text-sm font-medium text-gray-600">
+                مستوى التدين
+              </label>
               <p className="text-sm font-medium">
                 {formatArrayPreferences(data.preferences?.religiousLevel)}
               </p>
             </div>
             <div>
-              <label className="text-sm font-medium text-gray-600">المستوى التعليمي</label>
+              <label className="text-sm font-medium text-gray-600">
+                المستوى التعليمي
+              </label>
               <p className="text-sm font-medium">
                 {formatArrayPreferences(data.preferences?.education)}
               </p>

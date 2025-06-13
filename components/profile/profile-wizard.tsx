@@ -58,9 +58,17 @@ export function ProfileWizard() {
     },
     { id: 5, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
     { id: 6, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
-    { id: 7, title: "تفضيلات الزواج", description: "المواصفات المرغوبة في شريك الحياة" },
+    {
+      id: 7,
+      title: "تفضيلات الزواج",
+      description: "المواصفات المرغوبة في شريك الحياة",
+    },
     { id: 8, title: "الصورة الشخصية", description: "رفع صورة شخصية (اختياري)" },
-    { id: 9, title: "مراجعة وإرسال", description: "مراجعة المعلومات وإنشاء الملف" },
+    {
+      id: 9,
+      title: "مراجعة وإرسال",
+      description: "مراجعة المعلومات وإنشاء الملف",
+    },
   ];
 
   const onSubmit = async (data: ProfileFormData) => {
@@ -73,11 +81,11 @@ export function ProfileWizard() {
     try {
       // Include profile picture in the data if it exists
       const formData = new FormData();
-      
+
       // Add all form fields
       Object.entries(data).forEach(([key, value]) => {
         if (value !== null && value !== undefined) {
-          if (typeof value === 'object' && !Array.isArray(value)) {
+          if (typeof value === "object" && !Array.isArray(value)) {
             // Handle nested objects like preferences
             formData.append(key, JSON.stringify(value));
           } else {
@@ -85,10 +93,10 @@ export function ProfileWizard() {
           }
         }
       });
-      
+
       // Add profile picture if exists
       if (profilePicture) {
-        formData.append('profilePicture', profilePicture);
+        formData.append("profilePicture", profilePicture);
       }
 
       // TODO: Implement profile creation API call
@@ -354,7 +362,7 @@ export function ProfileWizard() {
                 حدد المواصفات التي تفضلها في شريك الحياة
               </p>
             </div>
-            
+
             {/* Age Range Preference */}
             <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
@@ -364,7 +372,9 @@ export function ProfileWizard() {
                 <Input
                   label="من"
                   type="number"
-                  {...register("preferences.ageRange.min", { valueAsNumber: true })}
+                  {...register("preferences.ageRange.min", {
+                    valueAsNumber: true,
+                  })}
                   error={errors.preferences?.ageRange?.min?.message}
                   placeholder="18"
                   min="18"
@@ -373,7 +383,9 @@ export function ProfileWizard() {
                 <Input
                   label="إلى"
                   type="number"
-                  {...register("preferences.ageRange.max", { valueAsNumber: true })}
+                  {...register("preferences.ageRange.max", {
+                    valueAsNumber: true,
+                  })}
                   error={errors.preferences?.ageRange?.max?.message}
                   placeholder="40"
                   min="18"
@@ -428,7 +440,7 @@ export function ProfileWizard() {
                   "ثانوية عامة",
                   "دبلوم",
                   "بكالوريوس",
-                  "ماجستير", 
+                  "ماجستير",
                   "دكتوراه",
                 ].map((edu) => (
                   <label key={edu} className="flex items-center">
@@ -453,16 +465,18 @@ export function ProfileWizard() {
           <div className="space-y-4">
             <div className="mb-4 p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-700">
-                {watchedGender === "male" 
+                {watchedGender === "male"
                   ? "الصورة الشخصية اختيارية للإخوة وستظهر فقط للمطابقات المقبولة"
                   : "الصورة الشخصية غير متاحة للأخوات حفاظاً على الخصوصية"}
               </p>
             </div>
-            
+
             {watchedGender === "male" ? (
               <ImageUploader
                 onImageSelect={(file) => setProfilePicture(file)}
-                currentImage={profilePicture ? URL.createObjectURL(profilePicture) : null}
+                currentImage={
+                  profilePicture ? URL.createObjectURL(profilePicture) : null
+                }
               />
             ) : (
               <div className="text-center py-12">
@@ -491,8 +505,8 @@ export function ProfileWizard() {
                 تأكد من صحة جميع البيانات قبل إرسال الطلب
               </p>
             </div>
-            
-            <ProfileSummaryCard 
+
+            <ProfileSummaryCard
               data={watch()}
               onEdit={(section) => {
                 // Navigate to specific step for editing
@@ -504,17 +518,25 @@ export function ProfileWizard() {
                   bio: 5,
                   guardian: 6,
                   preferences: 7,
-                  photo: 8
+                  photo: 8,
                 };
                 setCurrentStep(stepMap[section] || 1);
               }}
             />
-            
+
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <div className="flex items-start">
                 <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  <svg
+                    className="h-5 w-5 text-green-400"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                      clipRule="evenodd"
+                    />
                   </svg>
                 </div>
                 <div className="mr-3">
@@ -522,7 +544,9 @@ export function ProfileWizard() {
                     جاهز للإرسال
                   </h3>
                   <div className="mt-2 text-sm text-green-700">
-                    <p>سيتم مراجعة ملفك الشخصي من قِبل الإدارة خلال 24-48 ساعة</p>
+                    <p>
+                      سيتم مراجعة ملفك الشخصي من قِبل الإدارة خلال 24-48 ساعة
+                    </p>
                   </div>
                 </div>
               </div>
