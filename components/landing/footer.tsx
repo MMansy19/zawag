@@ -9,7 +9,7 @@ export function LandingFooter() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
-            <h3 className="text-xl font-bold mb-4">الزواج المبارك</h3>
+            <h3 className="text-xl font-bold mb-4">الزواج السعيد</h3>
             <p className="text-gray-300 mb-4 max-w-md">
               منصة الزواج الإسلامية الأولى في المنطقة العربية. نساعدك في العثور
               على شريك الحياة المناسب وفق الشريعة الإسلامية مع ضمان الأمان
@@ -115,7 +115,7 @@ export function LandingFooter() {
 
         <div className="border-t border-gray-800 mt-8 pt-8 text-center">
           <p className="text-gray-400">
-            © {new Date().getFullYear()} الزواج المبارك. جميع الحقوق محفوظة.
+            © {new Date().getFullYear()} الزواج السعيد. جميع الحقوق محفوظة.
           </p>
         </div>
       </div>

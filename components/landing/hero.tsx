@@ -7,9 +7,8 @@ export function LandingHero() {
     <section className="bg-gradient-to-br from-primary/5 to-secondary/5 pt-20 pb-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-text mb-6">
-            ابحث عن شريك حياتك
-            <br />
+          <h1 className="text-4xl md:text-6xl font-bold text-text mb-10 flex flex-col gap-3 justify-center items-center">
+            <span>ابحث عن شريك حياتك</span>
             <span className="text-primary">وفق الشريعة الإسلامية</span>
           </h1>
 
@@ -21,7 +20,7 @@ export function LandingHero() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
             <Link
               href="/auth/register"
-              className="bg-primary text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-hover transition-colors w-full sm:w-auto"
+              className="bg-primary text-white px-8 py-3 rounded-lg text-lg font-medium hover:bg-primary-hover hover:text-white transition-colors w-full sm:w-auto"
             >
               ابدأ رحلتك الآن
             </Link>

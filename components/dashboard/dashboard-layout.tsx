@@ -32,7 +32,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 href="/dashboard"
                 className="text-xl font-bold text-primary"
               >
-                الزواج المبارك
+                الزواج السعيد
               </Link>
             </div>
 

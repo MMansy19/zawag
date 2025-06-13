@@ -21,14 +21,14 @@ const amiri = Amiri({
 
 export const metadata: Metadata = {
   title: {
-    default: "الزواج المبارك - منصة الزواج الإسلامية",
-    template: "%s | الزواج المبارك",
+    default: "الزواج السعيد - منصة الزواج الإسلامية",
+    template: "%s | الزواج السعيد",
   },
   description:
     "منصة الزواج الإسلامية الآمنة والموثوقة للبحث عن شريك الحياة وفق الشريعة الإسلامية",
   keywords: [
     "زواج إسلامي",
-    "الزواج المبارك",
+    "الزواج السعيد",
     "البحث عن شريك الحياة",
     "الزواج الحلال",
     "منصة الزواج",
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
     "Muslim matrimony",
     "Halal marriage platform",
   ],
-  authors: [{ name: "فريق الزواج المبارك" }],
-  creator: "الزواج المبارك",
-  publisher: "الزواج المبارك",
+  authors: [{ name: "فريق الزواج السعيد" }],
+  creator: "الزواج السعيد",
+  publisher: "الزواج السعيد",
   metadataBase: new URL(
     process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000",
   ),
@@ -49,22 +49,22 @@ export const metadata: Metadata = {
     type: "website",
     locale: "ar_SA",
     url: "/",
-    title: "الزواج المبارك - منصة الزواج الإسلامية",
+    title: "الزواج السعيد - منصة الزواج الإسلامية",
     description:
       "منصة الزواج الإسلامية الآمنة والموثوقة للبحث عن شريك الحياة وفق الشريعة الإسلامية",
-    siteName: "الزواج المبارك",
+    siteName: "الزواج السعيد",
     images: [
       {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "الزواج المبارك - منصة الزواج الإسلامية",
+        alt: "الزواج السعيد - منصة الزواج الإسلامية",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "الزواج المبارك - منصة الزواج الإسلامية",
+    title: "الزواج السعيد - منصة الزواج الإسلامية",
     description:
       "منصة الزواج الإسلامية الآمنة والموثوقة للبحث عن شريك الحياة وفق الشريعة الإسلامية",
     images: ["/og-image.jpg"],

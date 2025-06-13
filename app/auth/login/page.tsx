@@ -4,7 +4,7 @@ import { LoginForm } from "@/components/auth/login-form";
 
 export const metadata: Metadata = {
   title: "تسجيل الدخول",
-  description: "سجل دخولك للوصول إلى حسابك في منصة الزواج المبارك",
+  description: "سجل دخولك للوصول إلى حسابك في منصة الزواج السعيد",
 };
 
 export default function LoginPage() {

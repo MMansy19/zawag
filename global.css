@@ -1,5 +1,10 @@
 /* Marriage Platform Phase 1: Global Styles */
 
+/* Tailwind CSS directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Root Variables for Admin Configurability */
 :root {
   /* Color Palette */
