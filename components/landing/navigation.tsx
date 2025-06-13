@@ -1,12 +1,48 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { LogIn, UserPlus, Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
 export function LandingNavigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  // Handle scrolling to anchor on page load
+  useEffect(() => {
+    const handleHashScroll = () => {
+      const hash = window.location.hash;
+      if (hash) {
+        const targetId = hash.substring(1); // Remove the # symbol
+        const element = document.getElementById(targetId);
+        if (element) {
+          // Small delay to ensure page is fully loaded
+          setTimeout(() => {
+            const isMobile = window.innerWidth < 768;
+            const headerOffset = isMobile ? 380 : 60;
+            
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
+            });
+          }, 100);
+        }
+      }
+    };
+
+    // Handle initial load
+    handleHashScroll();
+    
+    // Handle browser back/forward navigation
+    window.addEventListener('hashchange', handleHashScroll);
+    
+    return () => {
+      window.removeEventListener('hashchange', handleHashScroll);
+    };
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -20,6 +56,16 @@ export function LandingNavigation() {
     e.preventDefault();
     closeMobileMenu(); // Close mobile menu if open
     
+    // Check if we're on the home page
+    const isHomePage = window.location.pathname === '/';
+    
+    if (!isHomePage) {
+      // If not on home page, navigate to home page with anchor
+      window.location.href = `/#${targetId}`;
+      return;
+    }
+    
+    // If on home page, scroll to element with offset
     const element = document.getElementById(targetId);
     if (element) {
       // Use larger offset on mobile screens
