@@ -17,28 +17,41 @@ export function LandingNavigation() {
   };
   return (
     <nav className="bg-white shadow-sm border-b border-border sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-1 sm:px-3 md:px-6 lg:px-8">
+      <div className="max-w-8xl mx-auto px-1 sm:px-3 md:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center justify-start">
             <Link
               href="/"
-              className="flex items-center md:gap-3 gap-2 text-xl font-bold text-primary hover:text-primary-hover transition-colors"
+              className="flex items-center md:gap-4 gap-3 text-xl font-bold text-primary hover:text-primary-hover transition-colors"
             >
               <Image
                 src="/logo.png"
                 alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
                 width={40}
                 height={48}
-                className="h-10 w-auto sm:inline hidden"
+                className="h-16 xl:h-24 md::h-20 w-auto"
                 priority
               />
-              <span className="inline">الزواج السعيد</span>
+              <span className="inline md:mt-1">الزواج السعيد</span>
             </Link>
           </div>
 
           <div className="flex items-center justify-end md:gap-6 sm:gap-4 gap-2">
             {/* Desktop navigation links */}
-            <div className="hidden md:flex items-center lg:gap-8 gap-2">
+            <div className="hidden md:flex items-center lg:gap-4 gap-2">
+              <Link
+                href="/#features"
+                className="text-text-secondary hover:text-text hidden xl:inline-block"
+              >
+                المميزات
+              </Link>
+              
+              <Link
+                href="/#faq"
+                className="text-text-secondary hover:text-text hidden xl:inline-block"
+              >
+                الأسئلة الشائعة
+              </Link>                   
               <Link
                 href="/how-we-work"
                 className="text-text-secondary hover:text-text"
@@ -51,11 +64,17 @@ export function LandingNavigation() {
               >
                 الشروط والخصوصية
               </Link>
+              <Link
+                href="/#contact"
+                className="text-text-secondary hover:text-text"
+              >
+                اتصل بنا
+              </Link>
             </div>
 
             <div className="flex items-center lg:gap-4 gap-2">
               {/* Desktop links */}
-              <div className="sm:flex hidden items-center lg:gap-4 gap-2">
+              <div className="lg:flex hidden items-center lg:gap-4 gap-2">
                 <Link
                   href="/auth/login"
                   className="text-primary hover:text-primary-hover font-medium"
@@ -72,7 +91,7 @@ export function LandingNavigation() {
 
               {/* Mobile icons - only show when menu is closed */}
               <div
-                className={`flex sm:hidden items-center gap-1 ${isMobileMenuOpen ? "hidden" : "flex"}`}
+                className={`sm:flex lg:hidden hidden items-center gap-1 ${isMobileMenuOpen ? "hidden" : "flex"}`}
               >
                 <Link
                   href="/auth/login"
@@ -112,6 +131,13 @@ export function LandingNavigation() {
             {/* Navigation Links */}
             <div className="space-y-2">
               <Link
+                href="/#features"
+                onClick={closeMobileMenu}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+              >
+                المميزات
+              </Link>
+              <Link
                 href="/how-we-work"
                 onClick={closeMobileMenu}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
@@ -126,21 +152,14 @@ export function LandingNavigation() {
                 الشروط والخصوصية
               </Link>
               <Link
-                href="#features"
-                onClick={closeMobileMenu}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-              >
-                المميزات
-              </Link>
-              <Link
-                href="#faq"
+                href="/#faq"
                 onClick={closeMobileMenu}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
                 الأسئلة الشائعة
               </Link>
               <Link
-                href="#contact"
+                href="/#contact"
                 onClick={closeMobileMenu}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >

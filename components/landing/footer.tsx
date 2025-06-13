@@ -13,13 +13,13 @@ export function LandingFooter() {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
               <Image
-                src="/logo.png"
+                src="/logo-footer.png"
                 alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
                 width={40}
                 height={48}
-                className="h-10 w-auto"
+                className="h-20 sm:h-20 w-auto"
               />
-              <h3 className="text-xl font-bold">الزواج السعيد</h3>
+              <h3 className="text-xl font-bold sm:mt-4 mt-2">الزواج السعيد</h3>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
               منصة الزواج الإسلامية الأولى في المنطقة العربية. نساعدك في العثور

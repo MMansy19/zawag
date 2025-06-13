@@ -63,8 +63,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
                   width={32}
                   height={38}
-                  className="h-8 w-auto"
-                />
+                  className="h-16 md:h-20 w-auto sm:inline"
+                  />
                 <span className="hidden sm:inline">الزواج السعيد</span>
               </Link>
             </div>
