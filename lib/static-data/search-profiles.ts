@@ -1,0 +1,506 @@
+import { Profile, SearchFilters, PrivacySettings } from "@/lib/types";
+
+// Helper function to create complete profile objects
+const createSearchProfile = (profileData: Partial<Profile>): Profile => {
+  const defaultPrivacySettings: PrivacySettings = {
+    showProfilePicture: "everyone",
+    showAge: true,
+    showLocation: true,
+    showOccupation: true,
+    allowMessagesFrom: "everyone",
+  };
+
+  const baseProfile: Profile = {
+    id: profileData.id || "",
+    userId: profileData.userId || "",
+    name: profileData.name || "",
+    age: profileData.age || 25,
+    gender: profileData.gender || "male",
+    country: profileData.country || "السعودية",
+    city: profileData.city || "الرياض",
+    nationality: profileData.nationality || "سعودي",
+    maritalStatus: profileData.maritalStatus || "single",
+    prays: profileData.prays || true,
+    fasts: profileData.fasts || true,
+    religiousLevel: profileData.religiousLevel || "practicing",
+    education: profileData.education || "",
+    occupation: profileData.occupation || "",
+    isComplete: profileData.isComplete || true,
+    isApproved: profileData.isApproved || true,
+    isVerified: profileData.isVerified || true,
+    privacySettings: profileData.privacySettings || defaultPrivacySettings,
+    createdAt: profileData.createdAt || "2024-01-01T00:00:00Z",
+    updatedAt: profileData.updatedAt || "2024-01-01T00:00:00Z",
+  };
+
+  // Add optional properties conditionally
+  if (profileData.hasHijab !== undefined)
+    baseProfile.hasHijab = profileData.hasHijab;
+  if (profileData.hasBeard !== undefined)
+    baseProfile.hasBeard = profileData.hasBeard;
+  if (profileData.profilePicture)
+    baseProfile.profilePicture = profileData.profilePicture;
+  if (profileData.bio) baseProfile.bio = profileData.bio;
+  if (profileData.guardianName)
+    baseProfile.guardianName = profileData.guardianName;
+  if (profileData.guardianPhone)
+    baseProfile.guardianPhone = profileData.guardianPhone;
+  if (profileData.guardianEmail)
+    baseProfile.guardianEmail = profileData.guardianEmail;
+
+  return baseProfile;
+};
+
+// Static search profiles data - Male profiles
+export const staticMaleProfiles: Profile[] = [
+  createSearchProfile({
+    id: "search_male_001",
+    userId: "search_male_001",
+    name: "عبدالله أحمد المالكي",
+    age: 29,
+    gender: "male",
+    city: "الرياض",
+    country: "السعودية",
+    nationality: "سعودي",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasBeard: true,
+    religiousLevel: "practicing",
+    education: "ماجستير إدارة أعمال",
+    occupation: "مدير مشاريع",
+    profilePicture: "/images/profiles/search-male-1.jpg",
+    bio: "مدير مشاريع في شركة كبرى، أحب القراءة والرياضة، ملتزم بتعاليم الدين، أسعى لبناء أسرة مسلمة صالحة.",
+    isVerified: true,
+    createdAt: "2024-01-15T08:00:00Z",
+    updatedAt: "2024-03-01T10:30:00Z",
+  }),
+  createSearchProfile({
+    id: "search_male_002",
+    userId: "search_male_002",
+    name: "د. محمد سعد الغامدي",
+    age: 33,
+    gender: "male",
+    city: "جدة",
+    country: "السعودية",
+    nationality: "سعودي",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasBeard: true,
+    religiousLevel: "very-religious",
+    education: "دكتوراه في الطب",
+    occupation: "طبيب أطفال",
+    profilePicture: "/images/profiles/search-male-2.jpg",
+    bio: "طبيب أطفال، حافظ لأجزاء من القرآن الكريم، أحب العمل التطوعي ومساعدة الأطفال المحتاجين.",
+    isVerified: true,
+    createdAt: "2024-02-10T09:15:00Z",
+    updatedAt: "2024-03-15T14:20:00Z",
+  }),
+  createSearchProfile({
+    id: "search_male_003",
+    userId: "search_male_003",
+    name: "خالد عمر الحربي",
+    age: 27,
+    gender: "male",
+    city: "الدمام",
+    country: "السعودية",
+    nationality: "سعودي",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasBeard: true,
+    religiousLevel: "practicing",
+    education: "بكالوريوس هندسة كهربائية",
+    occupation: "مهندس كهرباء",
+    profilePicture: "/images/profiles/search-male-3.jpg",
+    bio: "مهندس كهرباء، أحب التقنية والابتكار، ملتزم بالصلاة في المسجد، أسعى لحفظ القرآن الكريم.",
+    isVerified: true,
+    createdAt: "2024-01-20T07:30:00Z",
+    updatedAt: "2024-02-25T16:45:00Z",
+  }),
+  createSearchProfile({
+    id: "search_male_004",
+    userId: "search_male_004",
+    name: "أحمد محمد الشهري",
+    age: 31,
+    gender: "male",
+    city: "أبها",
+    country: "السعودية",
+    nationality: "سعودي",
+    maritalStatus: "divorced",
+    prays: true,
+    fasts: true,
+    hasBeard: true,
+    religiousLevel: "practicing",
+    education: "بكالوريوس تجارة",
+    occupation: "رجل أعمال",
+    profilePicture: "/images/profiles/search-male-4.jpg",
+    bio: "رجل أعمال، أب لطفل من زواج سابق، أحب السفر والتجارة، أسعى لإيجاد شريكة حياة صالحة.",
+    isVerified: true,
+    createdAt: "2024-02-05T11:00:00Z",
+    updatedAt: "2024-03-10T13:30:00Z",
+  }),
+  createSearchProfile({
+    id: "search_male_005",
+    userId: "search_male_005",
+    name: "يوسف علي القحطاني",
+    age: 26,
+    gender: "male",
+    city: "الطائف",
+    country: "السعودية",
+    nationality: "سعودي",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasBeard: true,
+    religiousLevel: "very-religious",
+    education: "ماجستير علوم حاسوب",
+    occupation: "مطور برمجيات",
+    profilePicture: "/images/profiles/search-male-5.jpg",
+    bio: "مطور برمجيات، حافظ لثلثي القرآن الكريم، أحب البرمجة والتقنية، أسعى لخدمة الدين بالتقنية.",
+    isVerified: true,
+    createdAt: "2024-01-25T08:45:00Z",
+    updatedAt: "2024-02-28T15:20:00Z",
+  }),
+  createSearchProfile({
+    id: "search_male_006",
+    userId: "search_male_006",
+    name: "سالم راشد الزهراني",
+    age: 35,
+    gender: "male",
+    city: "مكة المكرمة",
+    country: "السعودية",
+    nationality: "سعودي",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasBeard: true,
+    religiousLevel: "very-religious",
+    education: "دكتوراه في الشريعة",
+    occupation: "إمام ومدرس",
+    profilePicture: "/images/profiles/search-male-6.jpg",
+    bio: "إمام مسجد ومدرس شريعة، حافظ للقرآن الكريم، أحب التعليم والدعوة، أسعى لتربية جيل مؤمن.",
+    isVerified: true,
+    createdAt: "2024-02-15T06:30:00Z",
+    updatedAt: "2024-03-20T12:15:00Z",
+  }),
+];
+
+// Static search profiles data - Female profiles
+export const staticFemaleProfiles: Profile[] = [
+  createSearchProfile({
+    id: "search_female_001",
+    userId: "search_female_001",
+    name: "فاطمة عبدالله السليمان",
+    age: 25,
+    gender: "female",
+    city: "الرياض",
+    country: "السعودية",
+    nationality: "سعودية",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasHijab: true,
+    religiousLevel: "practicing",
+    education: "بكالوريوس طب أسنان",
+    occupation: "طبيبة أسنان",
+    profilePicture: "/images/profiles/search-female-1.jpg",
+    bio: "طبيبة أسنان، أحب مساعدة المرضى، ملتزمة بالحجاب والصلاة، أحب القراءة والطبخ.",
+    isVerified: true,
+    createdAt: "2024-01-12T08:30:00Z",
+    updatedAt: "2024-02-20T14:45:00Z",
+  }),
+  createSearchProfile({
+    id: "search_female_002",
+    userId: "search_female_002",
+    name: "عائشة محمد الدوسري",
+    age: 28,
+    gender: "female",
+    city: "الخبر",
+    country: "السعودية",
+    nationality: "سعودية",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasHijab: true,
+    religiousLevel: "very-religious",
+    education: "ماجستير تربية إسلامية",
+    occupation: "معلمة تربية إسلامية",
+    profilePicture: "/images/profiles/search-female-2.jpg",
+    bio: "معلمة تربية إسلامية، حافظة لنصف القرآن الكريم، أحب تعليم الأطفال وتربيتهم على القيم الإسلامية.",
+    isVerified: true,
+    createdAt: "2024-01-18T09:15:00Z",
+    updatedAt: "2024-03-05T16:30:00Z",
+  }),
+  createSearchProfile({
+    id: "search_female_003",
+    userId: "search_female_003",
+    name: "خديجة سعد النجار",
+    age: 24,
+    gender: "female",
+    city: "جدة",
+    country: "السعودية",
+    nationality: "سعودية",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasHijab: true,
+    religiousLevel: "practicing",
+    education: "بكالوريوس صيدلة",
+    occupation: "صيدلانية",
+    profilePicture: "/images/profiles/search-female-3.jpg",
+    bio: "صيدلانية، أحب مساعدة المرضى وتقديم النصائح الطبية، ملتزمة بالقيم الإسلامية.",
+    isVerified: true,
+    createdAt: "2024-02-01T10:00:00Z",
+    updatedAt: "2024-03-08T13:20:00Z",
+  }),
+  createSearchProfile({
+    id: "search_female_004",
+    userId: "search_female_004",
+    name: "مريم أحمد الحربي",
+    age: 30,
+    gender: "female",
+    city: "المدينة المنورة",
+    country: "السعودية",
+    nationality: "سعودية",
+    maritalStatus: "divorced",
+    prays: true,
+    fasts: true,
+    hasHijab: true,
+    religiousLevel: "practicing",
+    education: "بكالوريوس محاسبة",
+    occupation: "محاسبة",
+    profilePicture: "/images/profiles/search-female-4.jpg",
+    bio: "محاسبة، أم لطفلة من زواج سابق، أحب النظام والدقة، أسعى لبناء أسرة مستقرة.",
+    isVerified: true,
+    createdAt: "2024-01-22T11:30:00Z",
+    updatedAt: "2024-02-18T17:45:00Z",
+  }),
+  createSearchProfile({
+    id: "search_female_005",
+    userId: "search_female_005",
+    name: "زينب عمر الشمري",
+    age: 26,
+    gender: "female",
+    city: "حائل",
+    country: "السعودية",
+    nationality: "سعودية",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasHijab: true,
+    religiousLevel: "very-religious",
+    education: "بكالوريوس لغة عربية",
+    occupation: "معلمة لغة عربية",
+    profilePicture: "/images/profiles/search-female-5.jpg",
+    bio: "معلمة لغة عربية، حافظة لأجزاء من القرآن الكريم، أحب الشعر والأدب العربي.",
+    isVerified: true,
+    createdAt: "2024-02-08T07:45:00Z",
+    updatedAt: "2024-03-12T14:10:00Z",
+  }),
+  createSearchProfile({
+    id: "search_female_006",
+    userId: "search_female_006",
+    name: "أسماء محمد الغامدي",
+    age: 27,
+    gender: "female",
+    city: "الباحة",
+    country: "السعودية",
+    nationality: "سعودية",
+    maritalStatus: "single",
+    prays: true,
+    fasts: true,
+    hasHijab: true,
+    religiousLevel: "practicing",
+    education: "ماجستير علم نفس",
+    occupation: "أخصائية نفسية",
+    profilePicture: "/images/profiles/search-female-6.jpg",
+    bio: "أخصائية نفسية، أحب مساعدة الناس في حل مشاكلهم النفسية، ملتزمة بالقيم الإسلامية.",
+    isVerified: true,
+    createdAt: "2024-01-30T12:15:00Z",
+    updatedAt: "2024-03-01T18:30:00Z",
+  }),
+];
+
+// Combined profiles for mixed gender searches
+export const staticAllProfiles: Profile[] = [
+  ...staticMaleProfiles,
+  ...staticFemaleProfiles,
+];
+
+// Helper function to filter profiles based on search criteria
+export const filterProfiles = (
+  profiles: Profile[],
+  filters: SearchFilters,
+): Profile[] => {
+  return profiles.filter((profile) => {
+    // Age range filter
+    if (filters.ageRange) {
+      if (
+        profile.age < filters.ageRange.min ||
+        profile.age > filters.ageRange.max
+      ) {
+        return false;
+      }
+    }
+
+    // Country filter
+    if (filters.country) {
+      if (profile.country.toLowerCase() !== filters.country.toLowerCase()) {
+        return false;
+      }
+    }
+
+    // City filter
+    if (filters.city) {
+      if (profile.city.toLowerCase() !== filters.city.toLowerCase()) {
+        return false;
+      }
+    }
+
+    // Marital status filter
+    if (filters.maritalStatus && filters.maritalStatus.length > 0) {
+      if (!filters.maritalStatus.includes(profile.maritalStatus)) {
+        return false;
+      }
+    }
+
+    // Religious level filter
+    if (filters.religiousLevel && filters.religiousLevel.length > 0) {
+      if (!filters.religiousLevel.includes(profile.religiousLevel)) {
+        return false;
+      }
+    }
+
+    // Education filter
+    if (filters.education && filters.education.length > 0) {
+      const hasMatchingEducation = filters.education.some((edu) =>
+        profile.education.toLowerCase().includes(edu.toLowerCase()),
+      );
+      if (!hasMatchingEducation) {
+        return false;
+      }
+    }
+
+    // Occupation filter
+    if (filters.occupation && filters.occupation.length > 0) {
+      const hasMatchingOccupation = filters.occupation.some((occ) =>
+        profile.occupation.toLowerCase().includes(occ.toLowerCase()),
+      );
+      if (!hasMatchingOccupation) {
+        return false;
+      }
+    }
+
+    return true;
+  });
+};
+
+// Helper function to simulate API delay
+export const simulateSearchDelay = (
+  min: number = 300,
+  max: number = 1000,
+): Promise<void> => {
+  const delay = Math.random() * (max - min) + min;
+  return new Promise((resolve) => setTimeout(resolve, delay));
+};
+
+// Helper function to paginate results
+export const paginateResults = <T>(items: T[], page: number, limit: number) => {
+  const startIndex = (page - 1) * limit;
+  const endIndex = startIndex + limit;
+  const paginatedItems = items.slice(startIndex, endIndex);
+
+  return {
+    items: paginatedItems,
+    pagination: {
+      page,
+      limit,
+      total: items.length,
+      totalPages: Math.ceil(items.length / limit),
+    },
+  };
+};
+
+// Mock Search API for development
+export const mockSearchApi = {
+  async searchProfiles(
+    filters: SearchFilters,
+    page: number = 1,
+    limit: number = 12,
+  ) {
+    await simulateSearchDelay();
+
+    // Get all profiles based on gender preference (if any)
+    let allProfiles = staticAllProfiles;
+
+    // Apply filters
+    const filteredProfiles = filterProfiles(allProfiles, filters);
+
+    // Apply pagination
+    const paginatedResult = paginateResults(filteredProfiles, page, limit);
+
+    return {
+      success: true,
+      data: {
+        profiles: paginatedResult.items,
+        pagination: paginatedResult.pagination,
+      },
+    };
+  },
+};
+
+// Helper function to get profiles by different criteria for testing
+export const getProfilesByCategory = (category: string, count: number = 6) => {
+  switch (category) {
+    case "recent":
+      return staticAllProfiles
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        )
+        .slice(0, count);
+
+    case "verified":
+      return staticAllProfiles.filter((p) => p.isVerified).slice(0, count);
+
+    case "religious":
+      return staticAllProfiles
+        .filter((p) => p.religiousLevel === "very-religious")
+        .slice(0, count);
+
+    case "professionals":
+      return staticAllProfiles
+        .filter(
+          (p) =>
+            p.education.includes("دكتوراه") || p.education.includes("ماجستير"),
+        )
+        .slice(0, count);
+
+    case "young":
+      return staticAllProfiles.filter((p) => p.age <= 28).slice(0, count);
+
+    default:
+      return staticAllProfiles.slice(0, count);
+  }
+};
+
+// Sample search filters for testing
+export const sampleSearchFilters = {
+  all: {},
+  youngProfessionals: {
+    ageRange: { min: 22, max: 30 },
+    education: ["ماجستير", "دكتوراه"],
+  },
+  religiousCommitted: {
+    religiousLevel: ["very-religious", "practicing"],
+  },
+  singleInRiyadh: {
+    city: "الرياض",
+    maritalStatus: ["single"],
+  },
+  medicalProfessionals: {
+    occupation: ["طبيب", "طبيبة", "صيدلاني", "صيدلانية"],
+  },
+};

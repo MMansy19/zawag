@@ -1,6 +1,23 @@
-import { ChatList } from "@/components/chat/chat-list";
+"use client";
 
-export default function ChatPage() {
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
+import { ChatList } from "@/components/chat/chat-list";
+import { EnhancedChatInterface } from "@/components/chat/enhanced-chat-interface";
+
+function ChatPageContent() {
+  const searchParams = useSearchParams();
+  const requestId = searchParams.get("requestId");
+  const chatRoomId = searchParams.get("chatRoomId");
+
+  // If we have a request ID, show the enhanced chat interface
+  if (requestId && chatRoomId) {
+    return (
+      <EnhancedChatInterface requestId={requestId} chatRoomId={chatRoomId} />
+    );
+  }
+
+  // Otherwise, show the regular chat list
   return (
     <div className="max-w-7xl mx-auto space-y-6">
       {/* Header */}
@@ -15,5 +32,19 @@ export default function ChatPage() {
 
       <ChatList />
     </div>
+  );
+}
+
+export default function ChatPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="flex items-center justify-center min-h-[400px]">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+        </div>
+      }
+    >
+      <ChatPageContent />
+    </Suspense>
   );
 }

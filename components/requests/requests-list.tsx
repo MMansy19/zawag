@@ -1,12 +1,14 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MarriageRequest } from "@/lib/types";
 import { requestsApi } from "@/lib/api";
 import { showToast } from "@/components/ui/toaster";
+import { useChat } from "@/providers/chat-provider";
 
 interface RequestCardProps {
   request: MarriageRequest;
@@ -16,6 +18,22 @@ interface RequestCardProps {
 
 function RequestCard({ request, type, onUpdate }: RequestCardProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+
+  const handleStartChat = async (request: MarriageRequest) => {
+    try {
+      // Create or find existing chat room for this request
+      const chatRoomId = `chat_${request.id}`;
+
+      // Navigate to chat page with the request ID
+      router.push(
+        `/dashboard/chat?requestId=${request.id}&chatRoomId=${chatRoomId}`,
+      );
+      showToast.success("جاري تحميل المحادثة...");
+    } catch (error) {
+      showToast.error("خطأ في بدء المحادثة");
+    }
+  };
 
   const handleResponse = async (status: "accepted" | "rejected") => {
     setIsLoading(true);
@@ -253,7 +271,11 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
             <p className="text-sm text-green-800">
               ✅ تم قبول الطلب! يمكنك الآن بدء المحادثة.
             </p>
-            <Button size="sm" className="mt-2">
+            <Button
+              size="sm"
+              className="mt-2"
+              onClick={() => handleStartChat(request)}
+            >
               بدء المحادثة
             </Button>
           </div>

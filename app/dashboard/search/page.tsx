@@ -20,6 +20,28 @@ function SearchPageContent() {
           </p>
         </div>
 
+        {/* Quick Search Categories */}
+        <div className="bg-white rounded-lg border border-gray-200 p-4">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">بحث سريع</h3>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+            <button className="bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              جميع الملفات
+            </button>
+            <button className="bg-green-50 hover:bg-green-100 text-green-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              الشباب المهنيين
+            </button>
+            <button className="bg-purple-50 hover:bg-purple-100 text-purple-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              الملتزمين دينياً
+            </button>
+            <button className="bg-orange-50 hover:bg-orange-100 text-orange-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              أهل الطب
+            </button>
+            <button className="bg-rose-50 hover:bg-rose-100 text-rose-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+              الموثقين
+            </button>
+          </div>
+        </div>
+
         {/* Mobile Filter Toggle */}
         <div className="lg:hidden">
           <button

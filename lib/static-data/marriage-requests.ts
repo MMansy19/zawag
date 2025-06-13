@@ -629,4 +629,26 @@ export const mockRequestsApi = {
         response === "accepted" ? "تم قبول الطلب بنجاح!" : "تم رفض الطلب",
     };
   },
+
+  async getRequestById(requestId: string) {
+    await simulateApiDelay();
+
+    // Look in both sent and received requests
+    let request = staticReceivedRequests.find((req) => req.id === requestId);
+    if (!request) {
+      request = staticSentRequests.find((req) => req.id === requestId);
+    }
+
+    if (request) {
+      return {
+        success: true,
+        data: request,
+      };
+    }
+
+    return {
+      success: false,
+      message: "الطلب غير موجود",
+    };
+  },
 };

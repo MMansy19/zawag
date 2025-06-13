@@ -28,12 +28,42 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
   const fetchProfiles = async (page: number) => {
     setLoading(true);
     try {
+      // Using mock search API for development/testing
+      const { mockSearchApi } = await import(
+        "@/lib/static-data/search-profiles"
+      );
+
       const filters = Object.fromEntries(searchParams.entries());
-      const response = await searchApi.searchProfiles(
-        {
-          ...filters,
-          // Add pagination separately since it's not part of SearchFilters
-        } as any,
+
+      // Convert URL params to SearchFilters format
+      const searchFilters: any = {};
+
+      // Handle age range
+      if (filters["minAge"] || filters["maxAge"]) {
+        searchFilters.ageRange = {
+          min: parseInt(filters["minAge"] || "18") || 18,
+          max: parseInt(filters["maxAge"] || "50") || 50,
+        };
+      }
+
+      // Handle other filters
+      if (filters["country"]) searchFilters.country = filters["country"];
+      if (filters["city"]) searchFilters.city = filters["city"];
+      if (filters["maritalStatus"]) {
+        searchFilters.maritalStatus = filters["maritalStatus"].split(",");
+      }
+      if (filters["religiousLevel"]) {
+        searchFilters.religiousLevel = filters["religiousLevel"].split(",");
+      }
+      if (filters["education"]) {
+        searchFilters.education = filters["education"].split(",");
+      }
+      if (filters["occupation"]) {
+        searchFilters.occupation = filters["occupation"].split(",");
+      }
+
+      const response = await mockSearchApi.searchProfiles(
+        searchFilters,
         page,
         12,
       );
@@ -49,6 +79,15 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
         setTotalPages(response.data?.pagination?.totalPages || 1);
         setHasMore(page < (response.data?.pagination?.totalPages || 1));
       }
+
+      // TODO: Replace with actual API call when backend is ready
+      // const response = await searchApi.searchProfiles(
+      //   {
+      //     ...filters,
+      //   } as any,
+      //   page,
+      //   12,
+      // );
     } catch (error: any) {
       showToast.error(error.message || "خطأ في تحميل النتائج");
     } finally {
@@ -58,14 +97,28 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
 
   const handleSendRequest = async (profileId: string, message: string) => {
     try {
-      const response = await requestsApi.sendRequest({
-        receiverId: profileId,
-        message,
+      // Using mock API for development/testing
+      const { mockRequestsApi } = await import(
+        "@/lib/static-data/marriage-requests"
+      );
+
+      // Simulate sending a request
+      await mockRequestsApi.respondToRequest({
+        requestId: `new_${Date.now()}`,
+        response: "accepted", // Simulate successful send
       });
 
-      if (response.success) {
-        showToast.success("تم إرسال طلب الزواج بنجاح!");
-      }
+      showToast.success("تم إرسال طلب الزواج بنجاح!");
+
+      // TODO: Replace with actual API call when backend is ready
+      // const response = await requestsApi.sendRequest({
+      //   receiverId: profileId,
+      //   message,
+      // });
+
+      // if (response.success) {
+      //   showToast.success("تم إرسال طلب الزواج بنجاح!");
+      // }
     } catch (error: any) {
       showToast.error(error.message || "خطأ في إرسال الطلب");
       throw error;
