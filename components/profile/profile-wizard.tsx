@@ -15,10 +15,13 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { showToast } from "@/components/ui/toaster";
+import { ProfileSummaryCard } from "./profile-summary-card";
+import { ImageUploader } from "./image-uploader";
 
 export function ProfileWizard() {
   const [currentStep, setCurrentStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [profilePicture, setProfilePicture] = useState<File | null>(null);
   const router = useRouter();
   const { user } = useAuth();
 
@@ -38,15 +41,15 @@ export function ProfileWizard() {
   });
 
   const watchedGender = watch("gender");
-  const totalSteps = 6;
+  const totalSteps = 9;
 
   const steps = [
     { id: 1, title: "المعلومات الأساسية", description: "الاسم والعمر والجنس" },
     { id: 2, title: "الموقع والجنسية", description: "البلد والمدينة والجنسية" },
     {
       id: 3,
-      title: "الحالة الاجتماعية",
-      description: "الحالة الزوجية والتعليم",
+      title: "الحالة الاجتماعية والتعليم",
+      description: "الحالة الزوجية والتعليم والمهنة",
     },
     {
       id: 4,
@@ -55,6 +58,9 @@ export function ProfileWizard() {
     },
     { id: 5, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
     { id: 6, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
+    { id: 7, title: "تفضيلات الزواج", description: "المواصفات المرغوبة في شريك الحياة" },
+    { id: 8, title: "الصورة الشخصية", description: "رفع صورة شخصية (اختياري)" },
+    { id: 9, title: "مراجعة وإرسال", description: "مراجعة المعلومات وإنشاء الملف" },
   ];
 
   const onSubmit = async (data: ProfileFormData) => {
@@ -65,8 +71,29 @@ export function ProfileWizard() {
 
     setIsSubmitting(true);
     try {
+      // Include profile picture in the data if it exists
+      const formData = new FormData();
+      
+      // Add all form fields
+      Object.entries(data).forEach(([key, value]) => {
+        if (value !== null && value !== undefined) {
+          if (typeof value === 'object' && !Array.isArray(value)) {
+            // Handle nested objects like preferences
+            formData.append(key, JSON.stringify(value));
+          } else {
+            formData.append(key, String(value));
+          }
+        }
+      });
+      
+      // Add profile picture if exists
+      if (profilePicture) {
+        formData.append('profilePicture', profilePicture);
+      }
+
       // TODO: Implement profile creation API call
       console.log("Creating profile:", data);
+      console.log("Profile picture:", profilePicture);
 
       // Simulate API call
       await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -316,6 +343,190 @@ export function ProfileWizard() {
               error={errors.guardianEmail?.message}
               placeholder="أدخل بريد الولي الإلكتروني"
             />
+          </div>
+        );
+
+      case 7:
+        return (
+          <div className="space-y-4">
+            <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-700">
+                حدد المواصفات التي تفضلها في شريك الحياة
+              </p>
+            </div>
+            
+            {/* Age Range Preference */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                الفئة العمرية المفضلة
+              </label>
+              <div className="grid grid-cols-2 gap-4">
+                <Input
+                  label="من"
+                  type="number"
+                  {...register("preferences.ageRange.min", { valueAsNumber: true })}
+                  error={errors.preferences?.ageRange?.min?.message}
+                  placeholder="18"
+                  min="18"
+                  max="80"
+                />
+                <Input
+                  label="إلى"
+                  type="number"
+                  {...register("preferences.ageRange.max", { valueAsNumber: true })}
+                  error={errors.preferences?.ageRange?.max?.message}
+                  placeholder="40"
+                  min="18"
+                  max="80"
+                />
+              </div>
+            </div>
+
+            {/* Location Preference */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                البلد المفضل (اختياري)
+              </label>
+              <Input
+                {...register("preferences.country")}
+                error={errors.preferences?.country?.message}
+                placeholder="أدخل البلد المفضل"
+              />
+            </div>
+
+            {/* Religious Level Preference */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                مستوى التدين المفضل
+              </label>
+              <div className="space-y-2">
+                {[
+                  { value: "basic", label: "أساسي" },
+                  { value: "practicing", label: "ممارس" },
+                  { value: "very-religious", label: "متدين جداً" },
+                ].map((level) => (
+                  <label key={level.value} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      value={level.value}
+                      {...register("preferences.religiousLevel")}
+                      className="ml-2"
+                    />
+                    {level.label}
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            {/* Education Preference */}
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                المستوى التعليمي المفضل (اختياري)
+              </label>
+              <div className="space-y-2">
+                {[
+                  "ثانوية عامة",
+                  "دبلوم",
+                  "بكالوريوس",
+                  "ماجستير", 
+                  "دكتوراه",
+                ].map((edu) => (
+                  <label key={edu} className="flex items-center">
+                    <input
+                      type="checkbox"
+                      value={edu}
+                      {...register("preferences.education")}
+                      className="ml-2"
+                    />
+                    {edu}
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        );
+
+      case 8:
+
+      case 8:
+        return (
+          <div className="space-y-4">
+            <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-700">
+                {watchedGender === "male" 
+                  ? "الصورة الشخصية اختيارية للإخوة وستظهر فقط للمطابقات المقبولة"
+                  : "الصورة الشخصية غير متاحة للأخوات حفاظاً على الخصوصية"}
+              </p>
+            </div>
+            
+            {watchedGender === "male" ? (
+              <ImageUploader
+                onImageSelect={(file) => setProfilePicture(file)}
+                currentImage={profilePicture ? URL.createObjectURL(profilePicture) : null}
+              />
+            ) : (
+              <div className="text-center py-12">
+                <div className="w-16 h-16 bg-gray-200 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <span className="text-2xl">👤</span>
+                </div>
+                <h3 className="text-lg font-medium text-gray-900 mb-2">
+                  الصورة الشخصية غير متاحة
+                </h3>
+                <p className="text-gray-600">
+                  نحترم خصوصية الأخوات ولا نطلب صوراً شخصية
+                </p>
+              </div>
+            )}
+          </div>
+        );
+
+      case 9:
+        return (
+          <div className="space-y-6">
+            <div className="text-center mb-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                مراجعة البيانات النهائية
+              </h3>
+              <p className="text-sm text-gray-600">
+                تأكد من صحة جميع البيانات قبل إرسال الطلب
+              </p>
+            </div>
+            
+            <ProfileSummaryCard 
+              data={watch()}
+              onEdit={(section) => {
+                // Navigate to specific step for editing
+                const stepMap: Record<string, number> = {
+                  basic: 1,
+                  location: 2,
+                  education: 3,
+                  religious: 4,
+                  bio: 5,
+                  guardian: 6,
+                  preferences: 7,
+                  photo: 8
+                };
+                setCurrentStep(stepMap[section] || 1);
+              }}
+            />
+            
+            <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+              <div className="flex items-start">
+                <div className="flex-shrink-0">
+                  <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                  </svg>
+                </div>
+                <div className="mr-3">
+                  <h3 className="text-sm font-medium text-green-800">
+                    جاهز للإرسال
+                  </h3>
+                  <div className="mt-2 text-sm text-green-700">
+                    <p>سيتم مراجعة ملفك الشخصي من قِبل الإدارة خلال 24-48 ساعة</p>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         );
 

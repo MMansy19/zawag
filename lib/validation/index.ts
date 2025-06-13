@@ -361,6 +361,22 @@ export const profileSchema = z
       .regex(/^\+?[1-9]\d{1,14}$/, "رقم هاتف غير صحيح")
       .optional(),
     guardianEmail: z.string().email("بريد إلكتروني غير صحيح").optional(),
+    preferences: z
+      .object({
+        ageRange: z
+          .object({
+            min: z.number().min(VALIDATION_RULES.AGE.MIN).optional(),
+            max: z.number().max(VALIDATION_RULES.AGE.MAX).optional(),
+          })
+          .optional(),
+        country: z.string().optional(),
+        city: z.string().optional(),
+        maritalStatus: z.array(z.string()).optional(),
+        religiousLevel: z.array(z.string()).optional(),
+        education: z.array(z.string()).optional(),
+        occupation: z.array(z.string()).optional(),
+      })
+      .optional(),
   })
   .refine(
     (data) => {
