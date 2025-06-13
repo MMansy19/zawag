@@ -15,21 +15,21 @@ export function LandingSocial() {
     {
       name: "يوتيوب",
       icon: Youtube,
-      url: "#",
+      url: "https://www.youtube.com/@Al-Zawaj",
       color: "bg-red-50 border-red-200 text-red-700 hover:bg-red-100",
       description: "مقاطع تعليمية ونصائح للزواج الإسلامي",
     },
     {
       name: "فيسبوك",
       icon: Facebook,
-      url: "#",
+      url: "https://www.facebook.com/Al.Zawaj2",
       color: "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100",
       description: "تابعنا للحصول على التحديثات",
     },
     {
       name: "تيك توك",
       icon: Music,
-      url: "#",
+      url: "https://www.tiktok.com/@alzawaj.alsaeid",
       color:
         "bg-purple-50 border-purple-200 text-purple-700 hover:bg-purple-100",
       description: "محتوى قصير ومفيد",
@@ -37,14 +37,14 @@ export function LandingSocial() {
     {
       name: "واتساب",
       icon: MessageCircle,
-      url: "https://wa.me/+21695765691",
+      url: "https://api.whatsapp.com/send/?phone=21695765691&text&type=phone_number&app_absent=0",
       color: "bg-green-50 border-green-200 text-green-700 hover:bg-green-100",
       description: "تواصل مباشر",
     },
     {
       name: "تويتر",
       icon: Twitter,
-      url: "#",
+      url: "https://x.com/Al_Zawaj_",
       color: "bg-sky-50 border-sky-200 text-sky-700 hover:bg-sky-100",
       description: "آخر الأخبار والتحديثات",
     },
@@ -85,7 +85,7 @@ export function LandingSocial() {
         </div>{" "}
         <div className="text-center mt-12">
           <div className="inline-flex items-center bg-white rounded-full px-6 py-3 shadow-md">
-            <Star className="h-6 w-6 mr-2 text-yellow-500" />
+            <Star className="h-6 w-6 ml-2 text-yellow-500" />
             <span className="text-gray-700 font-medium">
               انضم إلى مجتمعنا المتنامي من المسلمين الباحثين عن الزواج الحلال
             </span>

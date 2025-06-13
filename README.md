@@ -1,26 +1,149 @@
-# Islamic Zawaj Platform
+<div align="center">
+  <img src="./public/logo.png" alt="Islamic Zawaj Platform Logo" width="200" height="200" />
+  
+  # Islamic Zawaj Platform
+  
+  ### A comprehensive Next.js 14 platform for Islamic marriage connections
+  *Built with privacy, moderation, and cultural sensitivity at its core*
+  
+  [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=vercel)](https://islamic-zawaj-platform.vercel.app)
+  [![Version](https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge)](https://github.com/your-org/islamic-zawaj-platform)
+  [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](./LICENSE)
+  
+  [🌟 Features](#-features) • [🚀 Live Demo](https://islamic-zawaj-platform.vercel.app) • [📖 Documentation](#-documentation) • [🤝 Support](#-support)
+  
+</div>
 
-A comprehensive Next.js 14 platform for Islamic marriage connections, built with privacy, moderation, and cultural sensitivity at its core.
+---
+
+## 📋 Table of Contents
+
+- [🌟 Features](#-features)
+- [🚀 Live Demo](#-live-demo)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [⚡ Quick Start](#-quick-start)
+- [📁 Project Structure](#-project-structure)
+- [🎨 Design System](#-design-system)
+- [🔐 Security & Privacy](#-security--privacy)
+- [🌍 Internationalization](#-internationalization)
+- [🧪 Testing Strategy](#-testing-strategy)
+- [📊 Performance](#-performance)
+- [🚀 Deployment](#-deployment)
+- [🤝 Contributing](#-contributing)
+- [📚 Documentation](#-documentation)
+- [👨‍💻 Author & Team](#-author--team)
+- [🆘 Support](#-support)
+
+---
 
 ## 🌟 Features
 
-### Core Features
+### 👤 User Management & Authentication
+- **Smart Registration System**: 8-step guided profile creation with Islamic values integration
+- **OTP Verification**: Secure phone/email verification with SMS and email support
+- **Profile Builder Wizard**: Comprehensive profile creation with privacy controls
+- **Religious Compatibility**: Madhab, prayer level, and religious commitment matching
+- **Family Background**: Educational, professional, and family information management
+- **Photo Privacy Controls**: Advanced privacy settings for profile pictures
+- **Account Security**: Two-factor authentication and secure password policies
 
-- **Registration & Profile Builder**: 8-step guided profile creation with OTP verification
-- **Advanced Search**: Filter-based search respecting privacy settings
-- **Marriage Requests**: Secure request system with introductory messages
-- **Moderated Chat**: Rate-limited, admin-moderated messaging system
-- **Admin Dashboard**: Comprehensive moderation and management tools
-- **Auto-Abuse Detection**: AI-powered content moderation with Arabic support
+### 🔍 Advanced Search & Discovery
+- **Smart Filtering System**: Age, location, education, profession, and religious criteria
+- **Privacy-Respecting Search**: Users control who can view their profiles
+- **Compatibility Scoring**: AI-powered compatibility assessment based on Islamic principles
+- **Geographic Search**: Location-based matching with privacy controls
+- **Saved Searches**: Save and track preferred search criteria
+- **Profile Bookmarking**: Save interesting profiles for later review
+- **Advanced Filters**: Detailed filtering by lifestyle, family background, and preferences
 
-### Technical Highlights
+### 💬 Communication & Interaction
+- **Secure Marriage Requests**: Formal introduction system with parental involvement options
+- **Moderated Chat System**: Real-time messaging with Islamic guidelines enforcement
+- **Rate-Limited Messaging**: Prevents spam and encourages meaningful conversations
+- **Auto-Translation**: Arabic/English translation support for better communication
+- **File Sharing**: Secure document and image sharing with moderation
+- **Voice Messages**: Audio message support with content moderation
+- **Video Call Integration**: Secure video calling with family supervision options
 
-- **Full RTL Support**: Native Arabic language support with proper RTL layout
-- **Accessibility**: WCAG 2.1 AA compliant with screen reader support
-- **Performance**: Optimized for fast loading with Next.js 14 App Router
-- **Security**: End-to-end encryption, rate limiting, and privacy controls
-- **Responsive**: Mobile-first design for all devices
-- **Cultural Sensitivity**: Islamic values and cultural norms respected throughout
+### 🛡️ Privacy & Security
+- **End-to-End Encryption**: Military-grade encryption for all sensitive communications
+- **Islamic Privacy Controls**: Respects Islamic guidelines for male-female interactions
+- **Parental Oversight**: Optional parental involvement and supervision features
+- **Data Protection**: GDPR/CCPA compliant with Islamic privacy principles
+- **Anonymous Browsing**: View profiles without revealing identity initially
+- **Secure File Upload**: Encrypted file storage with AWS S3 integration
+- **Activity Logging**: Comprehensive audit trails for security monitoring
+
+### 🤖 AI-Powered Moderation
+- **Arabic Content Analysis**: Advanced NLP for Arabic and English content moderation
+- **Islamic Guidelines Enforcement**: Automatic detection of inappropriate content
+- **Behavioral Analysis**: Pattern recognition for identifying suspicious activities
+- **Automated Warnings**: Smart warning system for policy violations
+- **Real-time Monitoring**: 24/7 automated content and behavior monitoring
+- **Cultural Sensitivity AI**: Respects Islamic cultural norms in content analysis
+
+### 👨‍💼 Admin & Management
+- **Comprehensive Dashboard**: Real-time analytics and user management
+- **Content Moderation Panel**: Review and moderate user-generated content
+- **User Management System**: Account status management and user support
+- **Request Monitoring**: Track and moderate marriage requests and communications
+- **Analytics & Reporting**: Detailed insights into platform usage and success rates
+- **Bulk Operations**: Efficient management of large user bases
+- **Notification Management**: Platform-wide and targeted user notifications
+
+### 🌍 Internationalization & Accessibility
+- **Full RTL Support**: Complete right-to-left layout for Arabic language
+- **Multi-language Support**: Arabic and English with seamless switching
+- **WCAG 2.1 AA Compliance**: Full accessibility for users with disabilities
+- **Screen Reader Optimization**: Enhanced support for visually impaired users
+- **Keyboard Navigation**: Complete keyboard-only navigation support
+- **High Contrast Mode**: Accessibility-focused color schemes
+- **Font Size Controls**: Adjustable text sizes for better readability
+
+### 📱 Mobile & Cross-Platform
+- **Mobile-First Design**: Optimized for smartphones and tablets
+- **Progressive Web App**: Installable web app with offline capabilities
+- **Cross-Browser Support**: Compatible with all modern browsers
+- **Responsive Design**: Seamless experience across all device sizes
+- **Touch Optimization**: Enhanced touch interactions for mobile devices
+- **Offline Mode**: Basic functionality available without internet connection
+
+### 🔔 Communication & Notifications
+- **Real-time Notifications**: Instant alerts for messages, requests, and matches
+- **Email Integration**: Professional email notifications with Islamic greetings
+- **SMS Notifications**: Critical alerts via SMS with global support
+- **Push Notifications**: Browser and mobile push notification support
+- **Customizable Alerts**: Users control notification frequency and types
+- **Prayer Time Reminders**: Optional Islamic prayer time notifications
+
+### 📊 Analytics & Insights
+- **Success Rate Tracking**: Monitor successful marriages through the platform
+- **User Engagement Analytics**: Understand user behavior and preferences
+- **Performance Monitoring**: Real-time performance and uptime tracking
+- **Compatibility Analytics**: AI-driven insights into successful matches
+- **Usage Statistics**: Comprehensive platform usage and engagement metrics
+
+## � Live Demo
+
+🌐 **Experience the platform**: [https://islamic-zawaj-platform.vercel.app](https://islamic-zawaj-platform.vercel.app)
+
+### Demo Credentials
+- **Regular User**: demo@zawaj.com / Demo123!
+- **Admin User**: admin@zawaj.com / Admin123!
+
+### 📸 Screenshots
+
+<div align="center">
+  <img src="./docs/screenshots/homepage.png" alt="Homepage" width="45%" />
+  <img src="./docs/screenshots/dashboard.png" alt="Dashboard" width="45%" />
+</div>
+
+<div align="center">
+  <img src="./docs/screenshots/profile-builder.png" alt="Profile Builder" width="45%" />
+  <img src="./docs/screenshots/chat-interface.png" alt="Chat Interface" width="45%" />
+</div>
+
+---
 
 ## 🛠️ Tech Stack
 
@@ -396,11 +519,72 @@ This project is proprietary and confidential. Unauthorized copying, distribution
 - Cultural sensitivity reviews
 - Religious compliance verification
 
+## 👨‍💻 Author & Team
+
+<div align="center">
+  
+### Lead Developer
+**Your Name**  
+*Full-Stack Developer & Islamic Tech Specialist*
+
+[![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/your-username)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://linkedin.com/in/your-profile)
+[![Email](https://img.shields.io/badge/Email-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:your-email@domain.com)
+
+*Specialized in building culturally sensitive applications for the Muslim community*
+
+</div>
+
+### 🤝 Contributing Team
+- **Islamic Scholars**: Religious guidance and cultural sensitivity review
+- **UX/UI Designers**: Islamic-inspired design and user experience
+- **Security Experts**: Privacy and data protection specialists
+- **Community Managers**: User support and community building
+
 ---
 
-**May Allah bless this project and make it a means of bringing together righteous Muslim couples in halal marriages. Ameen.**
+## 🌟 Project Stats
+
+<div align="center">
+
+![GitHub stars](https://img.shields.io/github/stars/your-org/islamic-zawaj-platform?style=social)
+![GitHub forks](https://img.shields.io/github/forks/your-org/islamic-zawaj-platform?style=social)
+![GitHub watchers](https://img.shields.io/github/watchers/your-org/islamic-zawaj-platform?style=social)
+
+[![GitHub issues](https://img.shields.io/github/issues/your-org/islamic-zawaj-platform)](https://github.com/your-org/islamic-zawaj-platform/issues)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/your-org/islamic-zawaj-platform)](https://github.com/your-org/islamic-zawaj-platform/pulls)
+[![Last commit](https://img.shields.io/github/last-commit/your-org/islamic-zawaj-platform)](https://github.com/your-org/islamic-zawaj-platform/commits/main)
+
+</div>
 
 ---
 
-Built with ❤️ by the Islamic Zawaj Platform Team
-© 2024 Islamic Zawaj Platform. All rights reserved.
+## 📄 License
+
+This project is proprietary and confidential. Unauthorized copying, distribution, or use is strictly prohibited.
+
+**© 2024 Islamic Zawaj Platform. All rights reserved.**
+
+---
+
+## 🤲 Islamic Blessing
+
+<div align="center">
+  
+*بسم الله الرحمن الرحيم*
+
+**May Allah bless this project and make it a means of bringing together righteous Muslim couples in halal marriages. May it be a source of barakah and contribute to strengthening the Muslim ummah through blessed unions.**
+
+*Ameen Ya Rabb al-Alameen*
+
+</div>
+
+---
+
+<div align="center">
+
+**Built with ❤️ and Islamic values for the Muslim community worldwide**
+
+[🌟 **Live Demo**](https://islamic-zawaj-platform.vercel.app) | [📚 **Documentation**](./docs) | [🆘 **Support**](mailto:support@zawaj-platform.com)
+
+</div>

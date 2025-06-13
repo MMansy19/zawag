@@ -121,7 +121,7 @@ export function LandingContact() {
               {" "}
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center ml-4">
                     <Smartphone className="h-6 w-6 text-green-600" />
                   </div>
                   <div>
@@ -138,7 +138,7 @@ export function LandingContact() {
                     rel="noopener noreferrer"
                     className="flex items-center justify-center text-green-700 font-medium hover:text-green-800 transition-colors"
                   >
-                    <MessageCircle className="h-5 w-5 mr-2" />
+                    <MessageCircle className="h-5 w-5 ml-2" />
                     0021695765691
                   </a>
                 </div>
@@ -147,7 +147,7 @@ export function LandingContact() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mr-4">
+                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center ml-4">
                     <Mail className="h-6 w-6 text-blue-600" />
                   </div>
                   <div>
@@ -162,7 +162,7 @@ export function LandingContact() {
                     href="mailto:alzawajalsaeid1@gmail.com"
                     className="flex items-center justify-center text-blue-700 font-medium hover:text-blue-800 transition-colors"
                   >
-                    <Mail className="h-5 w-5 mr-2" />
+                    <Mail className="h-5 w-5 ml-2" />
                     alzawajalsaeid1@gmail.com
                   </a>
                 </div>

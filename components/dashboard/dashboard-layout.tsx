@@ -2,6 +2,7 @@
 
 import { ReactNode, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MobileBottomNav } from "./mobile-bottom-nav";
 
@@ -55,9 +56,16 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
               </button>
               <Link
                 href="/dashboard"
-                className="text-lg sm:text-xl font-bold text-primary mr-4"
+                className="flex items-center gap-2 text-lg sm:text-xl font-bold text-primary mr-4 hover:text-primary-hover transition-colors"
               >
-                الزواج السعيد
+                <Image
+                  src="/logo.png"
+                  alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
+                  width={32}
+                  height={38}
+                  className="h-8 w-auto"
+                />
+                <span className="hidden sm:inline">الزواج السعيد</span>
               </Link>
             </div>
 

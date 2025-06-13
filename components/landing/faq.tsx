@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Phone } from "lucide-react";
 
 export function LandingFAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
+  const [showAllFAQs, setShowAllFAQs] = useState(false);
   const faqs = [
     {
       question: "ما هي نظرتكم الشرعية للزواج عبر الإنترنت؟",
@@ -270,6 +272,18 @@ export function LandingFAQ() {
     setOpenIndex(openIndex === index ? null : index);
   };
 
+  // Show only first 5 FAQs initially, unless "Show More" is clicked
+  const displayedFAQs = showAllFAQs ? faqs : faqs.slice(0, 5);
+
+  const handleShowMore = () => {
+    setShowAllFAQs(true);
+  };
+
+  const handleShowLess = () => {
+    setShowAllFAQs(false);
+    setOpenIndex(null); // Close any open FAQ when showing less
+  };
+
   return (
     <section id="faq" className="py-20 bg-gray-50">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -287,7 +301,7 @@ export function LandingFAQ() {
         </div>
 
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {displayedFAQs.map((faq, index) => (
             <Card key={index} className="overflow-hidden">
               <CardContent className="p-0">
                 <button
@@ -322,13 +336,40 @@ export function LandingFAQ() {
           ))}
         </div>
 
+        {/* Show More/Less Button */}
+        {!showAllFAQs && faqs.length > 5 && (
+          <div className="text-center mt-8">
+            <button
+              onClick={handleShowMore}
+              className="inline-flex items-center px-8 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+            >
+              <span className="text-lg font-medium">
+                عرض المزيد ({faqs.length - 5} أسئلة أخرى)
+              </span>
+              <svg
+                className="w-5 h-5 mr-2 transform rotate-180"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </button>
+          </div>
+        )}
+
         <div className="text-center mt-12">
           <p className="text-gray-600 mb-4">لم تجد إجابة لسؤالك؟</p>
           <a
             href="#contact"
-            className="inline-flex items-center px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors duration-200"
+            className="inline-flex items-center px-6 py-3 button-primary text-white hover:text-white rounded-lg transition-colors duration-200"
           >
-            <span className="ml-2">📞</span>
+            <Phone className="w-5 h-5 ml-2" />
             تواصل معنا
           </a>
         </div>

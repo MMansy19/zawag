@@ -1,0 +1,27 @@
+<svg width="32" height="32" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ringGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#7FFF00;stop-opacity:0.3" />
+      <stop offset="50%" style="stop-color:#32CD32;stop-opacity:0.8" />
+      <stop offset="100%" style="stop-color:#00FF32;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="diamondGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#F0FFF0;stop-opacity:0.9" />
+      <stop offset="50%" style="stop-color:#E0FFE0;stop-opacity:0.7" />
+      <stop offset="100%" style="stop-color:#D0FFD0;stop-opacity:0.5" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Ring Band -->
+  <path d="M3 22 Q4 6 16 4 Q28 6 29 22 Q28 26 16 28 Q4 26 3 22 Z" 
+        fill="url(#ringGradient)" 
+        stroke="#32CD32" 
+        stroke-width="1"/>
+  
+  <!-- Diamond -->
+  <path d="M16 2 L12 8 L8 5 L16 2 L24 5 L20 8 Z M12 8 L16 14 L20 8 M8 5 L16 14 L24 5" 
+        fill="url(#diamondGradient)" 
+        stroke="#7FFF00" 
+        stroke-width="0.5" 
+        opacity="0.8"/>
+</svg>

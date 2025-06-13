@@ -3,8 +3,28 @@ import { AuthContainer } from "@/components/auth/auth-container";
 import { LoginForm } from "@/components/auth/login-form";
 
 export const metadata: Metadata = {
-  title: "تسجيل الدخول",
-  description: "سجل دخولك للوصول إلى حسابك في منصة الزواج السعيد",
+  title: "تسجيل الدخول - الزواج السعيد",
+  description:
+    "سجل دخولك لحسابك في منصة الزواج السعيد واستكمل رحلة البحث عن شريك الحياة. دخول آمن ومحمي.",
+  keywords: [
+    "تسجيل الدخول",
+    "دخول الزواج السعيد",
+    "تسجيل دخول آمن",
+    "حساب الزواج",
+    "الدخول للحساب",
+  ],
+  openGraph: {
+    title: "تسجيل الدخول - الزواج السعيد",
+    description: "سجل دخولك لحسابك واستكمل رحلة البحث عن شريك الحياة.",
+    type: "website",
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/auth/login",
+  },
 };
 
 export default function LoginPage() {

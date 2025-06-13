@@ -21,64 +21,119 @@ const amiri = Amiri({
 
 export const metadata: Metadata = {
   title: {
-    default: "الزواج السعيد - منصة الزواج الإسلامية",
-    template: "%s | الزواج السعيد",
+    default:
+      "الزواج السعيد - منصة الزواج الإسلامية الآمنة | البحث عن شريك الحياة",
+    template: "%s | الزواج السعيد - منصة الزواج الإسلامية",
   },
   description:
-    "منصة الزواج الإسلامية الآمنة والموثوقة للبحث عن شريك الحياة وفق الشريعة الإسلامية",
+    "منصة الزواج الإسلامية الرائدة في المنطقة العربية. ابحث عن شريك الحياة المناسب وفق الشريعة الإسلامية مع ضمان الأمان والخصوصية التامة. أكثر من 100,000 عضو نشط.",
   keywords: [
     "زواج إسلامي",
     "الزواج السعيد",
     "البحث عن شريك الحياة",
     "الزواج الحلال",
-    "منصة الزواج",
+    "منصة الزواج الإسلامية",
+    "زواج مسلم",
+    "تطبيق الزواج",
+    "موقع الزواج",
+    "الزواج الشرعي",
     "Islamic marriage",
     "Muslim matrimony",
     "Halal marriage platform",
+    "Muslim dating",
+    "Islamic wedding",
+    "Zawaj",
+    "نكاح",
+    "خطبة",
+    "الخطوبة",
+    "الزفاف الإسلامي",
   ],
-  authors: [{ name: "فريق الزواج السعيد" }],
+  authors: [{ name: "فريق الزواج السعيد", url: "https://zawaj.com" }],
   creator: "الزواج السعيد",
   publisher: "الزواج السعيد",
+  applicationName: "الزواج السعيد",
+  category: "Social",
+  classification: "Islamic Marriage Platform",
   metadataBase: new URL(
     process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000",
   ),
   alternates: {
     canonical: "/",
+    languages: {
+      "ar-SA": "/",
+      ar: "/",
+      en: "/en",
+    },
   },
+  icons: {
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+    ],
+    apple: [
+      { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
+    ],
+    other: [
+      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#32CD32" },
+    ],
+  },
+  manifest: "/site.webmanifest",
   openGraph: {
     type: "website",
     locale: "ar_SA",
     url: "/",
-    title: "الزواج السعيد - منصة الزواج الإسلامية",
+    title: "الزواج السعيد - منصة الزواج الإسلامية الآمنة والموثوقة",
     description:
-      "منصة الزواج الإسلامية الآمنة والموثوقة للبحث عن شريك الحياة وفق الشريعة الإسلامية",
+      "انضم إلى أكثر من 100,000 عضو في منصة الزواج الإسلامية الرائدة. ابحث عن شريك الحياة المناسب وفق الشريعة الإسلامية مع ضمان الأمان والخصوصية التامة.",
     siteName: "الزواج السعيد",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/og-image.svg",
+        width: 1200,
+        height: 630,
+        alt: "الزواج السعيد - منصة الزواج الإسلامية الآمنة والموثوقة",
+        type: "image/svg+xml",
+      },
+      {
+        url: "/og-image-1200x630.png",
         width: 1200,
         height: 630,
         alt: "الزواج السعيد - منصة الزواج الإسلامية",
+        type: "image/png",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "الزواج السعيد - منصة الزواج الإسلامية",
+    site: "@Al_Zawaj_",
+    creator: "@Al_Zawaj_",
+    title: "الزواج السعيد - منصة الزواج الإسلامية الآمنة",
     description:
-      "منصة الزواج الإسلامية الآمنة والموثوقة للبحث عن شريك الحياة وفق الشريعة الإسلامية",
-    images: ["/og-image.jpg"],
+      "ابحث عن شريك الحياة المناسب وفق الشريعة الإسلامية. أكثر من 100,000 عضو نشط. آمان وخصوصية تامة.",
+    images: ["/og-image.svg"],
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       "max-video-preview": -1,
       "max-image-preview": "large",
       "max-snippet": -1,
     },
+  },
+  other: {
+    "mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-capable": "yes",
+    "apple-mobile-web-app-status-bar-style": "default",
+    "apple-mobile-web-app-title": "الزواج السعيد",
+    "application-name": "الزواج السعيد",
+    "msapplication-TileColor": "#32CD32",
+    "theme-color": "#32CD32",
   },
   ...(process.env["GOOGLE_VERIFICATION_ID"] && {
     verification: {
@@ -92,6 +147,76 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": ["WebSite", "ReligiousOrganization"],
+    name: "الزواج السعيد",
+    alternateName: "Zawaj Platform",
+    description:
+      "منصة الزواج الإسلامية الآمنة والموثوقة للبحث عن شريك الحياة وفق الشريعة الإسلامية",
+    url: process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000",
+    logo: {
+      "@type": "ImageObject",
+      url: `${process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000"}/logo.png`,
+      width: "100",
+      height: "120",
+    },
+    sameAs: [
+      "https://www.facebook.com/Al.Zawaj2",
+      "https://www.youtube.com/@Al-Zawaj",
+      "https://www.tiktok.com/@alzawaj.alsaeid",
+      "https://x.com/Al_Zawaj_",
+      "https://alzawajalsaeid.com/",
+    ],
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000"}/search?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "الزواج السعيد",
+      logo: {
+        "@type": "ImageObject",
+        url: `${process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000"}/logo.png`,
+      },
+    },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: "+21695765691",
+      contactType: "customer service",
+      availableLanguage: ["Arabic", "العربية"],
+    },
+    founder: {
+      "@type": "Organization",
+      name: "فريق الزواج السعيد",
+    },
+    foundingDate: "2024",
+    knowsAbout: [
+      "Islamic Marriage",
+      "Muslim Matrimony",
+      "Halal Relationships",
+      "Islamic Values",
+      "Marriage in Islam",
+    ],
+    audience: {
+      "@type": "Audience",
+      audienceType: "Muslim Singles",
+      geographicArea: "Middle East, North Africa",
+    },
+    offers: {
+      "@type": "Offer",
+      name: "Islamic Marriage Platform Membership",
+      description: "عضوية مجانية في منصة الزواج الإسلامية",
+      price: "0",
+      priceCurrency: "USD",
+      availability: "InStock",
+    },
+  };
+
   return (
     <html
       lang="ar"
@@ -99,7 +224,21 @@ export default function RootLayout({
       className={`${notoKufiArabic.variable} ${amiri.variable}`}
       suppressHydrationWarning
     >
-      <body className="min-h-screen bg-background text-foreground font-arabic antialiased ">
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData),
+          }}
+        />
+      </head>
+      <body className="min-h-screen bg-background text-foreground font-arabic antialiased">
         <Providers>
           {children}
           <Toaster />

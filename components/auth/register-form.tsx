@@ -116,7 +116,10 @@ export function RegisterForm() {
         />
         <label htmlFor="acceptTerms" className="mr-2 block text-sm text-text">
           أوافق على{" "}
-          <Link href="/terms" className="text-primary hover:text-primary-hover">
+          <Link
+            href="/terms-privacy"
+            className="text-primary hover:text-primary-hover"
+          >
             الشروط والأحكام
           </Link>
         </label>
