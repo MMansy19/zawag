@@ -25,7 +25,7 @@ interface AuthContextType extends AuthState {
   login: (email: string, password: string) => Promise<void>;
   register: (data: any) => Promise<void>;
   logout: () => Promise<void>;
-  verifyOTP: (otp: string, identifier: string) => Promise<void>;
+  verifyOTP: (otp: string, email: string) => Promise<void>;
   refreshAuth: () => Promise<void>;
   updateProfile: (profile: Profile) => void;
 }
@@ -111,11 +111,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     initializeAuth();
   }, []);
 
-  const login = async (emailOrPhone: string, password: string) => {
+  const login = async (email: string, password: string) => {
     dispatch({ type: "SET_LOADING", payload: true });
 
     try {
-      const response = await authApi.login({ emailOrPhone, password });
+      const response = await authApi.login({ email, password });
 
       if (response.success && response.data) {
         const { user, token, refreshToken } = response.data;
@@ -161,11 +161,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
-  const verifyOTP = async (otp: string, identifier: string) => {
+  const verifyOTP = async (otp: string, email: string) => {
     dispatch({ type: "SET_LOADING", payload: true });
 
     try {
-      const response = await authApi.verifyOTP({ otp, identifier });
+      const response = await authApi.verifyOTP({ otp, email });
 
       if (response.success && response.data) {
         const { user, token, refreshToken } = response.data;

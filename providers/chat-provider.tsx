@@ -153,6 +153,7 @@ export function ChatProvider({ children }: { children: React.ReactNode }) {
       try {
         // Send via API first for persistence
         const response = await chatApi.sendMessage({
+          type: "text",
           chatRoomId: activeRoom.id,
           content,
         });
