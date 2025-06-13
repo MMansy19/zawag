@@ -12,7 +12,7 @@ export default function ChatPage() {
           تابع محادثاتك النشطة مع المهتمين
         </p>
       </div>
-      
+
       <ChatList />
     </div>
   );

@@ -104,9 +104,13 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
           لا توجد نتائج
         </h3>
         <p className="text-sm sm:text-base text-gray-600 mb-6 max-w-md mx-auto">
-          لم نجد أي ملفات شخصية تتطابق مع معايير البحث الخاصة بك. جرب تعديل الفلاتر أو البحث بمعايير أوسع.
+          لم نجد أي ملفات شخصية تتطابق مع معايير البحث الخاصة بك. جرب تعديل
+          الفلاتر أو البحث بمعايير أوسع.
         </p>
-        <Button onClick={() => window.location.reload()} className="w-full sm:w-auto">
+        <Button
+          onClick={() => window.location.reload()}
+          className="w-full sm:w-auto"
+        >
           إعادة المحاولة
         </Button>
       </div>
@@ -126,7 +130,7 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
             {totalPages > 1 && ` (صفحة ${currentPage} من ${totalPages})`}
           </p>
         </div>
-        
+
         {/* Sort/Filter Options for Mobile */}
         <div className="flex gap-2 sm:hidden">
           <Button variant="outline" size="sm" className="flex-1">
@@ -161,9 +165,24 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
           >
             {loading ? (
               <div className="flex items-center">
-                <svg className="animate-spin -ml-1 mr-2 h-4 w-4" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                <svg
+                  className="animate-spin -ml-1 mr-2 h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    className="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    strokeWidth="4"
+                  ></circle>
+                  <path
+                    className="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
                 </svg>
                 جاري التحميل...
               </div>

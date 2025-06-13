@@ -12,7 +12,7 @@ export default function Settings() {
           إدارة إعدادات حسابك وتفضيلاتك
         </p>
       </div>
-      
+
       <SettingsPage />
     </div>
   );

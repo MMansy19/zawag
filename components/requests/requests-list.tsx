@@ -20,18 +20,28 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
   const handleResponse = async (status: "accepted" | "rejected") => {
     setIsLoading(true);
     try {
-      await requestsApi.respondToRequest({
+      // Using mock API for development/testing
+      const { mockRequestsApi } = await import(
+        "@/lib/static-data/marriage-requests"
+      );
+
+      const response = await mockRequestsApi.respondToRequest({
         requestId: request.id,
         response: status,
       });
 
-      showToast.success(
-        status === "accepted" ? "تم قبول الطلب بنجاح!" : "تم رفض الطلب",
-      );
-
-      if (onUpdate) {
-        onUpdate();
+      if (response.success) {
+        showToast.success(response.message);
+        if (onUpdate) {
+          onUpdate();
+        }
       }
+
+      // TODO: Replace with actual API call when backend is ready
+      // await requestsApi.respondToRequest({
+      //   requestId: request.id,
+      //   response: status,
+      // });
     } catch (error: any) {
       showToast.error(error.message || "خطأ في تحديث الطلب");
     } finally {
@@ -40,24 +50,30 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("ar-SA", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
+    // Use the helper function from static data
+    const {
+      formatRelativeTime,
+    } = require("@/lib/static-data/marriage-requests");
+    return formatRelativeTime(dateString);
   };
 
   const getStatusBadge = (status: string) => {
-    switch (status) {
-      case "pending":
-        return <Badge variant="outline">في الانتظار</Badge>;
-      case "accepted":
-        return <Badge variant="success">مقبول</Badge>;
-      case "rejected":
-        return <Badge variant="error">مرفوض</Badge>;
-      default:
-        return <Badge variant="secondary">{status}</Badge>;
-    }
+    // Use the helper functions from static data
+    const {
+      getRequestStatusInArabic,
+      getRequestStatusColor,
+    } = require("@/lib/static-data/marriage-requests");
+
+    const statusText = getRequestStatusInArabic(status as any);
+    const colorClasses = getRequestStatusColor(status as any);
+
+    return (
+      <span
+        className={`px-2 py-1 rounded-full text-xs font-medium ${colorClasses}`}
+      >
+        {statusText}
+      </span>
+    );
   };
 
   return (
@@ -94,28 +110,118 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
           <p className="text-sm font-medium text-gray-700 mb-2">
             معلومات الملف الشخصي:
           </p>
-          <div className="text-sm text-gray-600 space-y-1">
+          <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg p-4">
             {type === "received" && request.sender && (
-              <>
-                <p>العمر: {request.sender.age || "غير محدد"}</p>
-                <p>
-                  الموقع: {request.sender.city}, {request.sender.country}
-                </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center">
+                  <span className="text-blue-600 ml-2">🎂</span>
+                  <span className="text-gray-700">
+                    العمر: {request.sender.age} سنة
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-green-600 ml-2">📍</span>
+                  <span className="text-gray-700">
+                    {request.sender.city}, {request.sender.country}
+                  </span>
+                </div>
                 {request.sender.occupation && (
-                  <p>المهنة: {request.sender.occupation}</p>
+                  <div className="flex items-center">
+                    <span className="text-purple-600 ml-2">💼</span>
+                    <span className="text-gray-700">
+                      المهنة: {request.sender.occupation}
+                    </span>
+                  </div>
                 )}
-              </>
+                {request.sender.education && (
+                  <div className="flex items-center">
+                    <span className="text-orange-600 ml-2">🎓</span>
+                    <span className="text-gray-700">
+                      التعليم: {request.sender.education}
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-center">
+                  <span className="text-indigo-600 ml-2">🤲</span>
+                  <span className="text-gray-700">
+                    الالتزام:{" "}
+                    {request.sender.religiousLevel === "practicing"
+                      ? "ملتزم"
+                      : request.sender.religiousLevel === "very-religious"
+                        ? "ملتزم جداً"
+                        : request.sender.religiousLevel === "moderate"
+                          ? "معتدل"
+                          : "أساسي"}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-pink-600 ml-2">💍</span>
+                  <span className="text-gray-700">
+                    الحالة:{" "}
+                    {request.sender.maritalStatus === "single"
+                      ? "أعزب"
+                      : request.sender.maritalStatus === "divorced"
+                        ? "مطلق"
+                        : "أرمل"}
+                  </span>
+                </div>
+              </div>
             )}
             {type === "sent" && request.receiver && (
-              <>
-                <p>العمر: {request.receiver.age || "غير محدد"}</p>
-                <p>
-                  الموقع: {request.receiver.city}, {request.receiver.country}
-                </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+                <div className="flex items-center">
+                  <span className="text-blue-600 ml-2">🎂</span>
+                  <span className="text-gray-700">
+                    العمر: {request.receiver.age} سنة
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-green-600 ml-2">📍</span>
+                  <span className="text-gray-700">
+                    {request.receiver.city}, {request.receiver.country}
+                  </span>
+                </div>
                 {request.receiver.occupation && (
-                  <p>المهنة: {request.receiver.occupation}</p>
+                  <div className="flex items-center">
+                    <span className="text-purple-600 ml-2">💼</span>
+                    <span className="text-gray-700">
+                      المهنة: {request.receiver.occupation}
+                    </span>
+                  </div>
                 )}
-              </>
+                {request.receiver.education && (
+                  <div className="flex items-center">
+                    <span className="text-orange-600 ml-2">🎓</span>
+                    <span className="text-gray-700">
+                      التعليم: {request.receiver.education}
+                    </span>
+                  </div>
+                )}
+                <div className="flex items-center">
+                  <span className="text-indigo-600 ml-2">🤲</span>
+                  <span className="text-gray-700">
+                    الالتزام:{" "}
+                    {request.receiver.religiousLevel === "practicing"
+                      ? "ملتزمة"
+                      : request.receiver.religiousLevel === "very-religious"
+                        ? "ملتزمة جداً"
+                        : request.receiver.religiousLevel === "moderate"
+                          ? "معتدلة"
+                          : "أساسي"}
+                  </span>
+                </div>
+                <div className="flex items-center">
+                  <span className="text-pink-600 ml-2">💍</span>
+                  <span className="text-gray-700">
+                    الحالة:{" "}
+                    {request.receiver.maritalStatus === "single"
+                      ? "عزباء"
+                      : request.receiver.maritalStatus === "divorced"
+                        ? "مطلقة"
+                        : "أرملة"}
+                  </span>
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -158,6 +264,15 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
             <p className="text-sm text-red-800">❌ تم رفض الطلب</p>
           </div>
         )}
+
+        {request.status === "expired" && (
+          <div className="mt-4 p-3 bg-gray-50 rounded-md">
+            <p className="text-sm text-gray-800">⏰ انتهت صلاحية الطلب</p>
+            <p className="text-xs text-gray-600 mt-1">
+              يمكنك إرسال طلب جديد إذا كنت لا تزال مهتماً
+            </p>
+          </div>
+        )}
       </CardContent>
     </Card>
   );
@@ -178,9 +293,14 @@ export function RequestsList() {
   const loadRequests = async () => {
     setLoading(true);
     try {
+      // Using static data with mock API for development/testing
+      const { mockRequestsApi } = await import(
+        "@/lib/static-data/marriage-requests"
+      );
+
       const [receivedResponse, sentResponse] = await Promise.all([
-        requestsApi.getReceivedRequests(),
-        requestsApi.getSentRequests(),
+        mockRequestsApi.getReceivedRequests(),
+        mockRequestsApi.getSentRequests(),
       ]);
 
       if (receivedResponse.success && receivedResponse.data) {
@@ -190,6 +310,12 @@ export function RequestsList() {
       if (sentResponse.success && sentResponse.data) {
         setSentRequests(sentResponse.data.requests);
       }
+
+      // TODO: Replace with actual API calls when backend is ready
+      // const [receivedResponse, sentResponse] = await Promise.all([
+      //   requestsApi.getReceivedRequests(),
+      //   requestsApi.getSentRequests(),
+      // ]);
     } catch (error: any) {
       showToast.error(error.message || "خطأ في تحميل الطلبات");
     } finally {

@@ -12,7 +12,7 @@ export default function RequestsPage() {
           إدارة الطلبات المرسلة والمستلمة
         </p>
       </div>
-      
+
       <RequestsList />
     </div>
   );

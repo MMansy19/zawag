@@ -86,7 +86,8 @@ export function DashboardHome() {
           مرحباً، {user?.profile?.name || user?.name || "المستخدم"} 👋
         </h1>
         <p className="text-sm sm:text-base text-gray-600 max-w-2xl mx-auto sm:mx-0">
-          إليك نظرة عامة على نشاطك في منصة الزواج الإسلامية. نسأل الله أن يبارك لك ويوفقك في إيجاد شريك حياتك.
+          إليك نظرة عامة على نشاطك في منصة الزواج الإسلامية. نسأل الله أن يبارك
+          لك ويوفقك في إيجاد شريك حياتك.
         </p>
       </div>
 
@@ -102,7 +103,9 @@ export function DashboardHome() {
                 <p className="text-xl sm:text-2xl font-bold text-blue-600 truncate">
                   {stats.profileViews}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">مشاهدات الملف</p>
+                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                  مشاهدات الملف
+                </p>
               </div>
             </div>
           </CardContent>
@@ -118,7 +121,9 @@ export function DashboardHome() {
                 <p className="text-xl sm:text-2xl font-bold text-pink-600 truncate">
                   {stats.totalRequests}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">إجمالي الطلبات</p>
+                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                  إجمالي الطلبات
+                </p>
               </div>
             </div>
           </CardContent>
@@ -134,7 +139,9 @@ export function DashboardHome() {
                 <p className="text-xl sm:text-2xl font-bold text-orange-600 truncate">
                   {stats.pendingRequests}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">طلبات معلقة</p>
+                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                  طلبات معلقة
+                </p>
               </div>
             </div>
           </CardContent>
@@ -150,7 +157,9 @@ export function DashboardHome() {
                 <p className="text-xl sm:text-2xl font-bold text-green-600 truncate">
                   {stats.activeChats}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">محادثات نشطة</p>
+                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                  محادثات نشطة
+                </p>
               </div>
             </div>
           </CardContent>
@@ -173,8 +182,8 @@ export function DashboardHome() {
                     <div className="flex items-start justify-between mb-3 sm:mb-4">
                       <div className="text-2xl sm:text-3xl">{action.icon}</div>
                       {action.badge && (
-                        <Badge 
-                          variant="error" 
+                        <Badge
+                          variant="error"
                           className="text-xs bg-red-500 text-white shadow-lg animate-pulse"
                         >
                           {action.badge}
@@ -188,7 +197,9 @@ export function DashboardHome() {
                       {action.description}
                     </p>
                     <div className="mt-3 sm:mt-4">
-                      <div className={`w-8 h-1 bg-gradient-to-r ${action.gradient} rounded-full`}></div>
+                      <div
+                        className={`w-8 h-1 bg-gradient-to-r ${action.gradient} rounded-full`}
+                      ></div>
                     </div>
                   </CardContent>
                 </Card>
@@ -210,7 +221,9 @@ export function DashboardHome() {
                     👁️
                   </div>
                   <div className="mr-3 flex-1 min-w-0">
-                    <p className="text-gray-900 font-medium truncate">تم عرض ملفك الشخصي</p>
+                    <p className="text-gray-900 font-medium truncate">
+                      تم عرض ملفك الشخصي
+                    </p>
                     <p className="text-gray-500 text-xs">منذ ساعتين</p>
                   </div>
                 </div>
@@ -220,7 +233,9 @@ export function DashboardHome() {
                     💌
                   </div>
                   <div className="mr-3 flex-1 min-w-0">
-                    <p className="text-gray-900 font-medium truncate">طلب زواج جديد</p>
+                    <p className="text-gray-900 font-medium truncate">
+                      طلب زواج جديد
+                    </p>
                     <p className="text-gray-500 text-xs">منذ 5 ساعات</p>
                   </div>
                 </div>
@@ -230,7 +245,9 @@ export function DashboardHome() {
                     💬
                   </div>
                   <div className="mr-3 flex-1 min-w-0">
-                    <p className="text-gray-900 font-medium truncate">رسالة جديدة</p>
+                    <p className="text-gray-900 font-medium truncate">
+                      رسالة جديدة
+                    </p>
                     <p className="text-gray-500 text-xs">أمس</p>
                   </div>
                 </div>
@@ -240,14 +257,20 @@ export function DashboardHome() {
                     ✅
                   </div>
                   <div className="mr-3 flex-1 min-w-0">
-                    <p className="text-gray-900 font-medium truncate">تم تحديث الملف الشخصي</p>
+                    <p className="text-gray-900 font-medium truncate">
+                      تم تحديث الملف الشخصي
+                    </p>
                     <p className="text-gray-500 text-xs">منذ يومين</p>
                   </div>
                 </div>
               </div>
 
               <div className="mt-6 pt-4 border-t border-gray-100">
-                <Button variant="outline" size="sm" className="w-full hover:bg-gray-50 transition-colors">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="w-full hover:bg-gray-50 transition-colors"
+                >
                   عرض جميع الأنشطة
                 </Button>
               </div>
@@ -270,7 +293,9 @@ export function DashboardHome() {
               <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-3 shadow-lg">
                 📝
               </div>
-              <h4 className="font-semibold mb-2 text-sm sm:text-base">أكمل ملفك الشخصي</h4>
+              <h4 className="font-semibold mb-2 text-sm sm:text-base">
+                أكمل ملفك الشخصي
+              </h4>
               <p className="text-xs sm:text-sm text-gray-600">
                 الملفات المكتملة تحصل على مشاهدات أكثر
               </p>
@@ -280,7 +305,9 @@ export function DashboardHome() {
               <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-3 shadow-lg">
                 🔒
               </div>
-              <h4 className="font-semibold mb-2 text-sm sm:text-base">حافظ على خصوصيتك</h4>
+              <h4 className="font-semibold mb-2 text-sm sm:text-base">
+                حافظ على خصوصيتك
+              </h4>
               <p className="text-xs sm:text-sm text-gray-600">
                 لا تشارك معلومات شخصية حساسة في الرسائل
               </p>
@@ -290,7 +317,9 @@ export function DashboardHome() {
               <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-indigo-600 rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-3 shadow-lg">
                 🤝
               </div>
-              <h4 className="font-semibold mb-2 text-sm sm:text-base">كن محترماً</h4>
+              <h4 className="font-semibold mb-2 text-sm sm:text-base">
+                كن محترماً
+              </h4>
               <p className="text-xs sm:text-sm text-gray-600">
                 تعامل مع الآخرين بأدب واحترام في جميع التفاعلات
               </p>
