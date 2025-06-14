@@ -67,9 +67,8 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
+      { url: "/logo.png", type: "image/png", sizes: "120x120" },
+      { url: "/favicon.svg", type: "image/svg+xml", sizes: "120x120" },
     ],
     apple: [
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
@@ -89,14 +88,14 @@ export const metadata: Metadata = {
     siteName: "الزواج السعيد",
     images: [
       {
-        url: "/og-image.svg",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "الزواج السعيد - منصة الزواج الإسلامية الآمنة والموثوقة",
         type: "image/svg+xml",
       },
       {
-        url: "/og-image-1200x630.png",
+        url: "/logo.png",
         width: 1200,
         height: 630,
         alt: "الزواج السعيد - منصة الزواج الإسلامية",
@@ -111,7 +110,7 @@ export const metadata: Metadata = {
     title: "الزواج السعيد - منصة الزواج الإسلامية الآمنة",
     description:
       "ابحث عن شريك الحياة المناسب وفق الشريعة الإسلامية. أكثر من 100,000 عضو نشط. آمان وخصوصية تامة.",
-    images: ["/og-image.svg"],
+    images: ["/logo.png"],
   },
   robots: {
     index: true,
