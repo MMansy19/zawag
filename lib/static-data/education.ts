@@ -26,13 +26,15 @@ export const educationLevels: EducationLevel[] = [
  */
 export const fetchEducationLevels = async (): Promise<EducationLevel[]> => {
   // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 300));
+  await new Promise((resolve) => setTimeout(resolve, 300));
   return educationLevels.sort((a, b) => a.order - b.order);
 };
 
 /**
  * Get education level by value
  */
-export const getEducationLevelByValue = (value: string): EducationLevel | undefined => {
-  return educationLevels.find(level => level.value === value);
+export const getEducationLevelByValue = (
+  value: string,
+): EducationLevel | undefined => {
+  return educationLevels.find((level) => level.value === value);
 };

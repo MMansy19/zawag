@@ -17,11 +17,11 @@ import {
 import { showToast } from "@/components/ui/toaster";
 import { ImageUploader } from "@/components/profile/image-uploader";
 import { useSelectorData } from "@/lib/hooks/useSelectorData";
-import { 
-  getCountriesByGroup, 
-  getOccupationsByCategory, 
-  getCitiesGroupedByCountry, 
-  getNationalitiesByGroup 
+import {
+  getCountriesByGroup,
+  getOccupationsByCategory,
+  getCitiesGroupedByCountry,
+  getNationalitiesByGroup,
 } from "@/lib/static-data";
 
 // Registration schema that includes both auth and profile data
@@ -79,14 +79,14 @@ export function RegistrationWizard() {
   const router = useRouter();
 
   // Load selector data from static files (simulating backend)
-  const { 
-    countries, 
-    educationLevels, 
-    occupations, 
-    cities, 
-    nationalities, 
-    loading: dataLoading, 
-    error: dataError 
+  const {
+    countries,
+    educationLevels,
+    occupations,
+    cities,
+    nationalities,
+    loading: dataLoading,
+    error: dataError,
   } = useSelectorData();
 
   const totalSteps = 8;
@@ -352,7 +352,7 @@ export function RegistrationWizard() {
               </div>
             </div>
 
-              <div className="space-y-2">
+            <div className="space-y-2">
               <label className="block text-sm font-medium text-gray-700">
                 البلد
               </label>
@@ -361,20 +361,20 @@ export function RegistrationWizard() {
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">اختر البلد</option>
-                {Object.entries(getCountriesByGroup()).map(([group, groupCountries]) => (
-                  <optgroup key={group} label={group}>
-                    {groupCountries.map((country) => (
-                      <option key={country.value} value={country.value}>
-                        {country.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {Object.entries(getCountriesByGroup()).map(
+                  ([group, groupCountries]) => (
+                    <optgroup key={group} label={group}>
+                      {groupCountries.map((country) => (
+                        <option key={country.value} value={country.value}>
+                          {country.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ),
+                )}
               </select>
               {errors.country && (
-                <p className="text-sm text-red-600">
-                  {errors.country.message}
-                </p>
+                <p className="text-sm text-red-600">{errors.country.message}</p>
               )}
             </div>
 
@@ -501,15 +501,17 @@ export function RegistrationWizard() {
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">اختر المهنة</option>
-                {Object.entries(getOccupationsByCategory()).map(([category, categoryOccupations]) => (
-                  <optgroup key={category} label={category}>
-                    {categoryOccupations.map((occupation) => (
-                      <option key={occupation.value} value={occupation.value}>
-                        {occupation.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {Object.entries(getOccupationsByCategory()).map(
+                  ([category, categoryOccupations]) => (
+                    <optgroup key={category} label={category}>
+                      {categoryOccupations.map((occupation) => (
+                        <option key={occupation.value} value={occupation.value}>
+                          {occupation.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ),
+                )}
               </select>
               {errors.occupation && (
                 <p className="text-sm text-red-600">
@@ -527,20 +529,20 @@ export function RegistrationWizard() {
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">اختر المدينة</option>
-                {Object.entries(getCitiesGroupedByCountry()).map(([country, countryCities]) => (
-                  <optgroup key={country} label={country}>
-                    {countryCities.map((city) => (
-                      <option key={city.value} value={city.value}>
-                        {city.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {Object.entries(getCitiesGroupedByCountry()).map(
+                  ([country, countryCities]) => (
+                    <optgroup key={country} label={country}>
+                      {countryCities.map((city) => (
+                        <option key={city.value} value={city.value}>
+                          {city.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ),
+                )}
               </select>
               {errors.city && (
-                <p className="text-sm text-red-600">
-                  {errors.city.message}
-                </p>
+                <p className="text-sm text-red-600">{errors.city.message}</p>
               )}
             </div>
 
@@ -553,15 +555,20 @@ export function RegistrationWizard() {
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">اختر الجنسية</option>
-                {Object.entries(getNationalitiesByGroup()).map(([group, groupNationalities]) => (
-                  <optgroup key={group} label={group}>
-                    {groupNationalities.map((nationality) => (
-                      <option key={nationality.value} value={nationality.value}>
-                        {nationality.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {Object.entries(getNationalitiesByGroup()).map(
+                  ([group, groupNationalities]) => (
+                    <optgroup key={group} label={group}>
+                      {groupNationalities.map((nationality) => (
+                        <option
+                          key={nationality.value}
+                          value={nationality.value}
+                        >
+                          {nationality.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ),
+                )}
               </select>
               {errors.nationality && (
                 <p className="text-sm text-red-600">
@@ -620,15 +627,17 @@ export function RegistrationWizard() {
                 className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
               >
                 <option value="">اختر البلد المفضل</option>
-                {Object.entries(getCountriesByGroup()).map(([group, groupCountries]) => (
-                  <optgroup key={group} label={group}>
-                    {groupCountries.map((country) => (
-                      <option key={country.value} value={country.value}>
-                        {country.label}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
+                {Object.entries(getCountriesByGroup()).map(
+                  ([group, groupCountries]) => (
+                    <optgroup key={group} label={group}>
+                      {groupCountries.map((country) => (
+                        <option key={country.value} value={country.value}>
+                          {country.label}
+                        </option>
+                      ))}
+                    </optgroup>
+                  ),
+                )}
                 <option value="لا يهم">لا يهم</option>
               </select>
               {errors.preferences?.country && (
@@ -788,7 +797,7 @@ export function RegistrationWizard() {
                 key={step.id}
                 className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
                   step.id === currentStep
-                  ? "bg-green-600 text-white"
+                    ? "bg-green-600 text-white"
                     : step.id < currentStep
                       ? "bg-green-500 text-white"
                       : "bg-gray-200 text-gray-500"

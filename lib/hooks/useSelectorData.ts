@@ -3,19 +3,19 @@
  * Simulates backend data fetching for the registration wizard
  */
 
-import { useState, useEffect } from 'react';
-import { 
-  fetchCountries, 
-  fetchEducationLevels, 
-  fetchOccupations, 
-  fetchCities, 
+import { useState, useEffect } from "react";
+import {
+  fetchCountries,
+  fetchEducationLevels,
+  fetchOccupations,
+  fetchCities,
   fetchNationalities,
   type Country,
   type EducationLevel,
   type Occupation,
   type City,
   type Nationality,
-} from '@/lib/static-data';
+} from "@/lib/static-data";
 
 interface SelectorDataState {
   countries: Country[];
@@ -44,16 +44,17 @@ export const useSelectorData = () => {
   useEffect(() => {
     const loadData = async () => {
       try {
-        setState(prev => ({ ...prev, loading: true, error: null }));
-        
+        setState((prev) => ({ ...prev, loading: true, error: null }));
+
         // Fetch all data in parallel to simulate real backend behavior
-        const [countries, educationLevels, occupations, cities, nationalities] = await Promise.all([
-          fetchCountries(),
-          fetchEducationLevels(),
-          fetchOccupations(),
-          fetchCities(),
-          fetchNationalities(),
-        ]);
+        const [countries, educationLevels, occupations, cities, nationalities] =
+          await Promise.all([
+            fetchCountries(),
+            fetchEducationLevels(),
+            fetchOccupations(),
+            fetchCities(),
+            fetchNationalities(),
+          ]);
 
         setState({
           countries,
@@ -65,10 +66,13 @@ export const useSelectorData = () => {
           error: null,
         });
       } catch (error) {
-        setState(prev => ({
+        setState((prev) => ({
           ...prev,
           loading: false,
-          error: error instanceof Error ? error.message : 'حدث خطأ في تحميل البيانات',
+          error:
+            error instanceof Error
+              ? error.message
+              : "حدث خطأ في تحميل البيانات",
         }));
       }
     };
@@ -95,7 +99,9 @@ export const useCountries = () => {
         const data = await fetchCountries();
         setCountries(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'حدث خطأ في تحميل البلدان');
+        setError(
+          err instanceof Error ? err.message : "حدث خطأ في تحميل البلدان",
+        );
       } finally {
         setLoading(false);
       }
@@ -123,7 +129,11 @@ export const useEducationLevels = () => {
         const data = await fetchEducationLevels();
         setEducationLevels(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : 'حدث خطأ في تحميل المستويات التعليمية');
+        setError(
+          err instanceof Error
+            ? err.message
+            : "حدث خطأ في تحميل المستويات التعليمية",
+        );
       } finally {
         setLoading(false);
       }

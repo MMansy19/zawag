@@ -17,7 +17,7 @@ export function MobileBottomNav({ navigation }: MobileBottomNavProps) {
   const isActive = (href: string) => pathname === href;
 
   const renderIcon = (icon: string, isActive: boolean) => {
-    const iconClasses = `w-6 h-6 ${isActive ? "text-primary" : "text-gray-400"}`;
+    const iconClasses = `w-5 h-5 sm:w-6 sm:h-6 ${isActive ? "text-primary" : "text-gray-400"}`;
 
     switch (icon) {
       case "home":
@@ -128,23 +128,25 @@ export function MobileBottomNav({ navigation }: MobileBottomNavProps) {
   };
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 safe-area-pb">
-      <div className="grid grid-cols-5 h-16">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 pb-safe-area">
+      <div className="grid grid-cols-5 h-14 sm:h-16">
         {navigation.slice(0, 5).map((item) => {
           const active = isActive(item.href);
           return (
             <Link
               key={item.name}
               href={item.href}
-              className={`flex flex-col items-center justify-center py-2 px-1 transition-colors ${
+              className={`flex flex-col items-center justify-center py-1 sm:py-2 px-1 transition-colors relative ${
                 active
                   ? "text-primary bg-primary/5"
                   : "text-gray-400 hover:text-gray-600"
               }`}
             >
-              <div className="mb-1">{renderIcon(item.icon, active)}</div>
+              <div className="mb-0.5 sm:mb-1">
+                {renderIcon(item.icon, active)}
+              </div>
               <span
-                className={`text-xs font-medium truncate ${
+                className={`text-xs font-medium truncate max-w-full ${
                   active ? "text-primary" : "text-gray-400"
                 }`}
               >

@@ -14,37 +14,53 @@ export const occupations: Occupation[] = [
   { value: "طبيب", label: "طبيب", category: "الطب والرعاية الصحية" },
   { value: "ممرض", label: "ممرض/ممرضة", category: "الطب والرعاية الصحية" },
   { value: "صيدلي", label: "صيدلي", category: "الطب والرعاية الصحية" },
-  { value: "طبيب أسنان", label: "طبيب أسنان", category: "الطب والرعاية الصحية" },
-  
+  {
+    value: "طبيب أسنان",
+    label: "طبيب أسنان",
+    category: "الطب والرعاية الصحية",
+  },
+
   // Engineering & Technology
   { value: "مهندس", label: "مهندس", category: "الهندسة والتكنولوجيا" },
-  { value: "مطور برمجيات", label: "مطور برمجيات", category: "الهندسة والتكنولوجيا" },
+  {
+    value: "مطور برمجيات",
+    label: "مطور برمجيات",
+    category: "الهندسة والتكنولوجيا",
+  },
   { value: "مبرمج", label: "مبرمج", category: "الهندسة والتكنولوجيا" },
-  { value: "محلل أنظمة", label: "محلل أنظمة", category: "الهندسة والتكنولوجيا" },
-  
+  {
+    value: "محلل أنظمة",
+    label: "محلل أنظمة",
+    category: "الهندسة والتكنولوجيا",
+  },
+
   // Education
   { value: "معلم", label: "معلم/معلمة", category: "التعليم" },
   { value: "أستاذ جامعي", label: "أستاذ جامعي", category: "التعليم" },
   { value: "مدير مدرسة", label: "مدير مدرسة", category: "التعليم" },
-  
+
   // Business & Finance
   { value: "محاسب", label: "محاسب", category: "الأعمال والمالية" },
   { value: "مدير", label: "مدير", category: "الأعمال والمالية" },
   { value: "موظف بنك", label: "موظف بنك", category: "الأعمال والمالية" },
   { value: "مستشار مالي", label: "مستشار مالي", category: "الأعمال والمالية" },
   { value: "رجل أعمال", label: "رجل أعمال", category: "الأعمال والمالية" },
-  
+
   // Legal & Government
   { value: "محامي", label: "محامي", category: "القانون والحكومة" },
   { value: "قاضي", label: "قاضي", category: "القانون والحكومة" },
   { value: "موظف حكومي", label: "موظف حكومي", category: "القانون والحكومة" },
-  
+
   // Religious & Social
   { value: "إمام", label: "إمام", category: "الدين والمجتمع" },
   { value: "معلم قرآن", label: "معلم/ة قرآن", category: "الدين والمجتمع" },
   { value: "داعية", label: "داعية", category: "الدين والمجتمع" },
-  { value: "أخصائي اجتماعي", label: "أخصائي اجتماعي", category: "الدين والمجتمع" },
-  
+  {
+    value: "أخصائي اجتماعي",
+    label: "أخصائي اجتماعي",
+    category: "الدين والمجتمع",
+  },
+
   // Other Professions
   { value: "طيار", label: "طيار", category: "مهن أخرى" },
   { value: "عسكري", label: "عسكري", category: "مهن أخرى" },
@@ -63,7 +79,7 @@ export const occupations: Occupation[] = [
  */
 export const fetchOccupations = async (): Promise<Occupation[]> => {
   // Simulate network delay
-  await new Promise(resolve => setTimeout(resolve, 400));
+  await new Promise((resolve) => setTimeout(resolve, 400));
   return occupations;
 };
 
@@ -72,15 +88,15 @@ export const fetchOccupations = async (): Promise<Occupation[]> => {
  */
 export const getOccupationsByCategory = (): Record<string, Occupation[]> => {
   const grouped: Record<string, Occupation[]> = {};
-  
-  occupations.forEach(occupation => {
+
+  occupations.forEach((occupation) => {
     const category = occupation.category;
     if (!grouped[category]) {
       grouped[category] = [];
     }
     grouped[category].push(occupation);
   });
-  
+
   return grouped;
 };
 
@@ -88,5 +104,5 @@ export const getOccupationsByCategory = (): Record<string, Occupation[]> => {
  * Get occupation by value
  */
 export const getOccupationByValue = (value: string): Occupation | undefined => {
-  return occupations.find(occupation => occupation.value === value);
+  return occupations.find((occupation) => occupation.value === value);
 };

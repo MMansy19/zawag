@@ -259,6 +259,19 @@ module.exports = {
           writingMode: "vertical-rl",
           textOrientation: "mixed",
         },
+        // Safe area utilities for mobile
+        ".pb-safe-area": {
+          paddingBottom: "env(safe-area-inset-bottom, 0px)",
+        },
+        ".pt-safe-area": {
+          paddingTop: "env(safe-area-inset-top, 0px)",
+        },
+        ".pl-safe-area": {
+          paddingLeft: "env(safe-area-inset-left, 0px)",
+        },
+        ".pr-safe-area": {
+          paddingRight: "env(safe-area-inset-right, 0px)",
+        },
       });
 
       // Islamic design components

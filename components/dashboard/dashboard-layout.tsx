@@ -29,7 +29,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
-    <div className="min-h-screen bg-gray-50 pb-16 md:pb-0">
+    <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -64,9 +64,9 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
                   width={32}
                   height={38}
-                  className="h-16 md:h-20 w-auto sm:inline"
+                  className="h-8 sm:h-10 w-auto"
                 />
-                <span>الزواج السعيد</span>
+                <span className="hidden sm:inline">الزواج السعيد</span>
               </Link>
             </div>
 
@@ -102,7 +102,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                     <span className="text-white text-sm font-medium">م</span>
                   </div>
                   <span className="hidden sm:block">محمود المنسي</span>
-                    <ChevronDown className="w-4 h-4 text-gray-400 hidden sm:block" />
+                  <ChevronDown className="w-4 h-4 text-gray-400 hidden sm:block" />
                 </button>
               </div>
             </div>
@@ -114,10 +114,10 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-50 md:hidden">
           <div
-            className="fixed inset-0 bg-black bg-opacity-25"
+            className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm"
             onClick={toggleMobileMenu}
           ></div>
-          <nav className="fixed top-0 right-0 bottom-0 flex flex-col w-80 max-w-sm bg-white shadow-xl">
+          <nav className="fixed top-0 right-0 bottom-0 flex flex-col w-80 max-w-sm bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex items-center justify-between p-4 border-b">
               <span className="text-lg font-bold text-primary">القائمة</span>
               <button
@@ -370,7 +370,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
         </aside>
 
         {/* Main content */}
-        <main className="flex-1 overflow-auto">
+        <main className="flex-1 overflow-auto pb-20 md:pb-0">
           <div className="p-4 sm:p-6 lg:p-8">{children}</div>
         </main>
       </div>

@@ -1200,3 +1200,133 @@ html {
     grid-template-columns: 1fr;
   }
 }
+
+/* Enhanced mobile responsiveness for dashboard */
+@media (max-width: 768px) {
+  /* Reduce padding on mobile for dashboard content */
+  .dashboard-content {
+    padding: 0.75rem;
+  }
+
+  /* Better mobile touch targets */
+  .mobile-touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Mobile-optimized cards */
+  .mobile-card {
+    border-radius: 8px;
+    padding: 12px;
+    margin-bottom: 8px;
+  }
+
+  /* Mobile navigation fixes */
+  .mobile-nav-overlay {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* Optimize text sizes for mobile readability */
+  .mobile-text-xs {
+    font-size: 11px;
+  }
+  .mobile-text-sm {
+    font-size: 13px;
+  }
+  .mobile-text-base {
+    font-size: 15px;
+  }
+  .mobile-text-lg {
+    font-size: 17px;
+  }
+  .mobile-text-xl {
+    font-size: 19px;
+  }
+
+  /* Better mobile spacing */
+  .mobile-space-tight {
+    margin-bottom: 8px;
+  }
+  .mobile-space-normal {
+    margin-bottom: 12px;
+  }
+  .mobile-space-loose {
+    margin-bottom: 16px;
+  }
+}
+
+/* Safe area support for iOS devices */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe-area {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .pt-safe-area {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .pl-safe-area {
+    padding-left: env(safe-area-inset-left);
+  }
+
+  .pr-safe-area {
+    padding-right: env(safe-area-inset-right);
+  }
+}
+
+/* Improved mobile scrolling */
+.mobile-scroll-smooth {
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+}
+
+/* Mobile-friendly form elements */
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .form-control-mobile {
+    padding: 12px 16px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    font-size: 16px;
+  }
+}
+
+/* Enhanced mobile visual hierarchy */
+.mobile-visual-hierarchy h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+.mobile-visual-hierarchy h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.mobile-visual-hierarchy h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+.mobile-visual-hierarchy h4 {
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+/* Mobile button improvements */
+@media (max-width: 640px) {
+  .btn-mobile {
+    padding: 12px 20px;
+    font-size: 16px;
+    border-radius: 8px;
+    min-height: 44px;
+    font-weight: 500;
+  }
+
+  .btn-mobile-full {
+    width: 100%;
+    justify-content: center;
+  }
+}
