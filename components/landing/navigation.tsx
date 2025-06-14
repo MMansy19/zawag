@@ -51,7 +51,7 @@ export function LandingNavigation() {
           // Small delay to ensure page is fully loaded
           setTimeout(() => {
             const isMobile = window.innerWidth < 768;
-            const headerOffset = isMobile ? 380 : 60;
+            const headerOffset = isMobile ? 100 : 60;
 
             const elementPosition = element.getBoundingClientRect().top;
             const offsetPosition =
