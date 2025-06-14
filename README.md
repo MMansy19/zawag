@@ -10,7 +10,7 @@
   [![Version](https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge)](https://github.com/your-org/islamic-zawaj-platform)
   [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](./LICENSE)
   
-  [🌟 Features](#-features) • [🚀 Live Demo](https://islamic-zawaj-platform.vercel.app) • [📖 Documentation](#-documentation) • [🤝 Support](#-support)
+  [🌟 Features](#-features) • [🚀 Live Demo](https://alzawajalsaeid.vercel.app) • [📖 Documentation](#-documentation) • [🤝 Support](#-support)
   
 </div>
 
@@ -135,7 +135,7 @@
 
 ## � Live Demo
 
-🌐 **Experience the platform**: [https://islamic-zawaj-platform.vercel.app](https://islamic-zawaj-platform.vercel.app)
+🌐 **Experience the platform**: [https://alzawajalsaeid.vercel.app](https://alzawajalsaeid.vercel.app)
 
 ### Demo Credentials
 
@@ -597,6 +597,6 @@ _Ameen Ya Rabb al-Alameen_
 
 **Built with ❤️ and Islamic values for the Muslim community worldwide**
 
-[🌟 **Live Demo**](https://islamic-zawaj-platform.vercel.app) | [📚 **Documentation**](./docs) | [🆘 **Support**](mailto:support@zawaj-platform.com)
+[🌟 **Live Demo**](https://alzawajalsaeid.vercel.app) | [📚 **Documentation**](./docs) | [🆘 **Support**](mailto:support@zawaj-platform.com)
 
 </div>
