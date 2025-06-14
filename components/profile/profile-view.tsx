@@ -9,19 +9,24 @@ import { Profile } from "@/lib/types";
 import { useAuth } from "@/providers/auth-provider";
 import { profileApi } from "@/lib/api";
 import { showToast } from "@/components/ui/toaster";
-import { 
-  basicInfoSchema, 
-  religiousInfoSchema, 
-  educationWorkSchema, 
+import {
+  basicInfoSchema,
+  religiousInfoSchema,
+  educationWorkSchema,
   bioSchema,
   guardianInfoSchema,
   type BasicInfoFormData,
   type ReligiousInfoFormData,
   type EducationWorkFormData,
   type BioFormData,
-  type GuardianInfoFormData
+  type GuardianInfoFormData,
 } from "@/lib/validation";
-import { getCountriesByGroup, getOccupationsByCategory, getCitiesGroupedByCountry, getNationalitiesByGroup } from "@/lib/static-data";
+import {
+  getCountriesByGroup,
+  getOccupationsByCategory,
+  getCitiesGroupedByCountry,
+  getNationalitiesByGroup,
+} from "@/lib/static-data";
 
 export function ProfileView() {
   const { user } = useAuth();
@@ -78,43 +83,43 @@ export function ProfileView() {
     }
 
     setEditMode(section);
-    
+
     // Initialize edit data based on section
     switch (section) {
-      case 'basic':
+      case "basic":
         setEditData({
-          name: profile?.name || '',
+          name: profile?.name || "",
           age: profile?.age || 18,
-          city: profile?.city || '',
-          nationality: profile?.nationality || '',
-          maritalStatus: profile?.maritalStatus || 'single'
+          city: profile?.city || "",
+          nationality: profile?.nationality || "",
+          maritalStatus: profile?.maritalStatus || "single",
         });
         break;
-      case 'religious':
+      case "religious":
         setEditData({
-          religiousLevel: profile?.religiousLevel || 'practicing',
+          religiousLevel: profile?.religiousLevel || "practicing",
           prays: profile?.prays ?? true,
           fasts: profile?.fasts ?? true,
           hasHijab: profile?.hasHijab || profile?.hijab || false,
-          hasBeard: profile?.hasBeard || profile?.beard || false
+          hasBeard: profile?.hasBeard || profile?.beard || false,
         });
         break;
-      case 'education':
+      case "education":
         setEditData({
-          education: profile?.education || '',
-          occupation: profile?.occupation || ''
+          education: profile?.education || "",
+          occupation: profile?.occupation || "",
         });
         break;
-      case 'bio':
+      case "bio":
         setEditData({
-          bio: profile?.bio || ''
+          bio: profile?.bio || "",
         });
         break;
-      case 'guardian':
+      case "guardian":
         setEditData({
-          guardianName: profile?.guardianName || '',
-          guardianPhone: profile?.guardianPhone || '',
-          guardianEmail: profile?.guardianEmail || ''
+          guardianName: profile?.guardianName || "",
+          guardianPhone: profile?.guardianPhone || "",
+          guardianEmail: profile?.guardianEmail || "",
         });
         break;
     }
@@ -131,29 +136,29 @@ export function ProfileView() {
     setSubmitting(true);
     try {
       let response;
-      
+
       switch (editMode) {
-        case 'basic':
+        case "basic":
           const basicData = basicInfoSchema.parse({
             ...editData,
             gender: profile.gender, // Keep original gender
-            country: profile.country // Keep original country
+            country: profile.country, // Keep original country
           });
           response = await profileApi.updateBasicInfo(basicData);
           break;
-        case 'religious':
+        case "religious":
           const religiousData = religiousInfoSchema.parse(editData);
           response = await profileApi.updateReligiousInfo(religiousData);
           break;
-        case 'education':
+        case "education":
           const educationData = educationWorkSchema.parse(editData);
           response = await profileApi.updateEducationWork(educationData);
           break;
-        case 'bio':
+        case "bio":
           const bioData = bioSchema.parse(editData);
           response = await profileApi.updateBio(bioData);
           break;
-        case 'guardian':
+        case "guardian":
           const guardianData = guardianInfoSchema.parse(editData);
           response = await profileApi.updateGuardianInfo(guardianData);
           break;
@@ -165,13 +170,13 @@ export function ProfileView() {
         setProfile(response.data);
         setEditMode(null);
         setEditData({});
-        
+
         // Update last edit date
         const now = new Date().toISOString();
         localStorage.setItem(`profile_last_edit_${user?.id}`, now);
         setLastEditDate(now);
         setCanEdit(false);
-        
+
         showToast.success("تم تحديث الملف الشخصي بنجاح");
       }
     } catch (error: any) {
@@ -231,16 +236,16 @@ export function ProfileView() {
 
   const getTimeUntilNextEdit = () => {
     if (!lastEditDate) return null;
-    
+
     const lastEdit = new Date(lastEditDate);
     const nextEdit = new Date(lastEdit);
     nextEdit.setDate(nextEdit.getDate() + 7);
-    
+
     const now = new Date();
     const diff = nextEdit.getTime() - now.getTime();
-    
+
     if (diff <= 0) return null;
-    
+
     const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
     return days;
   };
@@ -249,8 +254,8 @@ export function ProfileView() {
     <div className="space-y-4">
       <Input
         label="الاسم الكامل"
-        value={editData.name || ''}
-        onChange={(e) => setEditData({...editData, name: e.target.value})}
+        value={editData.name || ""}
+        onChange={(e) => setEditData({ ...editData, name: e.target.value })}
         placeholder="أدخل اسمك الكامل"
         disabled={submitting}
         required
@@ -259,8 +264,10 @@ export function ProfileView() {
         <Input
           label="العمر"
           type="number"
-          value={editData.age || ''}
-          onChange={(e) => setEditData({...editData, age: parseInt(e.target.value)})}
+          value={editData.age || ""}
+          onChange={(e) =>
+            setEditData({ ...editData, age: parseInt(e.target.value) })
+          }
           placeholder="أدخل عمرك"
           min="18"
           max="80"
@@ -269,8 +276,8 @@ export function ProfileView() {
         />
         <Input
           label="المدينة"
-          value={editData.city || ''}
-          onChange={(e) => setEditData({...editData, city: e.target.value})}
+          value={editData.city || ""}
+          onChange={(e) => setEditData({ ...editData, city: e.target.value })}
           placeholder="أدخل مدينتك"
           disabled={submitting}
           required
@@ -283,21 +290,25 @@ export function ProfileView() {
           </label>
           <select
             value={editData.nationality || ""}
-            onChange={(e) => setEditData({...editData, nationality: e.target.value})}
+            onChange={(e) =>
+              setEditData({ ...editData, nationality: e.target.value })
+            }
             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
             disabled={submitting}
             required
           >
             <option value="">اختر الجنسية</option>
-            {Object.entries(getNationalitiesByGroup()).map(([group, nationalities]) => (
-              <optgroup key={group} label={group}>
-                {nationalities.map((nationality) => (
-                  <option key={nationality.value} value={nationality.value}>
-                    {nationality.label}
-                  </option>
-                ))}
-              </optgroup>
-            ))}
+            {Object.entries(getNationalitiesByGroup()).map(
+              ([group, nationalities]) => (
+                <optgroup key={group} label={group}>
+                  {nationalities.map((nationality) => (
+                    <option key={nationality.value} value={nationality.value}>
+                      {nationality.label}
+                    </option>
+                  ))}
+                </optgroup>
+              ),
+            )}
           </select>
         </div>
         <div className="space-y-2">
@@ -306,7 +317,9 @@ export function ProfileView() {
           </label>
           <select
             value={editData.maritalStatus || ""}
-            onChange={(e) => setEditData({...editData, maritalStatus: e.target.value})}
+            onChange={(e) =>
+              setEditData({ ...editData, maritalStatus: e.target.value })
+            }
             className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
             disabled={submitting}
             required
@@ -329,7 +342,9 @@ export function ProfileView() {
         </label>
         <select
           value={editData.religiousLevel || "practicing"}
-          onChange={(e) => setEditData({...editData, religiousLevel: e.target.value})}
+          onChange={(e) =>
+            setEditData({ ...editData, religiousLevel: e.target.value })
+          }
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
           disabled={submitting}
           required
@@ -345,7 +360,9 @@ export function ProfileView() {
             type="checkbox"
             id="prays"
             checked={editData.prays ?? true}
-            onChange={(e) => setEditData({...editData, prays: e.target.checked})}
+            onChange={(e) =>
+              setEditData({ ...editData, prays: e.target.checked })
+            }
             className="ml-2"
             disabled={submitting}
           />
@@ -358,7 +375,9 @@ export function ProfileView() {
             type="checkbox"
             id="fasts"
             checked={editData.fasts ?? true}
-            onChange={(e) => setEditData({...editData, fasts: e.target.checked})}
+            onChange={(e) =>
+              setEditData({ ...editData, fasts: e.target.checked })
+            }
             className="ml-2"
             disabled={submitting}
           />
@@ -366,32 +385,42 @@ export function ProfileView() {
             أصوم رمضان
           </label>
         </div>
-        {profile?.gender === 'female' && (
+        {profile?.gender === "female" && (
           <div className="flex items-center">
             <input
               type="checkbox"
               id="hasHijab"
               checked={editData.hasHijab ?? false}
-              onChange={(e) => setEditData({...editData, hasHijab: e.target.checked})}
+              onChange={(e) =>
+                setEditData({ ...editData, hasHijab: e.target.checked })
+              }
               className="ml-2"
               disabled={submitting}
             />
-            <label htmlFor="hasHijab" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="hasHijab"
+              className="text-sm font-medium text-gray-700"
+            >
               أرتدي الحجاب
             </label>
           </div>
         )}
-        {profile?.gender === 'male' && (
+        {profile?.gender === "male" && (
           <div className="flex items-center">
             <input
               type="checkbox"
               id="hasBeard"
               checked={editData.hasBeard ?? false}
-              onChange={(e) => setEditData({...editData, hasBeard: e.target.checked})}
+              onChange={(e) =>
+                setEditData({ ...editData, hasBeard: e.target.checked })
+              }
               className="ml-2"
               disabled={submitting}
             />
-            <label htmlFor="hasBeard" className="text-sm font-medium text-gray-700">
+            <label
+              htmlFor="hasBeard"
+              className="text-sm font-medium text-gray-700"
+            >
               أربي لحية
             </label>
           </div>
@@ -404,8 +433,10 @@ export function ProfileView() {
     <div className="space-y-4">
       <Input
         label="المستوى التعليمي"
-        value={editData.education || ''}
-        onChange={(e) => setEditData({...editData, education: e.target.value})}
+        value={editData.education || ""}
+        onChange={(e) =>
+          setEditData({ ...editData, education: e.target.value })
+        }
         placeholder="مثال: بكالوريوس هندسة"
         disabled={submitting}
         required
@@ -416,21 +447,25 @@ export function ProfileView() {
         </label>
         <select
           value={editData.occupation || ""}
-          onChange={(e) => setEditData({...editData, occupation: e.target.value})}
+          onChange={(e) =>
+            setEditData({ ...editData, occupation: e.target.value })
+          }
           className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
           disabled={submitting}
           required
         >
           <option value="">اختر المهنة</option>
-          {Object.entries(getOccupationsByCategory()).map(([category, occupations]) => (
-            <optgroup key={category} label={category}>
-              {occupations.map((occupation) => (
-                <option key={occupation.value} value={occupation.value}>
-                  {occupation.label}
-                </option>
-              ))}
-            </optgroup>
-          ))}
+          {Object.entries(getOccupationsByCategory()).map(
+            ([category, occupations]) => (
+              <optgroup key={category} label={category}>
+                {occupations.map((occupation) => (
+                  <option key={occupation.value} value={occupation.value}>
+                    {occupation.label}
+                  </option>
+                ))}
+              </optgroup>
+            ),
+          )}
         </select>
       </div>
     </div>
@@ -444,7 +479,7 @@ export function ProfileView() {
         </label>
         <textarea
           value={editData.bio || ""}
-          onChange={(e) => setEditData({...editData, bio: e.target.value})}
+          onChange={(e) => setEditData({ ...editData, bio: e.target.value })}
           rows={6}
           maxLength={500}
           className="w-full p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
@@ -463,23 +498,29 @@ export function ProfileView() {
     <div className="space-y-4">
       <Input
         label="اسم الولي"
-        value={editData.guardianName || ''}
-        onChange={(e) => setEditData({...editData, guardianName: e.target.value})}
+        value={editData.guardianName || ""}
+        onChange={(e) =>
+          setEditData({ ...editData, guardianName: e.target.value })
+        }
         placeholder="أدخل اسم الولي"
         disabled={submitting}
       />
       <Input
         label="هاتف الولي"
-        value={editData.guardianPhone || ''}
-        onChange={(e) => setEditData({...editData, guardianPhone: e.target.value})}
+        value={editData.guardianPhone || ""}
+        onChange={(e) =>
+          setEditData({ ...editData, guardianPhone: e.target.value })
+        }
         placeholder="أدخل رقم هاتف الولي"
         disabled={submitting}
       />
       <Input
         label="بريد الولي الإلكتروني"
         type="email"
-        value={editData.guardianEmail || ''}
-        onChange={(e) => setEditData({...editData, guardianEmail: e.target.value})}
+        value={editData.guardianEmail || ""}
+        onChange={(e) =>
+          setEditData({ ...editData, guardianEmail: e.target.value })
+        }
         placeholder="أدخل بريد الولي الإلكتروني"
         disabled={submitting}
       />
@@ -550,19 +591,19 @@ export function ProfileView() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-semibold">المعلومات الشخصية</h3>
-              {editMode === 'basic' ? (
+              {editMode === "basic" ? (
                 <div className="space-x-2 space-x-reverse">
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     onClick={handleEditSave}
                     disabled={submitting}
                     className="ml-2"
                   >
                     {submitting ? "جاري الحفظ..." : "حفظ"}
                   </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
+                  <Button
+                    size="sm"
+                    variant="outline"
                     onClick={handleEditCancel}
                     disabled={submitting}
                   >
@@ -570,10 +611,10 @@ export function ProfileView() {
                   </Button>
                 </div>
               ) : (
-                <Button 
-                  size="sm" 
-                  variant="outline" 
-                  onClick={() => handleEditStart('basic')}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleEditStart("basic")}
                   disabled={!canEdit}
                 >
                   تعديل
@@ -582,7 +623,7 @@ export function ProfileView() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {editMode === 'basic' ? (
+            {editMode === "basic" ? (
               renderBasicInfoEdit()
             ) : (
               <>
@@ -609,7 +650,9 @@ export function ProfileView() {
                   </label>
                   <p className="mt-1 text-sm text-gray-900">
                     {profile.gender === "male" ? "ذكر" : "أنثى"}
-                    <span className="text-xs text-gray-500 mr-2">(غير قابل للتعديل)</span>
+                    <span className="text-xs text-gray-500 mr-2">
+                      (غير قابل للتعديل)
+                    </span>
                   </p>
                 </div>
                 <div>
@@ -618,7 +661,9 @@ export function ProfileView() {
                   </label>
                   <p className="mt-1 text-sm text-gray-900">
                     {profile.country}
-                    <span className="text-xs text-gray-500 mr-2">(غير قابل للتعديل)</span>
+                    <span className="text-xs text-gray-500 mr-2">
+                      (غير قابل للتعديل)
+                    </span>
                   </p>
                 </div>
                 <div>
@@ -632,9 +677,11 @@ export function ProfileView() {
                     الحالة الزوجية
                   </label>
                   <p className="mt-1 text-sm text-gray-900">
-                    {profile.maritalStatus === 'single' ? 'أعزب/عزباء' : 
-                     profile.maritalStatus === 'divorced' ? 'مطلق/مطلقة' : 
-                     'أرمل/أرملة'}
+                    {profile.maritalStatus === "single"
+                      ? "أعزب/عزباء"
+                      : profile.maritalStatus === "divorced"
+                        ? "مطلق/مطلقة"
+                        : "أرمل/أرملة"}
                   </p>
                 </div>
                 <div>
@@ -655,19 +702,19 @@ export function ProfileView() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-semibold">التعليم والعمل</h3>
-              {editMode === 'education' ? (
+              {editMode === "education" ? (
                 <div className="space-x-2 space-x-reverse">
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     onClick={handleEditSave}
                     disabled={submitting}
                     className="ml-2"
                   >
                     {submitting ? "جاري الحفظ..." : "حفظ"}
                   </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
+                  <Button
+                    size="sm"
+                    variant="outline"
                     onClick={handleEditCancel}
                     disabled={submitting}
                   >
@@ -675,10 +722,10 @@ export function ProfileView() {
                   </Button>
                 </div>
               ) : (
-                <Button 
-                  size="sm" 
-                  variant="outline" 
-                  onClick={() => handleEditStart('education')}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleEditStart("education")}
                   disabled={!canEdit}
                 >
                   تعديل
@@ -687,7 +734,7 @@ export function ProfileView() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {editMode === 'education' ? (
+            {editMode === "education" ? (
               renderEducationEdit()
             ) : (
               <>
@@ -717,19 +764,19 @@ export function ProfileView() {
           <CardHeader>
             <div className="flex items-center justify-between">
               <h3 className="text-xl font-semibold">المعلومات الدينية</h3>
-              {editMode === 'religious' ? (
+              {editMode === "religious" ? (
                 <div className="space-x-2 space-x-reverse">
-                  <Button 
-                    size="sm" 
+                  <Button
+                    size="sm"
                     onClick={handleEditSave}
                     disabled={submitting}
                     className="ml-2"
                   >
                     {submitting ? "جاري الحفظ..." : "حفظ"}
                   </Button>
-                  <Button 
-                    size="sm" 
-                    variant="outline" 
+                  <Button
+                    size="sm"
+                    variant="outline"
                     onClick={handleEditCancel}
                     disabled={submitting}
                   >
@@ -737,10 +784,10 @@ export function ProfileView() {
                   </Button>
                 </div>
               ) : (
-                <Button 
-                  size="sm" 
-                  variant="outline" 
-                  onClick={() => handleEditStart('religious')}
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleEditStart("religious")}
                   disabled={!canEdit}
                 >
                   تعديل
@@ -749,7 +796,7 @@ export function ProfileView() {
             </div>
           </CardHeader>
           <CardContent className="space-y-4">
-            {editMode === 'religious' ? (
+            {editMode === "religious" ? (
               renderReligiousInfoEdit()
             ) : (
               <>
@@ -768,7 +815,9 @@ export function ProfileView() {
                   </p>
                 </div>
                 <div className="flex flex-wrap gap-2">
-                  {profile.prays && <Badge variant="outline">يصلي بانتظام</Badge>}
+                  {profile.prays && (
+                    <Badge variant="outline">يصلي بانتظام</Badge>
+                  )}
                   {profile.fasts && <Badge variant="outline">يصوم</Badge>}
                   {(profile.hijab || profile.hasHijab) && (
                     <Badge variant="outline">ترتدي الحجاب</Badge>
