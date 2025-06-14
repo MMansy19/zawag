@@ -178,10 +178,15 @@ const useRegistration = (): UseRegistrationResult => {
   const goToStep = useCallback(
     (step: number) => {
       if (step >= 1 && step <= state.totalSteps) {
-        dispatch({ type: "SET_STEP", payload: step });
+        // Skip photo step (step 7) for female users
+        if (step === 7 && state.data.gender === "female") {
+          dispatch({ type: "SET_STEP", payload: 8 });
+        } else {
+          dispatch({ type: "SET_STEP", payload: step });
+        }
       }
     },
-    [state.totalSteps],
+    [state.totalSteps, state.data.gender],
   );
 
   const nextStep = useCallback(async (): Promise<boolean> => {
@@ -191,17 +196,33 @@ const useRegistration = (): UseRegistrationResult => {
     dispatch({ type: "MARK_STEP_COMPLETED", payload: state.currentStep });
 
     if (state.currentStep < state.totalSteps) {
-      dispatch({ type: "SET_STEP", payload: state.currentStep + 1 });
+      let nextStepNumber = state.currentStep + 1;
+      
+      // Skip photo step (step 7) for female users
+      if (nextStepNumber === 7 && state.data.gender === "female") {
+        nextStepNumber = 8;
+        // Also mark step 7 as completed since we're skipping it
+        dispatch({ type: "MARK_STEP_COMPLETED", payload: 7 });
+      }
+      
+      dispatch({ type: "SET_STEP", payload: nextStepNumber });
     }
 
     return true;
-  }, [validateCurrentStep, state.currentStep, state.totalSteps]);
+  }, [validateCurrentStep, state.currentStep, state.totalSteps, state.data.gender]);
 
   const prevStep = useCallback(() => {
     if (state.currentStep > 1) {
-      dispatch({ type: "SET_STEP", payload: state.currentStep - 1 });
+      let prevStepNumber = state.currentStep - 1;
+      
+      // Skip photo step (step 7) for female users when going backwards
+      if (prevStepNumber === 7 && state.data.gender === "female") {
+        prevStepNumber = 6;
+      }
+      
+      dispatch({ type: "SET_STEP", payload: prevStepNumber });
     }
-  }, [state.currentStep]);
+  }, [state.currentStep, state.data.gender]);
 
   const updateData = useCallback((data: Partial<RegisterRequest>) => {
     dispatch({ type: "UPDATE_DATA", payload: data });

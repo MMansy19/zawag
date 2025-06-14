@@ -25,7 +25,7 @@ export function AuthLayout({
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100 flex flex-col">
       {/* Header */}
-      <header className="flex md:flex-row flex-col justify-between items-center p-6">
+      <header className="flex md:flex-row flex-col justify-between items-center p-6 bg-white">
         {showLogo && (
           <div className="flex items-center justify-start">
             <Link
@@ -85,7 +85,7 @@ export function AuthLayout({
               </p>
             </div>
 
-            <div className="flex space-x-6 text-sm">
+            <div className="flex gap-6 text-sm">
               <Link
                 href="/terms-privacy"
                 className="text-gray-600 hover:text-primary"

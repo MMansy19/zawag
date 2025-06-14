@@ -84,7 +84,7 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
                 ملتح
               </Badge>
             )}{" "}
-            {profile.religiousLevel && (
+            {/* {profile.religiousLevel && (
               <Badge variant="outline" className="text-xs">
                 {profile.religiousLevel === "practicing"
                   ? "ملتزم"
@@ -94,7 +94,7 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
                       ? "ملتزم جداً"
                       : "أساسي"}
               </Badge>
-            )}
+            )} */}
           </div>
 
           {/* Bio Preview */}

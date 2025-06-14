@@ -54,6 +54,32 @@ const StepLoader = () => (
   </div>
 );
 
+const SkipPhotoMessage = ({ onSkip }: { onSkip: () => void }) => {
+  React.useEffect(() => {
+    const timer = setTimeout(() => onSkip(), 1500);
+    return () => clearTimeout(timer);
+  }, [onSkip]);
+
+  return (
+    <div className="text-center py-12">
+      <div className="mb-6">
+        <div className="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
+          <span className="text-3xl">✓</span>
+        </div>
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 mb-4">
+        تم تخطي خطوة الصورة الشخصية
+      </h3>
+      <p className="text-gray-600 mb-2">
+        احتراماً لتعاليم الإسلام والحشمة، تم تخطي خطوة إضافة الصورة الشخصية
+      </p>
+      <p className="text-sm text-gray-500">
+        جاري الانتقال إلى الخطوة التالية...
+      </p>
+    </div>
+  );
+};
+
 export function RegistrationWizard({
   className = "",
 }: RegistrationWizardProps) {
@@ -132,6 +158,10 @@ export function RegistrationWizard({
       case 6:
         return <Step6Preferences {...stepProps} />;
       case 7:
+        // Skip photo step for female users (Islamic modesty requirements)
+        if (data.gender === "female") {
+          return <SkipPhotoMessage onSkip={nextStep} />;
+        }
         return (
           <Step7Photo
             {...stepProps}
