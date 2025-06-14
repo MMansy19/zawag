@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { MobileBottomNav } from "./mobile-bottom-nav";
+import { Bell, ChevronDown } from "lucide-react";
 
 interface DashboardLayoutProps {
   children: ReactNode;
@@ -65,7 +66,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   height={38}
                   className="h-16 md:h-20 w-auto sm:inline"
                 />
-                <span className="hidden sm:inline">الزواج السعيد</span>
+                <span>الزواج السعيد</span>
               </Link>
             </div>
 
@@ -90,19 +91,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             <div className="flex items-center gap-2 sm:gap-4">
               {/* Notifications */}
               <button className="relative p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
-                <svg
-                  className="w-5 h-5 sm:w-6 sm:h-6"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 17h5l-5 5v-5zM5 12v7a1 1 0 001 1h6m0-4v4m0 0v-7a1 1 0 011-1h2m-3 0V4a1 1 0 011-1h2a1 1 0 011 1v10m-6 0a1 1 0 001 1h2M7 7h10"
-                  />
-                </svg>
+                <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
                 <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
               </button>
 
@@ -112,20 +101,8 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   <div className="w-8 h-8 bg-gradient-to-r from-primary to-primary-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-medium">م</span>
                   </div>
-                  <span className="hidden sm:block">محمد أحمد</span>
-                  <svg
-                    className="w-4 h-4 text-gray-400 hidden sm:block"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
+                  <span className="hidden sm:block">محمود المنسي</span>
+                    <ChevronDown className="w-4 h-4 text-gray-400 hidden sm:block" />
                 </button>
               </div>
             </div>
