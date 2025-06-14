@@ -17,6 +17,7 @@ import {
 import { showToast } from "@/components/ui/toaster";
 import { ImageUploader } from "@/components/profile/image-uploader";
 import { ProfileSummaryCard } from "@/components/profile/profile-summary-card";
+import { ProfileFormData } from "@/lib/types/index";
 import { useSelectorData } from "@/lib/hooks/useSelectorData";
 import {
   getCountriesByGroup,
@@ -133,10 +134,18 @@ export function RegistrationWizard() {
     },
     { id: 4, title: "التعليم والعمل", description: "المؤهلات والمهنة والموقع" },
     { id: 5, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
-    { id: 6, title: "تفضيلات الزواج", description: "المواصفات المرغوبة في شريك الحياة" },
+    {
+      id: 6,
+      title: "تفضيلات الزواج",
+      description: "المواصفات المرغوبة في شريك الحياة",
+    },
     { id: 7, title: "الصورة الشخصية", description: "رفع صورة (اختياري)" },
     { id: 8, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
-    { id: 9, title: "مراجعة وإرسال", description: "مراجعة المعلومات وإنشاء الملف" },
+    {
+      id: 9,
+      title: "مراجعة وإرسال",
+      description: "مراجعة المعلومات وإنشاء الملف",
+    },
   ];
 
   const sendOTP = async () => {
@@ -767,27 +776,43 @@ export function RegistrationWizard() {
             </div>
 
             <ProfileSummaryCard
-              data={{
-                name: `${watch("firstName")} ${watch("lastName")}`,
-                age: watch("age"),
-                gender: watch("gender"),
-                country: watch("country"),
-                city: watch("city"),
-                nationality: watch("nationality"),
-                maritalStatus: watch("maritalStatus"),
-                education: watch("education"),
-                occupation: watch("occupation"),
-                religiousLevel: watch("religiousLevel"),
-                prays: watch("prays"),
-                fasts: watch("fasts"),
-                hasHijab: watch("wearsHijab"),
-                hasBeard: watch("hasBeard"),
-                bio: watch("bio"),
-                guardianName: watch("guardianName"),
-                guardianPhone: watch("guardianPhone"),
-                guardianEmail: watch("guardianEmail"),
-                preferences: watch("preferences"),
-              }}
+              data={
+                {
+                  name: `${watch("firstName")} ${watch("lastName")}`,
+                  age: watch("age"),
+                  gender: watch("gender"),
+                  country: watch("country"),
+                  city: watch("city"),
+                  nationality: watch("nationality"),
+                  maritalStatus: watch("maritalStatus"),
+                  ...(watch("education") && { education: watch("education") }),
+                  ...(watch("occupation") && {
+                    occupation: watch("occupation"),
+                  }),
+                  religiousLevel: watch("religiousLevel"),
+                  prays: watch("prays"),
+                  fasts: watch("fasts"),
+                  ...(watch("wearsHijab") !== undefined && {
+                    hasHijab: watch("wearsHijab"),
+                  }),
+                  ...(watch("hasBeard") !== undefined && {
+                    hasBeard: watch("hasBeard"),
+                  }),
+                  ...(watch("bio") && { bio: watch("bio") }),
+                  ...(watch("guardianName") && {
+                    guardianName: watch("guardianName"),
+                  }),
+                  ...(watch("guardianPhone") && {
+                    guardianPhone: watch("guardianPhone"),
+                  }),
+                  ...(watch("guardianEmail") && {
+                    guardianEmail: watch("guardianEmail"),
+                  }),
+                  ...(watch("preferences") && {
+                    preferences: watch("preferences"),
+                  }),
+                } as ProfileFormData
+              }
               onEdit={(step) => {
                 // Navigate to specific step for editing
                 const stepMap: Record<string, number> = {
