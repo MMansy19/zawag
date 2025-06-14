@@ -1,10 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Profile } from "@/lib/types";
+import { Eye, Heart } from "lucide-react";
 
 interface ProfileCardProps {
   profile: Profile;
@@ -12,6 +14,7 @@ interface ProfileCardProps {
 }
 
 export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
+  const router = useRouter();
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [message, setMessage] = useState("");
 
@@ -25,6 +28,10 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
       setShowRequestModal(false);
       setMessage("");
     }
+  };
+
+  const handleViewProfile = () => {
+    router.push(`/profile/${profile.id}`);
   };
 
   return (
@@ -115,14 +122,26 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
             </p>
           </div>
 
-          {/* Action Button */}
-          <Button
-            onClick={() => setShowRequestModal(true)}
-            className="w-full"
-            size="sm"
-          >
-            إرسال طلب زواج
-          </Button>
+          {/* Action Buttons */}
+          <div className="flex gap-2">
+            <Button
+              onClick={handleViewProfile}
+              variant="outline"
+              className="flex-1 flex items-center justify-center gap-2"
+              size="sm"
+            >
+              <Eye className="h-4 w-4" />
+              عرض الملف
+            </Button>
+            <Button
+              onClick={() => setShowRequestModal(true)}
+              className="flex-1 flex items-center justify-center gap-2"
+              size="sm"
+            >
+              <Heart className="h-4 w-4" />
+              طلب زواج
+            </Button>
+          </div>
         </CardContent>
       </Card>{" "}
       {/* Request Modal */}

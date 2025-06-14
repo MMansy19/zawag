@@ -13,7 +13,7 @@ function SearchPageContent() {
         {/* Header */}
         <div className="text-center sm:text-right">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-            البحث عن شريك الحياة 💕
+            البحث عن شريك الحياة 
           </h1>
           <p className="text-sm sm:text-base text-gray-600">
             استخدم الفلاتر للعثور على الشريك المناسب وفقاً لمعاييرك

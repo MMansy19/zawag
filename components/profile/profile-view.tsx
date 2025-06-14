@@ -15,11 +15,6 @@ import {
   educationWorkSchema,
   bioSchema,
   guardianInfoSchema,
-  type BasicInfoFormData,
-  type ReligiousInfoFormData,
-  type EducationWorkFormData,
-  type BioFormData,
-  type GuardianInfoFormData,
 } from "@/lib/validation";
 import {
   getCountriesByGroup,
@@ -28,8 +23,16 @@ import {
   getNationalitiesByGroup,
 } from "@/lib/static-data";
 
+// Mock user data
+const user = {
+  id: "mock-user-123",
+  name: "محمود المنسي",
+  email: "mahmoud@example.com",
+  isVerified: true
+};
+
 export function ProfileView() {
-  const { user } = useAuth();
+  // const { user } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [editMode, setEditMode] = useState<string | null>(null);
@@ -48,13 +51,48 @@ export function ProfileView() {
 
     setLoading(true);
     try {
-      const response = await profileApi.getProfile();
-      if (response.success && response.data) {
-        setProfile(response.data);
-        // Check last edit date from profile or localStorage
-        const lastEdit = localStorage.getItem(`profile_last_edit_${user.id}`);
-        setLastEditDate(lastEdit);
-      }
+      // Use mocked data until server is ready
+      const mockProfile: Profile = {
+        id: user.id || "mock-user-id",
+        userId: user.id || "mock-user-id",
+        name: "محمود المنسي",
+        age: 23,
+        birthDate: "2003-05-15",
+        gender: "male",
+        city: "القاهرة",
+        country: "مصر",
+        nationality: "مصري",
+        maritalStatus: "single",
+        religiousLevel: "practicing",
+        prays: true,
+        fasts: true,
+        hasBeard: true,
+        hasHijab: false,
+        education: "بكالوريوس هندسة حاسوب",
+        occupation: "مطور برمجيات",
+        bio: "أبحث عن شريكة حياة ملتزمة وتتشارك معي نفس القيم والأهداف في الحياة. أحب القراءة والرياضة والسفر. أسعى لبناء أسرة سعيدة ومترابطة.",
+        guardianName: "محمد علي أحمد",
+        guardianPhone: "+966509876543",
+        guardianEmail: "guardian@example.com",
+        isVerified: true,
+        isComplete: true,
+        isApproved: true,
+        privacySettings: {
+          showProfilePicture: "everyone",
+          showAge: true,
+          showLocation: true,
+          showOccupation: true,
+          allowMessagesFrom: "everyone"
+        },
+        createdAt: "2024-01-15T10:00:00.000Z",
+        updatedAt: "2024-06-01T14:30:00.000Z"
+      };
+      console.log("Mock profile loaded:", mockProfile);
+      
+      setProfile(mockProfile);
+      // Check last edit date from localStorage
+      const lastEdit = localStorage.getItem(`profile_last_edit_${user.id}`);
+      setLastEditDate(lastEdit);
     } catch (error: any) {
       showToast.error(error.message || "خطأ في تحميل الملف الشخصي");
     } finally {
@@ -135,7 +173,8 @@ export function ProfileView() {
 
     setSubmitting(true);
     try {
-      let response;
+      // Mock update - simulate API response by updating local state
+      const updatedProfile = { ...profile };
 
       switch (editMode) {
         case "basic":
@@ -144,41 +183,44 @@ export function ProfileView() {
             gender: profile.gender, // Keep original gender
             country: profile.country, // Keep original country
           });
-          response = await profileApi.updateBasicInfo(basicData);
+          Object.assign(updatedProfile, basicData);
           break;
         case "religious":
           const religiousData = religiousInfoSchema.parse(editData);
-          response = await profileApi.updateReligiousInfo(religiousData);
+          Object.assign(updatedProfile, religiousData);
           break;
         case "education":
           const educationData = educationWorkSchema.parse(editData);
-          response = await profileApi.updateEducationWork(educationData);
+          Object.assign(updatedProfile, educationData);
           break;
         case "bio":
           const bioData = bioSchema.parse(editData);
-          response = await profileApi.updateBio(bioData);
+          Object.assign(updatedProfile, bioData);
           break;
         case "guardian":
           const guardianData = guardianInfoSchema.parse(editData);
-          response = await profileApi.updateGuardianInfo(guardianData);
+          Object.assign(updatedProfile, guardianData);
           break;
         default:
           throw new Error("نوع التعديل غير صالح");
       }
 
-      if (response.success && response.data) {
-        setProfile(response.data);
-        setEditMode(null);
-        setEditData({});
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 500));
 
-        // Update last edit date
-        const now = new Date().toISOString();
-        localStorage.setItem(`profile_last_edit_${user?.id}`, now);
-        setLastEditDate(now);
-        setCanEdit(false);
+      // Update the profile state
+      updatedProfile.updatedAt = new Date().toISOString();
+      setProfile(updatedProfile);
+      setEditMode(null);
+      setEditData({});
 
-        showToast.success("تم تحديث الملف الشخصي بنجاح");
-      }
+      // Update last edit date
+      const now = new Date().toISOString();
+      localStorage.setItem(`profile_last_edit_${user?.id}`, now);
+      setLastEditDate(now);
+      setCanEdit(false);
+
+      showToast.success("تم تحديث الملف الشخصي بنجاح");
     } catch (error: any) {
       showToast.error(error.message || "خطأ في تحديث الملف الشخصي");
     } finally {
