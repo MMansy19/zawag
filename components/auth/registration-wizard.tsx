@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/card";
 import { showToast } from "@/components/ui/toaster";
 import { ImageUploader } from "@/components/profile/image-uploader";
+import { ProfileSummaryCard } from "@/components/profile/profile-summary-card";
 import { useSelectorData } from "@/lib/hooks/useSelectorData";
 import {
   getCountriesByGroup,
@@ -52,7 +53,13 @@ const registrationSchema = z.object({
   city: z.string().min(1, "المدينة مطلوبة"),
   nationality: z.string().min(1, "الجنسية مطلوبة"),
 
-  // Step 5: Preferences
+  // Step 5: Personal Bio
+  bio: z
+    .string()
+    .max(500, "النبذة الشخصية يجب أن تكون أقل من 500 حرف")
+    .optional(),
+
+  // Step 6: Preferences
   preferences: z.object({
     ageRange: z.object({
       min: z.number().min(18),
@@ -63,7 +70,7 @@ const registrationSchema = z.object({
     education: z.array(z.string()).optional(),
   }),
 
-  // Step 7: Guardian (optional)
+  // Step 8: Guardian (optional)
   guardianName: z.string().optional(),
   guardianPhone: z.string().optional(),
   guardianEmail: z.string().email().optional().or(z.literal("")),
@@ -89,7 +96,7 @@ export function RegistrationWizard() {
     error: dataError,
   } = useSelectorData();
 
-  const totalSteps = 8;
+  const totalSteps = 9;
 
   const {
     register,
@@ -125,10 +132,11 @@ export function RegistrationWizard() {
       description: "مستوى التدين والممارسات",
     },
     { id: 4, title: "التعليم والعمل", description: "المؤهلات والمهنة والموقع" },
-    { id: 5, title: "تفضيلات الزواج", description: "المواصفات المرغوبة" },
-    { id: 6, title: "الصورة الشخصية", description: "رفع صورة (اختياري)" },
-    { id: 7, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
-    { id: 8, title: "مراجعة وإرسال", description: "تأكيد البيانات" },
+    { id: 5, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
+    { id: 6, title: "تفضيلات الزواج", description: "المواصفات المرغوبة في شريك الحياة" },
+    { id: 7, title: "الصورة الشخصية", description: "رفع صورة (اختياري)" },
+    { id: 8, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
+    { id: 9, title: "مراجعة وإرسال", description: "مراجعة المعلومات وإنشاء الملف" },
   ];
 
   const sendOTP = async () => {
@@ -191,7 +199,16 @@ export function RegistrationWizard() {
         fieldsToValidate = ["education", "occupation", "city", "nationality"];
         break;
       case 5:
+        // Bio is optional, no validation needed
+        break;
+      case 6:
         fieldsToValidate = ["preferences"];
+        break;
+      case 7:
+        // Profile picture is optional
+        break;
+      case 8:
+        // Guardian info is optional
         break;
     }
 
@@ -584,6 +601,31 @@ export function RegistrationWizard() {
           <div className="space-y-4">
             <div className="mb-4 p-4 bg-blue-50 rounded-lg">
               <p className="text-sm text-blue-700">
+                اكتب نبذة عن نفسك تساعد الآخرين على التعرف عليك بشكل أفضل
+              </p>
+            </div>
+            <div className="space-y-2">
+              <label className="block text-sm font-medium text-gray-700">
+                نبذة شخصية (اختياري)
+              </label>
+              <textarea
+                {...register("bio")}
+                rows={4}
+                className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                placeholder="اكتب نبذة عن نفسك، اهتماماتك، أهدافك، وما تبحث عنه في شريك الحياة..."
+              />
+              {errors.bio && (
+                <p className="text-sm text-red-600">{errors.bio.message}</p>
+              )}
+            </div>
+          </div>
+        );
+
+      case 6:
+        return (
+          <div className="space-y-4">
+            <div className="mb-4 p-4 bg-blue-50 rounded-lg">
+              <p className="text-sm text-blue-700">
                 حدد المواصفات التي تفضلها في شريك الحياة
               </p>
             </div>
@@ -649,7 +691,7 @@ export function RegistrationWizard() {
           </div>
         );
 
-      case 6:
+      case 7:
         return (
           <div className="space-y-4">
             <div className="mb-4 p-4 bg-blue-50 rounded-lg">
@@ -682,7 +724,7 @@ export function RegistrationWizard() {
           </div>
         );
 
-      case 7:
+      case 8:
         return (
           <div className="space-y-4">
             <div className="mb-4 p-4 bg-blue-50 rounded-lg">
@@ -712,7 +754,7 @@ export function RegistrationWizard() {
           </div>
         );
 
-      case 8:
+      case 9:
         return (
           <div className="space-y-6">
             <div className="text-center mb-6">
@@ -724,32 +766,43 @@ export function RegistrationWizard() {
               </p>
             </div>
 
-            <div className="space-y-4 bg-gray-50 p-4 rounded-lg">
-              <div>
-                <strong>البريد الإلكتروني:</strong> {watch("email")}
-              </div>
-              <div>
-                <strong>الاسم:</strong> {watch("firstName")} {watch("lastName")}
-              </div>
-              <div>
-                <strong>العمر:</strong> {watch("age")} سنة
-              </div>
-              <div>
-                <strong>الجنس:</strong>{" "}
-                {watch("gender") === "male" ? "ذكر" : "أنثى"}
-              </div>
-              <div>
-                <strong>البلد:</strong> {watch("country")}
-              </div>
-              <div>
-                <strong>المهنة:</strong> {watch("occupation")}
-              </div>
-              {watch("guardianName") && (
-                <div>
-                  <strong>الولي:</strong> {watch("guardianName")}
-                </div>
-              )}
-            </div>
+            <ProfileSummaryCard
+              data={{
+                name: `${watch("firstName")} ${watch("lastName")}`,
+                age: watch("age"),
+                gender: watch("gender"),
+                country: watch("country"),
+                city: watch("city"),
+                nationality: watch("nationality"),
+                maritalStatus: watch("maritalStatus"),
+                education: watch("education"),
+                occupation: watch("occupation"),
+                religiousLevel: watch("religiousLevel"),
+                prays: watch("prays"),
+                fasts: watch("fasts"),
+                hasHijab: watch("wearsHijab"),
+                hasBeard: watch("hasBeard"),
+                bio: watch("bio"),
+                guardianName: watch("guardianName"),
+                guardianPhone: watch("guardianPhone"),
+                guardianEmail: watch("guardianEmail"),
+                preferences: watch("preferences"),
+              }}
+              onEdit={(step) => {
+                // Navigate to specific step for editing
+                const stepMap: Record<string, number> = {
+                  basic: 2,
+                  location: 4,
+                  education: 4,
+                  religious: 3,
+                  bio: 5,
+                  guardian: 8,
+                  preferences: 6,
+                  photo: 7,
+                };
+                setCurrentStep(stepMap[step] || 2);
+              }}
+            />
 
             <div className="bg-green-50 border border-green-200 rounded-lg p-4">
               <div className="flex items-start">
@@ -797,7 +850,7 @@ export function RegistrationWizard() {
                 key={step.id}
                 className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-medium ${
                   step.id === currentStep
-                    ? "bg-green-600 text-white"
+                    ? "bg-primary-600 text-white"
                     : step.id < currentStep
                       ? "bg-green-500 text-white"
                       : "bg-gray-200 text-gray-500"
