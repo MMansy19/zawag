@@ -59,14 +59,17 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 href="/dashboard"
                 className="flex items-center gap-2 text-lg sm:text-xl font-bold text-primary mr-4 hover:text-primary-hover transition-colors"
               >
-                <Image
-                  src="/logo.png"
-                  alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
-                  width={32}
-                  height={38}
-                  className="h-8 sm:h-10 w-auto"
-                />
-                <span className="hidden sm:inline">الزواج السعيد</span>
+              <Image
+              src="/logo.png"
+              alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
+              width={32}
+              height={38}
+              className="h-12 md:h-16 w-auto"
+              priority
+              quality={100}
+              sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
+              />
+              <span className="hidden sm:inline">الزواج السعيد</span>
               </Link>
             </div>
 

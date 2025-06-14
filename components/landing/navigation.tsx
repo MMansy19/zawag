@@ -128,12 +128,14 @@ export function LandingNavigation() {
               className="flex items-center md:gap-4 gap-3 text-xl font-bold text-primary hover:text-primary-hover transition-colors"
             >
               <Image
-                src="/logo.png"
-                alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
-                width={40}
-                height={48}
-                className="h-16 xl:h-24 md::h-20 w-auto"
-                priority
+              src="/logo.png"
+              alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
+              width={40}
+              height={48}
+              className="h-16 xl:h-24 md:h-20 w-auto"
+              priority
+              quality={100}
+              sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
               />
               <span className="inline md:mt-1">الزواج السعيد</span>
             </Link>
@@ -295,11 +297,15 @@ export function LandingNavigation() {
             <div className="flex items-center justify-between p-4 border-b border-gray-200 badge-primary">
               <div className="flex items-center gap-3">
                 <Image
-                  src="/logo-footer.png"
-                  alt="الزواج السعيد"
-                  width={32}
-                  height={32}
-                  className="h-16 w-auto"
+                    src="/logo-footer.png"
+                    className="h-16 w-auto"
+                alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
+                    width={32}
+                    height={32}
+
+                priority
+                quality={100}
+                sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
                 />
                 <h3 className="text-xl font-bold text-white mt-3">
                   الزواج السعيد

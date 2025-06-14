@@ -12,13 +12,16 @@ export function LandingFooter() {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <Image
+                      <Image
                 src="/logo-footer.png"
                 alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
-                width={40}
-                height={48}
+                            width={40}
+                            height={48}
                 className="h-20 sm:h-20 w-auto"
-              />
+                            priority
+                            quality={100}
+                            sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
+                            />
               <h3 className="text-xl font-bold sm:mt-4 mt-2">الزواج السعيد</h3>
             </div>
             <p className="text-gray-300 mb-4 max-w-md">
