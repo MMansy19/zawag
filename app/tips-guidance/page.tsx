@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { CommonFAQ } from "@/components/common/faq";
 import { allTipsGuidanceFaqData } from "@/lib/constants/faq-data";
 import { Mail } from "lucide-react";
+import { PublicLayout } from "@/components/layouts/public-layout";
 
 export const metadata: Metadata = {
   title: "نصائح وتوجيهات | موقع الزواج الإسلامي",
@@ -13,6 +14,7 @@ export const metadata: Metadata = {
 
 export default function TipsGuidancePage() {
   return (
+    <PublicLayout>
     <div className="min-h-screen bg-white">
       {/* Header Section */}
       <section className="bg-gradient-to-b from-primary/5 to-white py-16">
@@ -71,5 +73,6 @@ export default function TipsGuidancePage() {
         className="bg-white"
       />
     </div>
+  </PublicLayout>
   );
 }

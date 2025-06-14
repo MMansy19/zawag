@@ -648,7 +648,7 @@ nav a:hover {
 }
 
 .badge-primary {
-  background-color: var(--primary-color);
+  background: linear-gradient(45deg, var(--primary-color), var(--primary-hover));
   color: var(--background-secondary);
 }
 

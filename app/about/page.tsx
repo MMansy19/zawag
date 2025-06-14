@@ -95,9 +95,9 @@ export default function AboutPage() {
 
   return (
     <PublicLayout>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50/30">
+      <div className="min-h-screen">
         {/* Hero Section */}
-        <div className="bg-gradient-to-l from-blue-600 via-blue-700 to-blue-800 text-white py-16">
+        <div className="badge-primary py-16">
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-4xl mx-auto">
               {" "}
@@ -105,7 +105,7 @@ export default function AboutPage() {
                 variant="secondary"
                 className="mb-4 bg-white/20 text-white border-white/30 hover:bg-white/30"
               >
-                <Building2 className="w-4 h-4 mr-2" />
+                <Building2 className="w-4 h-4 ml-2" />
                 من نحن
               </Badge>
               <h1 className="text-4xl md:text-5xl font-bold mb-6 font-amiri">
@@ -261,9 +261,9 @@ export default function AboutPage() {
                   href="https://alzawajalsaeid.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center px-6 py-3 button-secondary text-white hover:text-white font-semibold rounded-lg transition-colors duration-300 shadow-lg hover:shadow-xl"
                 >
-                  <ExternalLink className="w-5 h-5 mr-2" />
+                  <ExternalLink className="w-5 h-5 ml-2" />
                   زيارة الموقع الرئيسي
                 </a>
                 <p className="text-sm text-gray-500 mt-4 font-mono">

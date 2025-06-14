@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { LogIn, UserPlus, Menu, X, ChevronDown } from "lucide-react";
+import { LogIn, UserPlus, Menu, X, ChevronDown, Star, Cog, Phone, Info, HelpCircle, Shield, Lightbulb } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -129,23 +129,26 @@ export function LandingNavigation() {
               <Link
                 href="/#features"
                 onClick={(e) => handleAnchorClick(e, "features")}
-                className="text-text-secondary hover:text-text hidden xl:inline-block"
+                className="flex items-center gap-1 text-text-secondary hover:text-text hidden xl:inline-flex"
               >
+                <Star className="h-4 w-4" />
                 المميزات
               </Link>
 
               <Link
                 href="/#faq"
                 onClick={(e) => handleAnchorClick(e, "faq")}
-                className="text-text-secondary hover:text-text hidden xl:inline-block"
+                className="flex items-center gap-1 text-text-secondary hover:text-text hidden xl:inline-flex"
               >
+                <HelpCircle className="h-4 w-4" />
                 الأسئلة الشائعة
               </Link>
               <Link
                 href="/#contact"
                 onClick={(e) => handleAnchorClick(e, "contact")}
-                className="text-text-secondary hover:text-text"
+                className="flex items-center gap-1 text-text-secondary hover:text-text"
               >
+                <Phone className="h-4 w-4" />
                 تواصل معنا
               </Link>
               
@@ -156,6 +159,7 @@ export function LandingNavigation() {
                   onMouseEnter={() => setIsDropdownOpen(true)}
                   className="flex items-center gap-1 text-text-secondary hover:text-text transition-colors focus:outline-none"
                 >
+                  <Info className="h-4 w-4" />
                   معلومات
                   <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
@@ -169,30 +173,34 @@ export function LandingNavigation() {
                   >
                     <Link
                       href="/about"
-                      className="block px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
                       onClick={() => setIsDropdownOpen(false)}
                     >
+                      <Info className="h-4 w-4" />
                       حولنا
                     </Link>
                     <Link
                       href="/how-we-work"
-                      className="block px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
                       onClick={() => setIsDropdownOpen(false)}
                     >
+                      <Cog className="h-4 w-4" />
                       كيف نعمل
                     </Link>
                     <Link
                       href="/terms-privacy"
-                      className="block px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
                       onClick={() => setIsDropdownOpen(false)}
                     >
+                      <Shield className="h-4 w-4" />
                       الشروط والخصوصية
                     </Link>
                     <Link
                       href="/tips-guidance"
-                      className="block px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-text-secondary hover:text-text hover:bg-gray-50 transition-colors"
                       onClick={() => setIsDropdownOpen(false)}
                     >
+                      <Lightbulb className="h-4 w-4" />
                       نصائح وإرشادات
                     </Link>
                   </div>
@@ -205,14 +213,16 @@ export function LandingNavigation() {
               <div className="lg:flex hidden items-center lg:gap-4 gap-2">
                 <Link
                   href="/auth/login"
-                  className="text-primary hover:text-primary-hover font-medium"
+                  className="flex items-center gap-1 text-primary hover:text-primary-hover font-medium"
                 >
+                  <LogIn className="h-4 w-4" />
                   تسجيل الدخول
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="bg-primary hover:text-white text-white px-4 py-2 rounded-md hover:bg-primary-hover font-medium"
+                  className="flex items-center gap-1 bg-primary hover:text-white text-white px-4 py-2 rounded-md hover:bg-primary-hover font-medium"
                 >
+                  <UserPlus className="h-4 w-4" />
                   إنشاء حساب
                 </Link>
               </div>
@@ -261,50 +271,57 @@ export function LandingNavigation() {
               <Link
                 href="/#features"
                 onClick={(e) => handleAnchorClick(e, "features")}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
+                <Star className="h-4 w-4" />
                 المميزات
               </Link>
               <Link
                 href="/about"
                 onClick={closeMobileMenu}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
+                <Info className="h-4 w-4" />
                 حولنا
               </Link>
               <Link
                 href="/how-we-work"
                 onClick={closeMobileMenu}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
+                <Cog className="h-4 w-4" />
                 كيف نعمل
               </Link>
               <Link
                 href="/terms-privacy"
                 onClick={closeMobileMenu}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
+                <Shield className="h-4 w-4" />
                 الشروط والخصوصية
               </Link>
               <Link
                 href="/tips-guidance"
                 onClick={closeMobileMenu}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
+                <Lightbulb className="h-4 w-4" />
                 نصائح وإرشادات
               </Link>
               <Link
                 href="/#faq"
                 onClick={(e) => handleAnchorClick(e, "faq")}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
+                <HelpCircle className="h-4 w-4" />
                 الأسئلة الشائعة
               </Link>
               <Link
                 href="/#contact"
                 onClick={(e) => handleAnchorClick(e, "contact")}
-                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
+                <Phone className="h-4 w-4" />
                 تواصل معنا
               </Link>
             </div>
@@ -317,15 +334,17 @@ export function LandingNavigation() {
               <Link
                 href="/auth/login"
                 onClick={closeMobileMenu}
-                className="block px-3 py-2 text-base font-medium text-primary hover:text-primary-hover hover:bg-primary/5 rounded-md transition-colors"
+                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-primary hover:text-primary-hover hover:bg-primary/5 rounded-md transition-colors"
               >
+                <LogIn className="h-4 w-4" />
                 تسجيل الدخول
               </Link>
               <Link
                 href="/auth/register"
                 onClick={closeMobileMenu}
-                className="block px-3 py-2 text-base font-medium bg-primary text-white hover:bg-primary-hover rounded-md transition-colors text-center"
+                className="flex items-center justify-center gap-2 px-3 py-2 text-base font-medium bg-primary text-white hover:bg-primary-hover rounded-md transition-colors text-center"
               >
+                <UserPlus className="h-4 w-4" />
                 إنشاء حساب
               </Link>
             </div>

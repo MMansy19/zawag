@@ -144,31 +144,6 @@ export function CommonFAQ({
             </button>
           </div>
         )}
-
-        {showToggle && showAllFAQs && faqs.length > initialDisplayCount && (
-          <div className="text-center mt-8">
-            <button
-              onClick={handleShowLess}
-              className="inline-flex items-center px-8 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
-            >
-              <span className="text-lg font-medium">عرض أقل</span>
-              <svg
-                className="w-5 h-5 mr-2"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M19 9l-7 7-7-7"
-                />
-              </svg>
-            </button>
-          </div>
-        )}
-
         {/* Contact Button */}
         {showContactButton && (
           <div className="text-center mt-12">
