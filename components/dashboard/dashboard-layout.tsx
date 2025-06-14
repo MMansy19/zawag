@@ -64,7 +64,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   width={32}
                   height={38}
                   className="h-16 md:h-20 w-auto sm:inline"
-                  />
+                />
                 <span className="hidden sm:inline">الزواج السعيد</span>
               </Link>
             </div>

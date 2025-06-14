@@ -6,8 +6,10 @@ import { LandingStats } from "@/components/landing/stats";
 import { LandingCTA } from "@/components/landing/cta";
 import { LandingContact } from "@/components/landing/contact";
 import { LandingSocial } from "@/components/landing/social";
-import { LandingFAQ } from "@/components/landing/faq";
 import { PublicLayout } from "@/components/layouts/public-layout";
+import { CommonFAQ } from "@/components/common/faq";
+import { landingPageFAQs } from "@/lib/constants/faq-data";
+import { Phone } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "الصفحة الرئيسية - ابحث عن شريك حياتك",
@@ -55,7 +57,19 @@ export default function HomePage() {
         </section>
         <LandingTestimonials />
         <section id="faq">
-          <LandingFAQ />
+          <CommonFAQ
+            faqs={landingPageFAQs}
+            title="الأسئلة الشائعة"
+            subtitle="هنا، نقدم لكم إجاباتٍ على الأسئلة التي قد تكون لديكم حول خدماتنا وكيفية استخدامها"
+            helperText="يرجى النقر على السؤال لتظهر لك الإجابة."
+            initialDisplayCount={5}
+            showToggle={true}
+            showContactButton={true}
+            contactButtonText="تواصل معنا"
+            contactButtonHref="#contact"
+            contactButtonIcon={<Phone className="w-5 h-5" />}
+            className=""
+          />
         </section>
         <section id="contact">
           <LandingContact />

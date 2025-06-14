@@ -20,13 +20,14 @@ export function LandingNavigation() {
           setTimeout(() => {
             const isMobile = window.innerWidth < 768;
             const headerOffset = isMobile ? 380 : 60;
-            
+
             const elementPosition = element.getBoundingClientRect().top;
-            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+            const offsetPosition =
+              elementPosition + window.pageYOffset - headerOffset;
 
             window.scrollTo({
               top: offsetPosition,
-              behavior: 'smooth'
+              behavior: "smooth",
             });
           }, 100);
         }
@@ -35,12 +36,12 @@ export function LandingNavigation() {
 
     // Handle initial load
     handleHashScroll();
-    
+
     // Handle browser back/forward navigation
-    window.addEventListener('hashchange', handleHashScroll);
-    
+    window.addEventListener("hashchange", handleHashScroll);
+
     return () => {
-      window.removeEventListener('hashchange', handleHashScroll);
+      window.removeEventListener("hashchange", handleHashScroll);
     };
   }, []);
 
@@ -52,19 +53,22 @@ export function LandingNavigation() {
     setIsMobileMenuOpen(false);
   };
 
-  const handleAnchorClick = (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => {
+  const handleAnchorClick = (
+    e: React.MouseEvent<HTMLAnchorElement>,
+    targetId: string,
+  ) => {
     e.preventDefault();
     closeMobileMenu(); // Close mobile menu if open
-    
+
     // Check if we're on the home page
-    const isHomePage = window.location.pathname === '/';
-    
+    const isHomePage = window.location.pathname === "/";
+
     if (!isHomePage) {
       // If not on home page, navigate to home page with anchor
       window.location.href = `/#${targetId}`;
       return;
     }
-    
+
     // If on home page, scroll to element with offset
     const element = document.getElementById(targetId);
     if (element) {
@@ -73,11 +77,12 @@ export function LandingNavigation() {
       const headerOffset = isMobile ? 380 : 60; // 380px for mobile, 60px for desktop
 
       const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: "smooth",
       });
     }
   };
@@ -107,19 +112,32 @@ export function LandingNavigation() {
             <div className="hidden md:flex items-center lg:gap-4 gap-2">
               <Link
                 href="/#features"
-                onClick={(e) => handleAnchorClick(e, 'features')}
+                onClick={(e) => handleAnchorClick(e, "features")}
                 className="text-text-secondary hover:text-text hidden xl:inline-block"
               >
                 المميزات
               </Link>
-              
+
               <Link
                 href="/#faq"
-                onClick={(e) => handleAnchorClick(e, 'faq')}
+                onClick={(e) => handleAnchorClick(e, "faq")}
                 className="text-text-secondary hover:text-text hidden xl:inline-block"
               >
                 الأسئلة الشائعة
-              </Link>                   
+              </Link>
+              <Link
+                href="/#contact"
+                onClick={(e) => handleAnchorClick(e, "contact")}
+                className="text-text-secondary hover:text-text"
+              >
+                تواصل معنا
+              </Link>
+              <Link
+                href="/about"
+                className="text-text-secondary hover:text-text"
+              >
+                حولنا
+              </Link>
               <Link
                 href="/how-we-work"
                 className="text-text-secondary hover:text-text"
@@ -133,11 +151,10 @@ export function LandingNavigation() {
                 الشروط والخصوصية
               </Link>
               <Link
-                href="/#contact"
-                onClick={(e) => handleAnchorClick(e, 'contact')}
+                href="/tips-guidance"
                 className="text-text-secondary hover:text-text"
               >
-                تواصل معنا
+                نصائح وإرشادات
               </Link>
             </div>
 
@@ -201,10 +218,17 @@ export function LandingNavigation() {
             <div className="space-y-2">
               <Link
                 href="/#features"
-                onClick={(e) => handleAnchorClick(e, 'features')}
+                onClick={(e) => handleAnchorClick(e, "features")}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
                 المميزات
+              </Link>
+              <Link
+                href="/about"
+                onClick={closeMobileMenu}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+              >
+                حولنا
               </Link>
               <Link
                 href="/how-we-work"
@@ -221,15 +245,22 @@ export function LandingNavigation() {
                 الشروط والخصوصية
               </Link>
               <Link
+                href="/tips-guidance"
+                onClick={closeMobileMenu}
+                className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+              >
+                نصائح وإرشادات
+              </Link>
+              <Link
                 href="/#faq"
-                onClick={(e) => handleAnchorClick(e, 'faq')}
+                onClick={(e) => handleAnchorClick(e, "faq")}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
                 الأسئلة الشائعة
               </Link>
               <Link
                 href="/#contact"
-                onClick={(e) => handleAnchorClick(e, 'contact')}
+                onClick={(e) => handleAnchorClick(e, "contact")}
                 className="block px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
               >
                 تواصل معنا
