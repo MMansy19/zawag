@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { AuthLayout } from "@/components/auth/auth-layout";
-import { EnhancedRegistrationWizard } from "@/components/auth/enhanced-registration-wizard";
+import { RegistrationWizard } from "@/components/auth/registration-wizard";
 
 export const metadata: Metadata = {
   title: "إنشاء حساب جديد مجاني - الزواج السعيد",
@@ -33,16 +33,7 @@ export default function RegisterPage() {
       backLinkText="لديك حساب بالفعل؟ سجل دخولك"
       backLinkHref="/auth/login"
     >
-      <EnhancedRegistrationWizard
-        onSuccess={() => {
-          // Handle successful registration
-          window.location.href = "/dashboard";
-        }}
-        onCancel={() => {
-          // Handle cancellation
-          window.location.href = "/";
-        }}
-      />
+      <RegistrationWizard />
     </AuthLayout>
   );
 }

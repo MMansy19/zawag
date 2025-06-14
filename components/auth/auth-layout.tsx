@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 
 interface AuthLayoutProps {
   children: React.ReactNode;
@@ -24,17 +25,24 @@ export function AuthLayout({
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-100 flex flex-col">
       {/* Header */}
-      <header className="flex justify-between items-center p-6">
+      <header className="flex md:flex-row flex-col justify-between items-center p-6">
         {showLogo && (
-          <Link
-            href="/"
-            className="flex items-center space-x-3 hover:opacity-80 transition-opacity"
-          >
-            <div className="bg-primary rounded-lg p-2">
-              <span className="text-white font-bold text-xl">ز</span>
-            </div>
-            <span className="text-xl font-bold text-primary">زواج</span>
-          </Link>
+          <div className="flex items-center justify-start">
+            <Link
+              href="/"
+              className="flex items-center md:gap-4 gap-3 text-xl font-bold text-primary hover:text-primary-hover transition-colors"
+            >
+              <Image
+                src="/logo.png"
+                alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
+                width={40}
+                height={48}
+                className="h-16 xl:h-24 md::h-20 w-auto"
+                priority
+              />
+              <span className="inline md:mt-1">الزواج السعيد</span>
+            </Link>
+          </div>
         )}
 
         {showBackLink && (

@@ -1,7 +1,6 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { RegisterRequest } from "@/lib/types/auth.types";
 import {
   Edit,
@@ -215,7 +214,7 @@ export default function Step9Review({
       {/* Account Information */}
       <Card>
         <CardHeader className="flex flex-row items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center gap-3">
             <User className="h-5 w-5 text-primary" />
             <h4 className="text-lg font-semibold">معلومات الحساب</h4>
           </div>
@@ -245,7 +244,7 @@ export default function Step9Review({
       {reviewSections.map((section) => (
         <Card key={section.id}>
           <CardHeader className="flex flex-row items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-3">
               {section.icon && (
                 <span className="text-primary">{section.icon}</span>
               )}
@@ -280,7 +279,7 @@ export default function Step9Review({
       {optionalSections.map((section) => (
         <Card key={section.id}>
           <CardHeader className="flex flex-row items-center justify-between">
-            <div className="flex items-center space-x-3">
+            <div className="flex items-center gap-3">
               {section.icon && (
                 <span className="text-primary">{section.icon}</span>
               )}
@@ -352,7 +351,7 @@ export default function Step9Review({
 
       {/* Final confirmation */}
       <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-        <div className="flex items-start space-x-3">
+        <div className="flex items-start gap-3">
           <CheckCircle className="h-6 w-6 text-green-600 flex-shrink-0 mt-0.5" />
           <div className="space-y-3">
             <h3 className="text-lg font-medium text-green-800">
@@ -365,17 +364,6 @@ export default function Step9Review({
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="text-center">
-        <Button
-          onClick={handleSubmit}
-          disabled={isSubmitting}
-          size="lg"
-          className="min-w-48"
-        >
-          {isSubmitting ? "جارٍ إنشاء الحساب..." : "إنشاء الحساب"}
-        </Button>
       </div>
     </div>
   );

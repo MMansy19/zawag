@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
@@ -77,7 +78,7 @@ export default function Step1Auth({
           />
           <button
             type="button"
-            className="absolute left-3 top-9 text-gray-400 hover:text-gray-600"
+            className="absolute left-3 top-6 text-gray-400 hover:text-gray-600"
             onClick={() => setShowPassword(!showPassword)}
           >
             {showPassword ? (
@@ -100,7 +101,7 @@ export default function Step1Auth({
           />
           <button
             type="button"
-            className="absolute left-3 top-9 text-gray-400 hover:text-gray-600"
+            className="absolute left-3 top-6 text-gray-400 hover:text-gray-600"
             onClick={() => setShowConfirmPassword(!showConfirmPassword)}
           >
             {showConfirmPassword ? (

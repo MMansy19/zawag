@@ -5,21 +5,21 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { TableView } from "./table-view";
-import { User } from "@/lib/types";
-import { adminApi } from "@/lib/api";
+import { User as MainUser } from "@/lib/types";
+import { mockUsers, User as MockUser } from "@/lib/static-data/admin-mock-data";
 import { showToast } from "@/components/ui/toaster";
 
 interface Column {
-  key: keyof User | "actions";
+  key: keyof MockUser | "actions";
   title: string;
-  render?: (value: any, row: User) => React.ReactNode;
+  render?: (value: any, row: MockUser) => React.ReactNode;
   width?: string;
 }
 
 export function UsersManagement() {
-  const [users, setUsers] = useState<User[]>([]);
+  const [users, setUsers] = useState<MockUser[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedUser, setSelectedUser] = useState<User | null>(null);
+  const [selectedUser, setSelectedUser] = useState<MockUser | null>(null);
 
   useEffect(() => {
     loadUsers();
@@ -28,10 +28,9 @@ export function UsersManagement() {
   const loadUsers = async () => {
     setLoading(true);
     try {
-      const response = await adminApi.getUsers();
-      if (response.success && response.data) {
-        setUsers(response.data.users);
-      }
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 500));
+      setUsers(mockUsers);
     } catch (error: any) {
       showToast.error(error.message || "خطأ في تحميل المستخدمين");
     } finally {
@@ -44,18 +43,21 @@ export function UsersManagement() {
     action: "suspend" | "activate",
   ) => {
     try {
-      if (action === "suspend") {
-        await adminApi.suspendUser(userId, "Administrative action");
-      } else {
-        // TODO: Implement activate user API
-        console.log("Activate user:", userId);
-      }
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 300));
+
+      // Update user status in mock data
+      setUsers((prev) =>
+        prev.map((user) =>
+          user.id === userId
+            ? { ...user, status: action === "suspend" ? "suspended" : "active" }
+            : user,
+        ),
+      );
 
       showToast.success(
         action === "suspend" ? "تم إيقاف المستخدم" : "تم تفعيل المستخدم",
       );
-
-      await loadUsers();
     } catch (error: any) {
       showToast.error(error.message || "خطأ في تحديث المستخدم");
     }
@@ -65,7 +67,7 @@ export function UsersManagement() {
       key: "name",
       title: "الاسم",
       width: "20%",
-      render: (value, row) => row.profile?.name || row.name || "غير محدد",
+      render: (value, row) => row.name || "غير محدد",
     },
     {
       key: "email",
@@ -73,14 +75,9 @@ export function UsersManagement() {
       width: "25%",
     },
     {
-      key: "role",
-      title: "الدور",
+      key: "age",
+      title: "العمر",
       width: "10%",
-      render: (value) => (
-        <Badge variant={value === "admin" ? "success" : "secondary"}>
-          {value === "admin" ? "مشرف" : "مستخدم"}
-        </Badge>
-      ),
     },
     {
       key: "status",
@@ -93,20 +90,19 @@ export function UsersManagement() {
       ),
     },
     {
-      key: "isEmailVerified",
-      title: "التحقق",
+      key: "profileComplete",
+      title: "اكتمال الملف",
       width: "10%",
       render: (value, row) => {
-        const isVerified = row.isEmailVerified || row.isPhoneVerified;
         return (
-          <Badge variant={isVerified ? "success" : "outline"}>
-            {isVerified ? "موثق" : "غير موثق"}
+          <Badge variant={row.profileComplete ? "success" : "outline"}>
+            {row.profileComplete ? "مكتمل" : "غير مكتمل"}
           </Badge>
         );
       },
     },
     {
-      key: "createdAt",
+      key: "joinDate",
       title: "تاريخ التسجيل",
       width: "15%",
       render: (value) => new Date(value).toLocaleDateString("ar-SA"),
@@ -175,9 +171,7 @@ export function UsersManagement() {
                   الاسم
                 </label>
                 <p className="mt-1 text-sm text-gray-900">
-                  {selectedUser.profile?.name ||
-                    selectedUser.name ||
-                    "غير محدد"}
+                  {selectedUser.name || "غير محدد"}
                 </p>
               </div>
               <div>
@@ -190,26 +184,26 @@ export function UsersManagement() {
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  رقم الهاتف
+                  العمر
                 </label>
                 <p className="mt-1 text-sm text-gray-900">
-                  {selectedUser.phone || "غير محدد"}
+                  {selectedUser.age || "غير محدد"}
                 </p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  الدور
+                  المدينة
                 </label>
                 <p className="mt-1 text-sm text-gray-900">
-                  {selectedUser.role === "admin" ? "مشرف" : "مستخدم"}
+                  {selectedUser.city || "غير محدد"}
                 </p>
               </div>
               <div>
                 <label className="block text-sm font-medium text-gray-700">
-                  تاريخ التسجيل
+                  تاريخ الانضمام
                 </label>
                 <p className="mt-1 text-sm text-gray-900">
-                  {new Date(selectedUser.createdAt).toLocaleDateString("ar-SA")}
+                  {new Date(selectedUser.joinDate).toLocaleDateString("ar-SA")}
                 </p>
               </div>
               <div>
@@ -217,8 +211,8 @@ export function UsersManagement() {
                   آخر نشاط
                 </label>
                 <p className="mt-1 text-sm text-gray-900">
-                  {selectedUser.lastActiveAt
-                    ? new Date(selectedUser.lastActiveAt).toLocaleDateString(
+                  {selectedUser.lastActivity
+                    ? new Date(selectedUser.lastActivity).toLocaleDateString(
                         "ar-SA",
                       )
                     : "غير محدد"}

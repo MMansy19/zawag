@@ -17,7 +17,7 @@ export default function VerifyOTPPage() {
       linkHref="/auth/login"
     >
       <Suspense fallback={<div className="animate-pulse">جاري التحميل...</div>}>
-        <OTPVerificationForm />
+        <OTPVerificationForm email="" />
       </Suspense>
     </AuthContainer>
   );

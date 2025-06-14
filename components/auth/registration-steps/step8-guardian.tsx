@@ -11,8 +11,6 @@ import { RegistrationStepProps, RegisterRequest } from "@/lib/types/auth.types";
 const Step8Guardian: React.FC<RegistrationStepProps> = ({
   data,
   updateData,
-  onNext,
-  onPrev,
   isSubmitting,
   error,
   clearError,
@@ -34,23 +32,6 @@ const Step8Guardian: React.FC<RegistrationStepProps> = ({
       } as Partial<RegisterRequest>);
     }
   };
-  const handleNext = () => {
-    clearError();
-
-    // Validation: If guardian info is provided, required fields must be filled
-    if (data.hasGuardian) {
-      if (
-        !data.guardianName ||
-        !data.guardianRelationship ||
-        !data.guardianPhone
-      ) {
-        return;
-      }
-    }
-
-    onNext();
-  };
-
   const hasGuardian = data.hasGuardian || false;
 
   return (
@@ -66,14 +47,14 @@ const Step8Guardian: React.FC<RegistrationStepProps> = ({
 
       <Card>
         <CardHeader>
-          <CardTitle className="flex items-center space-x-2 space-x-reverse">
-            <User className="w-5 h-5" />
+          <CardTitle className="flex items-center gap-2">
+            <User className="w-6 h-6 mt-2" />
             <span>معلومات ولي الأمر</span>
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {/* Has Guardian Checkbox */}
-          <div className="flex items-center space-x-2 space-x-reverse">
+          <div className="flex items-center gap-2">
             {" "}
             <Checkbox
               id="has-guardian"
@@ -81,8 +62,9 @@ const Step8Guardian: React.FC<RegistrationStepProps> = ({
               onCheckedChange={(checked: boolean) =>
                 handleInputChange("hasGuardian", checked)
               }
+              className="border border-primary ring-blue-500 ring-offset-0 ring-2"
             />
-            <Label htmlFor="has-guardian">
+            <Label htmlFor="has-guardian" className="mt-1">
               أريد إضافة معلومات ولي أمر أو شخص مرجعي
             </Label>
           </div>
@@ -190,22 +172,6 @@ const Step8Guardian: React.FC<RegistrationStepProps> = ({
           </CardContent>
         </Card>
       )}
-
-      {/* Navigation Buttons */}
-      <div className="flex justify-between pt-4">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={onPrev}
-          disabled={isSubmitting}
-        >
-          السابق
-        </Button>
-
-        <Button type="button" onClick={handleNext} disabled={isSubmitting}>
-          التالي
-        </Button>
-      </div>
     </div>
   );
 };

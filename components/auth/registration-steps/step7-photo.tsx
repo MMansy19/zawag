@@ -14,8 +14,6 @@ interface Step7PhotoProps extends RegistrationStepProps {
 const Step7Photo: React.FC<Step7PhotoProps> = ({
   data,
   updateData,
-  onNext,
-  onPrev,
   isSubmitting,
   error,
   clearError,
@@ -42,16 +40,6 @@ const Step7Photo: React.FC<Step7PhotoProps> = ({
 
   const handleRemovePhoto = () => {
     setProfilePicture(null);
-  };
-
-  const handleNext = () => {
-    clearError();
-    onNext();
-  };
-
-  const handleSkip = () => {
-    clearError();
-    onNext();
   };
 
   return (
@@ -95,7 +83,7 @@ const Step7Photo: React.FC<Step7PhotoProps> = ({
             {/* Upload Button */}
             <div className="space-y-2">
               <Label htmlFor="profile-photo" className="cursor-pointer">
-                <div className="flex items-center justify-center space-x-2 space-x-reverse bg-primary text-primary-foreground hover:bg-primary/90 px-4 py-2 rounded-md transition-colors">
+                <div className="flex items-center justify-center gap-2 bg-primary text-white bg-primary px-4 py-2 rounded-md transition-colors">
                   <Upload className="w-4 h-4" />
                   <span>{profilePicture ? "تغيير الصورة" : "اختيار صورة"}</span>
                 </div>
@@ -118,32 +106,6 @@ const Step7Photo: React.FC<Step7PhotoProps> = ({
           </div>
         </CardContent>
       </Card>
-
-      {/* Navigation Buttons */}
-      <div className="flex justify-between pt-4">
-        <Button
-          type="button"
-          variant="outline"
-          onClick={onPrev}
-          disabled={isSubmitting}
-        >
-          السابق
-        </Button>
-
-        <div className="flex space-x-2 space-x-reverse">
-          <Button
-            type="button"
-            variant="ghost"
-            onClick={handleSkip}
-            disabled={isSubmitting}
-          >
-            تخطي
-          </Button>
-          <Button type="button" onClick={handleNext} disabled={isSubmitting}>
-            التالي
-          </Button>
-        </div>
-      </div>
     </div>
   );
 };

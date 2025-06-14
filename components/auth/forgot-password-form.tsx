@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Link from "next/link";
 
 const forgotPasswordSchema = z.object({
   email: z.string().email("البريد الإلكتروني غير صحيح"),
@@ -61,12 +60,6 @@ export function ForgotPasswordForm() {
           تم إرسال رابط إعادة تعيين كلمة المرور إلى بريدك الإلكتروني. يرجى
           التحقق من صندوق الوارد.
         </p>
-        <Link
-          href="/auth/login"
-          className="inline-block text-primary hover:text-primary-hover font-medium"
-        >
-          العودة إلى تسجيل الدخول
-        </Link>
       </div>
     );
   }
@@ -103,15 +96,6 @@ export function ForgotPasswordForm() {
       >
         {isLoading ? "جارٍ الإرسال..." : "إرسال رابط إعادة التعيين"}
       </button>
-
-      <div className="text-center">
-        <Link
-          href="/auth/login"
-          className="text-sm text-primary hover:text-primary-hover"
-        >
-          العودة إلى تسجيل الدخول
-        </Link>
-      </div>
     </form>
   );
 }

@@ -1,7 +1,6 @@
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { RegisterRequest } from "@/lib/types/auth.types";
-import { useSelectorData } from "@/lib/hooks/useSelectorData";
 import { getCountriesByGroup } from "@/lib/static-data";
 
 interface Step2BasicInfoProps {

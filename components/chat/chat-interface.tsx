@@ -22,7 +22,7 @@ import { showToast } from "@/components/ui/toaster";
 import { ChatMenu } from "./chat-menu";
 import { TypingIndicator } from "./typing-indicator";
 
-interface EnhancedChatInterfaceProps {
+interface ChatInterfaceProps {
   requestId: string;
   chatRoomId: string;
 }
@@ -32,10 +32,7 @@ interface ChatMessage extends Message {
   isCurrentUser?: boolean;
 }
 
-export function EnhancedChatInterface({
-  requestId,
-  chatRoomId,
-}: EnhancedChatInterfaceProps) {
+export function ChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
   const router = useRouter();
   const { user } = useAuth();
   const { sendMessage, isConnected } = useChat();

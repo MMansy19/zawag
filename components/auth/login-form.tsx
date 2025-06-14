@@ -1,110 +1,162 @@
 "use client";
-
-import { useState } from "react";
+import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useAuthActions } from "@/lib/hooks/useAuthActions";
+import { loginSchema, type LoginFormData } from "@/lib/validation/auth.schemas";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 
-const loginSchema = z.object({
-  email: z.string().email("البريد الإلكتروني غير صحيح"),
-  password: z.string().min(6, "كلمة المرور يجب أن تكون 6 أحرف على الأقل"),
-});
+interface LoginFormProps {
+  redirectTo?: string;
+  onSuccess?: () => void;
+  className?: string;
+}
 
-type LoginFormData = z.infer<typeof loginSchema>;
-
-export function LoginForm() {
-  const [isLoading, setIsLoading] = useState(false);
+export function LoginForm({
+  redirectTo = "/dashboard",
+  onSuccess,
+  className = "",
+}: LoginFormProps) {
+  const [showPassword, setShowPassword] = useState(false);
+  const router = useRouter();
+  const { login, isLoading, error, clearError } = useAuthActions();
 
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
+    reset,
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
+    defaultValues: {
+      rememberMe: false,
+    },
   });
 
   const onSubmit = async (data: LoginFormData) => {
-    setIsLoading(true);
-    try {
-      // TODO: Implement login logic
-      console.log("Login attempt:", data);
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
-    } catch (error) {
-      console.error("Login error:", error);
-    } finally {
-      setIsLoading(false);
+    clearError();
+
+    const success = await login(data);
+
+    if (success) {
+      reset();
+      if (onSuccess) {
+        onSuccess();
+      } else {
+        router.push(redirectTo);
+      }
     }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div>
-        <label
-          htmlFor="email"
-          className="block text-sm font-medium text-text mb-2"
-        >
-          البريد الإلكتروني
-        </label>
-        <input
-          {...register("email")}
-          type="email"
-          id="email"
-          className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          placeholder="أدخل بريدك الإلكتروني"
-        />
-        {errors.email && (
-          <p className="mt-1 text-sm text-error">{errors.email.message}</p>
-        )}
-      </div>
+    <Card className={`w-full max-w-md mx-auto ${className}`}>
+      <CardHeader className="space-y-1">
+        <h2 className="text-2xl font-bold text-center">تسجيل الدخول</h2>
+        <p className="text-sm text-gray-600 text-center">
+          أدخل بياناتك للوصول إلى حسابك
+        </p>
+      </CardHeader>
 
-      <div>
-        <label
-          htmlFor="password"
-          className="block text-sm font-medium text-text mb-2"
-        >
-          كلمة المرور
-        </label>
-        <input
-          {...register("password")}
-          type="password"
-          id="password"
-          className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-          placeholder="أدخل كلمة المرور"
-        />
-        {errors.password && (
-          <p className="mt-1 text-sm text-error">{errors.password.message}</p>
-        )}
-      </div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardContent className="space-y-4">
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
 
-      <div className="flex items-center justify-between">
-        <div className="text-sm">
-          <Link
-            href="/auth/forgot-password"
-            className="font-medium text-primary hover:text-primary-hover"
+          <div className="space-y-2">
+            <Input
+              label="البريد الإلكتروني"
+              type="email"
+              {...register("email")}
+              error={errors.email?.message}
+              placeholder="أدخل بريدك الإلكتروني"
+              autoComplete="email"
+              disabled={isLoading}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <div className="relative">
+              <Input
+                label="كلمة المرور"
+                type={showPassword ? "text" : "password"}
+                {...register("password")}
+                error={errors.password?.message}
+                placeholder="أدخل كلمة المرور"
+                autoComplete="current-password"
+                disabled={isLoading}
+              />
+              <button
+                type="button"
+                className="absolute left-3 top-6 text-gray-400 hover:text-gray-600"
+                onClick={() => setShowPassword(!showPassword)}
+                disabled={isLoading}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-4 w-4" />
+                ) : (
+                  <Eye className="h-4 w-4" />
+                )}
+              </button>
+            </div>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2 space-x-2">
+              <input
+                id="rememberMe"
+                type="checkbox"
+                {...register("rememberMe")}
+                className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+                disabled={isLoading}
+              />
+              <label
+                htmlFor="rememberMe"
+                className="text-sm text-gray-700 mt-1"
+              >
+                تذكرني
+              </label>
+            </div>
+
+            <Link
+              href="/auth/forgot-password"
+              className="text-sm text-primary hover:text-primary-hover"
+            >
+              نسيت كلمة المرور؟
+            </Link>
+          </div>
+        </CardContent>
+
+        <CardFooter className="flex flex-col space-y-4">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={isLoading || isSubmitting}
           >
-            نسيت كلمة المرور؟
-          </Link>
-        </div>
-      </div>
-
-      <button
-        type="submit"
-        disabled={isLoading}
-        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isLoading ? "جارٍ تسجيل الدخول..." : "تسجيل الدخول"}
-      </button>
-
-      <div className="text-center">
-        <span className="text-sm text-text-secondary">ليس لديك حساب؟ </span>
-        <Link
-          href="/auth/register"
-          className="text-sm font-medium text-primary hover:text-primary-hover"
-        >
-          إنشاء حساب جديد
-        </Link>
-      </div>
-    </form>
+            {isLoading ? (
+              <>
+                <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+                جارٍ تسجيل الدخول...
+              </>
+            ) : (
+              "تسجيل الدخول"
+            )}
+          </Button>
+        </CardFooter>
+      </form>
+    </Card>
   );
 }

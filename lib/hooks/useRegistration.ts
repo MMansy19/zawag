@@ -1,13 +1,13 @@
 "use client";
 import { useCallback, useReducer } from "react";
-import { authApiService } from "../services/auth.service";
-import { getStepSchema } from "../validation/auth.schemas";
-import { showToast } from "../../components/ui/toaster";
+import { authApiService } from "@/lib/services/auth.service";
+import { getStepSchema } from "@/lib/validation/auth.schemas";
+import { showToast } from "@/components/ui/toaster";
 import {
   RegisterRequest,
   AuthenticationError,
   ValidationError,
-} from "../types/auth.types";
+} from "@/lib/types/auth.types";
 
 // Registration State Management
 interface RegistrationState {
@@ -118,7 +118,7 @@ interface UseRegistrationResult {
   canProceedToStep: (step: number) => boolean;
 }
 
-export function useRegistration(): UseRegistrationResult {
+const useRegistration = (): UseRegistrationResult => {
   const [state, dispatch] = useReducer(registrationReducer, initialState);
 
   const handleError = useCallback((error: any) => {
@@ -352,4 +352,7 @@ export function useRegistration(): UseRegistrationResult {
     isStepCompleted,
     canProceedToStep,
   };
-}
+};
+
+export { useRegistration };
+export default useRegistration;

@@ -246,6 +246,31 @@ export class AuthApiService {
    */
   async register(data: RegisterRequest): Promise<RegisterResponse> {
     try {
+      // TEMPORARY MOCK - Remove when backend is ready
+      console.log("Mock registration data:", data);
+
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+
+      // Return mock successful response
+      return {
+        message: "تم إنشاء الحساب بنجاح",
+        user: {
+          id: "mock-user-" + Date.now(),
+          email: data.email,
+          emailVerified: true,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          role: "user" as const,
+          status: "active" as const,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        requiresVerification: false,
+      };
+
+      // END MOCK - Original code below (commented out)
+      /*
       const formData = new FormData();
 
       // Add text fields
@@ -268,6 +293,7 @@ export class AuthApiService {
         formData,
       );
       return response;
+      */
     } catch (error) {
       console.error("Registration error:", error);
       throw error;
@@ -279,6 +305,70 @@ export class AuthApiService {
    */
   async verifyOTP(data: VerifyOTPRequest): Promise<VerifyOTPResponse> {
     try {
+      // TEMPORARY MOCK - Remove when backend is ready
+      console.log("Mock OTP verification:", data);
+
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      // Mock successful verification response
+      const mockResponse = {
+        message: "تم تأكيد الحساب بنجاح",
+        accessToken: "mock-access-token-" + Date.now(),
+        refreshToken: "mock-refresh-token-" + Date.now(),
+        expiresIn: 3600, // 1 hour
+        user: {
+          id: "mock-user-" + Date.now(),
+          email: data.email,
+          emailVerified: true,
+          firstName: "المستخدم",
+          lastName: "التجريبي",
+          role: "user" as const,
+          status: "active" as const,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        profile: {
+          id: "mock-profile-" + Date.now(),
+          userId: "mock-user-" + Date.now(),
+          name: "المستخدم التجريبي",
+          age: 25,
+          gender: "male" as const,
+          country: "السعودية",
+          city: "الرياض",
+          nationality: "Saudi",
+          maritalStatus: "single" as const,
+          religiousLevel: "practicing" as const,
+          education: "Bachelor",
+          occupation: "موظف",
+          profilePicture: "",
+          bio: "هذا حساب تجريبي",
+          prays: true,
+          fasts: true,
+          preferences: {
+            ageRange: { min: 20, max: 35 },
+          },
+          status: "approved" as const,
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+      };
+
+      // Store tokens after successful verification
+      if (typeof window !== "undefined") {
+        localStorage.setItem("auth_token", mockResponse.accessToken);
+        localStorage.setItem("refresh_token", mockResponse.refreshToken);
+        localStorage.setItem("user_data", JSON.stringify(mockResponse.user));
+        localStorage.setItem(
+          "profile_data",
+          JSON.stringify(mockResponse.profile),
+        );
+      }
+
+      return mockResponse;
+
+      // END MOCK - Original code below (commented out)
+      /*
       const response = await httpClient.post<VerifyOTPResponse>(
         "/auth/verify-otp",
         data,
@@ -293,6 +383,7 @@ export class AuthApiService {
       }
 
       return response;
+      */
     } catch (error) {
       console.error("OTP verification error:", error);
       throw error;
@@ -304,7 +395,18 @@ export class AuthApiService {
    */
   async resendOTP(email: string): Promise<{ message: string }> {
     try {
+      // TEMPORARY MOCK - Remove when backend is ready
+      console.log("Mock resend OTP for:", email);
+
+      // Simulate API delay
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+
+      return { message: "تم إرسال رمز التأكيد مرة أخرى" };
+
+      // END MOCK - Original code below (commented out)
+      /*
       return await httpClient.post("/auth/resend-otp", { email });
+      */
     } catch (error) {
       console.error("Resend OTP error:", error);
       throw error;

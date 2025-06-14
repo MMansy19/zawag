@@ -1,165 +1,171 @@
-"use client";
-
-import { useState, useRef, useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardHeader,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { OTPInput } from "@/components/ui/otp-input";
+import { useAuthActions } from "@/lib/hooks/useAuthActions";
+import {
+  otpVerificationSchema,
+  type OTPVerificationData,
+} from "@/lib/validation/auth.schemas";
+import { Loader2, RefreshCw } from "lucide-react";
 
-const otpSchema = z.object({
-  otp: z.string().length(6, "رمز التحقق يجب أن يكون 6 أرقام"),
-});
+interface OTPVerificationFormProps {
+  email: string;
+  onSuccess?: () => void;
+  onBack?: () => void;
+  title?: string;
+  description?: string;
+  className?: string;
+}
 
-type OTPFormData = z.infer<typeof otpSchema>;
-
-export function OTPVerificationForm() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [timeLeft, setTimeLeft] = useState(300); // 5 minutes
-  const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+export function OTPVerificationForm({
+  email,
+  onSuccess,
+  onBack,
+  title = "تأكيد رمز التحقق",
+  description = "أدخل رمز التحقق المرسل إلى بريدك الإلكتروني",
+  className = "",
+}: OTPVerificationFormProps) {
+  const { verifyOTP, resendOTP, isLoading, error, clearError } =
+    useAuthActions();
 
   const {
+    register,
     handleSubmit,
+    formState: { errors, isSubmitting },
     setValue,
-    formState: { errors },
-  } = useForm<OTPFormData>({
-    resolver: zodResolver(otpSchema),
+    watch,
+    reset,
+  } = useForm<OTPVerificationData>({
+    resolver: zodResolver(otpVerificationSchema),
+    defaultValues: {
+      email,
+      otp: "",
+    },
   });
-  // Timer countdown
-  useEffect(() => {
-    if (timeLeft > 0) {
-      const timer = setTimeout(() => setTimeLeft(timeLeft - 1), 1000);
-      return () => clearTimeout(timer);
-    }
-    return undefined;
-  }, [timeLeft]);
 
-  // Format time display
-  const formatTime = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins.toString().padStart(2, "0")}:${secs.toString().padStart(2, "0")}`;
-  };
+  const otpValue = watch("otp");
 
-  const handleOTPChange = (value: string, index: number) => {
-    if (!/^\d*$/.test(value)) return; // Only allow digits
+  const onSubmit = async (data: OTPVerificationData) => {
+    clearError();
 
-    const newOtp = [...otp];
-    newOtp[index] = value.slice(-1); // Take only the last digit
-    setOtp(newOtp);
+    const success = await verifyOTP(data);
 
-    // Update form value
-    setValue("otp", newOtp.join(""));
-
-    // Move to next input
-    if (value && index < 5) {
-      inputRefs.current[index + 1]?.focus();
+    if (success) {
+      reset();
+      onSuccess?.();
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, index: number) => {
-    if (e.key === "Backspace" && !otp[index] && index > 0) {
-      inputRefs.current[index - 1]?.focus();
-    }
+  const handleResendOTP = async () => {
+    clearError();
+    await resendOTP(email);
   };
 
-  const handlePaste = (e: React.ClipboardEvent) => {
-    e.preventDefault();
-    const pastedData = e.clipboardData.getData("text/plain").slice(0, 6);
-    if (!/^\d+$/.test(pastedData)) return;
-
-    const newOtp = pastedData
-      .split("")
-      .concat(Array(6 - pastedData.length).fill(""));
-    setOtp(newOtp.slice(0, 6));
-    setValue("otp", newOtp.join(""));
-
-    // Focus on the next empty input or the last one
-    const nextIndex = Math.min(pastedData.length, 5);
-    inputRefs.current[nextIndex]?.focus();
-  };
-
-  const onSubmit = async (data: OTPFormData) => {
-    setIsLoading(true);
-    try {
-      // TODO: Implement OTP verification logic
-      console.log("OTP verification:", data);
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate API call
-    } catch (error) {
-      console.error("OTP verification error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const resendOTP = async () => {
-    try {
-      // TODO: Implement resend OTP logic
-      console.log("Resending OTP...");
-      setTimeLeft(300); // Reset timer
-      setOtp(["", "", "", "", "", ""]); // Clear current OTP
-      setValue("otp", "");
-    } catch (error) {
-      console.error("Resend OTP error:", error);
-    }
+  const handleOTPChange = (value: string) => {
+    setValue("otp", value);
+    clearError();
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-      <div className="text-center text-text-secondary text-sm mb-6">
-        تم إرسال رمز التحقق إلى بريدك الإلكتروني. أدخل الرمز المكون من 6 أرقام.
-      </div>
-
-      <div>
-        <label className="block text-sm font-medium text-text mb-4 text-center">
-          رمز التحقق
-        </label>
-        <div className="flex justify-center gap-2 mb-4" dir="ltr">
-          {otp.map((digit, index) => (
-            <input
-              key={index}
-              ref={(el) => {
-                inputRefs.current[index] = el;
-              }}
-              type="text"
-              inputMode="numeric"
-              maxLength={1}
-              value={digit}
-              onChange={(e) => handleOTPChange(e.target.value, index)}
-              onKeyDown={(e) => handleKeyDown(e, index)}
-              onPaste={index === 0 ? handlePaste : undefined}
-              className="w-12 h-12 text-center text-lg font-semibold border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            />
-          ))}
+    <Card className={`w-full max-w-md mx-auto ${className}`}>
+      <CardHeader className="space-y-1">
+        <h2 className="text-2xl font-bold text-center">{title}</h2>
+        <p className="text-sm text-gray-600 text-center">{description}</p>
+        <div className="text-center">
+          <span className="text-sm font-medium text-primary">{email}</span>
         </div>
-        {errors.otp && (
-          <p className="text-sm text-error text-center">{errors.otp.message}</p>
-        )}
-      </div>
+      </CardHeader>
 
-      <div className="text-center">
-        {timeLeft > 0 ? (
-          <p className="text-sm text-text-secondary">
-            انتهاء صلاحية الرمز خلال:{" "}
-            <span className="font-mono">{formatTime(timeLeft)}</span>
-          </p>
-        ) : (
-          <button
-            type="button"
-            onClick={resendOTP}
-            className="text-sm text-primary hover:text-primary-hover font-medium"
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <CardContent className="space-y-6">
+          {error && (
+            <Alert variant="destructive">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
+
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-gray-700 text-center">
+              رمز التحقق
+            </label>
+            <OTPInput
+              length={6}
+              onChange={handleOTPChange}
+              {...(!isSubmitting && {
+                onComplete: (otp: string) => {
+                  setValue("otp", otp);
+                  handleSubmit(onSubmit)();
+                },
+              })}
+              error={errors.otp?.message}
+            />
+          </div>
+
+          <div className="text-center">
+            <p className="text-sm text-gray-600 mb-3">لم تستلم الرمز؟</p>
+            <Button
+              type="button"
+              variant="outline"
+              size="sm"
+              onClick={handleResendOTP}
+              disabled={isLoading}
+              className="text-primary"
+            >
+              {isLoading ? (
+                <>
+                  <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+                  جارٍ الإرسال...
+                </>
+              ) : (
+                <>
+                  <RefreshCw className="ml-2 h-4 w-4" />
+                  إعادة الإرسال
+                </>
+              )}
+            </Button>
+          </div>
+        </CardContent>
+
+        <CardFooter className="flex flex-col space-y-3">
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={
+              isLoading || isSubmitting || !otpValue || otpValue.length !== 6
+            }
           >
-            إعادة إرسال الرمز
-          </button>
-        )}
-      </div>
+            {isLoading ? (
+              <>
+                <Loader2 className="ml-2 h-4 w-4 animate-spin" />
+                جارٍ التحقق...
+              </>
+            ) : (
+              "تأكيد الرمز"
+            )}
+          </Button>
 
-      <button
-        type="submit"
-        disabled={isLoading || otp.join("").length !== 6}
-        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-primary-hover focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isLoading ? "جارٍ التحقق..." : "تأكيد الرمز"}
-      </button>
-    </form>
+          {onBack && (
+            <Button
+              type="button"
+              variant="outline"
+              className="w-full"
+              onClick={onBack}
+              disabled={isLoading}
+            >
+              العودة
+            </Button>
+          )}
+        </CardFooter>
+      </form>
+    </Card>
   );
 }

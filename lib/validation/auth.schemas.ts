@@ -270,6 +270,9 @@ export const getStepSchema = (step: number) => {
       return registrationStep7Schema;
     case 8:
       return registrationStep8Schema;
+    case 9:
+      return completeRegistrationSchema;
+
     default:
       throw new Error(`Invalid step: ${step}`);
   }

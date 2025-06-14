@@ -1,7 +1,8 @@
+"use client";
 import { useState, useCallback } from "react";
-import { authApiService } from "../services/auth.service";
-import { useAuth } from "../../providers/auth-provider";
-import { showToast } from "../../components/ui/toaster";
+import { authApiService } from "@/lib/services/auth.service";
+import { useAuth } from "@/providers/auth-provider";
+import { showToast } from "@/components/ui/toaster";
 import {
   LoginFormData,
   ForgotPasswordFormData,
@@ -9,7 +10,7 @@ import {
   AuthenticationError,
   ValidationError,
 } from "../types/auth.types";
-import { OTPVerificationData } from "../validation/auth.schemas";
+import { OTPVerificationData } from "@/lib/validation/auth.schemas";
 
 interface UseAuthActionsResult {
   login: (data: LoginFormData) => Promise<boolean>;

@@ -3,18 +3,16 @@
 import { Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { ChatList } from "@/components/chat/chat-list";
-import { EnhancedChatInterface } from "@/components/chat/enhanced-chat-interface";
+import { ChatInterface } from "@/components/chat/chat-interface";
 
 function ChatPageContent() {
   const searchParams = useSearchParams();
   const requestId = searchParams.get("requestId");
   const chatRoomId = searchParams.get("chatRoomId");
 
-  // If we have a request ID, show the enhanced chat interface
+  // If we have a request ID, show the chat interface
   if (requestId && chatRoomId) {
-    return (
-      <EnhancedChatInterface requestId={requestId} chatRoomId={chatRoomId} />
-    );
+    return <ChatInterface requestId={requestId} chatRoomId={chatRoomId} />;
   }
 
   // Otherwise, show the regular chat list

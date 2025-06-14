@@ -39,7 +39,7 @@ export default function Step4Education({
           required
         />
 
-        <div className="space-y-2">
+        <div>
           <label className="block text-sm font-medium text-gray-700">
             المهنة *
           </label>

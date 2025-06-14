@@ -10,6 +10,15 @@ import { ReportTable } from "@/components/admin/report-table";
 import { SettingsForm } from "@/components/admin/settings-form";
 import { NotificationsBox } from "@/components/admin/notifications-box";
 import {
+  Users,
+  Heart,
+  AlertTriangle,
+  MessageCircle,
+  FileText,
+  Bell,
+  Settings,
+} from "lucide-react";
+import {
   mockUsers,
   mockMarriageRequests,
   mockFlaggedMessages,
@@ -18,13 +27,33 @@ import {
 } from "@/lib/static-data/admin-mock-data";
 
 const tabs = [
-  { id: "users", label: "المستخدمين", icon: "👥" },
-  { id: "requests", label: "طلبات الزواج", icon: "💍" },
-  { id: "messages", label: "الرسائل المبلغ عنها", icon: "🚨" },
-  { id: "chats", label: "المحادثات النشطة", icon: "💬" },
-  { id: "reports", label: "التقارير", icon: "📋" },
-  { id: "notifications", label: "الإشعارات", icon: "🔔" },
-  { id: "settings", label: "الإعدادات", icon: "⚙️" },
+  { id: "users", label: "المستخدمين", icon: <Users className="w-4 h-4" /> },
+  {
+    id: "requests",
+    label: "طلبات الزواج",
+    icon: <Heart className="w-4 h-4" />,
+  },
+  {
+    id: "messages",
+    label: "الرسائل المبلغ عنها",
+    icon: <AlertTriangle className="w-4 h-4" />,
+  },
+  {
+    id: "chats",
+    label: "المحادثات النشطة",
+    icon: <MessageCircle className="w-4 h-4" />,
+  },
+  { id: "reports", label: "التقارير", icon: <FileText className="w-4 h-4" /> },
+  {
+    id: "notifications",
+    label: "الإشعارات",
+    icon: <Bell className="w-4 h-4" />,
+  },
+  {
+    id: "settings",
+    label: "الإعدادات",
+    icon: <Settings className="w-4 h-4" />,
+  },
 ];
 
 export function AdminDashboard() {
@@ -68,7 +97,9 @@ export function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="text-2xl mr-4">👥</div>
+                <div className="text-2xl ml-4">
+                  <Users className="w-6 h-6" />
+                </div>
                 <div>
                   <p className="text-2xl font-bold">{stats.totalUsers}</p>
                   <p className="text-gray-600 text-sm">إجمالي المستخدمين</p>
@@ -80,7 +111,9 @@ export function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="text-2xl mr-4">💍</div>
+                <div className="text-2xl ml-4">
+                  <Heart className="w-6 h-6" />
+                </div>
                 <div>
                   <p className="text-2xl font-bold">{stats.pendingRequests}</p>
                   <p className="text-gray-600 text-sm">طلبات الزواج</p>
@@ -92,7 +125,9 @@ export function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="text-2xl mr-4">💬</div>
+                <div className="text-2xl ml-4">
+                  <AlertTriangle className="w-6 h-6" />
+                </div>
                 <div>
                   <p className="text-2xl font-bold">{stats.activeChats}</p>
                   <p className="text-gray-600 text-sm">محادثات نشطة</p>
@@ -104,7 +139,9 @@ export function AdminDashboard() {
           <Card>
             <CardContent className="p-6">
               <div className="flex items-center">
-                <div className="text-2xl mr-4">🚨</div>
+                <div className="text-2xl ml-4">
+                  <FileText className="w-6 h-6" />
+                </div>
                 <div>
                   <p className="text-2xl font-bold">{stats.pendingReports}</p>
                   <p className="text-gray-600 text-sm">تقارير معلقة</p>
@@ -120,7 +157,7 @@ export function AdminDashboard() {
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
-              className={`px-4 py-2 text-sm font-medium border-b-2 ml-4 mb-2 ${
+              className={`flex gap-2 items-center px-4 py-2 text-sm font-medium border-b-2 ml-4 mb-2 ${
                 activeTab === tab.id
                   ? "border-primary text-primary"
                   : "border-transparent text-gray-500 hover:text-gray-700"
