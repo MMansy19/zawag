@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { PublicLayout } from "@/components/layouts/public-layout";
+import { InfoPageLayout } from "@/components/layouts/info-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -14,6 +15,7 @@ import {
   Mail,
   AlertTriangle,
   Info,
+  Cog,
 } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -133,28 +135,16 @@ export default function HowWeWorkPage() {
 
   return (
     <PublicLayout>
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12 px-4">
-        <div className="max-w-6xl mx-auto">
-          {" "}
-          {/* Header */}
-          <div className="text-center mb-12">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <BookOpen className="h-10 w-10 text-blue-600" />
-              <h1 className="text-4xl md:text-5xl font-bold text-gray-900">
-                كيف نعمل
-              </h1>
-            </div>
-            <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              نحن نسعى جاهدين لتيسير عملية زواجكم من خلال دمج الأساليب التقليدية
-              والتكنولوجية. هدفنا هو توفير تجربة مشابهة للطرق التقليدية التي
-              تعتمد على الأسرة والمعارف، مع الاستفادة من التكنولوجيا. نسعى لخلق
-              بيئة تمكنكم من البحث عن شركاء محتملين يتوافقون مع توقعاتكم، وذلك
-              بمراعاة القيم الدينية.
-            </p>
-          </div>
+      <InfoPageLayout
+        title="كيف نعمل"
+        subtitle="نحن نسعى جاهدين لتيسير عملية زواجكم من خلال دمج الأساليب التقليدية مع التقنيات الحديثة"
+        badgeText="طريقة العمل"
+        badgeIcon={Cog}
+      >
+        <div className="max-w-4xl mx-auto">
           {/* Main Steps */}
           <div className="mb-16">
-            <h2 className="text-3xl font-bold text-center mb-12 text-gray-900">
+            <h2 className="text-3xl font-bold text-center mb-12 text-gray-900 font-amiri">
               الخطوات التي نتبعها
             </h2>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -167,7 +157,7 @@ export default function HowWeWorkPage() {
                     <div className="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
                       <step.icon className="w-8 h-8 text-gray-700" />
                     </div>
-                    <Badge variant="secondary" className="w-fit mx-auto mb-2">
+                    <Badge variant="secondary" className="w-fit mx-auto mb-2 text-white">
                       الخطوة {step.number}
                     </Badge>
                     <CardTitle className="text-lg font-bold text-gray-900">
@@ -588,7 +578,7 @@ export default function HowWeWorkPage() {
             </CardContent>
           </Card>
         </div>
-      </div>
+      </InfoPageLayout>
     </PublicLayout>
   );
 }

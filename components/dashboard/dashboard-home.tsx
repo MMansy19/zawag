@@ -96,7 +96,7 @@ export function DashboardHome() {
         <Card className="overflow-hidden transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
           <CardContent className="p-4 sm:p-6">
             <div className="flex items-center">
-              <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
+              <div className="flex-shrink-0 w-12 h-12 badge-primary rounded-xl flex items-center justify-center text-white text-xl sm:text-2xl shadow-lg">
                 📊
               </div>
               <div className="mr-3 sm:mr-4 min-w-0 flex-1">
@@ -217,7 +217,7 @@ export function DashboardHome() {
             <CardContent className="p-4 sm:p-6">
               <div className="space-y-4 sm:space-y-6">
                 <div className="flex items-center text-sm">
-                  <div className="flex-shrink-0 w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-lg text-white shadow-md">
+                  <div className="flex-shrink-0 w-10 h-10 badge-primary rounded-full flex items-center justify-center text-lg text-white shadow-md">
                     👁️
                   </div>
                   <div className="mr-3 flex-1 min-w-0">
@@ -290,7 +290,7 @@ export function DashboardHome() {
         <CardContent className="p-4 sm:p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             <div className="text-center p-4 sm:p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
-              <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-3 shadow-lg">
+              <div className="w-12 h-12 badge-primary rounded-full flex items-center justify-center text-2xl text-white mx-auto mb-3 shadow-lg">
                 📝
               </div>
               <h4 className="font-semibold mb-2 text-sm sm:text-base">

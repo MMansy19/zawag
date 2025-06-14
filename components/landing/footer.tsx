@@ -81,18 +81,8 @@ export function LandingFooter() {
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="text-gray-300 hover:text-white">
-                  عن المنصة
+                  حولنا
                 </Link>
-              </li>
-              <li>
-                <a
-                  href="https://alzawajalsaeid.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-gray-300 hover:text-white"
-                >
-                  المدونة والمقالات
-                </a>
               </li>
               <li>
                 <Link
@@ -104,43 +94,10 @@ export function LandingFooter() {
               </li>
               <li>
                 <Link
-                  href="/success-stories"
+                  href="/tips-guidance"
                   className="text-gray-300 hover:text-white"
                 >
-                  قصص النجاح
-                </Link>
-              </li>
-              <li>
-                <Link href="/faq" className="text-gray-300 hover:text-white">
-                  الأسئلة الشائعة
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h4 className="text-lg font-semibold mb-4">الدعم</h4>
-            <ul className="space-y-2">
-              <li>
-                <Link
-                  href="/contact"
-                  className="text-gray-300 hover:text-white"
-                >
-                  اتصل بنا
-                </Link>
-              </li>
-              <li>
-                <Link href="/help" className="text-gray-300 hover:text-white">
-                  المساعدة
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/privacy"
-                  className="text-gray-300 hover:text-white"
-                >
-                  سياسة الخصوصية
+                  نصائح وإرشادات
                 </Link>
               </li>
               <li>
@@ -148,17 +105,86 @@ export function LandingFooter() {
                   href="/terms-privacy"
                   className="text-gray-300 hover:text-white"
                 >
-                  الشروط والأحكام
+                  الشروط والخصوصية
                 </Link>
+              </li>
+              <li>
+                <a
+                  href="https://alzawajalsaeid.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-white"
+                >
+                  الموقع الرئيسي
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Support & Services */}
+          <div>
+            <h4 className="text-lg font-semibold mb-4">الخدمات والدعم</h4>
+            <ul className="space-y-2">
+              <li>
+                <Link
+                  href="/auth/register"
+                  className="text-gray-300 hover:text-white"
+                >
+                  إنشاء حساب
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/auth/login"
+                  className="text-gray-300 hover:text-white"
+                >
+                  تسجيل الدخول
+                </Link>
+              </li>
+              <li>
+                <a
+                  href="https://api.whatsapp.com/send/?phone=21695765691&text&type=phone_number&app_absent=0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-white"
+                >
+                  تواصل معنا
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://mahmoud-mansy.vercel.app/ar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gray-300 hover:text-white"
+                >
+                  
+                </a>
               </li>
             </ul>
           </div>
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 text-center">
-          <p className="text-gray-400">
-            © {new Date().getFullYear()} الزواج السعيد. جميع الحقوق محفوظة.
-          </p>
+        <div className="border-t border-gray-800 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <div className="text-gray-400">
+              © {new Date().getFullYear()} - {new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { 
+              year: 'numeric', 
+              month: 'long' 
+              }).format(new Date())}
+              <a
+              href="https://alzawajalsaeid.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              >
+              <span
+                className="text-gray-300 hover:text-primary transition-colors">
+              {" "}الزواج السعيد
+                </span>
+              </a>
+              . جميع الحقوق محفوظة.
+            </div>
+          </div>
         </div>
       </div>
     </footer>

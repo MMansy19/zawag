@@ -1,4 +1,6 @@
 import { Metadata } from "next";
+import { PublicLayout } from "@/components/layouts/public-layout";
+import { InfoPageLayout } from "@/components/layouts/info-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   Shield,
@@ -8,7 +10,6 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react";
-import { PublicLayout } from "@/components/layouts/public-layout";
 
 export const metadata: Metadata = {
   title: "الشروط والخصوصية - الزواج السعيد",
@@ -39,29 +40,16 @@ export const metadata: Metadata = {
 export default function TermsPrivacyPage() {
   return (
     <PublicLayout>
-      <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50 py-8">
-        <div className="container mx-auto px-4 max-w-4xl">
-          {/* Header */}
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-3 mb-4">
-              <Shield className="h-8 w-8 text-emerald-600" />
-              <h1 className="text-3xl font-bold text-gray-800">
-                الشروط والخصوصية
-              </h1>
-            </div>
-            <p className="text-gray-600 text-lg leading-relaxed max-w-3xl mx-auto">
-              نعتبر الشروط والخصوصية جزءًا أساسيًا من تجربتك معنا. نحرص على
-              توفير بيئة آمنة وموثوقة للمتقدمين الذين يبحثون عن الشريك المناسب
-              بما يتوافق مع القيم الإسلامية. لذلك، يهمنا أن تكون على دراية
-              بشروطنا وسياسة الخصوصية التي تنظم استخدامك للموقع وتعاملنا مع
-              معلوماتك الشخصية.
-            </p>
-          </div>
-
+      <InfoPageLayout
+        title="الشروط والخصوصية"
+        subtitle="نعتبر الشروط والخصوصية جزءًا أساسيًا من تجربتك معنا. نحرص على توفير بيئة آمنة وموثوقة للمتقدمين"
+        badgeText="الشروط والسياسات"
+        badgeIcon={Shield}      >
+        <div className="max-w-4xl mx-auto">
           {/* Terms Section */}
           <Card className="mb-8 shadow-lg">
             <CardHeader className="bg-emerald-600 text-white">
-              <CardTitle className="flex items-center gap-3 text-xl">
+              <CardTitle className="flex items-center gap-3 text-xl font-amiri">
                 <Users className="h-6 w-6" />
                 الشروط
               </CardTitle>
@@ -244,7 +232,7 @@ export default function TermsPrivacyPage() {
             <p className="text-gray-600 text-sm">آخر تحديث: يونيو 2025</p>
           </div>
         </div>
-      </div>
+      </InfoPageLayout>
     </PublicLayout>
   );
 }

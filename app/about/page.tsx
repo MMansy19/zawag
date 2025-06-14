@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { PublicLayout } from "@/components/layouts/public-layout";
+import { InfoPageLayout } from "@/components/layouts/info-page-layout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -95,31 +96,12 @@ export default function AboutPage() {
 
   return (
     <PublicLayout>
-      <div className="min-h-screen">
-        {/* Hero Section */}
-        <div className="badge-primary py-16">
-          <div className="container mx-auto px-4 text-center">
-            <div className="max-w-4xl mx-auto">
-              {" "}
-              <Badge
-                variant="secondary"
-                className="mb-4 bg-white/20 text-white border-white/30 hover:bg-white/30"
-              >
-                <Building2 className="w-4 h-4 ml-2" />
-                من نحن
-              </Badge>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6 font-amiri">
-                حولنا
-              </h1>
-              <p className="text-xl text-blue-100 leading-relaxed max-w-3xl mx-auto">
-                منصة زواج إسلامية ملتزمة بالشريعة، نسعى لتكوين مجتمع إسلامي قوي
-                قائم على العفاف والفضيلة
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div className="container mx-auto px-4 py-12">
+      <InfoPageLayout
+        title="حولنا"
+        subtitle="منصة زواج إسلامية ملتزمة بالشريعة، نسعى لتكوين مجتمع إسلامي قوي قائم على العفاف والفضيلة"
+        badgeText="من نحن"
+        badgeIcon={Building2}
+      >
           {/* Mission Statement */}
           <div className="max-w-4xl mx-auto mb-16">
             <Card className="border-2 border-blue-100 shadow-lg">
@@ -272,8 +254,7 @@ export default function AboutPage() {
               </CardContent>
             </Card>
           </div>
-        </div>
-      </div>
+      </InfoPageLayout>
     </PublicLayout>
   );
 }

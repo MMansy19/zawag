@@ -104,7 +104,7 @@ export function LandingNavigation() {
   };
   return (
     <nav className="bg-white shadow-sm border-b border-border sticky top-0 z-50">
-      <div className="max-w-8xl mx-auto px-1 sm:px-3 md:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-1 sm:px-3 md:px-6 lg:px-8">
         <div className="flex justify-between items-center h-12 md:h-16">
           <div className="flex items-center justify-start">
             <Link
@@ -129,7 +129,7 @@ export function LandingNavigation() {
               <Link
                 href="/#features"
                 onClick={(e) => handleAnchorClick(e, "features")}
-                className="flex items-center gap-1 text-text-secondary hover:text-text hidden xl:inline-flex"
+                className="flex items-center gap-1 text-text-secondary hover:text-text hidden md:inline-flex"
               >
                 <Star className="h-4 w-4" />
                 المميزات
@@ -138,7 +138,7 @@ export function LandingNavigation() {
               <Link
                 href="/#faq"
                 onClick={(e) => handleAnchorClick(e, "faq")}
-                className="flex items-center gap-1 text-text-secondary hover:text-text hidden xl:inline-flex"
+                className="flex items-center gap-1 text-text-secondary hover:text-text hidden lg:inline-flex"
               >
                 <HelpCircle className="h-4 w-4" />
                 الأسئلة الشائعة
@@ -210,7 +210,7 @@ export function LandingNavigation() {
 
             <div className="flex items-center lg:gap-4 gap-2">
               {/* Desktop links */}
-              <div className="lg:flex hidden items-center lg:gap-4 gap-2">
+              <div className="xl:flex hidden items-center lg:gap-4 gap-2">
                 <Link
                   href="/auth/login"
                   className="flex items-center gap-1 text-primary hover:text-primary-hover font-medium"
@@ -229,11 +229,11 @@ export function LandingNavigation() {
 
               {/* Mobile icons - only show when menu is closed */}
               <div
-                className={`sm:flex lg:hidden hidden items-center gap-1 ${isMobileMenuOpen ? "hidden" : "flex"}`}
+                className={`flex xl:hidden items-center gap-1 ${isMobileMenuOpen ? "hidden" : "flex"}`}
               >
                 <Link
                   href="/auth/login"
-                  className="text-primary hover:text-primary-hover p-2"
+                  className="text-primary hover:text-primary-hover p-2 sm:inline-block hidden"
                 >
                   <LogIn className="h-5 w-5" />
                 </Link>
