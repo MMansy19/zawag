@@ -158,7 +158,7 @@ export function LandingFooter() {
                   rel="noopener noreferrer"
                   className="text-gray-300 hover:text-white"
                 >
-                  
+                  مطور الموقع
                 </a>
               </li>
             </ul>
@@ -168,18 +168,19 @@ export function LandingFooter() {
         <div className="border-t border-gray-800 mt-8 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-gray-400">
-              © {new Date().getFullYear()} - {new Intl.DateTimeFormat('ar-SA-u-ca-islamic', { 
-              year: 'numeric', 
-              month: 'long' 
+              © {new Date().getFullYear()} -{" "}
+              {new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
+                year: "numeric",
+                month: "long",
               }).format(new Date())}
               <a
-              href="https://alzawajalsaeid.com/"
-              target="_blank"
-              rel="noopener noreferrer"
+                href="https://alzawajalsaeid.com/"
+                target="_blank"
+                rel="noopener noreferrer"
               >
-              <span
-                className="text-gray-300 hover:text-primary transition-colors">
-              {" "}الزواج السعيد
+                <span className="text-gray-300 transition-colors mr-1">
+                  {" "}
+                  الزواج السعيد
                 </span>
               </a>
               . جميع الحقوق محفوظة.

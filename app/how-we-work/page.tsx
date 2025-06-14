@@ -157,7 +157,10 @@ export default function HowWeWorkPage() {
                     <div className="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
                       <step.icon className="w-8 h-8 text-gray-700" />
                     </div>
-                    <Badge variant="secondary" className="w-fit mx-auto mb-2 text-white">
+                    <Badge
+                      variant="secondary"
+                      className="w-fit mx-auto mb-2 text-white"
+                    >
                       الخطوة {step.number}
                     </Badge>
                     <CardTitle className="text-lg font-bold text-gray-900">

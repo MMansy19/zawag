@@ -1,7 +1,20 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { LogIn, UserPlus, Menu, X, ChevronDown, Star, Cog, Phone, Info, HelpCircle, Shield, Lightbulb } from "lucide-react";
+import {
+  LogIn,
+  UserPlus,
+  Menu,
+  X,
+  ChevronDown,
+  Star,
+  Cog,
+  Phone,
+  Info,
+  HelpCircle,
+  Shield,
+  Lightbulb,
+} from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,14 +26,17 @@ export function LandingNavigation() {
   // Handle clicking outside dropdown to close it
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
@@ -151,7 +167,7 @@ export function LandingNavigation() {
                 <Phone className="h-4 w-4" />
                 تواصل معنا
               </Link>
-              
+
               {/* Dropdown Menu for Info Pages */}
               <div className="relative" ref={dropdownRef}>
                 <button
@@ -161,9 +177,11 @@ export function LandingNavigation() {
                 >
                   <Info className="h-4 w-4" />
                   معلومات
-                  <ChevronDown className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  <ChevronDown
+                    className={`h-4 w-4 transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`}
+                  />
                 </button>
-                
+
                 {/* Dropdown Menu */}
                 {isDropdownOpen && (
                   <div
@@ -213,14 +231,14 @@ export function LandingNavigation() {
               <div className="xl:flex hidden items-center lg:gap-4 gap-2">
                 <Link
                   href="/auth/login"
-                  className="flex items-center gap-1 text-primary hover:text-primary-hover font-medium"
+                  className="flex items-center gap-1 text-primary hover:text-primary-hover font-lg"
                 >
                   <LogIn className="h-4 w-4" />
                   تسجيل الدخول
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="flex items-center gap-1 bg-primary hover:text-white text-white px-4 py-2 rounded-md hover:bg-primary-hover font-medium"
+                  className="flex items-center gap-1 bg-primary hover:text-white text-white px-4 py-2 rounded-md hover:bg-primary-hover font-lg"
                 >
                   <UserPlus className="h-4 w-4" />
                   إنشاء حساب
@@ -239,7 +257,7 @@ export function LandingNavigation() {
                 </Link>
                 <Link
                   href="/auth/register"
-                  className="bg-primary hover:bg-primary-hover text-white p-2 rounded-md"
+                  className="bg-primary hover:bg-primary-hover text-white hover:text-white p-2 rounded-md"
                 >
                   <UserPlus className="h-5 w-5" />
                 </Link>
@@ -262,91 +280,161 @@ export function LandingNavigation() {
         </div>
       </div>
 
-      {/* Mobile menu dropdown */}
+      {/* Mobile Sidebar Overlay */}
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-white border-t border-gray-200 shadow-lg">
-          <div className="px-4 py-3 space-y-3">
-            {/* Navigation Links */}
-            <div className="space-y-2">
-              <Link
-                href="/#features"
-                onClick={(e) => handleAnchorClick(e, "features")}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <Star className="h-4 w-4" />
-                المميزات
-              </Link>
-              <Link
-                href="/about"
+        <div className="fixed inset-0 z-50 md:hidden">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 transition-opacity duration-300"
+            onClick={closeMobileMenu}
+          ></div>
+
+          {/* Sidebar */}
+          <div className="fixed top-0 right-0 h-full w-full max-w-[450px] bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
+            {/* Sidebar Header */}
+            <div className="flex items-center justify-between p-4 border-b border-gray-200 badge-primary">
+              <div className="flex items-center gap-3">
+                <Image
+                  src="/logo-footer.png"
+                  alt="الزواج السعيد"
+                  width={32}
+                  height={32}
+                  className="h-16 w-auto"
+                />
+                <h3 className="text-xl font-bold text-white mt-3">
+                  الزواج السعيد
+                </h3>
+              </div>
+              <button
                 onClick={closeMobileMenu}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
+                className="p-2 rounded-full text-white hover:bg-white/20 transition-colors"
+                aria-label="إغلاق القائمة"
               >
-                <Info className="h-4 w-4" />
-                حولنا
-              </Link>
-              <Link
-                href="/how-we-work"
-                onClick={closeMobileMenu}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <Cog className="h-4 w-4" />
-                كيف نعمل
-              </Link>
-              <Link
-                href="/terms-privacy"
-                onClick={closeMobileMenu}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <Shield className="h-4 w-4" />
-                الشروط والخصوصية
-              </Link>
-              <Link
-                href="/tips-guidance"
-                onClick={closeMobileMenu}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <Lightbulb className="h-4 w-4" />
-                نصائح وإرشادات
-              </Link>
-              <Link
-                href="/#faq"
-                onClick={(e) => handleAnchorClick(e, "faq")}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <HelpCircle className="h-4 w-4" />
-                الأسئلة الشائعة
-              </Link>
-              <Link
-                href="/#contact"
-                onClick={(e) => handleAnchorClick(e, "contact")}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-gray-700 hover:text-primary hover:bg-gray-50 rounded-md transition-colors"
-              >
-                <Phone className="h-4 w-4" />
-                تواصل معنا
-              </Link>
+                <X className="h-5 w-5" />
+              </button>
             </div>
 
-            {/* Divider */}
-            <div className="border-t border-gray-200 my-3"></div>
+            {/* Sidebar Content */}
+            <div className="flex flex-col h-full">
+              {/* Navigation Links */}
+              <div className="flex-1 px-4 py-6">
+                <div className="space-y-1">
+                  <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+                    التنقل الرئيسي
+                  </h4>
+                  <Link
+                    href="/#features"
+                    onClick={(e) => handleAnchorClick(e, "features")}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <Star className="h-6 w-6 text-yellow-500" />
+                    <span>المميزات</span>
+                  </Link>
+                  <Link
+                    href="/about"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <Info className="h-6 w-6 text-blue-500" />
+                    <span>حولنا</span>
+                  </Link>
+                  <Link
+                    href="/how-we-work"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <Cog className="h-6 w-6 text-gray-500" />
+                    <span>كيف نعمل</span>
+                  </Link>
+                  <Link
+                    href="/terms-privacy"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <Shield className="h-6 w-6 text-green-500" />
+                    <span>الشروط والخصوصية</span>
+                  </Link>
+                  <Link
+                    href="/tips-guidance"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <Lightbulb className="h-6 w-6 text-amber-500" />
+                    <span>نصائح وإرشادات</span>
+                  </Link>
+                  <Link
+                    href="/#faq"
+                    onClick={(e) => handleAnchorClick(e, "faq")}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <HelpCircle className="h-6 w-6 text-purple-500" />
+                    <span>الأسئلة الشائعة</span>
+                  </Link>
+                  <Link
+                    href="/#contact"
+                    onClick={(e) => handleAnchorClick(e, "contact")}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <Phone className="h-6 w-6 text-emerald-500" />
+                    <span>تواصل معنا</span>
+                  </Link>
+                </div>
+              </div>
 
-            {/* Auth Links */}
-            <div className="space-y-2">
-              <Link
-                href="/auth/login"
-                onClick={closeMobileMenu}
-                className="flex items-center gap-2 px-3 py-2 text-base font-medium text-primary hover:text-primary-hover hover:bg-primary/5 rounded-md transition-colors"
-              >
-                <LogIn className="h-4 w-4" />
-                تسجيل الدخول
-              </Link>
-              <Link
-                href="/auth/register"
-                onClick={closeMobileMenu}
-                className="flex items-center justify-center gap-2 px-3 py-2 text-base font-medium bg-primary text-white hover:bg-primary-hover rounded-md transition-colors text-center"
-              >
-                <UserPlus className="h-4 w-4" />
-                إنشاء حساب
-              </Link>
+              {/* Sidebar Footer - Auth Links */}
+              <div className="h-full border-t border-gray-200 p-4 bg-gray-50">
+                <h4 className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+                  الحساب
+                </h4>
+                <div className="space-y-2">
+                  <Link
+                    href="/auth/login"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-4 p-4 text-base font-lg text-primary hover:text-primary-hover hover:bg-white rounded-lg transition-all duration-200 hover:translate-x-1"
+                  >
+                    <LogIn className="h-6 w-6" />
+                    <span>تسجيل الدخول</span>
+                  </Link>
+                  <Link
+                    href="/auth/register"
+                    onClick={closeMobileMenu}
+                    className="flex items-center gap-4 p-4 text-base font-lg bg-primary text-white hover:text-white hover:bg-primary-hover rounded-lg transition-all duration-200 hover:translate-x-1 hover:shadow-lg"
+                  >
+                    <UserPlus className="h-6 w-6" />
+                    <span>إنشاء حساب</span>
+                  </Link>
+                </div>
+
+                {/* Sidebar Footer */}
+                <div className="absolute bottom-0 left-0 right-0 py-6 border-t border-gray-300 text-center">
+                  <div className="text-xs text-gray-500 mb-2 leading-relaxed">
+                    © {new Date().getFullYear()} -{" "}
+                    {new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
+                      year: "numeric",
+                      month: "long",
+                    }).format(new Date())}{" "}
+                    <a
+                      href="https://alzawajalsaeid.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-primary transition-colors font-medium"
+                    >
+                      الزواج السعيد
+                    </a>
+                    . جميع الحقوق محفوظة.
+                  </div>
+                  <div className="text-xs text-gray-500 mb-2 leading-relaxed">
+                    <a
+                      href="https://mahmoud-mansy.vercel.app/ar"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-500 hover:text-primary transition-colors"
+                    >
+                      مطور الموقع
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

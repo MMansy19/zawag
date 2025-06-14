@@ -44,7 +44,8 @@ export default function TermsPrivacyPage() {
         title="الشروط والخصوصية"
         subtitle="نعتبر الشروط والخصوصية جزءًا أساسيًا من تجربتك معنا. نحرص على توفير بيئة آمنة وموثوقة للمتقدمين"
         badgeText="الشروط والسياسات"
-        badgeIcon={Shield}      >
+        badgeIcon={Shield}
+      >
         <div className="max-w-4xl mx-auto">
           {/* Terms Section */}
           <Card className="mb-8 shadow-lg">
