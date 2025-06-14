@@ -256,7 +256,6 @@ export const landingPageFAQs: FAQItem[] = [
   },
 ];
 
-
 const tipsGuidanceFaqData: FAQItem[] = [
   {
     question: "ما هي برأيكم أهم نصيحة للمقبلين على الزواج؟",
@@ -772,4 +771,8 @@ const moreTipsGuidanceFaqData: FAQItem[] = [
 ];
 
 // Combine all FAQ data
-export const allTipsGuidanceFaqData = [...tipsGuidanceFaqData, ...additionalTipsGuidanceFaqData, ...moreTipsGuidanceFaqData];
+export const allTipsGuidanceFaqData = [
+  ...tipsGuidanceFaqData,
+  ...additionalTipsGuidanceFaqData,
+  ...moreTipsGuidanceFaqData,
+];
