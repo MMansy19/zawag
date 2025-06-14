@@ -6,7 +6,7 @@
   ### A comprehensive Next.js 14 platform for Islamic marriage connections
   *Built with privacy, moderation, and cultural sensitivity at its core*
   
-  [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=vercel)](https://islamic-zawaj-platform.vercel.app)
+  [![Live Demo](https://img.shields.io/badge/Live-Demo-blue?style=for-the-badge&logo=vercel)](https://alzawajalsaeid.vercel.app)
   [![Version](https://img.shields.io/badge/Version-1.0.0-green?style=for-the-badge)](https://github.com/your-org/islamic-zawaj-platform)
   [![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](./LICENSE)
   
