@@ -832,41 +832,87 @@ export function ProfileView() {
         </Card>
 
         {/* Guardian Information */}
-        {(profile.guardianName || profile.guardianPhone) && (
+        {(profile.guardianName ||
+          profile.guardianPhone ||
+          editMode === "guardian") && (
           <Card>
             <CardHeader>
-              <h3 className="text-xl font-semibold">معلومات الولي</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-xl font-semibold">معلومات الولي</h3>
+                {editMode === "guardian" ? (
+                  <div className="space-x-2 space-x-reverse">
+                    <Button
+                      size="sm"
+                      onClick={handleEditSave}
+                      disabled={submitting}
+                      className="ml-2"
+                    >
+                      {submitting ? "جاري الحفظ..." : "حفظ"}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={handleEditCancel}
+                      disabled={submitting}
+                    >
+                      إلغاء
+                    </Button>
+                  </div>
+                ) : (
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={() => handleEditStart("guardian")}
+                    disabled={!canEdit}
+                  >
+                    {profile.guardianName || profile.guardianPhone
+                      ? "تعديل"
+                      : "إضافة"}
+                  </Button>
+                )}
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
-              {profile.guardianName && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    اسم الولي
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">
-                    {profile.guardianName}
-                  </p>
-                </div>
-              )}
-              {profile.guardianPhone && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    هاتف الولي
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">
-                    {profile.guardianPhone}
-                  </p>
-                </div>
-              )}
-              {profile.guardianEmail && (
-                <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    بريد الولي
-                  </label>
-                  <p className="mt-1 text-sm text-gray-900">
-                    {profile.guardianEmail}
-                  </p>
-                </div>
+              {editMode === "guardian" ? (
+                renderGuardianEdit()
+              ) : (
+                <>
+                  {profile.guardianName && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        اسم الولي
+                      </label>
+                      <p className="mt-1 text-sm text-gray-900">
+                        {profile.guardianName}
+                      </p>
+                    </div>
+                  )}
+                  {profile.guardianPhone && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        هاتف الولي
+                      </label>
+                      <p className="mt-1 text-sm text-gray-900">
+                        {profile.guardianPhone}
+                      </p>
+                    </div>
+                  )}
+                  {profile.guardianEmail && (
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700">
+                        بريد الولي
+                      </label>
+                      <p className="mt-1 text-sm text-gray-900">
+                        {profile.guardianEmail}
+                      </p>
+                    </div>
+                  )}
+                  {!profile.guardianName && !profile.guardianPhone && (
+                    <p className="text-sm text-gray-500 italic">
+                      لم يتم إضافة معلومات الولي بعد
+                    </p>
+                  )}
+                </>
               )}
             </CardContent>
           </Card>
@@ -874,13 +920,102 @@ export function ProfileView() {
       </div>
 
       {/* Bio */}
-      {profile.bio && (
+      {(profile.bio || editMode === "bio") && (
         <Card className="mt-6">
           <CardHeader>
-            <h3 className="text-xl font-semibold">نبذة شخصية</h3>
+            <div className="flex items-center justify-between">
+              <h3 className="text-xl font-semibold">نبذة شخصية</h3>
+              {editMode === "bio" ? (
+                <div className="space-x-2 space-x-reverse">
+                  <Button
+                    size="sm"
+                    onClick={handleEditSave}
+                    disabled={submitting}
+                    className="ml-2"
+                  >
+                    {submitting ? "جاري الحفظ..." : "حفظ"}
+                  </Button>
+                  <Button
+                    size="sm"
+                    variant="outline"
+                    onClick={handleEditCancel}
+                    disabled={submitting}
+                  >
+                    إلغاء
+                  </Button>
+                </div>
+              ) : (
+                <Button
+                  size="sm"
+                  variant="outline"
+                  onClick={() => handleEditStart("bio")}
+                  disabled={!canEdit}
+                >
+                  {profile.bio ? "تعديل" : "إضافة"}
+                </Button>
+              )}
+            </div>
           </CardHeader>
           <CardContent>
-            <p className="text-gray-800 whitespace-pre-wrap">{profile.bio}</p>
+            {editMode === "bio" ? (
+              renderBioEdit()
+            ) : (
+              <>
+                {profile.bio ? (
+                  <p className="text-gray-800 whitespace-pre-wrap">
+                    {profile.bio}
+                  </p>
+                ) : (
+                  <p className="text-sm text-gray-500 italic">
+                    لم يتم إضافة نبذة شخصية بعد
+                  </p>
+                )}
+              </>
+            )}
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Guardian Information - Show as separate card for better organization */}
+      {!(
+        profile.guardianName ||
+        profile.guardianPhone ||
+        editMode === "guardian"
+      ) &&
+        canEdit && (
+          <Card className="mt-6">
+            <CardContent className="text-center py-8">
+              <div className="text-4xl mb-3">👨‍👩‍👧‍👦</div>
+              <h3 className="text-lg font-medium text-gray-900 mb-2">
+                معلومات الولي
+              </h3>
+              <p className="text-gray-600 mb-4">
+                يمكنك إضافة معلومات الولي للتواصل معه عند الحاجة
+              </p>
+              <Button
+                onClick={() => handleEditStart("guardian")}
+                disabled={!canEdit}
+              >
+                إضافة معلومات الولي
+              </Button>
+            </CardContent>
+          </Card>
+        )}
+
+      {/* Bio placeholder for adding */}
+      {!profile.bio && editMode !== "bio" && canEdit && (
+        <Card className="mt-6">
+          <CardContent className="text-center py-8">
+            <div className="text-4xl mb-3">📝</div>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">
+              نبذة شخصية
+            </h3>
+            <p className="text-gray-600 mb-4">
+              أضف نبذة عن نفسك لتساعد الآخرين على التعرف عليك بشكل أفضل
+            </p>
+            <Button onClick={() => handleEditStart("bio")} disabled={!canEdit}>
+              إضافة نبذة شخصية
+            </Button>
           </CardContent>
         </Card>
       )}
