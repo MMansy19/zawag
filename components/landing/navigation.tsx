@@ -406,7 +406,7 @@ export function LandingNavigation() {
                 </div>
 
                 {/* Sidebar Footer */}
-                <div className="absolute bottom-0 left-0 right-0 py-6 border-t border-gray-300 text-center">
+                <div className="mt-3 pt-3 border-t border-gray-300 text-center">
                   <div className="text-xs text-gray-500 mb-2 leading-relaxed">
                     © {new Date().getFullYear()} -{" "}
                     {new Intl.DateTimeFormat("ar-SA-u-ca-islamic", {
