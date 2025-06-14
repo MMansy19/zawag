@@ -457,8 +457,8 @@ export const mockAdminNotifications: AdminNotification[] = [
   {
     id: "notif_4",
     type: "marriage_request",
-    title: "طلب زواج جديد",
-    message: "تم إرسال طلب زواج جديد",
+    title: "طلب تعارف جديد",
+    message: "تم إرسال طلب تعارف جديد",
     timestamp: "2024-12-12 14:15:00",
     read: true,
     priority: "medium",

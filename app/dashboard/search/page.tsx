@@ -13,7 +13,7 @@ function SearchPageContent() {
         {/* Header */}
         <div className="text-center sm:text-right">
           <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2">
-            البحث عن شريك الحياة 
+            البحث عن شريك الحياة
           </h1>
           <p className="text-sm sm:text-base text-gray-600">
             استخدم الفلاتر للعثور على الشريك المناسب وفقاً لمعاييرك
@@ -21,7 +21,7 @@ function SearchPageContent() {
         </div>
 
         {/* Quick Search Categories */}
-        <div className="bg-white rounded-lg border border-gray-200 p-4">
+        {/* <div className="bg-white rounded-lg border border-gray-200 p-4">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">بحث سريع</h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
             <button className="bg-blue-50 hover:bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-sm font-medium transition-colors">
@@ -40,7 +40,7 @@ function SearchPageContent() {
               الموثقين
             </button>
           </div>
-        </div>
+        </div> */}
 
         {/* Mobile Filter Toggle */}
         <div className="lg:hidden">

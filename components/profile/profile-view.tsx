@@ -14,7 +14,6 @@ import {
   religiousInfoSchema,
   educationWorkSchema,
   bioSchema,
-  guardianInfoSchema,
 } from "@/lib/validation";
 import {
   getCountriesByGroup,
@@ -28,7 +27,7 @@ const user = {
   id: "mock-user-123",
   name: "محمود المنسي",
   email: "mahmoud@example.com",
-  isVerified: true
+  isVerified: true,
 };
 
 export function ProfileView() {
@@ -71,9 +70,6 @@ export function ProfileView() {
         education: "بكالوريوس هندسة حاسوب",
         occupation: "مطور برمجيات",
         bio: "أبحث عن شريكة حياة ملتزمة وتتشارك معي نفس القيم والأهداف في الحياة. أحب القراءة والرياضة والسفر. أسعى لبناء أسرة سعيدة ومترابطة.",
-        guardianName: "محمد علي أحمد",
-        guardianPhone: "+966509876543",
-        guardianEmail: "guardian@example.com",
         isVerified: true,
         isComplete: true,
         isApproved: true,
@@ -82,13 +78,13 @@ export function ProfileView() {
           showAge: true,
           showLocation: true,
           showOccupation: true,
-          allowMessagesFrom: "everyone"
+          allowMessagesFrom: "everyone",
         },
         createdAt: "2024-01-15T10:00:00.000Z",
-        updatedAt: "2024-06-01T14:30:00.000Z"
+        updatedAt: "2024-06-01T14:30:00.000Z",
       };
       console.log("Mock profile loaded:", mockProfile);
-      
+
       setProfile(mockProfile);
       // Check last edit date from localStorage
       const lastEdit = localStorage.getItem(`profile_last_edit_${user.id}`);
@@ -153,13 +149,6 @@ export function ProfileView() {
           bio: profile?.bio || "",
         });
         break;
-      case "guardian":
-        setEditData({
-          guardianName: profile?.guardianName || "",
-          guardianPhone: profile?.guardianPhone || "",
-          guardianEmail: profile?.guardianEmail || "",
-        });
-        break;
     }
   };
 
@@ -197,16 +186,12 @@ export function ProfileView() {
           const bioData = bioSchema.parse(editData);
           Object.assign(updatedProfile, bioData);
           break;
-        case "guardian":
-          const guardianData = guardianInfoSchema.parse(editData);
-          Object.assign(updatedProfile, guardianData);
-          break;
         default:
           throw new Error("نوع التعديل غير صالح");
       }
 
       // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       // Update the profile state
       updatedProfile.updatedAt = new Date().toISOString();
@@ -536,39 +521,6 @@ export function ProfileView() {
     </div>
   );
 
-  const renderGuardianEdit = () => (
-    <div className="space-y-4">
-      <Input
-        label="اسم الولي"
-        value={editData.guardianName || ""}
-        onChange={(e) =>
-          setEditData({ ...editData, guardianName: e.target.value })
-        }
-        placeholder="أدخل اسم الولي"
-        disabled={submitting}
-      />
-      <Input
-        label="هاتف الولي"
-        value={editData.guardianPhone || ""}
-        onChange={(e) =>
-          setEditData({ ...editData, guardianPhone: e.target.value })
-        }
-        placeholder="أدخل رقم هاتف الولي"
-        disabled={submitting}
-      />
-      <Input
-        label="بريد الولي الإلكتروني"
-        type="email"
-        value={editData.guardianEmail || ""}
-        onChange={(e) =>
-          setEditData({ ...editData, guardianEmail: e.target.value })
-        }
-        placeholder="أدخل بريد الولي الإلكتروني"
-        disabled={submitting}
-      />
-    </div>
-  );
-
   return (
     <div className="max-w-4xl mx-auto p-6">
       <div className="mb-8">
@@ -872,93 +824,6 @@ export function ProfileView() {
             )}
           </CardContent>
         </Card>
-
-        {/* Guardian Information */}
-        {(profile.guardianName ||
-          profile.guardianPhone ||
-          editMode === "guardian") && (
-          <Card>
-            <CardHeader>
-              <div className="flex items-center justify-between">
-                <h3 className="text-xl font-semibold">معلومات الولي</h3>
-                {editMode === "guardian" ? (
-                  <div className="space-x-2 space-x-reverse">
-                    <Button
-                      size="sm"
-                      onClick={handleEditSave}
-                      disabled={submitting}
-                      className="ml-2"
-                    >
-                      {submitting ? "جاري الحفظ..." : "حفظ"}
-                    </Button>
-                    <Button
-                      size="sm"
-                      variant="outline"
-                      onClick={handleEditCancel}
-                      disabled={submitting}
-                    >
-                      إلغاء
-                    </Button>
-                  </div>
-                ) : (
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    onClick={() => handleEditStart("guardian")}
-                    disabled={!canEdit}
-                  >
-                    {profile.guardianName || profile.guardianPhone
-                      ? "تعديل"
-                      : "إضافة"}
-                  </Button>
-                )}
-              </div>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {editMode === "guardian" ? (
-                renderGuardianEdit()
-              ) : (
-                <>
-                  {profile.guardianName && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        اسم الولي
-                      </label>
-                      <p className="mt-1 text-sm text-gray-900">
-                        {profile.guardianName}
-                      </p>
-                    </div>
-                  )}
-                  {profile.guardianPhone && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        هاتف الولي
-                      </label>
-                      <p className="mt-1 text-sm text-gray-900">
-                        {profile.guardianPhone}
-                      </p>
-                    </div>
-                  )}
-                  {profile.guardianEmail && (
-                    <div>
-                      <label className="block text-sm font-medium text-gray-700">
-                        بريد الولي
-                      </label>
-                      <p className="mt-1 text-sm text-gray-900">
-                        {profile.guardianEmail}
-                      </p>
-                    </div>
-                  )}
-                  {!profile.guardianName && !profile.guardianPhone && (
-                    <p className="text-sm text-gray-500 italic">
-                      لم يتم إضافة معلومات الولي بعد
-                    </p>
-                  )}
-                </>
-              )}
-            </CardContent>
-          </Card>
-        )}
       </div>
 
       {/* Bio */}
@@ -1017,32 +882,6 @@ export function ProfileView() {
           </CardContent>
         </Card>
       )}
-
-      {/* Guardian Information - Show as separate card for better organization */}
-      {!(
-        profile.guardianName ||
-        profile.guardianPhone ||
-        editMode === "guardian"
-      ) &&
-        canEdit && (
-          <Card className="mt-6">
-            <CardContent className="text-center py-8">
-              <div className="text-4xl mb-3">👨‍👩‍👧‍👦</div>
-              <h3 className="text-lg font-medium text-gray-900 mb-2">
-                معلومات الولي
-              </h3>
-              <p className="text-gray-600 mb-4">
-                يمكنك إضافة معلومات الولي للتواصل معه عند الحاجة
-              </p>
-              <Button
-                onClick={() => handleEditStart("guardian")}
-                disabled={!canEdit}
-              >
-                إضافة معلومات الولي
-              </Button>
-            </CardContent>
-          </Card>
-        )}
 
       {/* Bio placeholder for adding */}
       {!profile.bio && editMode !== "bio" && canEdit && (

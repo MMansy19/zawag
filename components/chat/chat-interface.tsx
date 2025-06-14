@@ -310,7 +310,7 @@ export function ChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
                 </div>
               </div>
               <div className="text-blue-600 font-medium">
-                طلب زواج #{requestId.substring(0, 8)}
+                #{requestId.substring(0, 8)}
               </div>
             </div>
           </div>

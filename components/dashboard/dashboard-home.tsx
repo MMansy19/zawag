@@ -236,7 +236,7 @@ export function DashboardHome() {
                   </div>
                   <div className="mr-2 sm:mr-3 flex-1 min-w-0">
                     <p className="text-gray-900 font-medium truncate text-xs sm:text-sm">
-                      طلب زواج جديد
+                      طلب تعارف جديد
                     </p>
                     <p className="text-gray-500 text-xs">منذ 5 ساعات</p>
                   </div>

@@ -123,7 +123,7 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
           </div>
 
           {/* Action Buttons */}
-          <div className="flex gap-2">
+          <div className="flex flex-col gap-2">
             <Button
               onClick={handleViewProfile}
               variant="outline"
@@ -139,7 +139,7 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
               size="sm"
             >
               <Heart className="h-4 w-4" />
-              طلب زواج
+              طلب تعارف
             </Button>
           </div>
         </CardContent>
@@ -150,7 +150,7 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
           <Card className="max-w-md w-full mx-4">
             <CardContent className="p-6">
               <h2 className="text-xl font-bold text-center mb-4">
-                إرسال طلب زواج
+                إرسال طلب تعارف
               </h2>
               <p className="text-center text-gray-600 mb-4">
                 إلى: {profile.name}

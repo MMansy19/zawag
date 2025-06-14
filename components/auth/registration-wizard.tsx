@@ -80,6 +80,32 @@ const SkipPhotoMessage = ({ onSkip }: { onSkip: () => void }) => {
   );
 };
 
+const SkipGuardianMessage = ({ onSkip }: { onSkip: () => void }) => {
+  React.useEffect(() => {
+    const timer = setTimeout(() => onSkip(), 1500);
+    return () => clearTimeout(timer);
+  }, [onSkip]);
+
+  return (
+    <div className="text-center py-12">
+      <div className="mb-6">
+        <div className="w-20 h-20 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
+          <span className="text-3xl">👤</span>
+        </div>
+      </div>
+      <h3 className="text-xl font-semibold text-gray-900 mb-4">
+        تم تخطي خطوة معلومات الولي
+      </h3>
+      <p className="text-gray-600 mb-2">
+        معلومات الولي مطلوبة للنساء فقط حسب التقاليد الإسلامية
+      </p>
+      <p className="text-sm text-gray-500">
+        جاري الانتقال إلى الخطوة التالية...
+      </p>
+    </div>
+  );
+};
+
 export function RegistrationWizard({
   className = "",
 }: RegistrationWizardProps) {
@@ -170,6 +196,10 @@ export function RegistrationWizard({
           />
         );
       case 8:
+        // Skip guardian step for male users
+        if (data.gender === "male") {
+          return <SkipGuardianMessage onSkip={nextStep} />;
+        }
         return <Step8Guardian {...stepProps} />;
       case 9:
         return (

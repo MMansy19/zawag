@@ -11,13 +11,20 @@ import { showToast } from "@/components/ui/toaster";
 import { ArrowLeft, Heart, MessageCircle, Flag } from "lucide-react";
 import { RequestModal } from "@/components/search/request-modal";
 
+// Mock user for development - replace with actual auth when ready
+const user = {
+  id: "mock-user-123",
+  name: "محمود المنسي",
+  email: "mahmoud@example.com",
+  isVerified: true,
+};
 interface PublicProfileViewProps {
   userId: string;
 }
 
 export function PublicProfileView({ userId }: PublicProfileViewProps) {
   const router = useRouter();
-  const { user } = useAuth();
+  //   const { user } = useAuth();
   const [profile, setProfile] = useState<Profile | null>(null);
   const [loading, setLoading] = useState(true);
   const [showRequestModal, setShowRequestModal] = useState(false);
@@ -32,10 +39,10 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
       const { staticMaleProfiles, staticFemaleProfiles } = await import(
         "@/lib/static-data/search-profiles"
       );
-      
+
       const allProfiles = [...staticMaleProfiles, ...staticFemaleProfiles];
-      const foundProfile = allProfiles.find(p => p.id === userId);
-      
+      const foundProfile = allProfiles.find((p) => p.id === userId);
+
       if (foundProfile) {
         setProfile(foundProfile);
       } else {
@@ -68,7 +75,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
   const handleSendRequest = async (message: string) => {
     try {
       // Mock API call - replace with actual API when backend is ready
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       showToast.success("تم إرسال طلب الزواج بنجاح!");
       setShowRequestModal(false);
     } catch (error: any) {
@@ -104,9 +111,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
             <p className="text-gray-600 mb-6">
               الملف الشخصي المطلوب غير موجود أو تم حذفه
             </p>
-            <Button onClick={() => router.back()}>
-              العودة للخلف
-            </Button>
+            <Button onClick={() => router.back()}>العودة للخلف</Button>
           </CardContent>
         </Card>
       </div>
@@ -125,7 +130,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
           <ArrowLeft className="h-4 w-4" />
           العودة
         </Button>
-        
+
         <div className="flex items-center gap-2">
           <Button
             variant="outline"
@@ -138,7 +143,6 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
           </Button>
         </div>
       </div>
-
       {/* Profile Header */}
       <Card>
         <CardContent className="p-6">
@@ -176,14 +180,13 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
                   disabled={!user}
                 >
                   <Heart className="h-4 w-4" />
-                  طلب زواج
+                  طلب تعارف
                 </Button>
               </div>
             </div>
           </div>
         </CardContent>
       </Card>
-
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Personal Information */}
         <Card>
@@ -221,7 +224,6 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
             </div>
           </CardContent>
         </Card>
-
         {/* Education & Work */}
         <Card>
           <CardHeader>
@@ -246,7 +248,6 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
             </div>
           </CardContent>
         </Card>
-
         {/* Religious Information */}
         <Card>
           <CardHeader>
@@ -268,9 +269,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
               </p>
             </div>
             <div className="flex flex-wrap gap-2">
-              {profile.prays && (
-                <Badge variant="outline">يصلي بانتظام</Badge>
-              )}
+              {profile.prays && <Badge variant="outline">يصلي بانتظام</Badge>}
               {profile.fasts && <Badge variant="outline">يصوم</Badge>}
               {(profile.hijab || profile.hasHijab) && (
                 <Badge variant="outline">ترتدي الحجاب</Badge>
@@ -280,10 +279,9 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
               )}
             </div>
           </CardContent>
-        </Card>
-
-        {/* Contact Information */}
-        {profile.guardianName && (
+        </Card>{" "}
+        {/* Contact Information - Only show for female profiles */}
+        {profile.gender === "female" && profile.guardianName && (
           <Card>
             <CardHeader>
               <h3 className="text-xl font-semibold">معلومات الولي</h3>
@@ -313,7 +311,6 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
           </Card>
         )}
       </div>
-
       {/* Bio */}
       {profile.bio && (
         <Card>
@@ -327,7 +324,6 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
           </CardContent>
         </Card>
       )}
-
       {/* Action Buttons */}
       <Card>
         <CardContent className="p-6">
@@ -339,13 +335,14 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
               disabled={!user}
             >
               <Heart className="h-5 w-5" />
-              إرسال طلب زواج
+              إرسال طلب تعارف
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="flex items-center gap-2"
-              disabled={!user}
+              disabled={true}
+              title="يجب قبول طلبات الزواج من الطرفين أولاً"
             >
               <MessageCircle className="h-5 w-5" />
               إرسال رسالة
@@ -357,7 +354,8 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
             </p>
           )}
         </CardContent>
-      </Card>      {/* Request Modal */}
+      </Card>{" "}
+      {/* Request Modal */}
       {showRequestModal && (
         <RequestModal
           profileName={profile.name}

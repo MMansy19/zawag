@@ -40,7 +40,7 @@ export function RequestModal({
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
       <Card className="max-w-md w-full mx-4">
         <CardHeader>
-          <h2 className="text-xl font-bold text-center">إرسال طلب زواج</h2>
+          <h2 className="text-xl font-bold text-center">إرسال طلب تعارف</h2>
           <p className="text-center text-gray-600">إلى: {profileName}</p>
         </CardHeader>
 

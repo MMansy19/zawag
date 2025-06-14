@@ -176,7 +176,10 @@ export default function Step9Review({
     });
   }
 
-  if (data.guardianName || data.guardianPhone || data.guardianEmail) {
+  if (
+    data.gender === "female" &&
+    (data.guardianName || data.guardianPhone || data.guardianEmail)
+  ) {
     optionalSections.push({
       id: "guardian",
       title: "معلومات الولي",

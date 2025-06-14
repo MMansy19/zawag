@@ -197,29 +197,34 @@ const useRegistration = (): UseRegistrationResult => {
 
     if (state.currentStep < state.totalSteps) {
       let nextStepNumber = state.currentStep + 1;
-      
+
       // Skip photo step (step 7) for female users
       if (nextStepNumber === 7 && state.data.gender === "female") {
         nextStepNumber = 8;
         // Also mark step 7 as completed since we're skipping it
         dispatch({ type: "MARK_STEP_COMPLETED", payload: 7 });
       }
-      
+
       dispatch({ type: "SET_STEP", payload: nextStepNumber });
     }
 
     return true;
-  }, [validateCurrentStep, state.currentStep, state.totalSteps, state.data.gender]);
+  }, [
+    validateCurrentStep,
+    state.currentStep,
+    state.totalSteps,
+    state.data.gender,
+  ]);
 
   const prevStep = useCallback(() => {
     if (state.currentStep > 1) {
       let prevStepNumber = state.currentStep - 1;
-      
+
       // Skip photo step (step 7) for female users when going backwards
       if (prevStepNumber === 7 && state.data.gender === "female") {
         prevStepNumber = 6;
       }
-      
+
       dispatch({ type: "SET_STEP", payload: prevStepNumber });
     }
   }, [state.currentStep, state.data.gender]);
