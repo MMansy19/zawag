@@ -5,7 +5,13 @@ import { useRouter } from "next/navigation";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Profile } from "@/lib/types";
+import {
+  Profile,
+  MaleProfile,
+  FemaleProfile,
+  isMaleProfile,
+  isFemaleProfile,
+} from "@/lib/types";
 import { useAuth } from "@/providers/auth-provider";
 import { showToast } from "@/components/ui/toaster";
 import { ArrowLeft, Heart, MessageCircle, Flag } from "lucide-react";
@@ -271,12 +277,14 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
             <div className="flex flex-wrap gap-2">
               {profile.prays && <Badge variant="outline">يصلي بانتظام</Badge>}
               {profile.fasts && <Badge variant="outline">يصوم</Badge>}
-              {(profile.hijab || profile.hasHijab) && (
-                <Badge variant="outline">ترتدي الحجاب</Badge>
-              )}
-              {(profile.beard || profile.hasBeard) && (
-                <Badge variant="outline">يربي لحية</Badge>
-              )}
+              {isFemaleProfile(profile) &&
+                (profile.wearHijab || profile.hasHijab || profile.hijab) && (
+                  <Badge variant="outline">ترتدي الحجاب</Badge>
+                )}
+              {isMaleProfile(profile) &&
+                (profile.hasBeard || profile.beard) && (
+                  <Badge variant="outline">يربي لحية</Badge>
+                )}
             </div>
           </CardContent>
         </Card>{" "}

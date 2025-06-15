@@ -185,7 +185,7 @@ export function RegistrationWizard({
         return <Step6Preferences {...stepProps} />;
       case 7:
         // Skip photo step for female users (Islamic modesty requirements)
-        if (data.gender === "female") {
+        if (data["gender"] === "female") {
           return <SkipPhotoMessage onSkip={nextStep} />;
         }
         return (
@@ -197,7 +197,7 @@ export function RegistrationWizard({
         );
       case 8:
         // Skip guardian step for male users
-        if (data.gender === "male") {
+        if (data["gender"] === "male") {
           return <SkipGuardianMessage onSkip={nextStep} />;
         }
         return <Step8Guardian {...stepProps} />;

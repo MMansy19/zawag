@@ -1,3 +1,51 @@
+// Profile types are now defined in auth.types.ts for gender-specific profiles
+// Import and re-export the Profile types from auth.types.ts
+import type {
+  Profile,
+  MaleProfile,
+  FemaleProfile,
+  BaseProfile,
+  RELIGIOUS_LEVELS,
+  MARITAL_STATUS,
+  PARENT_STATUS,
+  PARENT_RELATIONSHIP,
+  CHILDREN_PREFERENCE,
+  APPEARANCE_LEVELS,
+  SKIN_COLORS,
+  BODY_TYPES,
+  CLOTHING_STYLES,
+  FEMALE_PRAYER_LOCATIONS,
+  GUARDIAN_RELATIONSHIPS,
+  MALE_PRAYER_LOCATIONS,
+  FINANCIAL_SITUATIONS,
+  HOUSING_OWNERSHIP,
+  HOUSING_TYPES,
+} from "./auth.types";
+
+import { isMaleProfile, isFemaleProfile } from "./auth.types";
+
+export type { Profile, MaleProfile, FemaleProfile, BaseProfile };
+
+export {
+  isMaleProfile,
+  isFemaleProfile,
+  RELIGIOUS_LEVELS,
+  MARITAL_STATUS,
+  PARENT_STATUS,
+  PARENT_RELATIONSHIP,
+  CHILDREN_PREFERENCE,
+  APPEARANCE_LEVELS,
+  SKIN_COLORS,
+  BODY_TYPES,
+  CLOTHING_STYLES,
+  FEMALE_PRAYER_LOCATIONS,
+  GUARDIAN_RELATIONSHIPS,
+  MALE_PRAYER_LOCATIONS,
+  FINANCIAL_SITUATIONS,
+  HOUSING_OWNERSHIP,
+  HOUSING_TYPES,
+};
+
 // Core types for the Islamic Zawaj Platform
 export interface User {
   id: string;
@@ -18,55 +66,46 @@ export interface User {
   isVerified?: boolean; // Computed from email/phone verification
 }
 
-export interface Profile {
-  id: string;
-  userId: string;
-  // Basic Info
-  name: string;
-  age: number;
-  birthDate?: string; // Optional birth date field
-  gender: "male" | "female";
-  country: string;
-  city: string;
-  nationality: string;
-  maritalStatus: "single" | "divorced" | "widowed";
-
-  // Religious Info
-  prays: boolean;
-  fasts: boolean;
-  hasHijab?: boolean; // for sisters
-  hasBeard?: boolean; // for brothers
-  hijab?: boolean; // Alternative property name
-  beard?: boolean; // Alternative property name
-  religiousLevel: "basic" | "practicing" | "very-religious" | "moderate"; // Added moderate
-
-  // Education & Work
-  education: string;
-  occupation: string;
-
-  // Profile Settings
-  profilePicture?: string;
-  bio?: string;
-  isComplete: boolean;
-  isApproved: boolean;
-  isVerified?: boolean; // Verification status
-  privacySettings: PrivacySettings;
-
-  // Guardian Info (optional)
-  guardianName?: string;
-  guardianPhone?: string;
-  guardianEmail?: string;
-
-  createdAt: string;
-  updatedAt: string;
-}
-
 export interface PrivacySettings {
   showProfilePicture: "everyone" | "matches-only" | "none";
   showAge: boolean;
   showLocation: boolean;
   showOccupation: boolean;
   allowMessagesFrom: "everyone" | "matches-only" | "none";
+
+  // Enhanced privacy controls for females
+  profileVisibility?:
+    | "everyone"
+    | "verified-only"
+    | "premium-only"
+    | "guardian-approved"
+    | "matches-only";
+  allowProfileViews?:
+    | "everyone"
+    | "verified-males"
+    | "premium-males"
+    | "guardian-approved"
+    | "matches-only";
+  showBasicInfo?: "everyone" | "verified-only" | "matches-only";
+  showDetailedInfo?: "matches-only" | "guardian-approved" | "none";
+  requireGuardianApproval?: boolean;
+  allowContactRequests?:
+    | "everyone"
+    | "verified-only"
+    | "guardian-approved"
+    | "none";
+  showOnlineStatus?: boolean;
+  showLastSeen?: "everyone" | "matches-only" | "none";
+
+  // Geographic visibility controls
+  hideFromLocalUsers?: boolean;
+  allowNearbySearch?: boolean;
+
+  // Advanced filters for who can see profile
+  allowedEducationLevels?: string[];
+  allowedAgeRange?: { min: number; max: number };
+  allowedFinancialSituations?: string[];
+  blockedUsers?: string[];
 }
 
 export interface SearchFilters {
@@ -80,6 +119,18 @@ export interface SearchFilters {
   religiousLevel?: string[];
   education?: string[];
   occupation?: string[];
+
+  // Gender-specific filters
+  // Female-specific filters (for male users searching females)
+  wearHijab?: boolean;
+  wearNiqab?: boolean;
+  guardianRelationship?: string[];
+
+  // Male-specific filters (for female users searching males)
+  hasBeard?: boolean;
+  financialSituation?: string[];
+  smokes?: boolean;
+  housingType?: string[];
 }
 
 export interface MarriageRequest {
@@ -205,7 +256,7 @@ export interface ProfileBuilderData {
     fasts: boolean;
     hasHijab?: boolean;
     hasBeard?: boolean;
-    religiousLevel: "basic" | "practicing" | "very-religious";
+    religiousLevel: "basic" | "practicing" | "very-religious" | "moderate";
   };
 
   // Step 3: Education & Work
