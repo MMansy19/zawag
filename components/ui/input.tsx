@@ -17,7 +17,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
         {label && (
           <label
             htmlFor={inputId}
-            className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            className="text-label font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70 arabic-optimized"
           >
             {label}
             {props.required && <span className="text-error mr-1">*</span>}
@@ -28,18 +28,19 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           id={inputId}
           className={cn(
             "flex h-10 w-full rounded-md border border-border bg-background px-3 py-2",
-            "text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium",
+            "text-input ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium",
             "placeholder:text-text-secondary focus-visible:outline-none focus-visible:ring-2",
             "focus-visible:ring-primary focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+            "arabic-optimized font-body",
             error && "border-error focus-visible:ring-error",
             className,
           )}
           ref={ref}
           {...props}
         />
-        {error && <p className="text-sm text-error">{error}</p>}
+        {error && <p className="text-error arabic-optimized">{error}</p>}
         {helperText && !error && (
-          <p className="text-sm text-text-secondary">{helperText}</p>
+          <p className="text-helper arabic-optimized">{helperText}</p>
         )}
       </div>
     );

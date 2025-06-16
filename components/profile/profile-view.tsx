@@ -989,7 +989,7 @@ export function ProfileView() {
       <Card>
         <CardContent className="pt-6">
           <div className="flex items-center space-x-4 space-x-reverse">
-            <div className="h-20 w-20 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center">
+            <div className="h-20 w-20 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 sm:flex hidden items-center justify-center">
               <User className="h-10 w-10 text-white" />
             </div>
             <div className="flex-1">

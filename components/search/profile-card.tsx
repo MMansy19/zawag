@@ -85,36 +85,45 @@ export function ProfileCard({
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
               <div className="flex items-center gap-2 mb-2">
-                <h3 className="text-xl font-bold text-gray-900">
+                <h3 className="text-card-title font-heading text-text arabic-optimized">
                   {profile.name}
                 </h3>
                 {profile.status === "approved" && (
-                  <Badge className="bg-green-100 text-green-800 text-xs">
+                  <Badge className="bg-green-100 text-green-800 text-status">
                     ✓ موثق
                   </Badge>
                 )}
               </div>
 
-              <div className="flex items-center gap-4 text-gray-600 mb-3">
-                <span className="flex items-center gap-1">
+              <div className="text-body-small text-text-secondary flex flex-wrap items-center gap-3 mb-2">
+                <span className="flex items-center gap-1 arabic-optimized">
                   <Calendar className="h-4 w-4" />
                   {profile.age} سنة
                 </span>
-                <span className="flex items-center gap-1">
+                <span className="flex items-center gap-1 arabic-optimized">
                   <MapPin className="h-4 w-4" />
                   {profile.city}, {profile.country}
                 </span>
               </div>
 
               <div className="flex flex-wrap gap-2 mb-3">
-                <Badge variant="outline">
+                <Badge
+                  variant="outline"
+                  className="text-status arabic-optimized"
+                >
                   {getMaritalStatusLabel(profile.maritalStatus)}
                 </Badge>
-                <Badge variant="secondary">
+                <Badge
+                  variant="secondary"
+                  className="text-status arabic-optimized"
+                >
                   {getReligiousLevelLabel(profile.religiousLevel)}
                 </Badge>
                 {profile.education && (
-                  <Badge variant="outline" className="text-xs">
+                  <Badge
+                    variant="outline"
+                    className="text-status arabic-optimized"
+                  >
                     {profile.education}
                   </Badge>
                 )}
@@ -122,7 +131,7 @@ export function ProfileCard({
             </div>
 
             {/* Profile Avatar */}
-            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center flex-shrink-0">
+            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 sm:flex hidden items-center justify-center flex-shrink-0">
               <User className="h-8 w-8 text-white" />
             </div>
           </div>
@@ -130,19 +139,23 @@ export function ProfileCard({
           {/* Key Information */}
           <div className="space-y-3 mb-4">
             {/* Physical Info */}
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">الطول والوزن:</span>
-              <span className="font-medium">
+            <div className="flex items-center justify-between text-body-small">
+              <span className="text-text-secondary arabic-optimized">
+                الطول والوزن:
+              </span>
+              <span className="font-medium text-text arabic-optimized">
                 {profile.height} سم, {profile.weight} كجم
               </span>
             </div>
 
             {/* Prayer Regularity */}
-            <div className="flex items-center justify-between text-sm">
-              <span className="text-gray-600">انتظام الصلاة:</span>
+            <div className="flex items-center justify-between text-body-small">
+              <span className="text-text-secondary arabic-optimized">
+                انتظام الصلاة:
+              </span>
               <Badge
                 variant={profile.isPrayerRegular ? "success" : "secondary"}
-                className="text-xs"
+                className="text-status"
               >
                 {profile.isPrayerRegular ? "منتظم" : "أحياناً"}
               </Badge>
@@ -318,7 +331,7 @@ export function ProfileCard({
           <div className="flex gap-2 pt-4 border-t border-gray-100">
             <Button
               variant="outline"
-              className="flex-1"
+              className="flex-1 p-1"
               onClick={handleViewProfile}
               disabled={!privacyCheck.canView}
             >
@@ -326,7 +339,7 @@ export function ProfileCard({
               {privacyCheck.canView ? "عرض الملف" : "محجوب"}
             </Button>
             <Button
-              className="flex-1"
+              className="flex-1 p-1"
               onClick={() => setShowRequestModal(true)}
               disabled={!privacyCheck.canContact}
             >

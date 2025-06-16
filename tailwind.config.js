@@ -82,19 +82,50 @@ module.exports = {
         },
       },
 
-      // Typography using Arabic fonts
+      // Typography using Arabic fonts with enhanced hierarchy
       fontFamily: {
         sans: [
           "var(--font-sans)",
+          "Noto Kufi Arabic",
+          "system-ui",
+          "-apple-system",
+          "BlinkMacSystemFont",
+          "sans-serif",
+        ],
+        serif: ["var(--font-serif)", "Amiri", "Times New Roman", "serif"],
+        arabic: [
+          "Noto Kufi Arabic",
+          "system-ui",
+          "-apple-system",
+          "sans-serif",
+        ],
+        kufi: ["Noto Kufi Arabic", "system-ui", "sans-serif"],
+        amiri: ["Amiri", "Times New Roman", "serif"],
+        display: [
+          "var(--font-display)",
+          "Noto Kufi Arabic",
+          "system-ui",
+          "sans-serif",
+        ],
+        heading: [
+          "var(--font-heading)",
           "Noto Kufi Arabic",
           "Amiri",
           "system-ui",
           "sans-serif",
         ],
-        serif: ["var(--font-serif)", "Amiri", "Georgia", "serif"],
-        arabic: ["Noto Kufi Arabic", "Amiri", "system-ui"],
-        kufi: ["Noto Kufi Arabic", "system-ui"],
-        amiri: ["Amiri", "serif"],
+        body: [
+          "var(--font-body)",
+          "Noto Kufi Arabic",
+          "system-ui",
+          "sans-serif",
+        ],
+        caption: [
+          "var(--font-caption)",
+          "Noto Kufi Arabic",
+          "system-ui",
+          "sans-serif",
+        ],
       },
 
       // Custom font sizes using CSS variables

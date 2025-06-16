@@ -33,6 +33,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
       "inline-flex items-center justify-center rounded-md font-medium transition-colors",
       "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
       "disabled:pointer-events-none disabled:opacity-50",
+      "arabic-optimized font-body", // Enhanced typography
     ];
 
     const variantClasses = {
@@ -46,9 +47,9 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     };
 
     const sizeClasses = {
-      sm: "h-9 px-3 text-sm",
-      md: "h-10 px-4 py-2",
-      lg: "h-11 px-8",
+      sm: "h-9 px-3 min-h-[44px] sm:min-h-[36px]", // Mobile-friendly touch targets
+      md: "h-10 px-4 py-2 min-h-[44px]",
+      lg: "h-11 px-8 min-h-[44px]",
     };
 
     return (

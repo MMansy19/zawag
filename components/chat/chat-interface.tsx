@@ -286,7 +286,7 @@ function DesktopChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
                 <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
               </Button>
 
-              <div className="flex items-center space-x-2 sm:space-x-3 space-x-reverse min-w-0 flex-1">
+              <div className="flex items-center gap-4 justify-start flex-1">
                 <div className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <User className="h-4 w-4 sm:h-5 sm:w-5 text-white" />
                 </div>

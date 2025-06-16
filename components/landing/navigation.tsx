@@ -104,7 +104,7 @@ export function LandingNavigation() {
     // If on home page, scroll to element with offset
     const element = document.getElementById(targetId);
     if (element) {
-      const headerOffset = 50; 
+      const headerOffset = 50;
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition =
         elementPosition + window.pageYOffset - headerOffset;
@@ -122,7 +122,7 @@ export function LandingNavigation() {
           <div className="flex items-center justify-start">
             <Link
               href="/"
-              className="flex items-center gap-2 text-xl font-bold text-primary hover:text-primary-hover transition-colors"
+              className="flex items-center gap-2 text-nav-primary font-heading text-primary hover:text-primary-hover transition-colors arabic-optimized"
             >
               <Image
                 src="/logo.png"
@@ -134,7 +134,7 @@ export function LandingNavigation() {
                 quality={100}
                 sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
               />
-              <span className="inline">الزواج السعيد</span>
+              <span className="inline font-display">الزواج السعيد</span>
             </Link>
           </div>
 
@@ -144,7 +144,7 @@ export function LandingNavigation() {
               <Link
                 href="/#features"
                 onClick={(e) => handleAnchorClick(e, "features")}
-                className="flex items-center gap-1 text-text-secondary hover:text-text hidden md:inline-flex"
+                className="flex items-center gap-1 text-nav-secondary text-text-secondary hover:text-text hidden md:inline-flex arabic-optimized"
               >
                 <Star className="h-4 w-4" />
                 المميزات
@@ -153,7 +153,7 @@ export function LandingNavigation() {
               <Link
                 href="/#faq"
                 onClick={(e) => handleAnchorClick(e, "faq")}
-                className="flex items-center gap-1 text-text-secondary hover:text-text hidden lg:inline-flex"
+                className="flex items-center gap-1 text-nav-secondary text-text-secondary hover:text-text hidden lg:inline-flex arabic-optimized"
               >
                 <HelpCircle className="h-4 w-4" />
                 الأسئلة الشائعة
@@ -161,7 +161,7 @@ export function LandingNavigation() {
               <Link
                 href="/#contact"
                 onClick={(e) => handleAnchorClick(e, "contact")}
-                className="flex items-center gap-1 text-text-secondary hover:text-text"
+                className="flex items-center gap-1 text-nav-secondary text-text-secondary hover:text-text arabic-optimized"
               >
                 <Phone className="h-4 w-4" />
                 تواصل معنا
@@ -172,7 +172,7 @@ export function LandingNavigation() {
                 <button
                   onClick={() => setIsDropdownOpen(!isDropdownOpen)}
                   onMouseEnter={() => setIsDropdownOpen(true)}
-                  className="flex items-center gap-1 text-text-secondary hover:text-text transition-colors focus:outline-none"
+                  className="flex items-center gap-1 text-nav-secondary text-text-secondary hover:text-text transition-colors focus:outline-none arabic-optimized"
                 >
                   <Info className="h-4 w-4" />
                   معلومات

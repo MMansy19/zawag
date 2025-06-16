@@ -136,7 +136,7 @@ export function MobileBottomNav({ navigation }: MobileBottomNavProps) {
             <Link
               key={item.name}
               href={item.href}
-              className={`flex flex-col items-center justify-center py-1 sm:py-2 px-1 transition-colors relative ${
+              className={`px-0 flex flex-col items-center justify-center py-1 sm:py-2 transition-colors relative ${
                 active
                   ? "text-primary bg-primary/5"
                   : "text-gray-400 hover:text-gray-600"
@@ -146,7 +146,7 @@ export function MobileBottomNav({ navigation }: MobileBottomNavProps) {
                 {renderIcon(item.icon, active)}
               </div>
               <span
-                className={`text-xs font-medium truncate max-w-full ${
+                className={`text-[9px] sm:text-xs font-medium truncate max-w-full ${
                   active ? "text-primary" : "text-gray-400"
                 }`}
               >

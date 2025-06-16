@@ -22,9 +22,11 @@ export function LandingFooter() {
                 quality={100}
                 sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
               />
-              <h3 className="text-xl font-bold sm:mt-4 mt-2">الزواج السعيد</h3>
+              <h3 className="text-card-title font-heading sm:mt-4 mt-2 arabic-optimized">
+                الزواج السعيد
+              </h3>
             </div>
-            <p className="text-gray-300 mb-4 max-w-md">
+            <p className="text-body text-gray-300 mb-4 max-w-md arabic-optimized text-pretty">
               منصة الزواج الإسلامية الأولى في المنطقة العربية. نساعدك في العثور
               على شريك الحياة المناسب وفق الشريعة الإسلامية مع ضمان الأمان
               والخصوصية.

@@ -32,35 +32,37 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-2 sm:px-4">
           <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo and Mobile Menu Toggle */}
             <div className="flex items-center">
               <Link
                 href="/dashboard"
-                className="flex items-center gap-2 text-lg sm:text-xl font-bold text-primary mr-4 hover:text-primary-hover transition-colors"
+                className="flex items-center gap-2 font-bold text-primary hover:text-primary-hover transition-colors"
               >
                 <Image
                   src="/logo.png"
                   alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
                   width={32}
                   height={38}
-                  className="h-12 md:h-16 w-auto"
+                  className="h-12 md:h-16 w-auto sm:mb-2"
                   priority
                   quality={100}
                   sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
                 />
-                <span className="sm:text-xl text-lg">الزواج السعيد</span>
+                <span className="text-nav-primary font-heading arabic-optimized">
+                  الزواج السعيد
+                </span>
               </Link>
             </div>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex space-x-8 space-x-reverse">
+            <nav className="hidden lg:flex sm:space-x-8 sm:space-x-reverse">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`text-sm font-medium transition-colors pb-2 pt-0 px-1 border-b-2 ${
+                  className={`text-nav-secondary font-medium transition-colors pb-2 pt-0 px-1 border-b-2 arabic-optimized ${
                     isActive(item.href)
                       ? "text-primary border-primary"
                       : "text-gray-500 hover:text-gray-700 border-transparent hover:border-gray-300"
@@ -74,7 +76,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
             {/* User Menu */}
             <div className="flex items-center gap-2 sm:gap-4">
               {/* Notifications */}
-              <button className="relative p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
+              <button className="relative hidden sm:block p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
                 <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
                 <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
               </button>
@@ -98,13 +100,13 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                 </svg>
               </button>
               {/* User Profile */}
-              <div className="relative">
+              <div className="relative hidden sm:block">
                 <button className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg p-2">
                   <div className="w-8 h-8 bg-gradient-to-r from-primary to-primary-600 rounded-full flex items-center justify-center">
                     <span className="text-white text-sm font-medium">م</span>
                   </div>
-                  <span className="hidden sm:block">محمود المنسي</span>
-                  <ChevronDown className="w-4 h-4 text-gray-400 hidden sm:block" />
+                  <span>محمود المنسي</span>
+                  <ChevronDown className="w-4 h-4 text-gray-400" />
                 </button>
               </div>
             </div>
