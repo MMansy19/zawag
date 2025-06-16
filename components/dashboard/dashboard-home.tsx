@@ -100,10 +100,10 @@ export function DashboardHome() {
                 📊
               </div>
               <div className="mr-2 sm:mr-3 lg:mr-4 min-w-0 flex-1">
-                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-600 truncate">
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-600 truncate font-display">
                   {stats.profileViews}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                <p className="text-body-small text-text-secondary truncate arabic-optimized">
                   مشاهدات الملف
                 </p>
               </div>
@@ -118,10 +118,10 @@ export function DashboardHome() {
                 💍
               </div>
               <div className="mr-2 sm:mr-3 lg:mr-4 min-w-0 flex-1">
-                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-pink-600 truncate">
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-pink-600 truncate font-display">
                   {stats.totalRequests}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                <p className="text-body-small text-text-secondary truncate arabic-optimized">
                   إجمالي الطلبات
                 </p>
               </div>
@@ -136,10 +136,10 @@ export function DashboardHome() {
                 ⏳
               </div>
               <div className="mr-2 sm:mr-3 lg:mr-4 min-w-0 flex-1">
-                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-orange-600 truncate">
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-orange-600 truncate font-display">
                   {stats.pendingRequests}
                 </p>
-                <p className="text-xs sm:text-sm text-gray-600 truncate">
+                <p className="text-body-small text-text-secondary truncate arabic-optimized">
                   طلبات معلقة
                 </p>
               </div>

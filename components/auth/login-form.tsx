@@ -13,6 +13,7 @@ import {
   CardFooter,
 } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Heading2, Body, Label, ErrorText } from "@/components/ui/typography";
 import { useAuthActions } from "@/lib/hooks/useAuthActions";
 import { loginSchema, type LoginFormData } from "@/lib/validation/auth.schemas";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
