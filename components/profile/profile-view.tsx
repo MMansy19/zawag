@@ -692,11 +692,20 @@ export function ProfileView() {
                       أسلوب الملابس
                     </label>
                     <p className="text-sm font-medium">
-                      {profile.clothingStyle === "conservative"
-                        ? "👗 محافظ"
-                        : profile.clothingStyle === "modest"
-                          ? "👘 محتشم"
-                          : "🥻 تقليدي"}
+                      {profile.clothingStyle === "niqab-full" ||
+                      profile.clothingStyle === "niqab-hands"
+                        ? "نقاب"
+                        : profile.clothingStyle === "khimar"
+                          ? "خمار"
+                          : profile.clothingStyle === "hijab-conservative"
+                            ? "حجاب محافظ"
+                            : profile.clothingStyle === "hijab-modest"
+                              ? "حجاب محتشم"
+                              : profile.clothingStyle === "hijab-modern"
+                                ? "حجاب عصري"
+                                : profile.clothingStyle === "loose-covering"
+                                  ? "لباس فضفاض"
+                                  : "لباس محتشم"}
                     </p>
                   </div>
 

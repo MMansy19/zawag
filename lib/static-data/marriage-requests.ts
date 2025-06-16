@@ -83,7 +83,7 @@ const createProfile = (profileData: Partial<Profile>): Profile => {
       guardianNotes: (profileData as any).guardianNotes || "",
       wearHijab: (profileData as any).wearHijab ?? true,
       wearNiqab: (profileData as any).wearNiqab ?? false,
-      clothingStyle: (profileData as any).clothingStyle || "conservative",
+      clothingStyle: (profileData as any).clothingStyle || "modest-covering",
       prayingLocation: (profileData as any).prayingLocation || "home",
       mahramAvailable: (profileData as any).mahramAvailable ?? true,
       workAfterMarriage: (profileData as any).workAfterMarriage || "undecided",

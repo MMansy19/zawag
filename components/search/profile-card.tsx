@@ -251,13 +251,20 @@ export function ProfileCard({
                   <div className="col-span-2 flex items-center gap-2">
                     <span className="text-gray-600">أسلوب الملابس:</span>
                     <span className="text-xs font-medium">
-                      {profile.clothingStyle === "conservative"
-                        ? "👗 محافظ"
-                        : profile.clothingStyle === "modest"
-                          ? "👘 محتشم"
-                          : profile.clothingStyle === "traditional"
-                            ? "🥻 تقليدي"
-                            : "غير محدد"}
+                      {profile.clothingStyle === "niqab-full" ||
+                      profile.clothingStyle === "niqab-hands"
+                        ? "نقاب"
+                        : profile.clothingStyle === "khimar"
+                          ? "خمار"
+                          : profile.clothingStyle === "hijab-conservative"
+                            ? "حجاب محافظ"
+                            : profile.clothingStyle === "hijab-modest"
+                              ? "حجاب محتشم"
+                              : profile.clothingStyle === "hijab-modern"
+                                ? "حجاب عصري"
+                                : profile.clothingStyle === "loose-covering"
+                                  ? "لباس فضفاض"
+                                  : "لباس محتشم"}
                     </span>
                   </div>
                   {profile.workAfterMarriage && (

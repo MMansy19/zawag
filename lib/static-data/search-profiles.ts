@@ -157,7 +157,7 @@ const createFemaleProfile = (
     }),
     wearHijab: profileData.wearHijab ?? true,
     wearNiqab: profileData.wearNiqab ?? false,
-    clothingStyle: profileData.clothingStyle || "modest",
+    clothingStyle: profileData.clothingStyle || "modest-covering",
     prayingLocation: profileData.prayingLocation || "home",
     ...(profileData.mahramAvailable !== undefined && {
       mahramAvailable: profileData.mahramAvailable,

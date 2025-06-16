@@ -160,7 +160,7 @@ export async function createProfile(
       guardianRelationship: femaleData.guardianRelationship || "father",
       wearHijab: femaleData.wearHijab || false,
       wearNiqab: femaleData.wearNiqab || false,
-      clothingStyle: femaleData.clothingStyle || "modest",
+      clothingStyle: femaleData.clothingStyle || "modest-covering",
       prayingLocation: femaleData.prayingLocation || "home",
     };
 
