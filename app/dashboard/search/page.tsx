@@ -289,11 +289,6 @@ function SearchPageContent() {
                     تم العثور على {filteredProfiles.length} نتيجة
                     {currentPage > 1 && ` - الصفحة ${currentPage} من ${totalPages}`}
                   </p>
-                  <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-                    <option>ترتيب: الأحدث أولاً</option>
-                    <option>ترتيب: الأقرب جغرافياً</option>
-                    <option>ترتيب: التوافق</option>
-                  </select>
                 </div>
 
                 <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
