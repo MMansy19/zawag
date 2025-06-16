@@ -35,7 +35,7 @@ function SearchPageContent() {
     setTimeout(() => {
       // Filter profiles based on current user's gender (show opposite gender)
       const filteredProfiles = mockProfiles.filter(
-        (profile) => profile.gender === mockCurrentUser.gender,
+        (profile) => profile.gender !== mockCurrentUser.gender,
       );
       setProfiles(filteredProfiles);
       setTotalResults(filteredProfiles.length);
