@@ -74,7 +74,7 @@ const Step8Guardian: React.FC<Step8GuardianProps> = ({
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {/* Guardian Name */}
-            <div className="space-y-2">
+            <div className="space-y-3">
               <Label htmlFor="guardianName" className="flex items-center gap-2">
                 <User className="h-4 w-4" />
                 اسم ولي الأمر *
@@ -94,7 +94,7 @@ const Step8Guardian: React.FC<Step8GuardianProps> = ({
             </div>
 
             {/* Guardian Relationship */}
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Label htmlFor="guardianRelationship">صلة القرابة *</Label>
               <select
                 id="guardianRelationship"
@@ -102,7 +102,7 @@ const Step8Guardian: React.FC<Step8GuardianProps> = ({
                 onChange={(e) =>
                   handleInputChange("guardianRelationship", e.target.value)
                 }
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+                className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
                 disabled={isSubmitting}
                 required
               >

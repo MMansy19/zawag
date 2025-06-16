@@ -81,7 +81,7 @@ export function AuthLayout({
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-center md:text-right">
               <p className="text-sm text-gray-600">
-                © 2024 زواج - منصة الزواج الإسلامي
+                © 2024 الزواج السعيد - منصة الزواج الإسلامية
               </p>
             </div>
 

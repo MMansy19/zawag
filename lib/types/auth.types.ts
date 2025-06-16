@@ -150,7 +150,7 @@ export interface FemaleProfile extends BaseProfile {
   // Religious Practice
   wearHijab: boolean;
   wearNiqab: boolean;
-  clothingStyle: "conservative" | "modest" | "traditional";
+  clothingStyle: "niqab-full" | "niqab-hands" | "khimar" | "tarha-loose" | "tarha-fitted" | "hijab-conservative" | "hijab-modest" | "hijab-modern" | "loose-covering" | "modest-covering";
   prayingLocation: "home" | "mosque-when-possible";
 
   // Legacy compatibility fields
@@ -342,7 +342,7 @@ export interface FemaleRegisterRequest extends BaseRegisterRequest {
   // Female-specific fields
   wearHijab: boolean;
   wearNiqab: boolean;
-  clothingStyle: "conservative" | "modest" | "traditional";
+  clothingStyle: "niqab-full" | "niqab-hands" | "khimar" | "tarha-loose" | "tarha-fitted" | "hijab-conservative" | "hijab-modest" | "hijab-modern" | "loose-covering" | "modest-covering";
   prayingLocation: "home" | "mosque-when-possible";
 
   // Additional Female-specific Fields
@@ -639,9 +639,16 @@ export const BODY_TYPES = {
 
 // Female-specific constants
 export const CLOTHING_STYLES = {
-  CONSERVATIVE: "conservative",
-  MODEST: "modest",
-  TRADITIONAL: "traditional",
+  NIQAB_FULL: "niqab-full", // نقاب كامل - تغطية الوجه والكفين
+  NIQAB_HANDS: "niqab-hands", // نقاب مع كشف الكفين فقط
+  KHIMAR: "khimar", // خمار - غطاء رأس طويل يغطي الصدر مع ملابس واسعة
+  TARHA_LOOSE: "tarha-loose", // غطاء رأس مع ملابس واسعة وطويلة
+  HIJAB_CONSERVATIVE: "hijab-conservative", // حجاب مع ملابس واسعة لا تُظهر تفاصيل الجسم
+  HIJAB_MODEST: "hijab-modest", // حجاب مع ملابس مناسبة الحجم وليست ضيقة
+  TARHA_FITTED: "tarha-fitted", // غطاء رأس مع ملابس مناسبة الحجم
+  HIJAB_MODERN: "hijab-modern", // حجاب مع ملابس عصرية قد تُظهر شكل الجسم
+  LOOSE_COVERING: "loose-covering", // ملابس واسعة وطويلة بدون غطاء رأس
+  MODEST_COVERING: "modest-covering", // ملابس عادية تُظهر الذراعين أو جزء من الساقين
 } as const;
 
 export const FEMALE_PRAYER_LOCATIONS = {

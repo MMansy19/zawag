@@ -14,126 +14,28 @@ const mockCurrentUser = {
   gender: "male" as const,
 };
 
+const { staticMaleProfiles, staticFemaleProfiles } = await import(
+  "@/lib/static-data/search-profiles"
+);
+
 function SearchPageContent() {
   const [showFilters, setShowFilters] = useState(false);
   const [profiles, setProfiles] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [currentPage, setCurrentPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);
 
   // Mock profile data - replace with API call
   const mockProfiles: Profile[] = [
-    {
-      id: "profile-1",
-      userId: "user-1",
-      name: "فاطمة أحمد محمود",
-      age: 25,
-      gender: "female",
-      city: "القاهرة",
-      country: "مصر",
-      nationality: "مصرية",
-      maritalStatus: "single",
-      education: "بكالوريوس طب",
-      occupation: "طبيبة",
-      religiousLevel: "practicing",
-      bio: "أبحث عن شريك حياة ملتزم وجاد في الزواج. أحب القراءة والعمل التطوعي.",
-      preferences: {
-        ageRange: { min: 26, max: 35 },
-        country: "مصر",
-        religiousLevel: ["practicing", "very-religious"],
-      },
-      status: "approved",
-      createdAt: "2024-01-01T00:00:00Z",
-      updatedAt: "2024-01-01T00:00:00Z",
-
-      // Common fields
-      isPrayerRegular: true,
-      areParentsAlive: "both",
-      parentRelationship: "excellent",
-      wantsChildren: "yes",
-      height: 165,
-      weight: 58,
-      appearance: "attractive",
-      skinColor: "medium",
-      bodyType: "slim",
-      interests: ["القراءة", "الطبخ", "العمل التطوعي"],
-      marriageGoals: "تكوين أسرة مسلمة سعيدة",
-      personalityDescription: "هادئة ومحبة للخير",
-      familyPlans: "أريد 2-3 أطفال",
-      relocationPlans: "مفتوحة للانتقال",
-      marriageTimeline: "في غضون سنة",
-
-      // Female-specific fields
-      guardianName: "أحمد محمود",
-      guardianPhone: "+201234567890",
-      guardianEmail: "guardian@example.com",
-      guardianRelationship: "father",
-      wearHijab: true,
-      wearNiqab: false,
-      clothingStyle: "modest",
-      prayingLocation: "home",
-    } as FemaleProfile,
-
-    {
-      id: "profile-2",
-      userId: "user-2",
-      name: "يوسف عبد الرحمن",
-      age: 30,
-      gender: "male",
-      city: "الإسكندرية",
-      country: "مصر",
-      nationality: "مصري",
-      maritalStatus: "single",
-      education: "ماجستير هندسة",
-      occupation: "مهندس برمجيات",
-      religiousLevel: "very-religious",
-      bio: "مهندس برمجيات، أحب التطوير والتعلم. أبحث عن شريكة حياة تشاركني القيم الإسلامية.",
-      preferences: {
-        ageRange: { min: 22, max: 28 },
-        country: "مصر",
-        religiousLevel: ["practicing", "very-religious"],
-      },
-      status: "approved",
-      createdAt: "2024-01-01T00:00:00Z",
-      updatedAt: "2024-01-01T00:00:00Z",
-
-      // Common fields
-      isPrayerRegular: true,
-      areParentsAlive: "both",
-      parentRelationship: "excellent",
-      wantsChildren: "yes",
-      height: 180,
-      weight: 78,
-      appearance: "attractive",
-      skinColor: "medium",
-      bodyType: "average",
-      interests: ["البرمجة", "القراءة", "الرياضة", "السفر"],
-      marriageGoals: "بناء أسرة إسلامية قوية",
-      personalityDescription: "جاد ومسؤول ومحب للتطوير",
-      familyPlans: "أريد أطفال كثيرين بإذن الله",
-      relocationPlans: "مستعد للانتقال للخليج",
-      marriageTimeline: "قريباً بإذن الله",
-
-      // Male-specific fields
-      hasBeard: true,
-      prayingLocation: "mosque",
-      isRegularAtMosque: true,
-      smokes: false,
-      financialSituation: "excellent",
-      housingLocation: "الإسكندرية - سيدي جابر",
-      housingOwnership: "owned",
-      housingType: "independent",
-      monthlyIncome: 12000,
-    } as MaleProfile,
+    ...staticMaleProfiles,
+    ...staticFemaleProfiles,
   ];
-
   useEffect(() => {
     // Simulate API call
     setLoading(true);
     setTimeout(() => {
       // Filter profiles based on current user's gender (show opposite gender)
       const filteredProfiles = mockProfiles.filter(
-        (profile) => profile.gender !== mockCurrentUser.gender,
+        (profile) => profile.gender === mockCurrentUser.gender,
       );
       setProfiles(filteredProfiles);
       setTotalResults(filteredProfiles.length);
@@ -267,18 +169,6 @@ function SearchPageContent() {
                   ))}
                 </div>
 
-                {/* Pagination */}
-                <div className="flex justify-center mt-8">
-                  <div className="flex gap-2">
-                    <Button variant="outline" disabled={currentPage === 1}>
-                      السابق
-                    </Button>
-                    <Button variant="outline">1</Button>
-                    <Button>2</Button>
-                    <Button variant="outline">3</Button>
-                    <Button variant="outline">التالي</Button>
-                  </div>
-                </div>
               </div>
             ) : (
               <Card>

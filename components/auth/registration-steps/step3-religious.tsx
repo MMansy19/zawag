@@ -322,15 +322,36 @@ export default function Step3Religious({
                 disabled={isSubmitting}
                 required
               >
-                <option value="">اختاري...</option>
-                <option value={CLOTHING_STYLES.CONSERVATIVE}>
-                  محافظ - ملابس فضفاضة ومحتشمة
+                <option value="">اختاري نمط اللباس...</option>
+                <option value={CLOTHING_STYLES.NIQAB_FULL}>
+                  نقاب كامل - تغطية الوجه والكفين
                 </option>
-                <option value={CLOTHING_STYLES.MODEST}>
-                  محتشم - ملابس مناسبة وأنيقة
+                <option value={CLOTHING_STYLES.NIQAB_HANDS}>
+                  نقاب مع كشف الكفين فقط
                 </option>
-                <option value={CLOTHING_STYLES.TRADITIONAL}>
-                  تقليدي - ملابس تراثية إسلامية
+                <option value={CLOTHING_STYLES.KHIMAR}>
+                  خمار - غطاء رأس طويل يغطي الصدر مع ملابس واسعة
+                </option>
+                <option value={CLOTHING_STYLES.TARHA_LOOSE}>
+                  غطاء رأس مع ملابس واسعة وطويلة
+                </option>
+                <option value={CLOTHING_STYLES.HIJAB_CONSERVATIVE}>
+                  حجاب مع ملابس واسعة لا تُظهر تفاصيل الجسم
+                </option>
+                <option value={CLOTHING_STYLES.HIJAB_MODEST}>
+                  حجاب مع ملابس مناسبة الحجم وليست ضيقة
+                </option>
+                <option value={CLOTHING_STYLES.TARHA_FITTED}>
+                  غطاء رأس (طرحة) - مع ملابس مناسبة الحجم
+                </option>
+                <option value={CLOTHING_STYLES.HIJAB_MODERN}>
+                  حجاب مع ملابس موضة قد تُظهر شكل الجسم
+                </option>
+                <option value={CLOTHING_STYLES.LOOSE_COVERING}>
+                  ملابس واسعة وطويلة بدون غطاء رأس
+                </option>
+                <option value={CLOTHING_STYLES.MODEST_COVERING}>
+                  ملابس عادية تُظهر الذراعين أو جزء من الساقين
                 </option>
               </select>
             </div>
