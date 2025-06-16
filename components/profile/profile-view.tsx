@@ -510,136 +510,306 @@ export function ProfileView() {
 
             {/* Gender-specific religious info */}
             {profile && isMaleProfile(profile) && (
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-medium text-gray-800 mb-2">
-                  معلومات خاصة بالأخ
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-600">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-6 bg-blue-500 rounded"></div>
+                  <h4 className="font-semibold text-gray-800 text-lg">
+                    معلومات خاصة بالأخ
+                  </h4>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
                       اللحية
                     </label>
-                    <p className="text-lg">{profile.hasBeard ? "نعم" : "لا"}</p>
+                    <div className="flex items-center gap-2">
+                      <Badge
+                        variant={profile.hasBeard ? "success" : "secondary"}
+                        className="text-sm"
+                      >
+                        {profile.hasBeard ? "✓ لديه لحية" : "✗ ليس لديه لحية"}
+                      </Badge>
+                    </div>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600">
-                      مكان الصلاة
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
+                      مكان الصلاة المعتاد
                     </label>
-                    <p className="text-lg">
+                    <p className="text-sm font-medium">
                       {profile.prayingLocation === "mosque"
-                        ? "في المسجد"
+                        ? "🕌 في المسجد"
                         : profile.prayingLocation === "home"
-                          ? "في البيت"
-                          : "في المسجد والبيت"}
+                          ? "🏠 في البيت"
+                          : "🕌🏠 في المسجد والبيت"}
                     </p>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600">
-                      التدخين
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
+                      الانتظام في المسجد
                     </label>
-                    <Badge variant={profile.smokes ? "error" : "secondary"}>
-                      {profile.smokes ? "نعم" : "لا"}
+                    <Badge
+                      variant={
+                        profile.isRegularAtMosque ? "success" : "secondary"
+                      }
+                      className="text-sm"
+                    >
+                      {profile.isRegularAtMosque ? "✓ منتظم" : "أحياناً"}
                     </Badge>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600">
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
+                      التدخين
+                    </label>
+                    <Badge
+                      variant={profile.smokes ? "error" : "success"}
+                      className="text-sm"
+                    >
+                      {profile.smokes ? "🚬 يدخن" : "🚭 لا يدخن"}
+                    </Badge>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
                       الوضع المادي
                     </label>
-                    <Badge>
+                    <Badge
+                      variant={
+                        profile.financialSituation === "excellent"
+                          ? "success"
+                          : profile.financialSituation === "good"
+                            ? "secondary"
+                            : profile.financialSituation === "average"
+                              ? "outline"
+                              : "error"
+                      }
+                      className="text-sm"
+                    >
                       {profile.financialSituation === "excellent"
-                        ? "ممتاز"
+                        ? "💰 ممتاز"
                         : profile.financialSituation === "good"
-                          ? "جيد"
+                          ? "💵 جيد"
                           : profile.financialSituation === "average"
-                            ? "متوسط"
-                            : "صعب"}
+                            ? "💳 متوسط"
+                            : "⚠️ صعب"}
                     </Badge>
+                  </div>
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
+                      نوع السكن
+                    </label>
+                    <p className="text-sm font-medium">
+                      {profile.housingType === "independent"
+                        ? "🏡 مستقل"
+                        : profile.housingType === "with-family"
+                          ? "👨‍👩‍👧‍👦 مع العائلة"
+                          : "👥 مشترك"}
+                    </p>
+                  </div>
+                </div>
+
+                {/* Housing Details */}
+                <div className="mt-6 p-4 bg-white rounded-lg border">
+                  <h5 className="font-medium text-gray-800 mb-3">
+                    تفاصيل السكن
+                  </h5>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 block mb-1">
+                        موقع السكن
+                      </label>
+                      <p className="text-sm">{profile.housingLocation}</p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 block mb-1">
+                        ملكية السكن
+                      </label>
+                      <p className="text-sm">
+                        {profile.housingOwnership === "owned"
+                          ? "🏠 ملك"
+                          : profile.housingOwnership === "rented"
+                            ? "🏠 إيجار"
+                            : "👨‍👩‍👧‍👦 ملك العائلة"}
+                      </p>
+                    </div>
+                    {profile.monthlyIncome && (
+                      <div>
+                        <label className="text-sm font-medium text-gray-600 block mb-1">
+                          الدخل الشهري
+                        </label>
+                        <p className="text-sm font-semibold">
+                          {profile.monthlyIncome.toLocaleString()} ريال
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
             )}
 
             {profile && isFemaleProfile(profile) && (
-              <div className="bg-pink-50 p-4 rounded-lg">
-                <h4 className="font-medium text-gray-800 mb-2">
-                  معلومات خاصة بالأخت
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div>
-                    <label className="text-sm font-medium text-gray-600">
+              <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-6 rounded-xl border border-pink-200">
+                <div className="flex items-center gap-2 mb-4">
+                  <div className="w-2 h-6 bg-pink-500 rounded"></div>
+                  <h4 className="font-semibold text-gray-800 text-lg">
+                    معلومات خاصة بالأخت
+                  </h4>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
                       الحجاب
                     </label>
-                    <p className="text-lg">
-                      {profile.wearHijab ? "نعم" : "لا"}
-                    </p>
+                    <Badge
+                      variant={profile.wearHijab ? "success" : "secondary"}
+                      className="text-sm"
+                    >
+                      {profile.wearHijab
+                        ? "🧕 ترتدي الحجاب"
+                        : "لا ترتدي الحجاب"}
+                    </Badge>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600">
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
                       النقاب
                     </label>
-                    <p className="text-lg">
-                      {profile.wearNiqab ? "نعم" : "لا"}
-                    </p>
+                    <Badge
+                      variant={profile.wearNiqab ? "success" : "secondary"}
+                      className="text-sm"
+                    >
+                      {profile.wearNiqab
+                        ? "👤 ترتدي النقاب"
+                        : "لا ترتدي النقاب"}
+                    </Badge>
                   </div>
-                  <div>
-                    <label className="text-sm font-medium text-gray-600">
-                      نوع اللبس
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
+                      أسلوب الملابس
                     </label>
-                    <p className="text-lg">
+                    <p className="text-sm font-medium">
                       {profile.clothingStyle === "conservative"
-                        ? "محافظ"
+                        ? "👗 محافظ"
                         : profile.clothingStyle === "modest"
-                          ? "محتشم"
-                          : "تقليدي"}
+                          ? "👘 محتشم"
+                          : "🥻 تقليدي"}
                     </p>
                   </div>
+
+                  <div className="bg-white p-4 rounded-lg border">
+                    <label className="text-sm font-medium text-gray-600 block mb-2">
+                      مكان الصلاة المعتاد
+                    </label>
+                    <p className="text-sm font-medium">
+                      {profile.prayingLocation === "home"
+                        ? "🏠 في البيت"
+                        : "🕌 في المسجد عند الإمكان"}
+                    </p>
+                  </div>
+
+                  {profile.workAfterMarriage && (
+                    <div className="bg-white p-4 rounded-lg border">
+                      <label className="text-sm font-medium text-gray-600 block mb-2">
+                        العمل بعد الزواج
+                      </label>
+                      <Badge
+                        variant={
+                          profile.workAfterMarriage === "yes"
+                            ? "secondary"
+                            : profile.workAfterMarriage === "no"
+                              ? "outline"
+                              : "secondary"
+                        }
+                        className="text-sm"
+                      >
+                        {profile.workAfterMarriage === "yes"
+                          ? "💼 تريد العمل"
+                          : profile.workAfterMarriage === "no"
+                            ? "🏠 تفضل البقاء في البيت"
+                            : "🤔 لم تحدد بعد"}
+                      </Badge>
+                    </div>
+                  )}
+
+                  {profile.mahramAvailable !== undefined && (
+                    <div className="bg-white p-4 rounded-lg border">
+                      <label className="text-sm font-medium text-gray-600 block mb-2">
+                        توفر المحرم
+                      </label>
+                      <Badge
+                        variant={
+                          profile.mahramAvailable ? "success" : "secondary"
+                        }
+                        className="text-sm"
+                      >
+                        {profile.mahramAvailable ? "✓ متوفر" : "غير متوفر"}
+                      </Badge>
+                    </div>
+                  )}
                 </div>
 
                 {/* Guardian Information */}
-                <div className="mt-4 pt-4 border-t border-pink-200">
-                  <h5 className="font-medium text-gray-800 mb-2">
+                <div className="mt-6 p-4 bg-white rounded-lg border">
+                  <h5 className="font-medium text-gray-800 mb-3 flex items-center gap-2">
+                    <Shield className="h-4 w-4 text-pink-600" />
                     معلومات ولي الأمر
                   </h5>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <label className="text-sm font-medium text-gray-600">
-                        الاسم
+                      <label className="text-sm font-medium text-gray-600 block mb-1">
+                        اسم ولي الأمر
                       </label>
-                      <p className="text-lg">{profile.guardianName}</p>
-                    </div>
-                    <div>
-                      <label className="text-sm font-medium text-gray-600">
-                        صلة القرابة
-                      </label>
-                      <p className="text-lg">
-                        {profile.guardianRelationship === "father"
-                          ? "الأب"
-                          : profile.guardianRelationship === "brother"
-                            ? "الأخ"
-                            : profile.guardianRelationship === "uncle"
-                              ? "العم/الخال"
-                              : "آخر"}
+                      <p className="text-sm font-semibold">
+                        {profile.guardianName}
                       </p>
                     </div>
                     <div>
-                      <label className="text-sm font-medium text-gray-600">
+                      <label className="text-sm font-medium text-gray-600 block mb-1">
+                        صلة القرابة
+                      </label>
+                      <p className="text-sm">
+                        {profile.guardianRelationship === "father"
+                          ? "👨 الأب"
+                          : profile.guardianRelationship === "brother"
+                            ? "👨‍👦 الأخ"
+                            : profile.guardianRelationship === "uncle"
+                              ? "👨‍👦‍👦 العم/الخال"
+                              : "👤 آخر"}
+                      </p>
+                    </div>
+                    <div>
+                      <label className="text-sm font-medium text-gray-600 block mb-1">
                         رقم الهاتف
                       </label>
-                      <p className="text-lg" dir="ltr">
+                      <p className="text-sm font-mono" dir="ltr">
                         {profile.guardianPhone}
                       </p>
                     </div>
                     {profile.guardianEmail && (
                       <div>
-                        <label className="text-sm font-medium text-gray-600">
+                        <label className="text-sm font-medium text-gray-600 block mb-1">
                           البريد الإلكتروني
                         </label>
-                        <p className="text-lg" dir="ltr">
+                        <p className="text-sm font-mono" dir="ltr">
                           {profile.guardianEmail}
                         </p>
                       </div>
                     )}
                   </div>
+                  {profile.guardianNotes && (
+                    <div className="mt-4">
+                      <label className="text-sm font-medium text-gray-600 block mb-1">
+                        ملاحظات إضافية
+                      </label>
+                      <p className="text-sm bg-gray-50 p-3 rounded">
+                        {profile.guardianNotes}
+                      </p>
+                    </div>
+                  )}
                 </div>
               </div>
             )}

@@ -37,6 +37,12 @@ const Step7Photo = lazy(
 const Step8Guardian = lazy(
   () => import("@/components/auth/registration-steps/step8-guardian"),
 );
+const StepMaleFinancial = lazy(
+  () => import("@/components/auth/registration-steps/step-male-financial"),
+);
+const StepFemalePreferences = lazy(
+  () => import("@/components/auth/registration-steps/step-female-preferences"),
+);
 const Step9Review = lazy(
   () => import("@/components/auth/registration-steps/step9-review"),
 );
@@ -130,33 +136,68 @@ export function RegistrationWizard({
     canProceedToStep,
   } = useRegistration();
 
-  const steps = [
-    {
-      id: 1,
-      title: "إنشاء الحساب",
-      description: "البريد الإلكتروني وكلمة المرور",
-    },
-    { id: 2, title: "المعلومات الأساسية", description: "الاسم والعمر والجنس" },
-    {
-      id: 3,
-      title: "المعلومات الدينية",
-      description: "مستوى التدين والممارسات",
-    },
-    { id: 4, title: "التعليم والعمل", description: "المؤهلات والمهنة والموقع" },
-    { id: 5, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
-    {
-      id: 6,
-      title: "تفضيلات الزواج",
-      description: "المواصفات المرغوبة في شريك الحياة",
-    },
-    { id: 7, title: "الصورة الشخصية", description: "رفع صورة (اختياري)" },
-    { id: 8, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
-    {
-      id: 9,
-      title: "مراجعة وإرسال",
-      description: "مراجعة المعلومات وإنشاء الملف",
-    },
-  ];
+  // Dynamic steps based on gender
+  const getSteps = () => {
+    const userGender = data["gender"];
+    const baseSteps = [
+      {
+        id: 1,
+        title: "إنشاء الحساب",
+        description: "البريد الإلكتروني وكلمة المرور",
+      },
+      {
+        id: 2,
+        title: "المعلومات الأساسية",
+        description: "الاسم والعمر والجنس",
+      },
+      {
+        id: 3,
+        title: "المعلومات الدينية",
+        description: "مستوى التدين والممارسات",
+      },
+      {
+        id: 4,
+        title: "التعليم والعمل",
+        description: "المؤهلات والمهنة والموقع",
+      },
+    ];
+
+    // Add gender-specific step after education
+    if (userGender === "male") {
+      baseSteps.push({
+        id: 5,
+        title: "المعلومات المالية والسكن",
+        description: "الوضع المالي ومعلومات السكن",
+      });
+    } else if (userGender === "female") {
+      baseSteps.push({
+        id: 5,
+        title: "تفضيلات العمل والأسرة",
+        description: "رغباتك في العمل وتكوين الأسرة",
+      });
+    }
+
+    // Continue with remaining steps
+    const remainingSteps = [
+      { id: 6, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
+      {
+        id: 7,
+        title: "تفضيلات الزواج",
+        description: "المواصفات المرغوبة في شريك الحياة",
+      },
+      { id: 8, title: "الصورة الشخصية", description: "رفع صورة (اختياري)" },
+      { id: 9, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
+      {
+        id: 10,
+        title: "مراجعة وإرسال",
+        description: "مراجعة المعلومات وإنشاء الملف",
+      },
+    ];
+
+    return [...baseSteps, ...remainingSteps];
+  };
+
+  const steps = getSteps();
   const renderStep = () => {
     const stepProps = {
       data,
@@ -180,10 +221,19 @@ export function RegistrationWizard({
       case 4:
         return <Step4Education {...stepProps} />;
       case 5:
+        // Gender-specific step after education
+        if (data["gender"] === "male") {
+          return <StepMaleFinancial {...stepProps} />;
+        } else if (data["gender"] === "female") {
+          return <StepFemalePreferences {...stepProps} />;
+        }
+        // Fallback to bio step if gender not set
         return <Step5Bio {...stepProps} />;
       case 6:
-        return <Step6Preferences {...stepProps} />;
+        return <Step5Bio {...stepProps} />;
       case 7:
+        return <Step6Preferences {...stepProps} />;
+      case 8:
         // Skip photo step for female users (Islamic modesty requirements)
         if (data["gender"] === "female") {
           return <SkipPhotoMessage onSkip={nextStep} />;
@@ -195,13 +245,13 @@ export function RegistrationWizard({
             setProfilePicture={setProfilePicture}
           />
         );
-      case 8:
+      case 9:
         // Skip guardian step for male users
         if (data["gender"] === "male") {
           return <SkipGuardianMessage onSkip={nextStep} />;
         }
         return <Step8Guardian {...stepProps} />;
-      case 9:
+      case 10:
         return (
           <Step9Review
             {...stepProps}

@@ -208,7 +208,7 @@ export default function Step9Review({
                 label: "طبيعة السكن",
                 value:
                   data.housingOwnership === "owned"
-                    ? "شقة تمليك مستقلة"
+                    ? "تمليك"
                     : data.housingOwnership === "rented"
                       ? "إيجار"
                       : data.housingOwnership === "family-owned"
@@ -249,7 +249,7 @@ export default function Step9Review({
                 label: "الأعمال المنزلية",
                 value:
                   data.householdChores === "willing"
-                    ? "مستعد"
+                    ? "مستعد للمساعدة"
                     : data.householdChores === "not willing"
                       ? "غير مستعد"
                       : data.householdChores === "depends"

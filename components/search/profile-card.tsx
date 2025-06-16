@@ -162,64 +162,116 @@ export function ProfileCard({
 
             {/* Gender-specific Information */}
             {isMaleProfile(profile) && (
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-between">
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                <h4 className="text-sm font-semibold text-blue-800 mb-3 flex items-center gap-1">
+                  <span className="text-blue-500">👨</span>
+                  معلومات الأخ
+                </h4>
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div className="flex items-center gap-2">
                     <span className="text-gray-600">اللحية:</span>
-                    <span className="font-medium">
-                      {profile.hasBeard ? "نعم" : "لا"}
-                    </span>
+                    <Badge
+                      variant={profile.hasBeard ? "success" : "secondary"}
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.hasBeard ? "✓" : "✗"}
+                    </Badge>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
                     <span className="text-gray-600">التدخين:</span>
                     <Badge
                       variant={profile.smokes ? "error" : "success"}
-                      className="text-xs"
+                      className="text-xs px-2 py-1"
                     >
-                      {profile.smokes ? "نعم" : "لا"}
+                      {profile.smokes ? "🚬" : "🚭"}
                     </Badge>
                   </div>
-                  <div className="flex items-center justify-between">
+                  <div className="col-span-2 flex items-center gap-2">
                     <span className="text-gray-600">الوضع المادي:</span>
-                    <Badge className="text-xs">
+                    <Badge
+                      variant={
+                        profile.financialSituation === "excellent"
+                          ? "success"
+                          : profile.financialSituation === "good"
+                            ? "secondary"
+                            : profile.financialSituation === "average"
+                              ? "outline"
+                              : "error"
+                      }
+                      className="text-xs px-2 py-1"
+                    >
                       {profile.financialSituation === "excellent"
-                        ? "ممتاز"
+                        ? "💰 ممتاز"
                         : profile.financialSituation === "good"
-                          ? "جيد"
+                          ? "💵 جيد"
                           : profile.financialSituation === "average"
-                            ? "متوسط"
-                            : "صعب"}
+                            ? "💳 متوسط"
+                            : "⚠️ صعب"}
                     </Badge>
+                  </div>
+                  <div className="col-span-2 flex items-center gap-2">
+                    <span className="text-gray-600">نوع السكن:</span>
+                    <span className="text-xs font-medium">
+                      {profile.housingType === "independent"
+                        ? "🏡 مستقل"
+                        : profile.housingType === "with-family"
+                          ? "👨‍👩‍👧‍👦 مع العائلة"
+                          : "👥 مشترك"}
+                    </span>
                   </div>
                 </div>
               </div>
             )}
 
             {isFemaleProfile(profile) && (
-              <div className="bg-pink-50 p-3 rounded-lg">
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center justify-between">
+              <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg border border-pink-200">
+                <h4 className="text-sm font-semibold text-pink-800 mb-3 flex items-center gap-1">
+                  <span className="text-pink-500">👩</span>
+                  معلومات الأخت
+                </h4>
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div className="flex items-center gap-2">
                     <span className="text-gray-600">الحجاب:</span>
-                    <span className="font-medium">
-                      {profile.wearHijab ? "نعم" : "لا"}
+                    <Badge
+                      variant={profile.wearHijab ? "success" : "secondary"}
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.wearHijab ? "🧕" : "✗"}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">النقاب:</span>
+                    <Badge
+                      variant={profile.wearNiqab ? "success" : "secondary"}
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.wearNiqab ? "👤" : "✗"}
+                    </Badge>
+                  </div>
+                  <div className="col-span-2 flex items-center gap-2">
+                    <span className="text-gray-600">أسلوب الملابس:</span>
+                    <span className="text-xs font-medium">
+                      {profile.clothingStyle === "conservative"
+                        ? "👗 محافظ"
+                        : profile.clothingStyle === "modest"
+                          ? "👘 محتشم"
+                          : profile.clothingStyle === "traditional"
+                            ? "🥻 تقليدي"
+                            : "غير محدد"}
                     </span>
                   </div>
-                  {profile.wearNiqab && (
-                    <div className="flex items-center justify-between">
-                      <span className="text-gray-600">النقاب:</span>
-                      <span className="font-medium">نعم</span>
+                  {profile.workAfterMarriage && (
+                    <div className="col-span-2 flex items-center gap-2">
+                      <span className="text-gray-600">العمل بعد الزواج:</span>
+                      <span className="text-xs font-medium">
+                        {profile.workAfterMarriage === "yes"
+                          ? "💼 تريد العمل"
+                          : profile.workAfterMarriage === "no"
+                            ? "🏠 البقاء في البيت"
+                            : "🤔 لم تحدد"}
+                      </span>
                     </div>
                   )}
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-600">نوع اللبس:</span>
-                    <span className="font-medium">
-                      {profile.clothingStyle === "conservative"
-                        ? "محافظ"
-                        : profile.clothingStyle === "modest"
-                          ? "محتشم"
-                          : "تقليدي"}
-                    </span>
-                  </div>
                 </div>
               </div>
             )}

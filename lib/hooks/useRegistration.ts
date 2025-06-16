@@ -37,7 +37,7 @@ type RegistrationAction =
 
 const initialState: RegistrationState = {
   currentStep: 1,
-  totalSteps: 9,
+  totalSteps: 10, // Updated to accommodate new gender-specific steps
   data: {
     isPrayerRegular: true,
     religiousLevel: "practicing",
@@ -148,7 +148,7 @@ const useRegistration = (): UseRegistrationResult => {
 
   const validateCurrentStep = useCallback(async (): Promise<boolean> => {
     try {
-      const schema = getStepSchema(state.currentStep);
+      const schema = getStepSchema(state.currentStep, state.data["gender"]);
 
       // Extract relevant data for current step
       let stepData: any = { ...state.data };

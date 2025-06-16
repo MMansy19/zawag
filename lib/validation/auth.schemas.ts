@@ -125,6 +125,54 @@ export const registrationStep8Schema = z.object({
     .or(z.literal("")),
 });
 
+// Male-specific financial step schema
+export const registrationStepMaleFinancialSchema = z.object({
+  financialStatus: z.enum(["excellent", "very-good", "good", "moderate"], {
+    required_error: "الوضع المالي مطلوب",
+  }),
+  monthlyIncome: z.enum(
+    ["under-3000", "3000-5000", "5000-10000", "10000-15000", "above-15000"],
+    {
+      required_error: "الدخل الشهري مطلوب",
+    },
+  ),
+  housingType: z.enum(["own-house", "own-apartment", "family-house", "rent"], {
+    required_error: "نوع السكن مطلوب",
+  }),
+  workLocation: z.string().min(1, "مكان العمل مطلوب"),
+  canRelocate: z.boolean(),
+  familyFinancialSupport: z.boolean(),
+});
+
+// Female-specific preferences step schema
+export const registrationStepFemalePreferencesSchema = z.object({
+  workAfterMarriage: z.enum(
+    ["yes-same-field", "yes-different-field", "maybe", "no"],
+    {
+      required_error: "موقف العمل بعد الزواج مطلوب",
+    },
+  ),
+  childrenDesired: z.enum(["1-2", "3-4", "5-plus", "no-preference"], {
+    required_error: "عدد الأطفال المرغوب مطلوب",
+  }),
+  livingWithInLaws: z.enum(["yes-prefer", "yes-accept", "maybe", "no"], {
+    required_error: "موقف السكن مع الأهل مطلوب",
+  }),
+  houseworkSharing: z.enum(
+    [
+      "full-responsibility",
+      "shared-responsibility",
+      "husband-helps",
+      "flexible",
+    ],
+    {
+      required_error: "تقسيم أعمال المنزل مطلوب",
+    },
+  ),
+  travelForWork: z.boolean(),
+  studyAfterMarriage: z.boolean(),
+});
+
 // Complete Registration Schema
 export const completeRegistrationSchema = z.object({
   email: emailSchema,
@@ -243,6 +291,12 @@ export type RegistrationStep5Data = z.infer<typeof registrationStep5Schema>;
 export type RegistrationStep6Data = z.infer<typeof registrationStep6Schema>;
 export type RegistrationStep7Data = z.infer<typeof registrationStep7Schema>;
 export type RegistrationStep8Data = z.infer<typeof registrationStep8Schema>;
+export type RegistrationStepMaleFinancialData = z.infer<
+  typeof registrationStepMaleFinancialSchema
+>;
+export type RegistrationStepFemalePreferencesData = z.infer<
+  typeof registrationStepFemalePreferencesSchema
+>;
 export type CompleteRegistrationData = z.infer<
   typeof completeRegistrationSchema
 >;
@@ -252,7 +306,7 @@ export type ResetPasswordData = z.infer<typeof resetPasswordSchema>;
 export type UpdateProfileData = z.infer<typeof updateProfileSchema>;
 
 // Step validation helper
-export const getStepSchema = (step: number) => {
+export const getStepSchema = (step: number, gender?: string) => {
   switch (step) {
     case 1:
       return registrationStep1Schema;
@@ -263,16 +317,23 @@ export const getStepSchema = (step: number) => {
     case 4:
       return registrationStep4Schema;
     case 5:
-      return registrationStep5Schema;
+      // Gender-specific step
+      if (gender === "male") {
+        return registrationStepMaleFinancialSchema;
+      } else if (gender === "female") {
+        return registrationStepFemalePreferencesSchema;
+      }
+      return registrationStep5Schema; // Fallback to bio step
     case 6:
-      return registrationStep6Schema;
+      return registrationStep5Schema; // Bio step
     case 7:
-      return registrationStep7Schema;
+      return registrationStep6Schema; // Preferences step
     case 8:
-      return registrationStep8Schema;
+      return registrationStep7Schema; // Photo step
     case 9:
-      return completeRegistrationSchema;
-
+      return registrationStep8Schema; // Guardian step
+    case 10:
+      return completeRegistrationSchema; // Review step
     default:
       throw new Error(`Invalid step: ${step}`);
   }

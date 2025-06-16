@@ -50,6 +50,7 @@ interface FilterValues {
   wearHijab?: boolean;
   wearNiqab?: boolean;
   clothingStyle?: string;
+  workAfterMarriage?: string;
 }
 
 interface FilterSidebarProps {
@@ -455,55 +456,77 @@ export function FilterSidebar({
 
         {/* Gender-specific Filters */}
         {searchingForGender === "male" && (
-          <Card>
+          <Card className="border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
             <CardHeader className="pb-3">
-              <h4 className="font-medium text-gray-900">معلومات خاصة بالأخ</h4>
+              <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                <span className="text-blue-500">👨</span>
+                معلومات خاصة بالأخ
+              </h4>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               {/* Beard */}
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.hasBeard || false}
-                  onChange={(e) =>
-                    handleFilterChange(
-                      "hasBeard",
-                      e.target.checked || undefined,
-                    )
-                  }
-                  className="ml-2"
-                />
-                <label className="text-sm font-medium text-gray-700">
-                  لديه لحية
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
+                  اللحية
                 </label>
+                <div className="flex flex-col space-y-2">
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="beardPreference"
+                      checked={filters.hasBeard === true}
+                      onChange={(e) => handleFilterChange("hasBeard", true)}
+                      className="ml-3 text-blue-600"
+                    />
+                    <span className="text-sm">لديه لحية</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="beardPreference"
+                      checked={filters.hasBeard === undefined}
+                      onChange={(e) =>
+                        handleFilterChange("hasBeard", undefined)
+                      }
+                      className="ml-3 text-blue-600"
+                    />
+                    <span className="text-sm">لا يهم</span>
+                  </label>
+                </div>
               </div>
 
               {/* Smoking */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
                   التدخين
                 </label>
-                <div className="flex items-center space-x-4 space-x-reverse">
-                  <label className="flex items-center">
+                <div className="flex flex-col space-y-2">
+                  <label className="flex items-center cursor-pointer">
                     <input
-                      type="checkbox"
+                      type="radio"
+                      name="smokingPreference"
                       checked={filters.smokes === false}
-                      onChange={(e) =>
-                        handleFilterChange(
-                          "smokes",
-                          e.target.checked ? false : undefined,
-                        )
-                      }
-                      className="ml-2"
+                      onChange={(e) => handleFilterChange("smokes", false)}
+                      className="ml-3 text-blue-600"
                     />
-                    <span className="text-sm">لا يدخن</span>
+                    <span className="text-sm">🚭 لا يدخن</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="smokingPreference"
+                      checked={filters.smokes === undefined}
+                      onChange={(e) => handleFilterChange("smokes", undefined)}
+                      className="ml-3 text-blue-600"
+                    />
+                    <span className="text-sm">لا يهم</span>
                   </label>
                 </div>
               </div>
 
               {/* Financial Situation */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
                   الوضع المادي
                 </label>
                 <select
@@ -511,19 +534,23 @@ export function FilterSidebar({
                   onChange={(e) =>
                     handleFilterChange("financialSituation", e.target.value)
                   }
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
+                  className="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 >
                   <option value="">جميع المستويات</option>
-                  <option value={FINANCIAL_SITUATIONS.EXCELLENT}>ممتاز</option>
-                  <option value={FINANCIAL_SITUATIONS.GOOD}>جيد</option>
-                  <option value={FINANCIAL_SITUATIONS.AVERAGE}>متوسط</option>
-                  <option value={FINANCIAL_SITUATIONS.STRUGGLING}>صعب</option>
+                  <option value={FINANCIAL_SITUATIONS.EXCELLENT}>
+                    💰 ممتاز
+                  </option>
+                  <option value={FINANCIAL_SITUATIONS.GOOD}>💵 جيد</option>
+                  <option value={FINANCIAL_SITUATIONS.AVERAGE}>💳 متوسط</option>
+                  <option value={FINANCIAL_SITUATIONS.STRUGGLING}>
+                    ⚠️ صعب
+                  </option>
                 </select>
               </div>
 
               {/* Housing Type */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
                   نوع السكن
                 </label>
                 <select
@@ -531,12 +558,14 @@ export function FilterSidebar({
                   onChange={(e) =>
                     handleFilterChange("housingType", e.target.value)
                   }
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
+                  className="w-full p-3 border border-blue-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 bg-white"
                 >
                   <option value="">جميع الأنواع</option>
-                  <option value={HOUSING_TYPES.INDEPENDENT}>مستقل</option>
-                  <option value={HOUSING_TYPES.WITH_FAMILY}>مع الأسرة</option>
-                  <option value={HOUSING_TYPES.SHARED}>مشترك</option>
+                  <option value={HOUSING_TYPES.INDEPENDENT}>🏡 مستقل</option>
+                  <option value={HOUSING_TYPES.WITH_FAMILY}>
+                    👨‍👩‍👧‍👦 مع الأسرة
+                  </option>
+                  <option value={HOUSING_TYPES.SHARED}>👥 مشترك</option>
                 </select>
               </div>
             </CardContent>
@@ -544,63 +573,111 @@ export function FilterSidebar({
         )}
 
         {searchingForGender === "female" && (
-          <Card>
+          <Card className="border-pink-200 bg-gradient-to-r from-pink-50 to-purple-50">
             <CardHeader className="pb-3">
-              <h4 className="font-medium text-gray-900">معلومات خاصة بالأخت</h4>
+              <h4 className="font-semibold text-gray-900 flex items-center gap-2">
+                <span className="text-pink-500">👩</span>
+                معلومات خاصة بالأخت
+              </h4>
             </CardHeader>
-            <CardContent className="space-y-4">
+            <CardContent className="space-y-6">
               {/* Hijab */}
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.wearHijab || false}
-                  onChange={(e) =>
-                    handleFilterChange(
-                      "wearHijab",
-                      e.target.checked || undefined,
-                    )
-                  }
-                  className="ml-2"
-                />
-                <label className="text-sm font-medium text-gray-700">
-                  تلبس الحجاب
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
+                  الحجاب
                 </label>
+                <div className="flex flex-col space-y-2">
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="hijabPreference"
+                      checked={filters.wearHijab === true}
+                      onChange={(e) => handleFilterChange("wearHijab", true)}
+                      className="ml-3 text-pink-600"
+                    />
+                    <span className="text-sm">🧕 ترتدي الحجاب</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="hijabPreference"
+                      checked={filters.wearHijab === undefined}
+                      onChange={(e) =>
+                        handleFilterChange("wearHijab", undefined)
+                      }
+                      className="ml-3 text-pink-600"
+                    />
+                    <span className="text-sm">لا يهم</span>
+                  </label>
+                </div>
               </div>
 
               {/* Niqab */}
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={filters.wearNiqab || false}
-                  onChange={(e) =>
-                    handleFilterChange(
-                      "wearNiqab",
-                      e.target.checked || undefined,
-                    )
-                  }
-                  className="ml-2"
-                />
-                <label className="text-sm font-medium text-gray-700">
-                  تلبس النقاب
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
+                  النقاب
                 </label>
+                <div className="flex flex-col space-y-2">
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="niqabPreference"
+                      checked={filters.wearNiqab === true}
+                      onChange={(e) => handleFilterChange("wearNiqab", true)}
+                      className="ml-3 text-pink-600"
+                    />
+                    <span className="text-sm">👤 ترتدي النقاب</span>
+                  </label>
+                  <label className="flex items-center cursor-pointer">
+                    <input
+                      type="radio"
+                      name="niqabPreference"
+                      checked={filters.wearNiqab === undefined}
+                      onChange={(e) =>
+                        handleFilterChange("wearNiqab", undefined)
+                      }
+                      className="ml-3 text-pink-600"
+                    />
+                    <span className="text-sm">لا يهم</span>
+                  </label>
+                </div>
               </div>
 
               {/* Clothing Style */}
-              <div className="space-y-2">
-                <label className="text-sm font-medium text-gray-700">
-                  نوع اللبس
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
+                  أسلوب الملابس
                 </label>
                 <select
                   value={filters.clothingStyle || ""}
                   onChange={(e) =>
                     handleFilterChange("clothingStyle", e.target.value)
                   }
-                  className="w-full p-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-primary-500"
+                  className="w-full p-3 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white"
                 >
                   <option value="">جميع الأنواع</option>
-                  <option value={CLOTHING_STYLES.CONSERVATIVE}>محافظ</option>
-                  <option value={CLOTHING_STYLES.MODEST}>محتشم</option>
-                  <option value={CLOTHING_STYLES.TRADITIONAL}>تقليدي</option>
+                  <option value={CLOTHING_STYLES.CONSERVATIVE}>👗 محافظ</option>
+                  <option value={CLOTHING_STYLES.MODEST}>👘 محتشم</option>
+                  <option value={CLOTHING_STYLES.TRADITIONAL}>🥻 تقليدي</option>
+                </select>
+              </div>
+
+              {/* Work after marriage */}
+              <div className="bg-white p-4 rounded-lg border space-y-3">
+                <label className="text-sm font-medium text-gray-700 block">
+                  العمل بعد الزواج
+                </label>
+                <select
+                  value={filters.workAfterMarriage || ""}
+                  onChange={(e) =>
+                    handleFilterChange("workAfterMarriage", e.target.value)
+                  }
+                  className="w-full p-3 border border-pink-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500 bg-white"
+                >
+                  <option value="">لا يهم</option>
+                  <option value="yes">💼 تريد العمل</option>
+                  <option value="no">🏠 تفضل البقاء في البيت</option>
+                  <option value="undecided">🤔 لم تحدد بعد</option>
                 </select>
               </div>
             </CardContent>
