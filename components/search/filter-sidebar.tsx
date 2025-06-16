@@ -140,7 +140,7 @@ export function FilterSidebar({
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Filter className="h-5 w-5 text-primary-600" />
-          <h3 className="text-lg font-semibold text-gray-900">تصفية النتائج</h3>
+          <h3 className="text-lg mt-2 font-semibold text-gray-900">تصفية النتائج</h3>
           {activeFiltersCount > 0 && (
             <Badge
               variant="secondary"
@@ -188,7 +188,7 @@ export function FilterSidebar({
         </div>
       )}
 
-      <div className="space-y-4 max-h-96 overflow-y-auto">
+      <div className="space-y-4 max-h-[600px] overflow-y-auto">
         {/* Basic Information */}
         <Card>
           <CardHeader className="pb-3">
