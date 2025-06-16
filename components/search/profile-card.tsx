@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Eye, Heart, MapPin, Calendar, User, Shield } from "lucide-react";
+import { Eye, Heart, MapPin, Calendar, User, Shield, Lock } from "lucide-react";
 import {
   Profile,
   MaleProfile,
@@ -13,6 +13,7 @@ import {
   isMaleProfile,
   isFemaleProfile,
 } from "@/lib/types/auth.types";
+import { useProfilePrivacyCheck } from "@/providers/profile-privacy-provider";
 
 interface ProfileCardProps {
   profile: Profile;
@@ -26,6 +27,7 @@ export function ProfileCard({
   currentUserGender,
 }: ProfileCardProps) {
   const router = useRouter();
+  const privacyCheck = useProfilePrivacyCheck(profile);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [message, setMessage] = useState("");
   const [submitting, setSubmitting] = useState(false);
@@ -259,18 +261,37 @@ export function ProfileCard({
               variant="outline"
               className="flex-1"
               onClick={handleViewProfile}
+              disabled={!privacyCheck.canView}
             >
               <Eye className="h-4 w-4 ml-2" />
-              عرض الملف
+              {privacyCheck.canView ? "عرض الملف" : "محجوب"}
             </Button>
             <Button
               className="flex-1"
               onClick={() => setShowRequestModal(true)}
+              disabled={!privacyCheck.canContact}
             >
-              <Heart className="h-4 w-4 ml-2" />
-              إرسال طلب
+              {privacyCheck.canContact ? (
+                <>
+                  <Heart className="h-4 w-4 ml-2" />
+                  إرسال طلب
+                </>
+              ) : (
+                <>
+                  <Lock className="h-4 w-4 ml-2" />
+                  غير متاح
+                </>
+              )}
             </Button>
           </div>
+
+          {/* Privacy Level Indicator */}
+          {privacyCheck.isFemaleProfile && privacyCheck.hasEnhancedPrivacy && (
+            <div className="flex items-center justify-center gap-1 pt-2">
+              <Shield className="h-3 w-3 text-green-600" />
+              <span className="text-xs text-green-600">محمي بموافقة الولي</span>
+            </div>
+          )}
         </CardContent>
       </Card>
 

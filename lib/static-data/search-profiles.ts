@@ -7,6 +7,13 @@ import {
   isMaleProfile,
   isFemaleProfile,
 } from "@/lib/types";
+import {
+  filterProfilesByPrivacy,
+  ViewerContext,
+  canViewProfile,
+  canSendContactRequest,
+  canSendMessage,
+} from "@/lib/utils/privacy-filter";
 
 // Helper functions to create complete gender-specific profile objects
 const createMaleProfile = (profileData: Partial<MaleProfile>): MaleProfile => {
@@ -526,12 +533,18 @@ export const getProfilesForUser = (
 export const searchProfilesForUser = (
   filters: SearchFilters,
   userGender: "male" | "female",
+  viewer?: ViewerContext,
 ): Profile[] => {
   // Get the appropriate profiles based on user gender
   const profiles = getProfilesForUser(userGender);
 
+  // Apply privacy filters if viewer context is provided
+  let filteredProfiles = viewer
+    ? filterProfilesByPrivacy(profiles, viewer)
+    : profiles;
+
   // Apply existing filters
-  let filteredProfiles = filterProfiles(profiles, filters);
+  filteredProfiles = filterProfiles(filteredProfiles, filters);
 
   // Apply gender-specific filters
   if (userGender === "male") {

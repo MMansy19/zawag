@@ -6,6 +6,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useAuth } from "@/providers/auth-provider";
 import { showToast } from "@/components/ui/toaster";
+import { PrivacySettingsComponent } from "./privacy-settings";
+import { PrivacySettings } from "@/lib/types";
 
 export function SettingsPage() {
   const { user } = useAuth();
@@ -40,10 +42,11 @@ export function SettingsPage() {
     }
   };
 
-  const handleSavePrivacy = async () => {
+  const handleSavePrivacy = async (privacySettings: PrivacySettings) => {
     setLoading(true);
     try {
-      // TODO: Save privacy settings
+      // TODO: Save privacy settings to backend
+      console.log("Saving privacy settings:", privacySettings);
       showToast.success("تم حفظ إعدادات الخصوصية");
     } catch (error) {
       showToast.error("خطأ في حفظ الإعدادات");
@@ -173,64 +176,10 @@ export function SettingsPage() {
       </Card>
 
       {/* Privacy Settings */}
-      <Card>
-        <CardHeader>
-          <h2 className="text-xl font-semibold">إعدادات الخصوصية</h2>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              من يمكنه رؤية ملفي الشخصي؟
-            </label>
-            <select
-              value={settings.privacy.profileVisibility}
-              onChange={(e) =>
-                setSettings((prev) => ({
-                  ...prev,
-                  privacy: {
-                    ...prev.privacy,
-                    profileVisibility: e.target.value as any,
-                  },
-                }))
-              }
-              className="w-full border border-border rounded-md px-3 py-2 text-sm"
-            >
-              <option value="everyone">الجميع</option>
-              <option value="matches-only">المتطابقين فقط</option>
-              <option value="none">لا أحد</option>
-            </select>
-          </div>
-
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              من يمكنه إرسال رسائل لي؟
-            </label>
-            <select
-              value={settings.privacy.allowMessages}
-              onChange={(e) =>
-                setSettings((prev) => ({
-                  ...prev,
-                  privacy: {
-                    ...prev.privacy,
-                    allowMessages: e.target.value as any,
-                  },
-                }))
-              }
-              className="w-full border border-border rounded-md px-3 py-2 text-sm"
-            >
-              <option value="everyone">الجميع</option>
-              <option value="matches-only">المتطابقين فقط</option>
-              <option value="none">لا أحد</option>
-            </select>
-          </div>
-
-          <div className="pt-4">
-            <Button onClick={handleSavePrivacy} disabled={loading}>
-              حفظ إعدادات الخصوصية
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+      <PrivacySettingsComponent
+        profile={user?.profile}
+        onSave={handleSavePrivacy}
+      />
 
       {/* Account Security */}
       <Card>

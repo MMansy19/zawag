@@ -4,16 +4,21 @@ import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ProfileCard } from "./profile-card";
-import { Profile } from "@/lib/types";
+import { Profile, isFemaleProfile } from "@/lib/types";
 import { searchApi, requestsApi } from "@/lib/api";
 import { showToast } from "@/components/ui/toaster";
+import { useAuth } from "@/providers/auth-provider";
+import { useProfilePrivacy } from "@/providers/profile-privacy-provider";
 
 interface SearchResultsProps {
   onSendRequest?: (profileId: string, message: string) => Promise<void>;
 }
 
 export function SearchResults({ onSendRequest }: SearchResultsProps) {
+  const { user } = useAuth();
+  const { viewerContext, canView, canContact } = useProfilePrivacy();
   const [profiles, setProfiles] = useState<Profile[]>([]);
+  const [filteredProfiles, setFilteredProfiles] = useState<Profile[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -24,6 +29,14 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
   useEffect(() => {
     fetchProfiles(1);
   }, [searchParams]);
+
+  // Apply privacy filtering whenever profiles or viewer context changes
+  useEffect(() => {
+    if (profiles.length > 0) {
+      const filtered = profiles.filter((profile) => canView(profile));
+      setFilteredProfiles(filtered);
+    }
+  }, [profiles, viewerContext, canView]);
 
   const fetchProfiles = async (page: number) => {
     setLoading(true);
@@ -170,6 +183,21 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
     );
   }
 
+  if (!loading && profiles.length > 0 && filteredProfiles.length === 0) {
+    return (
+      <div className="text-center py-12 px-4">
+        <div className="text-4xl sm:text-6xl mb-4">🔒</div>
+        <h3 className="text-lg sm:text-xl font-medium text-gray-900 mb-2">
+          الملفات محمية بإعدادات الخصوصية
+        </h3>
+        <p className="text-sm sm:text-base text-gray-600 mb-6 max-w-md mx-auto">
+          وُجدت {profiles.length} نتيجة لكنها غير متاحة بسبب إعدادات الخصوصية.
+          جرب التحقق من حسابك أو ترقية عضويتك لمشاهدة المزيد من الملفات الشخصية.
+        </p>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Results Header */}
@@ -179,7 +207,9 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
             نتائج البحث
           </h2>
           <p className="text-sm sm:text-base text-gray-600">
-            تم العثور على {profiles.length} نتيجة
+            تم العثور على {filteredProfiles.length} نتيجة
+            {profiles.length !== filteredProfiles.length &&
+              ` من أصل ${profiles.length}`}
             {totalPages > 1 && ` (صفحة ${currentPage} من ${totalPages})`}
           </p>
         </div>
@@ -197,7 +227,7 @@ export function SearchResults({ onSendRequest }: SearchResultsProps) {
 
       {/* Results Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-        {profiles.map((profile) => (
+        {filteredProfiles.map((profile) => (
           <ProfileCard
             key={profile.id}
             profile={profile}

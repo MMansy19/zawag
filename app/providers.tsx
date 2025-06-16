@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/providers/language-provider";
 import { NotificationProvider } from "@/providers/notification-provider";
 import { ChatProvider } from "@/providers/chat-provider";
 import { LoadingProvider } from "@/providers/loading-provider";
+import { ProfilePrivacyProvider } from "@/providers/profile-privacy-provider";
 import { ErrorBoundary } from "@/components/error-boundary";
 import { useState } from "react";
 
@@ -49,11 +50,13 @@ export function Providers({ children }: ProvidersProps) {
         <ThemeProvider>
           <LanguageProvider>
             <AuthProvider>
-              <LoadingProvider>
-                <NotificationProvider>
-                  <ChatProvider>{children}</ChatProvider>
-                </NotificationProvider>
-              </LoadingProvider>
+              <ProfilePrivacyProvider>
+                <LoadingProvider>
+                  <NotificationProvider>
+                    <ChatProvider>{children}</ChatProvider>
+                  </NotificationProvider>
+                </LoadingProvider>
+              </ProfilePrivacyProvider>
             </AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
