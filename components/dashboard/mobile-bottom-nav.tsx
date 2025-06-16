@@ -128,7 +128,7 @@ export function MobileBottomNav({ navigation }: MobileBottomNavProps) {
   };
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50 pb-safe-area">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-40 pb-safe-area">
       <div className="grid grid-cols-5 h-14 sm:h-16">
         {navigation.slice(0, 5).map((item) => {
           const active = isActive(item.href);

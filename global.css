@@ -122,43 +122,71 @@
 /* Font Loading */
 @font-face {
   font-family: "Noto Kufi Arabic";
-  src: url("/fonts/NotoKufiArabic-Light.woff2") format("woff2");
+  src: url("/fonts/Noto_Kufi_Arabic/static/NotoKufiArabic-Light.ttf")
+    format("truetype");
   font-weight: 300;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Noto Kufi Arabic";
-  src: url("/fonts/NotoKufiArabic-Regular.woff2") format("woff2");
+  src: url("/fonts/Noto_Kufi_Arabic/static/NotoKufiArabic-Regular.ttf")
+    format("truetype");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Noto Kufi Arabic";
-  src: url("/fonts/NotoKufiArabic-Medium.woff2") format("woff2");
+  src: url("/fonts/Noto_Kufi_Arabic/static/NotoKufiArabic-Medium.ttf")
+    format("truetype");
   font-weight: 500;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Noto Kufi Arabic";
-  src: url("/fonts/NotoKufiArabic-Bold.woff2") format("woff2");
+  src: url("/fonts/Noto_Kufi_Arabic/static/NotoKufiArabic-SemiBold.ttf")
+    format("truetype");
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Noto Kufi Arabic";
+  src: url("/fonts/Noto_Kufi_Arabic/static/NotoKufiArabic-Bold.ttf")
+    format("truetype");
   font-weight: 700;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Amiri";
-  src: url("/fonts/Amiri-Regular.woff2") format("woff2");
+  src: url("/fonts/Amiri/Amiri-Regular.ttf") format("truetype");
   font-weight: 400;
   font-display: swap;
 }
 
 @font-face {
   font-family: "Amiri";
-  src: url("/fonts/Amiri-Bold.woff2") format("woff2");
+  src: url("/fonts/Amiri/Amiri-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/Amiri/Amiri-Bold.ttf") format("truetype");
   font-weight: 700;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("/fonts/Amiri/Amiri-BoldItalic.ttf") format("truetype");
+  font-weight: 700;
+  font-style: italic;
   font-display: swap;
 }
 

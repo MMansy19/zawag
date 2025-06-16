@@ -104,10 +104,7 @@ export function LandingNavigation() {
     // If on home page, scroll to element with offset
     const element = document.getElementById(targetId);
     if (element) {
-      // Use larger offset on mobile screens
-      const isMobile = window.innerWidth < 768; // md breakpoint
-      const headerOffset = isMobile ? 380 : 60; // 380px for mobile, 60px for desktop
-
+      const headerOffset = 50; 
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition =
         elementPosition + window.pageYOffset - headerOffset;
@@ -120,24 +117,24 @@ export function LandingNavigation() {
   };
   return (
     <nav className="bg-white shadow-sm border-b border-border sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-1 sm:px-3 md:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-12 md:h-16">
+      <div className="max-w-7xl mx-auto">
+        <div className="flex justify-between items-center h-8 md:h-12">
           <div className="flex items-center justify-start">
             <Link
               href="/"
-              className="flex items-center md:gap-4 gap-3 text-xl font-bold text-primary hover:text-primary-hover transition-colors"
+              className="flex items-center gap-2 text-xl font-bold text-primary hover:text-primary-hover transition-colors"
             >
               <Image
                 src="/logo.png"
                 alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
                 width={40}
                 height={48}
-                className="h-16 xl:h-24 md:h-20 w-auto"
+                className="h-16 xl:h-24 md:h-20 w-auto md:mb-2"
                 priority
                 quality={100}
                 sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
               />
-              <span className="inline md:mt-1">الزواج السعيد</span>
+              <span className="inline">الزواج السعيد</span>
             </Link>
           </div>
 

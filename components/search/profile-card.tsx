@@ -1,32 +1,49 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Profile } from "@/lib/types";
-import { Eye, Heart } from "lucide-react";
+import { Eye, Heart, MapPin, Calendar, User, Shield, Lock } from "lucide-react";
+import {
+  Profile,
+  MaleProfile,
+  FemaleProfile,
+  isMaleProfile,
+  isFemaleProfile,
+} from "@/lib/types/auth.types";
+import { useProfilePrivacyCheck } from "@/providers/profile-privacy-provider";
 
 interface ProfileCardProps {
   profile: Profile;
   onSendRequest?: (profileId: string, message: string) => Promise<void>;
+  currentUserGender?: "male" | "female";
 }
 
-export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
+export function ProfileCard({
+  profile,
+  onSendRequest,
+  currentUserGender,
+}: ProfileCardProps) {
   const router = useRouter();
+  const privacyCheck = useProfilePrivacyCheck(profile);
   const [showRequestModal, setShowRequestModal] = useState(false);
   const [message, setMessage] = useState("");
-
-  const calculateAge = (age: number) => {
-    return age;
-  };
+  const [submitting, setSubmitting] = useState(false);
 
   const handleSendRequest = async () => {
     if (onSendRequest && message.trim()) {
-      await onSendRequest(profile.id, message);
-      setShowRequestModal(false);
-      setMessage("");
+      setSubmitting(true);
+      try {
+        await onSendRequest(profile.id, message);
+        setShowRequestModal(false);
+        setMessage("");
+      } catch (error) {
+        console.error("Error sending request:", error);
+      } finally {
+        setSubmitting(false);
+      }
     }
   };
 
@@ -34,75 +51,257 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
     router.push(`/profile/${profile.id}`);
   };
 
+  const getReligiousLevelLabel = (level: string) => {
+    switch (level) {
+      case "basic":
+        return "أساسي";
+      case "practicing":
+        return "ممارس";
+      case "very-religious":
+        return "متدين جداً";
+      default:
+        return level;
+    }
+  };
+
+  const getMaritalStatusLabel = (status: string) => {
+    switch (status) {
+      case "single":
+        return "أعزب";
+      case "divorced":
+        return "مطلق";
+      case "widowed":
+        return "أرمل";
+      default:
+        return status;
+    }
+  };
+
   return (
     <>
-      <Card className="hover:shadow-md transition-shadow duration-200">
-        <CardContent className="p-4">
+      <Card className="hover:shadow-lg transition-all duration-200 border-l-4 border-l-primary-500">
+        <CardContent className="p-6">
+          {/* Header Section */}
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
-              <h3 className="text-lg font-semibold text-gray-900 mb-1">
-                {profile.name}
-              </h3>{" "}
-              <p className="text-sm text-gray-600 mb-2">{profile.age} سنة</p>
+              <div className="flex items-center gap-2 mb-2">
+                <h3 className="text-xl font-bold text-gray-900">
+                  {profile.name}
+                </h3>
+                {profile.status === "approved" && (
+                  <Badge className="bg-green-100 text-green-800 text-xs">
+                    ✓ موثق
+                  </Badge>
+                )}
+              </div>
+
+              <div className="flex items-center gap-4 text-gray-600 mb-3">
+                <span className="flex items-center gap-1">
+                  <Calendar className="h-4 w-4" />
+                  {profile.age} سنة
+                </span>
+                <span className="flex items-center gap-1">
+                  <MapPin className="h-4 w-4" />
+                  {profile.city}, {profile.country}
+                </span>
+              </div>
+
+              <div className="flex flex-wrap gap-2 mb-3">
+                <Badge variant="outline">
+                  {getMaritalStatusLabel(profile.maritalStatus)}
+                </Badge>
+                <Badge variant="secondary">
+                  {getReligiousLevelLabel(profile.religiousLevel)}
+                </Badge>
+                {profile.education && (
+                  <Badge variant="outline" className="text-xs">
+                    {profile.education}
+                  </Badge>
+                )}
+              </div>
             </div>
 
-            {/* Profile Status Badge */}
-            <Badge variant={profile.isVerified ? "success" : "secondary"}>
-              {profile.isVerified ? "موثق" : "غير موثق"}
-            </Badge>
+            {/* Profile Avatar */}
+            <div className="h-16 w-16 rounded-full bg-gradient-to-r from-primary-500 to-secondary-500 flex items-center justify-center flex-shrink-0">
+              <User className="h-8 w-8 text-white" />
+            </div>
           </div>
 
-          {/* Location */}
-          <div className="mb-3">
-            <p className="text-sm text-gray-700">
-              📍 {profile.city}, {profile.country}
-            </p>
+          {/* Key Information */}
+          <div className="space-y-3 mb-4">
+            {/* Physical Info */}
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-600">الطول والوزن:</span>
+              <span className="font-medium">
+                {profile.height} سم, {profile.weight} كجم
+              </span>
+            </div>
+
+            {/* Prayer Regularity */}
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-600">انتظام الصلاة:</span>
+              <Badge
+                variant={profile.isPrayerRegular ? "success" : "secondary"}
+                className="text-xs"
+              >
+                {profile.isPrayerRegular ? "منتظم" : "أحياناً"}
+              </Badge>
+            </div>
+
+            {/* Children Preference */}
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-gray-600">رغبة في الأطفال:</span>
+              <span className="font-medium">
+                {profile.wantsChildren === "yes"
+                  ? "نعم"
+                  : profile.wantsChildren === "no"
+                    ? "لا"
+                    : "ربما"}
+              </span>
+            </div>
+
+            {/* Gender-specific Information */}
+            {isMaleProfile(profile) && (
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+                <h4 className="text-sm font-semibold text-blue-800 mb-3 flex items-center gap-1">
+                  <span className="text-blue-500">👨</span>
+                  معلومات الأخ
+                </h4>
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">اللحية:</span>
+                    <Badge
+                      variant={profile.hasBeard ? "success" : "secondary"}
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.hasBeard ? "✓" : "✗"}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">التدخين:</span>
+                    <Badge
+                      variant={profile.smokes ? "error" : "success"}
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.smokes ? "🚬" : "🚭"}
+                    </Badge>
+                  </div>
+                  <div className="col-span-2 flex items-center gap-2">
+                    <span className="text-gray-600">الوضع المادي:</span>
+                    <Badge
+                      variant={
+                        profile.financialSituation === "excellent"
+                          ? "success"
+                          : profile.financialSituation === "good"
+                            ? "secondary"
+                            : profile.financialSituation === "average"
+                              ? "outline"
+                              : "error"
+                      }
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.financialSituation === "excellent"
+                        ? "💰 ممتاز"
+                        : profile.financialSituation === "good"
+                          ? "💵 جيد"
+                          : profile.financialSituation === "average"
+                            ? "💳 متوسط"
+                            : "⚠️ صعب"}
+                    </Badge>
+                  </div>
+                  <div className="col-span-2 flex items-center gap-2">
+                    <span className="text-gray-600">نوع السكن:</span>
+                    <span className="text-xs font-medium">
+                      {profile.housingType === "independent"
+                        ? "🏡 مستقل"
+                        : profile.housingType === "with-family"
+                          ? "👨‍👩‍👧‍👦 مع العائلة"
+                          : "👥 مشترك"}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {isFemaleProfile(profile) && (
+              <div className="bg-gradient-to-r from-pink-50 to-purple-50 p-4 rounded-lg border border-pink-200">
+                <h4 className="text-sm font-semibold text-pink-800 mb-3 flex items-center gap-1">
+                  <span className="text-pink-500">👩</span>
+                  معلومات الأخت
+                </h4>
+                <div className="grid grid-cols-2 gap-3 text-xs">
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">الحجاب:</span>
+                    <Badge
+                      variant={profile.wearHijab ? "success" : "secondary"}
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.wearHijab ? "🧕" : "✗"}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <span className="text-gray-600">النقاب:</span>
+                    <Badge
+                      variant={profile.wearNiqab ? "success" : "secondary"}
+                      className="text-xs px-2 py-1"
+                    >
+                      {profile.wearNiqab ? "👤" : "✗"}
+                    </Badge>
+                  </div>
+                  <div className="col-span-2 flex items-center gap-2">
+                    <span className="text-gray-600">أسلوب الملابس:</span>
+                    <span className="text-xs font-medium">
+                      {profile.clothingStyle === "niqab-full" ||
+                      profile.clothingStyle === "niqab-hands"
+                        ? "نقاب"
+                        : profile.clothingStyle === "khimar"
+                          ? "خمار"
+                          : profile.clothingStyle === "hijab-conservative"
+                            ? "حجاب محافظ"
+                            : profile.clothingStyle === "hijab-modest"
+                              ? "حجاب محتشم"
+                              : profile.clothingStyle === "hijab-modern"
+                                ? "حجاب عصري"
+                                : profile.clothingStyle === "loose-covering"
+                                  ? "لباس فضفاض"
+                                  : "لباس محتشم"}
+                    </span>
+                  </div>
+                  {profile.workAfterMarriage && (
+                    <div className="col-span-2 flex items-center gap-2">
+                      <span className="text-gray-600">العمل بعد الزواج:</span>
+                      <span className="text-xs font-medium">
+                        {profile.workAfterMarriage === "yes"
+                          ? "💼 تريد العمل"
+                          : profile.workAfterMarriage === "no"
+                            ? "🏠 البقاء في البيت"
+                            : "🤔 لم تحدد"}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Education & Work */}
-          <div className="space-y-2 mb-4">
-            {profile.education && (
-              <p className="text-sm text-gray-600">🎓 {profile.education}</p>
-            )}
-            {profile.occupation && (
-              <p className="text-sm text-gray-600">💼 {profile.occupation}</p>
-            )}
-          </div>
-
-          {/* Religious Info */}
-          <div className="flex flex-wrap gap-2 mb-4">
-            {profile.prays && (
-              <Badge variant="outline" className="text-xs">
-                يصلي
-              </Badge>
-            )}
-            {profile.fasts && (
-              <Badge variant="outline" className="text-xs">
-                يصوم
-              </Badge>
-            )}
-            {(profile.hijab || profile.hasHijab) && (
-              <Badge variant="outline" className="text-xs">
-                محجبة
-              </Badge>
-            )}
-            {(profile.beard || profile.hasBeard) && (
-              <Badge variant="outline" className="text-xs">
-                ملتح
-              </Badge>
-            )}{" "}
-            {/* {profile.religiousLevel && (
-              <Badge variant="outline" className="text-xs">
-                {profile.religiousLevel === "practicing"
-                  ? "ملتزم"
-                  : profile.religiousLevel === "moderate"
-                    ? "متوسط"
-                    : profile.religiousLevel === "very-religious"
-                      ? "ملتزم جداً"
-                      : "أساسي"}
-              </Badge>
-            )} */}
-          </div>
+          {/* Interests */}
+          {profile.interests && profile.interests.length > 0 && (
+            <div className="mb-4">
+              <p className="text-sm text-gray-600 mb-2">الاهتمامات:</p>
+              <div className="flex flex-wrap gap-1">
+                {profile.interests.slice(0, 3).map((interest, index) => (
+                  <Badge key={index} variant="outline" className="text-xs">
+                    {interest}
+                  </Badge>
+                ))}
+                {profile.interests.length > 3 && (
+                  <Badge variant="outline" className="text-xs">
+                    +{profile.interests.length - 3} أخرى
+                  </Badge>
+                )}
+              </div>
+            </div>
+          )}
 
           {/* Bio Preview */}
           {profile.bio && (
@@ -115,73 +314,83 @@ export function ProfileCard({ profile, onSendRequest }: ProfileCardProps) {
             </div>
           )}
 
-          {/* Marital Status */}
-          <div className="mb-4">
-            <p className="text-sm text-gray-600">
-              الحالة الزوجية: {profile.maritalStatus}
-            </p>
+          {/* Action Buttons */}
+          <div className="flex gap-2 pt-4 border-t border-gray-100">
+            <Button
+              variant="outline"
+              className="flex-1"
+              onClick={handleViewProfile}
+              disabled={!privacyCheck.canView}
+            >
+              <Eye className="h-4 w-4 ml-2" />
+              {privacyCheck.canView ? "عرض الملف" : "محجوب"}
+            </Button>
+            <Button
+              className="flex-1"
+              onClick={() => setShowRequestModal(true)}
+              disabled={!privacyCheck.canContact}
+            >
+              {privacyCheck.canContact ? (
+                <>
+                  <Heart className="h-4 w-4 ml-2" />
+                  إرسال طلب
+                </>
+              ) : (
+                <>
+                  <Lock className="h-4 w-4 ml-2" />
+                  غير متاح
+                </>
+              )}
+            </Button>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col gap-2">
-            <Button
-              onClick={handleViewProfile}
-              variant="outline"
-              className="flex-1 flex items-center justify-center gap-2"
-              size="sm"
-            >
-              <Eye className="h-4 w-4" />
-              عرض الملف
-            </Button>
-            <Button
-              onClick={() => setShowRequestModal(true)}
-              className="flex-1 flex items-center justify-center gap-2"
-              size="sm"
-            >
-              <Heart className="h-4 w-4" />
-              طلب تعارف
-            </Button>
-          </div>
+          {/* Privacy Level Indicator */}
+          {privacyCheck.isFemaleProfile && privacyCheck.hasEnhancedPrivacy && (
+            <div className="flex items-center justify-center gap-1 pt-2">
+              <Shield className="h-3 w-3 text-green-600" />
+              <span className="text-xs text-green-600">محمي بموافقة الولي</span>
+            </div>
+          )}
         </CardContent>
-      </Card>{" "}
+      </Card>
+
       {/* Request Modal */}
       {showRequestModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <Card className="max-w-md w-full mx-4">
-            <CardContent className="p-6">
-              <h2 className="text-xl font-bold text-center mb-4">
-                إرسال طلب تعارف
-              </h2>
-              <p className="text-center text-gray-600 mb-4">
-                إلى: {profile.name}
-              </p>
-
-              <textarea
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className="w-full border border-border rounded-md p-3 text-sm min-h-[120px] resize-none mb-4"
-                placeholder="اكتب رسالة مختصرة للتعريف بنفسك..."
-                maxLength={500}
-              />
-
-              <div className="flex justify-between gap-3">
-                <Button
-                  onClick={() => setShowRequestModal(false)}
-                  variant="outline"
-                  className="flex-1"
-                >
-                  إلغاء
-                </Button>
-                <Button
-                  onClick={handleSendRequest}
-                  className="flex-1"
-                  disabled={!message.trim()}
-                >
-                  إرسال الطلب
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg p-6 w-full max-w-md">
+            <h3 className="text-lg font-semibold mb-4">إرسال طلب تعارف</h3>
+            <p className="text-gray-600 mb-4">إلى: {profile.name}</p>
+            <textarea
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+              placeholder="اكتب رسالة تعريفية مختصرة..."
+              className="w-full p-3 border border-gray-300 rounded-lg resize-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
+              rows={4}
+              maxLength={500}
+            />
+            <p className="text-xs text-gray-500 mb-4">
+              {message.length}/500 حرف
+            </p>
+            <div className="flex gap-2">
+              <Button
+                onClick={handleSendRequest}
+                disabled={!message.trim() || submitting}
+                className="flex-1"
+              >
+                {submitting ? "جاري الإرسال..." : "إرسال الطلب"}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowRequestModal(false);
+                  setMessage("");
+                }}
+                className="flex-1"
+              >
+                إلغاء
+              </Button>
+            </div>
+          </div>
         </div>
       )}
     </>

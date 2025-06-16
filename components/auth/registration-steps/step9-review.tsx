@@ -131,13 +131,132 @@ export default function Step9Review({
           label: "مستوى التدين",
           value: formatReligiousLevel(data.religiousLevel),
         },
-        { label: "الصلاة", value: data.prays ? "نعم" : "لا" },
-        { label: "الصيام", value: data.fasts ? "نعم" : "لا" },
-        ...(data.gender === "female" && data.hasHijab !== undefined
-          ? [{ label: "الحجاب", value: data.hasHijab ? "نعم" : "لا" }]
+        { label: "الصلاة", value: data.isPrayerRegular ? "نعم" : "لا" },
+        {
+          label: "الوالدين على قيد الحياة",
+          value:
+            data.areParentsAlive === "both"
+              ? "كلاهما"
+              : data.areParentsAlive === "father"
+                ? "الأب فقط"
+                : data.areParentsAlive === "mother"
+                  ? "الأم فقط"
+                  : data.areParentsAlive === "none"
+                    ? "لا"
+                    : "غير محدد",
+        },
+        {
+          label: "العلاقة مع الوالدين",
+          value:
+            data.parentRelationship === "excellent"
+              ? "ممتازة"
+              : data.parentRelationship === "good"
+                ? "جيدة"
+                : data.parentRelationship === "average"
+                  ? "متوسطة"
+                  : data.parentRelationship === "poor"
+                    ? "ضعيفة"
+                    : "غير محدد",
+        },
+        ...(data.gender === "female" && data.wearHijab !== undefined
+          ? [
+              { label: "الحجاب", value: data.wearHijab ? "نعم" : "لا" },
+              { label: "النقاب", value: data.wearNiqab ? "نعم" : "لا" },
+              {
+                label: "أسلوب الملابس",
+                value: data.clothingStyle || "غير محدد",
+              },
+            ]
           : []),
         ...(data.gender === "male" && data.hasBeard !== undefined
-          ? [{ label: "اللحية", value: data.hasBeard ? "نعم" : "لا" }]
+          ? [
+              { label: "اللحية", value: data.hasBeard ? "نعم" : "لا" },
+              {
+                label: "مكان الصلاة",
+                value:
+                  data.prayingLocation === "mosque"
+                    ? "المسجد"
+                    : data.prayingLocation === "home"
+                      ? "البيت"
+                      : data.prayingLocation === "both"
+                        ? "المسجد والبيت"
+                        : "غير محدد",
+              },
+              {
+                label: "الانتظام في المسجد",
+                value: data.isRegularAtMosque ? "نعم" : "لا",
+              },
+              { label: "التدخين", value: data.smokes ? "نعم" : "لا" },
+              {
+                label: "الوضع المالي",
+                value:
+                  data.financialSituation === "excellent"
+                    ? "ممتاز"
+                    : data.financialSituation === "good"
+                      ? "جيد"
+                      : data.financialSituation === "average"
+                        ? "متوسط"
+                        : data.financialSituation === "struggling"
+                          ? "صعب"
+                          : "غير محدد",
+              },
+              {
+                label: "موقع السكن",
+                value: data.housingLocation || "غير محدد",
+              },
+              {
+                label: "طبيعة السكن",
+                value:
+                  data.housingOwnership === "owned"
+                    ? "تمليك"
+                    : data.housingOwnership === "rented"
+                      ? "إيجار"
+                      : data.housingOwnership === "family-owned"
+                        ? "بيت العائلة"
+                        : "غير محدد",
+              },
+              {
+                label: "نوع السكن",
+                value:
+                  data.housingType === "independent"
+                    ? "مستقل"
+                    : data.housingType === "with-family"
+                      ? "مع العائلة"
+                      : data.housingType === "shared"
+                        ? "مشترك"
+                        : "غير محدد",
+              },
+              ...(data.monthlyIncome
+                ? [
+                    {
+                      label: "الدخل الشهري",
+                      value: `${data.monthlyIncome} ريال`,
+                    },
+                  ]
+                : []),
+              {
+                label: "نظرة الإعالة",
+                value:
+                  data.providerView === "sole provider"
+                    ? "المعيل الوحيد"
+                    : data.providerView === "shared responsibility"
+                      ? "مسؤولية مشتركة"
+                      : data.providerView === "flexible"
+                        ? "مرن"
+                        : "غير محدد",
+              },
+              {
+                label: "الأعمال المنزلية",
+                value:
+                  data.householdChores === "willing"
+                    ? "مستعد للمساعدة"
+                    : data.householdChores === "not willing"
+                      ? "غير مستعد"
+                      : data.householdChores === "depends"
+                        ? "حسب الظروف"
+                        : "غير محدد",
+              },
+            ]
           : []),
       ],
     },

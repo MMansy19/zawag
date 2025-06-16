@@ -33,9 +33,51 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
       {/* Header */}
       <header className="bg-white shadow-sm border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex justify-between items-center h-16 sm:h-20">
             {/* Logo and Mobile Menu Toggle */}
             <div className="flex items-center">
+              <Link
+                href="/dashboard"
+                className="flex items-center gap-2 text-lg sm:text-xl font-bold text-primary mr-4 hover:text-primary-hover transition-colors"
+              >
+                <Image
+                  src="/logo.png"
+                  alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
+                  width={32}
+                  height={38}
+                  className="h-12 md:h-16 w-auto"
+                  priority
+                  quality={100}
+                  sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
+                />
+                <span className="sm:text-xl text-lg">الزواج السعيد</span>
+              </Link>
+            </div>
+
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex space-x-8 space-x-reverse">
+              {navigation.map((item) => (
+                <Link
+                  key={item.name}
+                  href={item.href}
+                  className={`text-sm font-medium transition-colors pb-2 pt-0 px-1 border-b-2 ${
+                    isActive(item.href)
+                      ? "text-primary border-primary"
+                      : "text-gray-500 hover:text-gray-700 border-transparent hover:border-gray-300"
+                  }`}
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+
+            {/* User Menu */}
+            <div className="flex items-center gap-2 sm:gap-4">
+              {/* Notifications */}
+              <button className="relative p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
+                <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
+                <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
+              </button>
               <button
                 onClick={toggleMobileMenu}
                 className="md:hidden p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-primary"
@@ -55,49 +97,6 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
                   />
                 </svg>
               </button>
-              <Link
-                href="/dashboard"
-                className="flex items-center gap-2 text-lg sm:text-xl font-bold text-primary mr-4 hover:text-primary-hover transition-colors"
-              >
-                <Image
-                  src="/logo.png"
-                  alt="الزواج السعيد - شعار منصة الزواج الإسلامية"
-                  width={32}
-                  height={38}
-                  className="h-12 md:h-16 w-auto"
-                  priority
-                  quality={100}
-                  sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
-                />
-                <span className="hidden sm:inline">الزواج السعيد</span>
-              </Link>
-            </div>
-
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex space-x-8 space-x-reverse">
-              {navigation.slice(0, 5).map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`text-sm font-medium transition-colors py-2 px-1 border-b-2 ${
-                    isActive(item.href)
-                      ? "text-primary border-primary"
-                      : "text-gray-500 hover:text-gray-700 border-transparent hover:border-gray-300"
-                  }`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </nav>
-
-            {/* User Menu */}
-            <div className="flex items-center gap-2 sm:gap-4">
-              {/* Notifications */}
-              <button className="relative p-2 text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
-                <Bell className="w-5 h-5 sm:w-6 sm:h-6" />
-                <span className="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-400 ring-2 ring-white"></span>
-              </button>
-
               {/* User Profile */}
               <div className="relative">
                 <button className="flex items-center gap-2 text-sm text-gray-700 hover:text-gray-900 focus:outline-none focus:ring-2 focus:ring-primary rounded-lg p-2">
@@ -259,7 +258,7 @@ export function DashboardLayout({ children }: DashboardLayoutProps) {
 
       <div className="flex flex-1">
         {/* Desktop Sidebar */}
-        <aside className="hidden md:flex w-64 bg-white shadow-sm border-l border-gray-200 min-h-screen">
+        <aside className="hidden xl:flex w-64 bg-white shadow-sm border-l border-gray-200 min-h-screen">
           <nav className="flex-1 p-4">
             <ul className="space-y-2">
               {navigation.map((item) => (

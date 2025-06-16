@@ -1,4 +1,12 @@
-import { MarriageRequest, Profile, PrivacySettings } from "@/lib/types";
+import {
+  MarriageRequest,
+  Profile,
+  PrivacySettings,
+  MaleProfile,
+  FemaleProfile,
+  isMaleProfile,
+  isFemaleProfile,
+} from "@/lib/types";
 
 // Helper function to create complete profile objects
 const createProfile = (profileData: Partial<Profile>): Profile => {
@@ -10,46 +18,97 @@ const createProfile = (profileData: Partial<Profile>): Profile => {
     allowMessagesFrom: "everyone",
   };
 
-  return {
+  // Base properties that are common to both profile types
+  const baseProfile = {
     id: profileData.id || "",
     userId: profileData.userId || "",
     name: profileData.name || "",
     age: profileData.age || 25,
-    gender: profileData.gender || "male",
     country: profileData.country || "السعودية",
     city: profileData.city || "الرياض",
     nationality: profileData.nationality || "سعودي",
-    maritalStatus: profileData.maritalStatus || "single",
-    prays: profileData.prays || true,
-    fasts: profileData.fasts || true,
-    ...(profileData.hasHijab !== undefined && {
-      hasHijab: profileData.hasHijab,
-    }),
-    ...(profileData.hasBeard !== undefined && {
-      hasBeard: profileData.hasBeard,
-    }),
-    religiousLevel: profileData.religiousLevel || "practicing",
+    maritalStatus:
+      (profileData.maritalStatus as "single" | "divorced" | "widowed") ||
+      "single",
+    religiousLevel:
+      (profileData.religiousLevel as
+        | "basic"
+        | "practicing"
+        | "very-religious"
+        | "moderate") || "practicing",
     education: profileData.education || "",
     occupation: profileData.occupation || "",
-    ...(profileData.profilePicture !== undefined && {
-      profilePicture: profileData.profilePicture,
-    }),
-    ...(profileData.bio !== undefined && { bio: profileData.bio }),
-    isComplete: profileData.isComplete || true,
-    isApproved: profileData.isApproved || true,
-    privacySettings: profileData.privacySettings || defaultPrivacySettings,
-    ...(profileData.guardianName !== undefined && {
-      guardianName: profileData.guardianName,
-    }),
-    ...(profileData.guardianPhone !== undefined && {
-      guardianPhone: profileData.guardianPhone,
-    }),
-    ...(profileData.guardianEmail !== undefined && {
-      guardianEmail: profileData.guardianEmail,
-    }),
+    bio: profileData.bio || "",
+    profilePicture: profileData.profilePicture || "",
+    status: "approved" as const,
     createdAt: profileData.createdAt || "2024-01-01T00:00:00Z",
     updatedAt: profileData.updatedAt || "2024-01-01T00:00:00Z",
+    isComplete: profileData.isComplete ?? true,
+    isApproved: profileData.isApproved ?? true,
+    isVerified: profileData.isVerified ?? true,
+    privacySettings: profileData.privacySettings || defaultPrivacySettings,
+
+    // Common fields with defaults
+    isPrayerRegular: true,
+    areParentsAlive: "both" as const,
+    parentRelationship: "good" as const,
+    wantsChildren: "yes" as const,
+    height: 170,
+    weight: 70,
+    appearance: "average" as const,
+    skinColor: "medium" as const,
+    bodyType: "average" as const,
+    interests: ["reading", "sports"],
+    marriageGoals: "serious relationship",
+    personalityDescription: "شخص طيب ومتدين",
+    familyPlans: "أريد تكوين أسرة صالحة",
+    relocationPlans: "مرن حسب الظروف",
+    marriageTimeline: "في المستقبل القريب",
+    preferences: {
+      ageRange: { min: 20, max: 35 },
+    },
   };
+
+  // Create gender-specific profile
+  if (profileData.gender === "female") {
+    const femaleProfile: FemaleProfile = {
+      ...baseProfile,
+      gender: "female",
+      // Female-specific required fields with defaults
+      guardianName: (profileData as any).guardianName || "الوالد",
+      guardianPhone: (profileData as any).guardianPhone || "+966500000000",
+      guardianEmail: (profileData as any).guardianEmail || "",
+      guardianRelationship:
+        (profileData as any).guardianRelationship || "father",
+      guardianNotes: (profileData as any).guardianNotes || "",
+      wearHijab: (profileData as any).wearHijab ?? true,
+      wearNiqab: (profileData as any).wearNiqab ?? false,
+      clothingStyle: (profileData as any).clothingStyle || "modest-covering",
+      prayingLocation: (profileData as any).prayingLocation || "home",
+      mahramAvailable: (profileData as any).mahramAvailable ?? true,
+      workAfterMarriage: (profileData as any).workAfterMarriage || "undecided",
+      childcarePreference: (profileData as any).childcarePreference || "self",
+    };
+    return femaleProfile;
+  } else {
+    const maleProfile: MaleProfile = {
+      ...baseProfile,
+      gender: "male",
+      // Male-specific required fields with defaults
+      hasBeard: (profileData as any).hasBeard ?? true,
+      prayingLocation: (profileData as any).prayingLocation || "mosque",
+      isRegularAtMosque: (profileData as any).isRegularAtMosque ?? true,
+      smokes: (profileData as any).smokes ?? false,
+      financialSituation: (profileData as any).financialSituation || "good",
+      housingLocation: (profileData as any).housingLocation || "family home",
+      housingOwnership: (profileData as any).housingOwnership || "family-owned",
+      housingType: (profileData as any).housingType || "with-family",
+      monthlyIncome: (profileData as any).monthlyIncome || 5000,
+      providerView: (profileData as any).providerView || "sole provider",
+      householdChores: (profileData as any).householdChores || "willing",
+    };
+    return maleProfile;
+  }
 };
 
 export const staticReceivedRequests: MarriageRequest[] = [

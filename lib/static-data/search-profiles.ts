@@ -1,7 +1,22 @@
-import { Profile, SearchFilters, PrivacySettings } from "@/lib/types";
+import {
+  Profile,
+  MaleProfile,
+  FemaleProfile,
+  SearchFilters,
+  PrivacySettings,
+  isMaleProfile,
+  isFemaleProfile,
+} from "@/lib/types";
+import {
+  filterProfilesByPrivacy,
+  ViewerContext,
+  canViewProfile,
+  canSendContactRequest,
+  canSendMessage,
+} from "@/lib/utils/privacy-filter";
 
-// Helper function to create complete profile objects
-const createSearchProfile = (profileData: Partial<Profile>): Profile => {
+// Helper functions to create complete gender-specific profile objects
+const createMaleProfile = (profileData: Partial<MaleProfile>): MaleProfile => {
   const defaultPrivacySettings: PrivacySettings = {
     showProfilePicture: "everyone",
     showAge: true,
@@ -10,61 +25,159 @@ const createSearchProfile = (profileData: Partial<Profile>): Profile => {
     allowMessagesFrom: "everyone",
   };
 
-  const baseProfile: Profile = {
+  return {
     id: profileData.id || "",
     userId: profileData.userId || "",
     name: profileData.name || "",
     age: profileData.age || 25,
-    gender: profileData.gender || "male",
+    gender: "male",
     country: profileData.country || "السعودية",
     city: profileData.city || "الرياض",
     nationality: profileData.nationality || "سعودي",
     maritalStatus: profileData.maritalStatus || "single",
-    prays: profileData.prays || true,
-    fasts: profileData.fasts || true,
     religiousLevel: profileData.religiousLevel || "practicing",
     education: profileData.education || "",
     occupation: profileData.occupation || "",
+    bio: profileData.bio || "",
+    profilePicture: profileData.profilePicture || "",
+    preferences: profileData.preferences || { ageRange: { min: 20, max: 35 } },
+    status: profileData.status || "approved",
+    createdAt: profileData.createdAt || "2024-01-01T00:00:00Z",
+    updatedAt: profileData.updatedAt || "2024-01-01T00:00:00Z",
     isComplete: profileData.isComplete || true,
     isApproved: profileData.isApproved || true,
     isVerified: profileData.isVerified || true,
     privacySettings: profileData.privacySettings || defaultPrivacySettings,
-    createdAt: profileData.createdAt || "2024-01-01T00:00:00Z",
-    updatedAt: profileData.updatedAt || "2024-01-01T00:00:00Z",
+
+    // Common religious & family fields
+    isPrayerRegular: profileData.isPrayerRegular ?? true,
+    areParentsAlive: profileData.areParentsAlive || "both",
+    parentRelationship: profileData.parentRelationship || "good",
+    wantsChildren: profileData.wantsChildren || "yes",
+
+    // Physical appearance
+    height: profileData.height || 175,
+    weight: profileData.weight || 70,
+    appearance: profileData.appearance || "average",
+    skinColor: profileData.skinColor || "medium",
+    bodyType: profileData.bodyType || "average",
+
+    // Personal information
+    interests: profileData.interests || ["reading", "sports"],
+    marriageGoals: profileData.marriageGoals || "starting family",
+    personalityDescription:
+      profileData.personalityDescription || "شخص طيب ومتدين",
+    familyPlans: profileData.familyPlans || "children soon",
+    relocationPlans: profileData.relocationPlans || "flexible",
+    marriageTimeline: profileData.marriageTimeline || "within year",
+
+    // Male-specific fields
+    hasBeard: profileData.hasBeard ?? true,
+    prayingLocation: profileData.prayingLocation || "mosque",
+    isRegularAtMosque: profileData.isRegularAtMosque ?? true,
+    smokes: profileData.smokes ?? false,
+    financialSituation: profileData.financialSituation || "good",
+    housingLocation: profileData.housingLocation || "family home",
+    housingOwnership: profileData.housingOwnership || "family-owned",
+    housingType: profileData.housingType || "with-family",
+    ...(profileData.monthlyIncome !== undefined && {
+      monthlyIncome: profileData.monthlyIncome,
+    }),
+    providerView: profileData.providerView || "sole provider",
+    householdChores: profileData.householdChores || "willing",
+  };
+};
+
+const createFemaleProfile = (
+  profileData: Partial<FemaleProfile>,
+): FemaleProfile => {
+  const defaultPrivacySettings: PrivacySettings = {
+    showProfilePicture: "matches-only",
+    showAge: true,
+    showLocation: true,
+    showOccupation: true,
+    allowMessagesFrom: "matches-only",
   };
 
-  // Add optional properties conditionally
-  if (profileData.hasHijab !== undefined)
-    baseProfile.hasHijab = profileData.hasHijab;
-  if (profileData.hasBeard !== undefined)
-    baseProfile.hasBeard = profileData.hasBeard;
-  if (profileData.profilePicture)
-    baseProfile.profilePicture = profileData.profilePicture;
-  if (profileData.bio) baseProfile.bio = profileData.bio;
-  if (profileData.guardianName)
-    baseProfile.guardianName = profileData.guardianName;
-  if (profileData.guardianPhone)
-    baseProfile.guardianPhone = profileData.guardianPhone;
-  if (profileData.guardianEmail)
-    baseProfile.guardianEmail = profileData.guardianEmail;
+  return {
+    id: profileData.id || "",
+    userId: profileData.userId || "",
+    name: profileData.name || "",
+    age: profileData.age || 23,
+    gender: "female",
+    country: profileData.country || "السعودية",
+    city: profileData.city || "الرياض",
+    nationality: profileData.nationality || "سعودي",
+    maritalStatus: profileData.maritalStatus || "single",
+    religiousLevel: profileData.religiousLevel || "practicing",
+    education: profileData.education || "",
+    occupation: profileData.occupation || "",
+    bio: profileData.bio || "",
+    profilePicture: profileData.profilePicture || "",
+    preferences: profileData.preferences || { ageRange: { min: 25, max: 40 } },
+    status: profileData.status || "approved",
+    createdAt: profileData.createdAt || "2024-01-01T00:00:00Z",
+    updatedAt: profileData.updatedAt || "2024-01-01T00:00:00Z",
+    isComplete: profileData.isComplete || true,
+    isApproved: profileData.isApproved || true,
+    isVerified: profileData.isVerified || true,
+    privacySettings: profileData.privacySettings || defaultPrivacySettings,
 
-  return baseProfile;
+    // Common religious & family fields
+    isPrayerRegular: profileData.isPrayerRegular ?? true,
+    areParentsAlive: profileData.areParentsAlive || "both",
+    parentRelationship: profileData.parentRelationship || "good",
+    wantsChildren: profileData.wantsChildren || "yes",
+
+    // Physical appearance
+    height: profileData.height || 160,
+    weight: profileData.weight || 55,
+    appearance: profileData.appearance || "attractive",
+    skinColor: profileData.skinColor || "medium",
+    bodyType: profileData.bodyType || "slim",
+
+    // Personal information
+    interests: profileData.interests || ["reading", "cooking"],
+    marriageGoals: profileData.marriageGoals || "starting family",
+    personalityDescription:
+      profileData.personalityDescription || "شخصية طيبة ومتدينة",
+    familyPlans: profileData.familyPlans || "children soon",
+    relocationPlans: profileData.relocationPlans || "flexible",
+    marriageTimeline: profileData.marriageTimeline || "within year",
+
+    // Female-specific fields
+    guardianName: profileData.guardianName || "والدها",
+    guardianPhone: profileData.guardianPhone || "+966501234567",
+    ...(profileData.guardianEmail && {
+      guardianEmail: profileData.guardianEmail,
+    }),
+    guardianRelationship: profileData.guardianRelationship || "father",
+    ...(profileData.guardianNotes && {
+      guardianNotes: profileData.guardianNotes,
+    }),
+    wearHijab: profileData.wearHijab ?? true,
+    wearNiqab: profileData.wearNiqab ?? false,
+    clothingStyle: profileData.clothingStyle || "modest-covering",
+    prayingLocation: profileData.prayingLocation || "home",
+    ...(profileData.mahramAvailable !== undefined && {
+      mahramAvailable: profileData.mahramAvailable,
+    }),
+    workAfterMarriage: profileData.workAfterMarriage || "undecided",
+    childcarePreference: profileData.childcarePreference || "self",
+  };
 };
 
 // Static search profiles data - Male profiles
 export const staticMaleProfiles: Profile[] = [
-  createSearchProfile({
+  createMaleProfile({
     id: "search_male_001",
     userId: "search_male_001",
     name: "عبدالله أحمد المالكي",
     age: 29,
-    gender: "male",
     city: "الرياض",
     country: "السعودية",
     nationality: "سعودي",
     maritalStatus: "single",
-    prays: true,
-    fasts: true,
     hasBeard: true,
     religiousLevel: "practicing",
     education: "ماجستير إدارة أعمال",
@@ -74,8 +187,15 @@ export const staticMaleProfiles: Profile[] = [
     isVerified: true,
     createdAt: "2024-01-15T08:00:00Z",
     updatedAt: "2024-03-01T10:30:00Z",
+    prayingLocation: "mosque",
+    isRegularAtMosque: true,
+    smokes: false,
+    financialSituation: "good",
+    housingLocation: "منزل مستقل",
+    housingOwnership: "owned",
+    housingType: "independent",
   }),
-  createSearchProfile({
+  createMaleProfile({
     id: "search_male_002",
     userId: "search_male_002",
     name: "د. محمد سعد الغامدي",
@@ -97,7 +217,7 @@ export const staticMaleProfiles: Profile[] = [
     createdAt: "2024-02-10T09:15:00Z",
     updatedAt: "2024-03-15T14:20:00Z",
   }),
-  createSearchProfile({
+  createMaleProfile({
     id: "search_male_003",
     userId: "search_male_003",
     name: "خالد عمر الحربي",
@@ -119,7 +239,7 @@ export const staticMaleProfiles: Profile[] = [
     createdAt: "2024-01-20T07:30:00Z",
     updatedAt: "2024-02-25T16:45:00Z",
   }),
-  createSearchProfile({
+  createMaleProfile({
     id: "search_male_004",
     userId: "search_male_004",
     name: "أحمد محمد الشهري",
@@ -141,7 +261,7 @@ export const staticMaleProfiles: Profile[] = [
     createdAt: "2024-02-05T11:00:00Z",
     updatedAt: "2024-03-10T13:30:00Z",
   }),
-  createSearchProfile({
+  createMaleProfile({
     id: "search_male_005",
     userId: "search_male_005",
     name: "يوسف علي القحطاني",
@@ -163,7 +283,7 @@ export const staticMaleProfiles: Profile[] = [
     createdAt: "2024-01-25T08:45:00Z",
     updatedAt: "2024-02-28T15:20:00Z",
   }),
-  createSearchProfile({
+  createMaleProfile({
     id: "search_male_006",
     userId: "search_male_006",
     name: "سالم راشد الزهراني",
@@ -189,7 +309,7 @@ export const staticMaleProfiles: Profile[] = [
 
 // Static search profiles data - Female profiles
 export const staticFemaleProfiles: Profile[] = [
-  createSearchProfile({
+  createFemaleProfile({
     id: "search_female_001",
     userId: "search_female_001",
     name: "فاطمة عبدالله السليمان",
@@ -211,7 +331,7 @@ export const staticFemaleProfiles: Profile[] = [
     createdAt: "2024-01-12T08:30:00Z",
     updatedAt: "2024-02-20T14:45:00Z",
   }),
-  createSearchProfile({
+  createFemaleProfile({
     id: "search_female_002",
     userId: "search_female_002",
     name: "عائشة محمد الدوسري",
@@ -233,7 +353,7 @@ export const staticFemaleProfiles: Profile[] = [
     createdAt: "2024-01-18T09:15:00Z",
     updatedAt: "2024-03-05T16:30:00Z",
   }),
-  createSearchProfile({
+  createFemaleProfile({
     id: "search_female_003",
     userId: "search_female_003",
     name: "خديجة سعد النجار",
@@ -255,7 +375,7 @@ export const staticFemaleProfiles: Profile[] = [
     createdAt: "2024-02-01T10:00:00Z",
     updatedAt: "2024-03-08T13:20:00Z",
   }),
-  createSearchProfile({
+  createFemaleProfile({
     id: "search_female_004",
     userId: "search_female_004",
     name: "مريم أحمد الحربي",
@@ -277,7 +397,7 @@ export const staticFemaleProfiles: Profile[] = [
     createdAt: "2024-01-22T11:30:00Z",
     updatedAt: "2024-02-18T17:45:00Z",
   }),
-  createSearchProfile({
+  createFemaleProfile({
     id: "search_female_005",
     userId: "search_female_005",
     name: "زينب عمر الشمري",
@@ -299,7 +419,7 @@ export const staticFemaleProfiles: Profile[] = [
     createdAt: "2024-02-08T07:45:00Z",
     updatedAt: "2024-03-12T14:10:00Z",
   }),
-  createSearchProfile({
+  createFemaleProfile({
     id: "search_female_006",
     userId: "search_female_006",
     name: "أسماء محمد الغامدي",
@@ -376,7 +496,7 @@ export const filterProfiles = (
     // Education filter
     if (filters.education && filters.education.length > 0) {
       const hasMatchingEducation = filters.education.some((edu) =>
-        profile.education.toLowerCase().includes(edu.toLowerCase()),
+        profile.education?.toLowerCase().includes(edu.toLowerCase()),
       );
       if (!hasMatchingEducation) {
         return false;
@@ -386,7 +506,7 @@ export const filterProfiles = (
     // Occupation filter
     if (filters.occupation && filters.occupation.length > 0) {
       const hasMatchingOccupation = filters.occupation.some((occ) =>
-        profile.occupation.toLowerCase().includes(occ.toLowerCase()),
+        profile.occupation?.toLowerCase().includes(occ.toLowerCase()),
       );
       if (!hasMatchingOccupation) {
         return false;
@@ -395,6 +515,161 @@ export const filterProfiles = (
 
     return true;
   });
+};
+
+// Gender-based filtering functions
+export const getProfilesForUser = (
+  userGender: "male" | "female",
+): Profile[] => {
+  // Males can only see female profiles, females can only see male profiles
+  if (userGender === "male") {
+    return staticFemaleProfiles;
+  } else {
+    return staticMaleProfiles;
+  }
+};
+
+// Enhanced search function with gender-based filtering
+export const searchProfilesForUser = (
+  filters: SearchFilters,
+  userGender: "male" | "female",
+  viewer?: ViewerContext,
+): Profile[] => {
+  // Get the appropriate profiles based on user gender
+  const profiles = getProfilesForUser(userGender);
+
+  // Apply privacy filters if viewer context is provided
+  let filteredProfiles = viewer
+    ? filterProfilesByPrivacy(profiles, viewer)
+    : profiles;
+
+  // Apply existing filters
+  filteredProfiles = filterProfiles(filteredProfiles, filters);
+
+  // Apply gender-specific filters
+  if (userGender === "male") {
+    // Male user viewing female profiles - apply female-specific filters
+    const femaleProfiles = filteredProfiles as FemaleProfile[];
+
+    // Apply hijab filter
+    if (filters.wearHijab !== undefined) {
+      filteredProfiles = femaleProfiles.filter(
+        (profile) => profile.wearHijab === filters.wearHijab,
+      );
+    }
+
+    // Apply niqab filter
+    if (filters.wearNiqab !== undefined) {
+      filteredProfiles = femaleProfiles.filter(
+        (profile) => profile.wearNiqab === filters.wearNiqab,
+      );
+    }
+
+    // Apply guardian relationship filter
+    if (
+      filters.guardianRelationship &&
+      filters.guardianRelationship.length > 0
+    ) {
+      filteredProfiles = femaleProfiles.filter((profile) =>
+        filters.guardianRelationship!.includes(profile.guardianRelationship),
+      );
+    }
+  } else {
+    // Female user viewing male profiles - apply male-specific filters
+    const maleProfiles = filteredProfiles as MaleProfile[];
+
+    // Apply beard filter
+    if (filters.hasBeard !== undefined) {
+      filteredProfiles = maleProfiles.filter(
+        (profile) => profile.hasBeard === filters.hasBeard,
+      );
+    }
+
+    // Apply financial situation filter
+    if (filters.financialSituation && filters.financialSituation.length > 0) {
+      filteredProfiles = maleProfiles.filter((profile) =>
+        filters.financialSituation!.includes(profile.financialSituation),
+      );
+    }
+
+    // Apply smoking filter
+    if (filters.smokes !== undefined) {
+      filteredProfiles = maleProfiles.filter(
+        (profile) => profile.smokes === filters.smokes,
+      );
+    }
+
+    // Apply housing type filter
+    if (filters.housingType && filters.housingType.length > 0) {
+      filteredProfiles = maleProfiles.filter((profile) =>
+        filters.housingType!.includes(profile.housingType),
+      );
+    }
+  }
+
+  return filteredProfiles;
+};
+
+// Quick filter presets with gender-based filtering
+export const getQuickFilteredProfiles = (
+  filterType: string,
+  userGender: "male" | "female",
+  count: number = 6,
+): Profile[] => {
+  const profiles = getProfilesForUser(userGender);
+
+  switch (filterType) {
+    case "nearby":
+      return profiles.filter((p) => p.city === "الرياض").slice(0, count);
+
+    case "verified":
+      return profiles.filter((p) => p.isVerified).slice(0, count);
+
+    case "highly_educated":
+      return profiles
+        .filter(
+          (p) =>
+            p.education?.includes("دكتوراه") ||
+            p.education?.includes("ماجستير"),
+        )
+        .slice(0, count);
+
+    case "recently_active":
+      return profiles
+        .sort(
+          (a, b) =>
+            new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime(),
+        )
+        .slice(0, count);
+
+    case "young":
+      return profiles.filter((p) => p.age <= 28).slice(0, count);
+
+    case "religious":
+      return profiles
+        .filter((p) => p.religiousLevel === "very-religious")
+        .slice(0, count);
+
+    default:
+      return profiles.slice(0, count);
+  }
+};
+
+// Get total count of available profiles for a user
+export const getTotalProfilesCountForUser = (
+  userGender: "male" | "female",
+): number => {
+  return getProfilesForUser(userGender).length;
+};
+
+// Get profiles by city for a specific user gender
+export const getProfilesByCityForUser = (
+  city: string,
+  userGender: "male" | "female",
+): Profile[] => {
+  return getProfilesForUser(userGender).filter(
+    (profile) => profile.city.toLowerCase() === city.toLowerCase(),
+  );
 };
 
 // Helper function to simulate API delay
@@ -451,11 +726,17 @@ export const mockSearchApi = {
   },
 };
 
-// Helper function to get profiles by different criteria for testing
-export const getProfilesByCategory = (category: string, count: number = 6) => {
+// Helper function to get profiles by different criteria for testing with gender-based filtering
+export const getProfilesByCategory = (
+  category: string,
+  userGender: "male" | "female",
+  count: number = 6,
+) => {
+  const profiles = getProfilesForUser(userGender);
+
   switch (category) {
     case "recent":
-      return staticAllProfiles
+      return profiles
         .sort(
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
@@ -463,26 +744,27 @@ export const getProfilesByCategory = (category: string, count: number = 6) => {
         .slice(0, count);
 
     case "verified":
-      return staticAllProfiles.filter((p) => p.isVerified).slice(0, count);
+      return profiles.filter((p) => p.isVerified).slice(0, count);
 
     case "religious":
-      return staticAllProfiles
+      return profiles
         .filter((p) => p.religiousLevel === "very-religious")
         .slice(0, count);
 
     case "professionals":
-      return staticAllProfiles
+      return profiles
         .filter(
           (p) =>
-            p.education.includes("دكتوراه") || p.education.includes("ماجستير"),
+            p.education?.includes("دكتوراه") ||
+            p.education?.includes("ماجستير"),
         )
         .slice(0, count);
 
     case "young":
-      return staticAllProfiles.filter((p) => p.age <= 28).slice(0, count);
+      return profiles.filter((p) => p.age <= 28).slice(0, count);
 
     default:
-      return staticAllProfiles.slice(0, count);
+      return profiles.slice(0, count);
   }
 };
 
