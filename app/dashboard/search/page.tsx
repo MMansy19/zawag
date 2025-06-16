@@ -6,8 +6,9 @@ import { FilterSidebar } from "@/components/search/filter-sidebar";
 import { ProfileCard } from "@/components/search/profile-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Filter, Search, Users, Heart, ChevronLeft, ChevronRight } from "lucide-react";
+import { Filter, Search, Users, Heart, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { Profile, MaleProfile, FemaleProfile } from "@/lib/types/auth.types";
+import { Badge } from "@/components/ui/badge";
 
 // Mock user data - in real app, get from auth context
 const mockCurrentUser = {
@@ -204,94 +205,157 @@ function SearchPageContent() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto p-6">
+      <div className="max-w-7xl mx-auto p-4 md:p-6">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+        <div className="text-center mb-6 md:mb-8">
+          <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
             البحث عن شريك الحياة
           </h1>
-          <p className="text-gray-600">
+          <p className="text-gray-600 text-sm md:text-base">
             استخدم الفلاتر للعثور على الشريك المناسب وفقاً لمعاييرك
           </p>
         </div>
 
         {/* Search Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4 mb-4 md:mb-6">
           <Card>
-            <CardContent className="p-4 text-center">
-              <Users className="h-8 w-8 text-primary-600 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">{filteredProfiles.length}</p>
-              <p className="text-sm text-gray-600">إجمالي النتائج</p>
+            <CardContent className="p-3 md:p-4 text-center">
+              <Users className="h-6 w-6 md:h-8 md:w-8 text-primary-600 mx-auto mb-2" />
+              <p className="text-xl md:text-2xl font-bold text-gray-900">{filteredProfiles.length}</p>
+              <p className="text-xs md:text-sm text-gray-600">إجمالي النتائج</p>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 text-center">
-              <Heart className="h-8 w-8 text-red-500 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">12</p>
-              <p className="text-sm text-gray-600">طلبات مرسلة</p>
+            <CardContent className="p-3 md:p-4 text-center">
+              <Heart className="h-6 w-6 md:h-8 md:w-8 text-red-500 mx-auto mb-2" />
+              <p className="text-xl md:text-2xl font-bold text-gray-900">12</p>
+              <p className="text-xs md:text-sm text-gray-600">طلبات مرسلة</p>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="p-4 text-center">
-              <Search className="h-8 w-8 text-green-500 mx-auto mb-2" />
-              <p className="text-2xl font-bold text-gray-900">5</p>
-              <p className="text-sm text-gray-600">مشاهدات اليوم</p>
+            <CardContent className="p-3 md:p-4 text-center">
+              <Search className="h-6 w-6 md:h-8 md:w-8 text-green-500 mx-auto mb-2" />
+              <p className="text-xl md:text-2xl font-bold text-gray-900">5</p>
+              <p className="text-xs md:text-sm text-gray-600">مشاهدات اليوم</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Mobile Filter Toggle */}
-        <div className="lg:hidden mb-6">
+        <div className="lg:hidden mb-4 md:mb-6">
           <Button
             onClick={() => setShowFilters(!showFilters)}
-            variant="outline"
-            className="w-full"
+            variant="outline" 
+            className="w-full flex items-center justify-center gap-2 py-3 text-base font-medium shadow-sm"
           >
-            <Filter className="h-4 w-4 ml-2" />
+            <Filter className="h-5 w-5" />
             {showFilters ? "إخفاء الفلاتر" : "إظهار الفلاتر"}
+            {Object.keys(filters).length > 0 && (
+              <Badge variant="secondary" className="ml-2 bg-primary-100 text-primary-800">
+                {Object.keys(filters).length}
+              </Badge>
+            )}
           </Button>
         </div>
 
-        <div className="flex gap-6">
-          {/* Desktop Sidebar */}
+        <div className="flex gap-4 md:gap-6">
+          {/* Desktop Sidebar - Enhanced Sticky */}
           <div className="hidden lg:block w-80 flex-shrink-0">
-            <div className="sticky top-6">
+            <div className="sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               <FilterSidebar userGender={mockCurrentUser.gender} />
             </div>
           </div>
 
-          {/* Mobile Filter Overlay */}
+          {/* Mobile Filter Overlay - Full Screen */}
           {showFilters && (
             <div className="lg:hidden fixed inset-0 z-50 bg-black bg-opacity-50">
-              <div className="bg-white h-full w-80 overflow-y-auto p-6">
-                <FilterSidebar
-                  userGender={mockCurrentUser.gender}
-                  onClose={() => setShowFilters(false)}
-                />
+              {/* Full screen overlay */}
+              <div className="absolute inset-0 bg-white overflow-hidden flex flex-col">
+                {/* Header */}
+                <div className="flex items-center justify-between p-4 border-b bg-white shadow-sm">
+                  <h2 className="text-lg font-semibold text-gray-900">تصفية النتائج</h2>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setShowFilters(false)}
+                    className="h-10 w-10 p-0"
+                  >
+                    <X className="h-5 w-5" />
+                  </Button>
+                </div>
+                
+                {/* Filter Content - Scrollable */}
+                <div className="flex-1 overflow-y-auto">
+                  <div className="p-4">
+                    <FilterSidebar
+                      userGender={mockCurrentUser.gender}
+                      onClose={() => setShowFilters(false)}
+                      isMobile={true}
+                    />
+                  </div>
+                </div>
+                
+                {/* Bottom Actions */}
+                <div className="p-4 border-t bg-white shadow-lg">
+                  <div className="flex gap-3">
+                    <Button
+                      variant="outline"
+                      onClick={() => {
+                        // Clear filters logic
+                        const url = new URL(window.location.href);
+                        url.search = '';
+                        window.history.pushState({}, '', url.toString());
+                        window.location.reload();
+                      }}
+                      className="flex-1"
+                    >
+                      مسح الكل
+                    </Button>
+                    <Button
+                      onClick={() => setShowFilters(false)}
+                      className="flex-1"
+                    >
+                      عرض النتائج ({filteredProfiles.length})
+                    </Button>
+                  </div>
+                </div>
               </div>
             </div>
           )}
 
           {/* Results */}
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             {loading ? (
-              <div className="space-y-6">
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+              <div className="space-y-4 md:space-y-6">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                   {Array.from({ length: 6 }).map((_, i) => (
                     <ProfileCardSkeleton key={i} />
                   ))}
                 </div>
               </div>
             ) : filteredProfiles.length > 0 ? (
-              <div className="space-y-6">
-                <div className="flex items-center justify-between">
-                  <p className="text-gray-600">
-                    تم العثور على {filteredProfiles.length} نتيجة
-                    {currentPage > 1 && ` - الصفحة ${currentPage} من ${totalPages}`}
-                  </p>
+              <div className="space-y-4 md:space-y-6">
+                {/* Results Header - Mobile Optimized */}
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                  <div>
+                    <p className="text-gray-600 text-sm md:text-base">
+                      تم العثور على {filteredProfiles.length} نتيجة
+                    </p>
+                    {currentPage > 1 && (
+                      <p className="text-gray-500 text-xs md:text-sm">
+                        الصفحة {currentPage} من {totalPages}
+                      </p>
+                    )}
+                  </div>
+                  <select className="border border-gray-300 rounded-lg px-3 py-2 text-sm w-full sm:w-auto">
+                    <option>ترتيب: الأحدث أولاً</option>
+                    <option>ترتيب: الأقرب جغرافياً</option>
+                    <option>ترتيب: التوافق</option>
+                  </select>
                 </div>
 
-                <div className="grid grid-cols-1 xl:grid-cols-2 gap-6">
+                {/* Profile Grid - Mobile Optimized */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
                   {profiles.map((profile) => (
                     <ProfileCard
                       key={profile.id}
@@ -302,55 +366,87 @@ function SearchPageContent() {
                   ))}
                 </div>
 
-                {/* Pagination */}
+                {/* Pagination - Mobile Optimized */}
                 {totalPages > 1 && (
-                  <div className="flex items-center justify-center gap-2 mt-8">
-                    <Button
-                      variant="outline"
-                      onClick={() => handlePageChange(currentPage - 1)}
-                      disabled={currentPage === 1}
-                      className="flex items-center gap-2"
-                    >
-                      <ChevronRight className="h-4 w-4" />
-                      السابق
-                    </Button>
-
-                    <div className="flex gap-1">
-                      {Array.from({ length: totalPages }, (_, i) => i + 1)
-                        .filter((page) => {
-                          const distance = Math.abs(page - currentPage);
-                          return distance <= 2 || page === 1 || page === totalPages;
-                        })
-                        .map((page, index, array) => {
-                          const prevPage = array[index - 1];
-                          const showEllipsis = prevPage && page - prevPage > 1;
-
-                          return (
-                            <React.Fragment key={page}>
-                              {showEllipsis && (
-                                <span className="px-3 py-2 text-gray-500">...</span>
-                              )}
-                              <Button
-                                variant={currentPage === page ? "primary" : "outline"}
-                                onClick={() => handlePageChange(page)}
-                                className="w-10 h-10 p-0"
-                              >
-                                {page}
-                              </Button>
-                            </React.Fragment>
-                          );
-                        })}
+                  <div className="flex flex-col sm:flex-row items-center justify-center gap-3 mt-6 md:mt-8">
+                    {/* Mobile: Compact pagination */}
+                    <div className="flex items-center gap-2 sm:hidden">
+                      <Button
+                        variant="outline"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        size="sm"
+                        className="flex items-center gap-1"
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                        السابق
+                      </Button>
+                      
+                      <span className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded">
+                        {currentPage} / {totalPages}
+                      </span>
+                      
+                      <Button
+                        variant="outline"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        size="sm"
+                        className="flex items-center gap-1"
+                      >
+                        التالي
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
                     </div>
 
-                    <Button
-                      variant="outline"
-                      onClick={() => handlePageChange(currentPage + 1)}
-                      disabled={currentPage === totalPages}
-                      className="flex items-center gap-2"
-                    >
-                      التالي
-                      <ChevronLeft className="h-4 w-4" />
-                    </Button>
+                    {/* Desktop: Full pagination */}
+                    <div className="hidden sm:flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        onClick={() => handlePageChange(currentPage - 1)}
+                        disabled={currentPage === 1}
+                        className="flex items-center gap-2"
+                      >
+                        <ChevronRight className="h-4 w-4" />
+                        السابق
+                      </Button>
+
+                      <div className="flex gap-1">
+                        {Array.from({ length: totalPages }, (_, i) => i + 1)
+                          .filter((page) => {
+                            const distance = Math.abs(page - currentPage);
+                            return distance <= 2 || page === 1 || page === totalPages;
+                          })
+                          .map((page, index, array) => {
+                            const prevPage = array[index - 1];
+                            const showEllipsis = prevPage && page - prevPage > 1;
+
+                            return (
+                              <React.Fragment key={page}>
+                                {showEllipsis && (
+                                  <span className="px-3 py-2 text-gray-500">...</span>
+                                )}
+                                <Button
+                                  variant={currentPage === page ? "primary" : "outline"}
+                                  onClick={() => handlePageChange(page)}
+                                  className="w-10 h-10 p-0"
+                                >
+                                  {page}
+                                </Button>
+                              </React.Fragment>
+                            );
+                          })}
+                      </div>
+
+                      <Button
+                        variant="outline"
+                        onClick={() => handlePageChange(currentPage + 1)}
+                        disabled={currentPage === totalPages}
+                        className="flex items-center gap-2"
+                      >
+                        التالي
+                        <ChevronLeft className="h-4 w-4" />
+                      </Button>
+                    </div>
                   </div>
                 )}
               </div>
