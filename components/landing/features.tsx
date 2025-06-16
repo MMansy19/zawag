@@ -71,9 +71,11 @@ export function LandingFeatures() {
         <div className="text-center mb-16">
           <div className="flex items-center justify-center mb-4">
             <Star className="w-10 h-10 ml-3 text-amber-500" />
-            <h2 className="text-4xl font-bold text-gray-900">الميزات</h2>
+            <h2 className="text-section-title font-heading text-text arabic-optimized">
+              الميزات
+            </h2>
           </div>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-body-large text-text-secondary max-w-3xl mx-auto arabic-optimized text-pretty">
             باستخدام موقعنا، تستفيد من مجموعة من الميزات والفوائد:
           </p>
         </div>
@@ -90,11 +92,11 @@ export function LandingFeatures() {
                     <div className="flex justify-center mb-3">
                       <IconComponent className="w-12 h-12 text-blue-600" />
                     </div>
-                    <h3 className="text-xl font-semibold text-gray-900 mb-3">
+                    <h3 className="text-card-title font-heading text-text mb-3 arabic-optimized">
                       {feature.title}
                     </h3>
                   </div>
-                  <p className="text-gray-600 leading-relaxed text-right">
+                  <p className="text-body text-text-secondary leading-relaxed text-right arabic-optimized text-pretty">
                     {feature.description}
                   </p>
                 </CardContent>

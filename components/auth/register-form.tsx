@@ -51,7 +51,7 @@ export function RegisterForm() {
       <div>
         <label
           htmlFor="email"
-          className="block text-sm font-medium text-text mb-2"
+          className="block text-label font-medium text-text mb-2 arabic-optimized"
         >
           البريد الإلكتروني
         </label>
@@ -59,18 +59,20 @@ export function RegisterForm() {
           {...register("email")}
           type="email"
           id="email"
-          className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-input arabic-optimized font-body"
           placeholder="أدخل بريدك الإلكتروني"
         />
         {errors.email && (
-          <p className="mt-1 text-sm text-error">{errors.email.message}</p>
+          <p className="mt-1 text-error arabic-optimized">
+            {errors.email.message}
+          </p>
         )}
       </div>
 
       <div>
         <label
           htmlFor="password"
-          className="block text-sm font-medium text-text mb-2"
+          className="block text-label font-medium text-text mb-2 arabic-optimized"
         >
           كلمة المرور
         </label>
@@ -78,11 +80,13 @@ export function RegisterForm() {
           {...register("password")}
           type="password"
           id="password"
-          className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+          className="w-full px-3 py-2 border border-border rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent text-input arabic-optimized font-body"
           placeholder="أدخل كلمة المرور"
         />
         {errors.password && (
-          <p className="mt-1 text-sm text-error">{errors.password.message}</p>
+          <p className="mt-1 text-error arabic-optimized">
+            {errors.password.message}
+          </p>
         )}
       </div>
 

@@ -32,10 +32,10 @@ export function LandingTestimonials() {
     <section id="testimonials" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-text mb-4">
+          <h2 className="text-section-title font-heading text-text mb-4 arabic-optimized">
             آراء أعضائنا
           </h2>
-          <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+          <p className="text-body-large text-text-secondary max-w-2xl mx-auto arabic-optimized text-pretty">
             اقرأ تجارب حقيقية لأعضاء نجحوا في العثور على شريك الحياة عبر منصتنا
           </p>
         </div>
@@ -47,14 +47,14 @@ export function LandingTestimonials() {
               className="bg-gray-50 p-6 rounded-lg border border-border"
             >
               <div className="flex items-center mb-4">
-                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-semibold">
+                <div className="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-semibold font-display">
                   {testimonial.name.charAt(0)}
                 </div>
                 <div className="mr-4">
-                  <h4 className="font-semibold text-text">
+                  <h4 className="text-arabic-name font-medium text-text arabic-optimized">
                     {testimonial.name}
                   </h4>
-                  <p className="text-sm text-text-secondary">
+                  <p className="text-body-small text-text-secondary arabic-optimized">
                     {testimonial.location}
                   </p>
                 </div>
@@ -71,7 +71,7 @@ export function LandingTestimonials() {
                   ))}
                 </div>
               </div>
-              <p className="text-text-secondary leading-relaxed italic">
+              <p className="text-profile-intro text-text-secondary leading-relaxed italic arabic-optimized">
                 "{testimonial.text}"
               </p>
             </div>

@@ -252,7 +252,7 @@ export function MobileChatInterface({
           </Button>
 
           <div className="flex items-center flex-1 min-w-0">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full sm:flex hidden items-center justify-center mr-3">
               <User className="h-5 w-5 text-white" />
             </div>
 
@@ -332,7 +332,7 @@ export function MobileChatInterface({
               <div
                 className={`max-w-[85%] px-3 py-2 rounded-2xl shadow-sm ${
                   message.isCurrentUser
-                    ? "bg-gradient-to-r from-primary to-primary-600 text-white rounded-br-md"
+                    ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-br-md"
                     : "bg-white text-gray-800 border border-gray-200 rounded-bl-md"
                 }`}
               >

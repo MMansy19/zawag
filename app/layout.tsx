@@ -6,17 +6,24 @@ import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import "@/global.css";
 
+// Optimized font loading for Arabic text
 const notoKufiArabic = Noto_Kufi_Arabic({
-  subsets: ["arabic"],
+  subsets: ["arabic", "latin"],
   variable: "--font-noto-kufi-arabic",
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  preload: true,
+  fallback: ["system-ui", "-apple-system", "sans-serif"],
 });
 
 const amiri = Amiri({
-  subsets: ["arabic"],
+  subsets: ["arabic", "latin"],
   weight: ["400", "700"],
   variable: "--font-amiri",
   display: "swap",
+  preload: true,
+  style: ["normal", "italic"],
+  fallback: ["Times New Roman", "serif"],
 });
 
 export const metadata: Metadata = {
@@ -224,12 +231,37 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
+        {/* Font Preloading for Better Performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
           href="https://fonts.gstatic.com"
           crossOrigin="anonymous"
         />
+
+        {/* Preload Critical Local Fonts */}
+        <link
+          rel="preload"
+          href="/fonts/Noto_Kufi_Arabic/static/NotoKufiArabic-Regular.ttf"
+          as="font"
+          type="font/truetype"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Noto_Kufi_Arabic/static/NotoKufiArabic-Medium.ttf"
+          as="font"
+          type="font/truetype"
+          crossOrigin="anonymous"
+        />
+        <link
+          rel="preload"
+          href="/fonts/Amiri/Amiri-Regular.ttf"
+          as="font"
+          type="font/truetype"
+          crossOrigin="anonymous"
+        />
+
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -237,7 +269,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className="min-h-screen bg-background font-arabic antialiased">
+      <body className="min-h-screen bg-background font-arabic arabic-optimized antialiased">
         <Providers>
           {children}
           <Toaster />

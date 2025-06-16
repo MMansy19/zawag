@@ -38,12 +38,12 @@ function MessageBubble({
             : "bg-gray-100 text-gray-800 rounded-bl-sm"
         }`}
       >
-        <p className="text-sm sm:text-base leading-relaxed">
+        <p className="text-body leading-relaxed arabic-optimized">
           {message.content}
         </p>
         <div className="flex items-center justify-between mt-1 sm:mt-2">
           <span
-            className={`text-xs ${isCurrentUser ? "text-blue-100" : "text-gray-500"}`}
+            className={`text-caption ${isCurrentUser ? "text-blue-100" : "text-gray-500"} arabic-optimized`}
           >
             {formatTime(message.createdAt)}
           </span>

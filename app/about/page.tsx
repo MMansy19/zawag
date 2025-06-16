@@ -106,11 +106,11 @@ export default function AboutPage() {
         <div className="max-w-4xl mx-auto mb-16">
           <Card className="border-2 border-blue-100 shadow-lg">
             <CardHeader className="text-center pb-4">
-              <CardTitle className="text-2xl font-bold text-blue-800 mb-2 font-amiri">
+              <CardTitle className="text-section-title font-heading text-blue-800 mb-2 arabic-optimized">
                 رسالتنا ورؤيتنا
               </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-6 text-lg leading-relaxed text-gray-700">
+            <CardContent className="space-y-6 text-body-large leading-relaxed text-text-secondary arabic-optimized prose-arabic">
               <p>
                 تتمحور أهدافنا حول تقديم خدمة مميزة من خلال تفادي السلبيات
                 والمفاسد الشائعة في مواقع الزواج غير الملتزمة الأخرى قدر
@@ -134,14 +134,14 @@ export default function AboutPage() {
               </p>
 
               <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 mt-8">
-                <p className="font-semibold text-blue-800 mb-4">
+                <p className="text-body font-medium text-blue-800 mb-4 arabic-optimized text-pretty">
                   باختصار نحن نعتزم أن نكون قائدين ونبراسا في هذا الخير لغيرنا و
                   أن يكون نصب أعيننا دوما الالتزام بقيمنا الاسلامية الراقية
                   الأصيلة وتعاليمه الحكيمة المُحكمة المستمدة من كتاب الله وسنة
                   رسوله عليه الصلاة والسلام.
                 </p>
 
-                <p className="text-blue-700">
+                <p className="text-body text-blue-700 arabic-optimized text-pretty">
                   جاهدين في ذلك أن نحقق النفع لإخواننا وأخواتنا من أهل الصلاح
                   والالتزام خاصة و أن نلبي حاجتهم و حاجة مجتمعنا المسلم عامّة
                   للعفاف والاحصان سائلين المولى عزوجل التوفيق في ذلك والمعونة
