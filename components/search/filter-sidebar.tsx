@@ -29,7 +29,13 @@ interface FilterValues {
 
   // Education and career
   education?: string;
-  educationLevel?: "high school" | "associate" | "bachelor" | "master" | "doctorate" | "other";
+  educationLevel?:
+    | "high school"
+    | "associate"
+    | "bachelor"
+    | "master"
+    | "doctorate"
+    | "other";
   occupation?: string;
   fieldOfStudy?: string;
 
@@ -64,7 +70,17 @@ interface FilterValues {
   // Female-specific filters (when searching for females)
   wearHijab?: boolean;
   wearNiqab?: boolean;
-  clothingStyle?: "niqab-full" | "niqab-hands" | "khimar" | "tarha-loose" | "tarha-fitted" | "hijab-conservative" | "hijab-modest" | "hijab-modern" | "loose-covering" | "modest-covering";
+  clothingStyle?:
+    | "niqab-full"
+    | "niqab-hands"
+    | "khimar"
+    | "tarha-loose"
+    | "tarha-fitted"
+    | "hijab-conservative"
+    | "hijab-modest"
+    | "hijab-modern"
+    | "loose-covering"
+    | "modest-covering";
   mahramAvailable?: boolean;
   workAfterMarriage?: "yes" | "no" | "undecided";
   childcarePreference?: "self" | "family" | "nanny" | "daycare";
@@ -96,12 +112,24 @@ export function FilterSidebar({
     const initFilters: FilterValues = {};
 
     searchParams.forEach((value, key) => {
-      if (key === "minAge" || key === "maxAge" || key === "minHeight" || key === "maxHeight" ||
-        key === "monthlyIncomeMin" || key === "monthlyIncomeMax") {
+      if (
+        key === "minAge" ||
+        key === "maxAge" ||
+        key === "minHeight" ||
+        key === "maxHeight" ||
+        key === "monthlyIncomeMin" ||
+        key === "monthlyIncomeMax"
+      ) {
         (initFilters as any)[key] = Number(value);
-      } else if (key === "isPrayerRegular" || key === "hasBeard" || key === "smokes" ||
-        key === "wearHijab" || key === "wearNiqab" || key === "isRegularAtMosque" ||
-        key === "mahramAvailable") {
+      } else if (
+        key === "isPrayerRegular" ||
+        key === "hasBeard" ||
+        key === "smokes" ||
+        key === "wearHijab" ||
+        key === "wearNiqab" ||
+        key === "isRegularAtMosque" ||
+        key === "mahramAvailable"
+      ) {
         (initFilters as any)[key] = value === "true";
       } else {
         (initFilters as any)[key] = value;
@@ -162,9 +190,14 @@ export function FilterSidebar({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Filter className="h-5 w-5 text-primary-600" />
-              <h3 className="text-lg font-semibold text-gray-900">تصفية النتائج</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                تصفية النتائج
+              </h3>
               {activeFiltersCount > 0 && (
-                <Badge variant="secondary" className="bg-primary-100 text-primary-800">
+                <Badge
+                  variant="secondary"
+                  className="bg-primary-100 text-primary-800"
+                >
                   {activeFiltersCount}
                 </Badge>
               )}
@@ -176,15 +209,20 @@ export function FilterSidebar({
         </div>
       )}
 
-      <div className={`space-y-6 ${isMobile ? 'p-4 pt-0' : 'p-6'}`}>
+      <div className={`space-y-6 ${isMobile ? "p-4 pt-0" : "p-6"}`}>
         {/* Desktop Header */}
         {!isMobile && (
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <Filter className="h-5 w-5 text-primary-600" />
-              <h3 className="text-lg font-semibold text-gray-900">تصفية النتائج</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                تصفية النتائج
+              </h3>
               {activeFiltersCount > 0 && (
-                <Badge variant="secondary" className="bg-primary-100 text-primary-800">
+                <Badge
+                  variant="secondary"
+                  className="bg-primary-100 text-primary-800"
+                >
                   {activeFiltersCount}
                 </Badge>
               )}
@@ -198,9 +236,15 @@ export function FilterSidebar({
             <p className="text-sm font-medium text-gray-700">الفلاتر النشطة:</p>
             <div className="flex flex-wrap gap-2">
               {Object.entries(filters).map(([key, value]) => {
-                if (value === undefined || value === "" || value === null) return null;
+                if (value === undefined || value === "" || value === null)
+                  return null;
 
-                const displayValue = typeof value === 'boolean' ? (value ? 'نعم' : 'لا') : value.toString();
+                const displayValue =
+                  typeof value === "boolean"
+                    ? value
+                      ? "نعم"
+                      : "لا"
+                    : value.toString();
                 const displayKey = getFilterDisplayName(key);
 
                 return (
@@ -208,7 +252,9 @@ export function FilterSidebar({
                     key={key}
                     variant="outline"
                     className="flex items-center gap-1 cursor-pointer hover:bg-red-50"
-                    onClick={() => clearIndividualFilter(key as keyof FilterValues)}
+                    onClick={() =>
+                      clearIndividualFilter(key as keyof FilterValues)
+                    }
                   >
                     {displayKey}: {displayValue}
                     <X className="h-3 w-3" />
@@ -238,7 +284,12 @@ export function FilterSidebar({
                   type="number"
                   placeholder="18"
                   value={filters.minAge || ""}
-                  onChange={(e) => handleFilterChange("minAge", Number(e.target.value) || undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      "minAge",
+                      Number(e.target.value) || undefined,
+                    )
+                  }
                   className="text-center"
                 />
               </div>
@@ -250,7 +301,12 @@ export function FilterSidebar({
                   type="number"
                   placeholder="50"
                   value={filters.maxAge || ""}
-                  onChange={(e) => handleFilterChange("maxAge", Number(e.target.value) || undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      "maxAge",
+                      Number(e.target.value) || undefined,
+                    )
+                  }
                   className="text-center"
                 />
               </div>
@@ -294,7 +350,9 @@ export function FilterSidebar({
               </label>
               <select
                 value={filters.maritalStatus || ""}
-                onChange={(e) => handleFilterChange("maritalStatus", e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("maritalStatus", e.target.value)
+                }
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500"
               >
                 <option value="">جميع الحالات</option>
@@ -322,7 +380,9 @@ export function FilterSidebar({
               </label>
               <select
                 value={filters.educationLevel || ""}
-                onChange={(e) => handleFilterChange("educationLevel", e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("educationLevel", e.target.value)
+                }
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
               >
                 <option value="">جميع المستويات</option>
@@ -343,7 +403,9 @@ export function FilterSidebar({
               <Input
                 placeholder="أدخل المهنة"
                 value={filters.occupation || ""}
-                onChange={(e) => handleFilterChange("occupation", e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("occupation", e.target.value)
+                }
               />
             </div>
           </CardContent>
@@ -368,7 +430,12 @@ export function FilterSidebar({
                   type="number"
                   placeholder="150"
                   value={filters.minHeight || ""}
-                  onChange={(e) => handleFilterChange("minHeight", Number(e.target.value) || undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      "minHeight",
+                      Number(e.target.value) || undefined,
+                    )
+                  }
                   className="text-center"
                 />
               </div>
@@ -380,7 +447,12 @@ export function FilterSidebar({
                   type="number"
                   placeholder="190"
                   value={filters.maxHeight || ""}
-                  onChange={(e) => handleFilterChange("maxHeight", Number(e.target.value) || undefined)}
+                  onChange={(e) =>
+                    handleFilterChange(
+                      "maxHeight",
+                      Number(e.target.value) || undefined,
+                    )
+                  }
                   className="text-center"
                 />
               </div>
@@ -393,7 +465,9 @@ export function FilterSidebar({
               </label>
               <select
                 value={filters.skinColor || ""}
-                onChange={(e) => handleFilterChange("skinColor", e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("skinColor", e.target.value)
+                }
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-purple-500"
               >
                 <option value="">جميع الألوان</option>
@@ -442,7 +516,9 @@ export function FilterSidebar({
               </label>
               <select
                 value={filters.religiousLevel || ""}
-                onChange={(e) => handleFilterChange("religiousLevel", e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("religiousLevel", e.target.value)
+                }
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500"
               >
                 <option value="">جميع المستويات</option>
@@ -474,7 +550,9 @@ export function FilterSidebar({
                     type="radio"
                     name="isPrayerRegular"
                     checked={filters.isPrayerRegular === false}
-                    onChange={() => handleFilterChange("isPrayerRegular", false)}
+                    onChange={() =>
+                      handleFilterChange("isPrayerRegular", false)
+                    }
                     className="text-yellow-500"
                   />
                   <span className="text-sm">غير منتظم</span>
@@ -484,7 +562,9 @@ export function FilterSidebar({
                     type="radio"
                     name="isPrayerRegular"
                     checked={filters.isPrayerRegular === undefined}
-                    onChange={() => handleFilterChange("isPrayerRegular", undefined)}
+                    onChange={() =>
+                      handleFilterChange("isPrayerRegular", undefined)
+                    }
                     className="text-yellow-500"
                   />
                   <span className="text-sm">غير محدد</span>
@@ -589,7 +669,9 @@ export function FilterSidebar({
                 </label>
                 <select
                   value={filters.financialSituation || ""}
-                  onChange={(e) => handleFilterChange("financialSituation", e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("financialSituation", e.target.value)
+                  }
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">جميع الأوضاع</option>
@@ -607,7 +689,9 @@ export function FilterSidebar({
                 </label>
                 <select
                   value={filters.housingType || ""}
-                  onChange={(e) => handleFilterChange("housingType", e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("housingType", e.target.value)
+                  }
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 >
                   <option value="">جميع الأنواع</option>
@@ -627,7 +711,12 @@ export function FilterSidebar({
                     type="number"
                     placeholder="3000"
                     value={filters.monthlyIncomeMin || ""}
-                    onChange={(e) => handleFilterChange("monthlyIncomeMin", Number(e.target.value) || undefined)}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "monthlyIncomeMin",
+                        Number(e.target.value) || undefined,
+                      )
+                    }
                     className="text-center"
                   />
                 </div>
@@ -639,7 +728,12 @@ export function FilterSidebar({
                     type="number"
                     placeholder="15000"
                     value={filters.monthlyIncomeMax || ""}
-                    onChange={(e) => handleFilterChange("monthlyIncomeMax", Number(e.target.value) || undefined)}
+                    onChange={(e) =>
+                      handleFilterChange(
+                        "monthlyIncomeMax",
+                        Number(e.target.value) || undefined,
+                      )
+                    }
                     className="text-center"
                   />
                 </div>
@@ -689,7 +783,9 @@ export function FilterSidebar({
                       type="radio"
                       name="wearHijab"
                       checked={filters.wearHijab === undefined}
-                      onChange={() => handleFilterChange("wearHijab", undefined)}
+                      onChange={() =>
+                        handleFilterChange("wearHijab", undefined)
+                      }
                       className="text-pink-500"
                     />
                     <span className="text-sm">غير محدد</span>
@@ -728,7 +824,9 @@ export function FilterSidebar({
                       type="radio"
                       name="wearNiqab"
                       checked={filters.wearNiqab === undefined}
-                      onChange={() => handleFilterChange("wearNiqab", undefined)}
+                      onChange={() =>
+                        handleFilterChange("wearNiqab", undefined)
+                      }
                       className="text-pink-500"
                     />
                     <span className="text-sm">غير محدد</span>
@@ -743,20 +841,42 @@ export function FilterSidebar({
                 </label>
                 <select
                   value={filters.clothingStyle || ""}
-                  onChange={(e) => handleFilterChange("clothingStyle", e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("clothingStyle", e.target.value)
+                  }
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 >
                   <option value="">جميع الأنماط</option>
-                  <option value={CLOTHING_STYLES.NIQAB_FULL}>نقاب كامل - تغطية الوجه والكفين</option>
-                  <option value={CLOTHING_STYLES.NIQAB_HANDS}>نقاب مع كشف الكفين فقط</option>
-                  <option value={CLOTHING_STYLES.KHIMAR}>خمار - غطاء رأس طويل يغطي الصدر مع ملابس واسعة</option>
-                  <option value={CLOTHING_STYLES.TARHA_LOOSE}>غطاء رأس مع ملابس واسعة وطويلة</option>
-                  <option value={CLOTHING_STYLES.HIJAB_CONSERVATIVE}>حجاب مع ملابس واسعة لا تُظهر تفاصيل الجسم</option>
-                  <option value={CLOTHING_STYLES.HIJAB_MODEST}>حجاب مع ملابس مناسبة الحجم وليست ضيقة</option>
-                  <option value={CLOTHING_STYLES.TARHA_FITTED}>غطاء رأس مع ملابس مناسبة الحجم</option>
-                  <option value={CLOTHING_STYLES.HIJAB_MODERN}>حجاب مع ملابس عصرية قد تُظهر شكل الجسم</option>
-                  <option value={CLOTHING_STYLES.LOOSE_COVERING}>ملابس واسعة وطويلة بدون غطاء رأس</option>
-                  <option value={CLOTHING_STYLES.MODEST_COVERING}>ملابس عادية تُظهر الذراعين أو جزء من الساقين</option>
+                  <option value={CLOTHING_STYLES.NIQAB_FULL}>
+                    نقاب كامل - تغطية الوجه والكفين
+                  </option>
+                  <option value={CLOTHING_STYLES.NIQAB_HANDS}>
+                    نقاب مع كشف الكفين فقط
+                  </option>
+                  <option value={CLOTHING_STYLES.KHIMAR}>
+                    خمار - غطاء رأس طويل يغطي الصدر مع ملابس واسعة
+                  </option>
+                  <option value={CLOTHING_STYLES.TARHA_LOOSE}>
+                    غطاء رأس مع ملابس واسعة وطويلة
+                  </option>
+                  <option value={CLOTHING_STYLES.HIJAB_CONSERVATIVE}>
+                    حجاب مع ملابس واسعة لا تُظهر تفاصيل الجسم
+                  </option>
+                  <option value={CLOTHING_STYLES.HIJAB_MODEST}>
+                    حجاب مع ملابس مناسبة الحجم وليست ضيقة
+                  </option>
+                  <option value={CLOTHING_STYLES.TARHA_FITTED}>
+                    غطاء رأس مع ملابس مناسبة الحجم
+                  </option>
+                  <option value={CLOTHING_STYLES.HIJAB_MODERN}>
+                    حجاب مع ملابس عصرية قد تُظهر شكل الجسم
+                  </option>
+                  <option value={CLOTHING_STYLES.LOOSE_COVERING}>
+                    ملابس واسعة وطويلة بدون غطاء رأس
+                  </option>
+                  <option value={CLOTHING_STYLES.MODEST_COVERING}>
+                    ملابس عادية تُظهر الذراعين أو جزء من الساقين
+                  </option>
                 </select>
               </div>
 
@@ -767,7 +887,9 @@ export function FilterSidebar({
                 </label>
                 <select
                   value={filters.workAfterMarriage || ""}
-                  onChange={(e) => handleFilterChange("workAfterMarriage", e.target.value)}
+                  onChange={(e) =>
+                    handleFilterChange("workAfterMarriage", e.target.value)
+                  }
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 >
                   <option value="">جميع الخيارات</option>
@@ -788,7 +910,9 @@ export function FilterSidebar({
                       type="radio"
                       name="mahramAvailable"
                       checked={filters.mahramAvailable === true}
-                      onChange={() => handleFilterChange("mahramAvailable", true)}
+                      onChange={() =>
+                        handleFilterChange("mahramAvailable", true)
+                      }
                       className="text-pink-500"
                     />
                     <span className="text-sm">متوفر</span>
@@ -798,7 +922,9 @@ export function FilterSidebar({
                       type="radio"
                       name="mahramAvailable"
                       checked={filters.mahramAvailable === false}
-                      onChange={() => handleFilterChange("mahramAvailable", false)}
+                      onChange={() =>
+                        handleFilterChange("mahramAvailable", false)
+                      }
                       className="text-pink-500"
                     />
                     <span className="text-sm">غير متوفر</span>
@@ -808,7 +934,9 @@ export function FilterSidebar({
                       type="radio"
                       name="mahramAvailable"
                       checked={filters.mahramAvailable === undefined}
-                      onChange={() => handleFilterChange("mahramAvailable", undefined)}
+                      onChange={() =>
+                        handleFilterChange("mahramAvailable", undefined)
+                      }
                       className="text-pink-500"
                     />
                     <span className="text-sm">غير محدد</span>
@@ -820,7 +948,9 @@ export function FilterSidebar({
         )}
 
         {/* Action Buttons */}
-        <div className={`flex gap-3 ${isMobile ? 'sticky bottom-0 bg-white p-4 border-t border-gray-200 -mx-4' : ''}`}>
+        <div
+          className={`flex gap-3 ${isMobile ? "sticky bottom-0 bg-white p-4 border-t border-gray-200 -mx-4" : ""}`}
+        >
           <Button onClick={clearFilters} variant="outline" className="flex-1">
             مسح الكل
           </Button>

@@ -150,7 +150,17 @@ export interface FemaleProfile extends BaseProfile {
   // Religious Practice
   wearHijab: boolean;
   wearNiqab: boolean;
-  clothingStyle: "niqab-full" | "niqab-hands" | "khimar" | "tarha-loose" | "tarha-fitted" | "hijab-conservative" | "hijab-modest" | "hijab-modern" | "loose-covering" | "modest-covering";
+  clothingStyle:
+    | "niqab-full"
+    | "niqab-hands"
+    | "khimar"
+    | "tarha-loose"
+    | "tarha-fitted"
+    | "hijab-conservative"
+    | "hijab-modest"
+    | "hijab-modern"
+    | "loose-covering"
+    | "modest-covering";
   prayingLocation: "home" | "mosque-when-possible";
 
   // Legacy compatibility fields
@@ -342,7 +352,17 @@ export interface FemaleRegisterRequest extends BaseRegisterRequest {
   // Female-specific fields
   wearHijab: boolean;
   wearNiqab: boolean;
-  clothingStyle: "niqab-full" | "niqab-hands" | "khimar" | "tarha-loose" | "tarha-fitted" | "hijab-conservative" | "hijab-modest" | "hijab-modern" | "loose-covering" | "modest-covering";
+  clothingStyle:
+    | "niqab-full"
+    | "niqab-hands"
+    | "khimar"
+    | "tarha-loose"
+    | "tarha-fitted"
+    | "hijab-conservative"
+    | "hijab-modest"
+    | "hijab-modern"
+    | "loose-covering"
+    | "modest-covering";
   prayingLocation: "home" | "mosque-when-possible";
 
   // Additional Female-specific Fields

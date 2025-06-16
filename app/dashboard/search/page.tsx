@@ -6,7 +6,15 @@ import { FilterSidebar } from "@/components/search/filter-sidebar";
 import { ProfileCard } from "@/components/search/profile-card";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Filter, Search, Users, Heart, ChevronLeft, ChevronRight, X } from "lucide-react";
+import {
+  Filter,
+  Search,
+  Users,
+  Heart,
+  ChevronLeft,
+  ChevronRight,
+  X,
+} from "lucide-react";
 import { Profile, MaleProfile, FemaleProfile } from "@/lib/types/auth.types";
 import { Badge } from "@/components/ui/badge";
 
@@ -54,37 +62,96 @@ function filterProfiles(profiles: Profile[], filters: FilterValues): Profile[] {
     if (filters.city && profile.city !== filters.city) return false;
     if (filters.minAge && profile.age < filters.minAge) return false;
     if (filters.maxAge && profile.age > filters.maxAge) return false;
-    if (filters.maritalStatus && profile.maritalStatus !== filters.maritalStatus) return false;
-    if (filters.education && profile.education !== filters.education) return false;
-    if (filters.occupation && profile.occupation !== filters.occupation) return false;
-    if (filters.religiousLevel && profile.religiousLevel !== filters.religiousLevel) return false;
+    if (
+      filters.maritalStatus &&
+      profile.maritalStatus !== filters.maritalStatus
+    )
+      return false;
+    if (filters.education && profile.education !== filters.education)
+      return false;
+    if (filters.occupation && profile.occupation !== filters.occupation)
+      return false;
+    if (
+      filters.religiousLevel &&
+      profile.religiousLevel !== filters.religiousLevel
+    )
+      return false;
 
     // Physical appearance filters
-    if (filters.minHeight && profile.height && profile.height < filters.minHeight) return false;
-    if (filters.maxHeight && profile.height && profile.height > filters.maxHeight) return false;
-    if (filters.appearance && profile.appearance !== filters.appearance) return false;
-    if (filters.skinColor && profile.skinColor !== filters.skinColor) return false;
+    if (
+      filters.minHeight &&
+      profile.height &&
+      profile.height < filters.minHeight
+    )
+      return false;
+    if (
+      filters.maxHeight &&
+      profile.height &&
+      profile.height > filters.maxHeight
+    )
+      return false;
+    if (filters.appearance && profile.appearance !== filters.appearance)
+      return false;
+    if (filters.skinColor && profile.skinColor !== filters.skinColor)
+      return false;
     if (filters.bodyType && profile.bodyType !== filters.bodyType) return false;
 
     // Religious practice filters
-    if (filters.isPrayerRegular !== undefined && profile.isPrayerRegular !== filters.isPrayerRegular) return false;
-    if (filters.wantsChildren && profile.wantsChildren !== filters.wantsChildren) return false;
+    if (
+      filters.isPrayerRegular !== undefined &&
+      profile.isPrayerRegular !== filters.isPrayerRegular
+    )
+      return false;
+    if (
+      filters.wantsChildren &&
+      profile.wantsChildren !== filters.wantsChildren
+    )
+      return false;
 
     // Gender-specific filters
     if (profile.gender === "male") {
       const maleProfile = profile as MaleProfile;
-      if (filters.hasBeard !== undefined && maleProfile.hasBeard !== filters.hasBeard) return false;
-      if (filters.smokes !== undefined && maleProfile.smokes !== filters.smokes) return false;
-      if (filters.financialSituation && maleProfile.financialSituation !== filters.financialSituation) return false;
-      if (filters.housingType && maleProfile.housingType !== filters.housingType) return false;
+      if (
+        filters.hasBeard !== undefined &&
+        maleProfile.hasBeard !== filters.hasBeard
+      )
+        return false;
+      if (filters.smokes !== undefined && maleProfile.smokes !== filters.smokes)
+        return false;
+      if (
+        filters.financialSituation &&
+        maleProfile.financialSituation !== filters.financialSituation
+      )
+        return false;
+      if (
+        filters.housingType &&
+        maleProfile.housingType !== filters.housingType
+      )
+        return false;
     }
 
     if (profile.gender === "female") {
       const femaleProfile = profile as FemaleProfile;
-      if (filters.wearHijab !== undefined && femaleProfile.wearHijab !== filters.wearHijab) return false;
-      if (filters.wearNiqab !== undefined && femaleProfile.wearNiqab !== filters.wearNiqab) return false;
-      if (filters.clothingStyle && femaleProfile.clothingStyle !== filters.clothingStyle) return false;
-      if (filters.workAfterMarriage && femaleProfile.workAfterMarriage !== filters.workAfterMarriage) return false;
+      if (
+        filters.wearHijab !== undefined &&
+        femaleProfile.wearHijab !== filters.wearHijab
+      )
+        return false;
+      if (
+        filters.wearNiqab !== undefined &&
+        femaleProfile.wearNiqab !== filters.wearNiqab
+      )
+        return false;
+      if (
+        filters.clothingStyle &&
+        femaleProfile.clothingStyle !== filters.clothingStyle
+      )
+        return false;
+      if (
+        filters.workAfterMarriage &&
+        femaleProfile.workAfterMarriage !== filters.workAfterMarriage
+      )
+        return false;
     }
 
     return true;
@@ -104,7 +171,7 @@ function ProfileCardSkeleton() {
           </div>
           <div className="h-16 w-16 bg-gray-200 rounded-full flex-shrink-0"></div>
         </div>
-        
+
         <div className="space-y-3 mb-4">
           <div className="flex gap-2">
             <div className="h-6 bg-gray-200 rounded-full w-16"></div>
@@ -135,12 +202,22 @@ function SearchPageContent() {
   // Parse filters from URL
   const filters: FilterValues = useMemo(() => {
     const parsedFilters: Partial<FilterValues> = {};
-    
+
     searchParams.forEach((value, key) => {
-      if (key === "minAge" || key === "maxAge" || key === "minHeight" || key === "maxHeight") {
+      if (
+        key === "minAge" ||
+        key === "maxAge" ||
+        key === "minHeight" ||
+        key === "maxHeight"
+      ) {
         (parsedFilters as any)[key] = Number(value);
-      } else if (key === "isPrayerRegular" || key === "hasBeard" || key === "smokes" || 
-                 key === "wearHijab" || key === "wearNiqab") {
+      } else if (
+        key === "isPrayerRegular" ||
+        key === "hasBeard" ||
+        key === "smokes" ||
+        key === "wearHijab" ||
+        key === "wearNiqab"
+      ) {
         (parsedFilters as any)[key] = value === "true";
       } else {
         (parsedFilters as any)[key] = value;
@@ -151,17 +228,19 @@ function SearchPageContent() {
   }, [searchParams]);
 
   // Mock profile data - replace with API call
-  const allProfiles: Profile[] = useMemo(() => 
-    mockCurrentUser.gender === "male"
-      ? staticFemaleProfiles.map((profile) => ({
-          ...profile,
-          isFavorite: false,
-        }))
-      : staticMaleProfiles.map((profile) => ({
-          ...profile,
-          isFavorite: false,
-        }))
-  , []);
+  const allProfiles: Profile[] = useMemo(
+    () =>
+      mockCurrentUser.gender === "male"
+        ? staticFemaleProfiles.map((profile) => ({
+            ...profile,
+            isFavorite: false,
+          }))
+        : staticMaleProfiles.map((profile) => ({
+            ...profile,
+            isFavorite: false,
+          })),
+    [],
+  );
 
   // Apply filters to profiles
   const filteredProfiles = useMemo(() => {
@@ -200,7 +279,7 @@ function SearchPageContent() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -221,7 +300,9 @@ function SearchPageContent() {
           <Card>
             <CardContent className="p-3 md:p-4 text-center">
               <Users className="h-6 w-6 md:h-8 md:w-8 text-primary-600 mx-auto mb-2" />
-              <p className="text-xl md:text-2xl font-bold text-gray-900">{filteredProfiles.length}</p>
+              <p className="text-xl md:text-2xl font-bold text-gray-900">
+                {filteredProfiles.length}
+              </p>
               <p className="text-xs md:text-sm text-gray-600">إجمالي النتائج</p>
             </CardContent>
           </Card>
@@ -245,13 +326,16 @@ function SearchPageContent() {
         <div className="lg:hidden mb-4 md:mb-6">
           <Button
             onClick={() => setShowFilters(!showFilters)}
-            variant="outline" 
+            variant="outline"
             className="w-full flex items-center justify-center gap-2 py-3 text-base font-medium shadow-sm"
           >
             <Filter className="h-5 w-5" />
             {showFilters ? "إخفاء الفلاتر" : "إظهار الفلاتر"}
             {Object.keys(filters).length > 0 && (
-              <Badge variant="secondary" className="ml-2 bg-primary-100 text-primary-800">
+              <Badge
+                variant="secondary"
+                className="ml-2 bg-primary-100 text-primary-800"
+              >
                 {Object.keys(filters).length}
               </Badge>
             )}
@@ -273,7 +357,9 @@ function SearchPageContent() {
               <div className="absolute inset-0 bg-white overflow-hidden flex flex-col">
                 {/* Header */}
                 <div className="flex items-center justify-between p-4 border-b bg-white shadow-sm">
-                  <h2 className="text-lg font-semibold text-gray-900">تصفية النتائج</h2>
+                  <h2 className="text-lg font-semibold text-gray-900">
+                    تصفية النتائج
+                  </h2>
                   <Button
                     variant="ghost"
                     size="sm"
@@ -283,7 +369,7 @@ function SearchPageContent() {
                     <X className="h-5 w-5" />
                   </Button>
                 </div>
-                
+
                 {/* Filter Content - Scrollable */}
                 <div className="flex-1 overflow-y-auto">
                   <div className="p-4">
@@ -294,7 +380,7 @@ function SearchPageContent() {
                     />
                   </div>
                 </div>
-                
+
                 {/* Bottom Actions */}
                 <div className="p-4 border-t bg-white shadow-lg">
                   <div className="flex gap-3">
@@ -303,8 +389,8 @@ function SearchPageContent() {
                       onClick={() => {
                         // Clear filters logic
                         const url = new URL(window.location.href);
-                        url.search = '';
-                        window.history.pushState({}, '', url.toString());
+                        url.search = "";
+                        window.history.pushState({}, "", url.toString());
                         window.location.reload();
                       }}
                       className="flex-1"
@@ -381,11 +467,11 @@ function SearchPageContent() {
                         <ChevronRight className="h-4 w-4" />
                         السابق
                       </Button>
-                      
+
                       <span className="px-3 py-1 text-sm text-gray-600 bg-gray-100 rounded">
                         {currentPage} / {totalPages}
                       </span>
-                      
+
                       <Button
                         variant="outline"
                         onClick={() => handlePageChange(currentPage + 1)}
@@ -414,19 +500,26 @@ function SearchPageContent() {
                         {Array.from({ length: totalPages }, (_, i) => i + 1)
                           .filter((page) => {
                             const distance = Math.abs(page - currentPage);
-                            return distance <= 2 || page === 1 || page === totalPages;
+                            return (
+                              distance <= 2 || page === 1 || page === totalPages
+                            );
                           })
                           .map((page, index, array) => {
                             const prevPage = array[index - 1];
-                            const showEllipsis = prevPage && page - prevPage > 1;
+                            const showEllipsis =
+                              prevPage && page - prevPage > 1;
 
                             return (
                               <React.Fragment key={page}>
                                 {showEllipsis && (
-                                  <span className="px-3 py-2 text-gray-500">...</span>
+                                  <span className="px-3 py-2 text-gray-500">
+                                    ...
+                                  </span>
                                 )}
                                 <Button
-                                  variant={currentPage === page ? "primary" : "outline"}
+                                  variant={
+                                    currentPage === page ? "primary" : "outline"
+                                  }
                                   onClick={() => handlePageChange(page)}
                                   className="w-10 h-10 p-0"
                                 >
@@ -460,13 +553,13 @@ function SearchPageContent() {
                   <p className="text-gray-600 mb-4">
                     لم نجد أي ملفات شخصية تطابق معايير البحث الخاصة بك
                   </p>
-                  <Button 
+                  <Button
                     variant="outline"
                     onClick={() => {
                       // Clear all filters
                       const url = new URL(window.location.href);
-                      url.search = '';
-                      window.history.pushState({}, '', url.toString());
+                      url.search = "";
+                      window.history.pushState({}, "", url.toString());
                       window.location.reload();
                     }}
                   >
