@@ -49,14 +49,36 @@ const arabicNames: Record<string, string> = {
 // Use memoization to create countries list once
 const getArabicIslamicCountries = (): CountryData[] => {
   try {
+    // Debug: Log the structure of defaultCountries
+    console.log('First few default countries:', defaultCountries.slice(0, 5));
+    console.log('Looking for Saudi Arabia in defaultCountries:', 
+      defaultCountries.find(c => c[2] === 'sa' || c[2] === 'SA' || c[0]?.toLowerCase().includes('saudi'))
+    );
+    
     const filtered = defaultCountries.filter((country) => 
       arabicIslamicCountryCodes.includes(country[2])
     );
     
+    console.log('Filtered countries:', filtered.length);
+    console.log('Filtered countries list:', filtered.map(c => `${c[0]} (${c[2]})`));
+    
+    // Ensure we have at least Saudi Arabia - manually add if not found
+    const hasSaudiArabia = filtered.find(c => c[2] === 'sa');
+    if (!hasSaudiArabia) {
+      console.warn('Saudi Arabia not found in filtered list, adding manually');
+      const saudiFromDefault = defaultCountries.find(c => c[2] === 'sa' || c[0]?.toLowerCase().includes('saudi'));
+      if (saudiFromDefault) {
+        filtered.unshift(saudiFromDefault); // Add Saudi Arabia at the beginning
+      } else {
+        // Manual fallback for Saudi Arabia
+        filtered.unshift(['Saudi Arabia', '', 'sa', '966']);
+      }
+    }
+    
     // Ensure we have at least Saudi Arabia
     if (filtered.length === 0) {
       console.warn('No Arabic/Islamic countries found in defaultCountries, using fallback');
-      return defaultCountries.slice(0, 10); // Use first 10 countries as fallback
+      return [['Saudi Arabia', '', 'sa', '966'], ...defaultCountries.slice(0, 9)]; // Ensure SA is first
     }
     
     return filtered;
@@ -92,8 +114,10 @@ const ICPhone: React.FC<ICPhoneProps> = ({
     console.log('SA country found:', countries.find(c => c[2]?.toLowerCase() === 'sa'));
   }
   
-  const { phone, handlePhoneValueChange, inputRef, country, setCountry } =
-    usePhoneInput({
+  // Wrap usePhoneInput in try-catch to handle any library errors
+  let phoneHookResult;
+  try {
+    phoneHookResult = usePhoneInput({
       defaultCountry: safeDefaultCountry,
       value,
       countries: countries,
@@ -101,13 +125,27 @@ const ICPhone: React.FC<ICPhoneProps> = ({
         onChange(data.phone);
       },
     });
+  } catch (error) {
+    console.error('Error with usePhoneInput:', error);
+    // Fallback to using all default countries if our filtered list has issues
+    phoneHookResult = usePhoneInput({
+      defaultCountry: 'sa' as CountryIso2,
+      value,
+      countries: defaultCountries,
+      onChange: (data: any) => {
+        onChange(data.phone);
+      },
+    });
+  }
+  
+  const { phone, handlePhoneValueChange, inputRef, country, setCountry } = phoneHookResult;
 
   return (
     <div className="flex w-full items-center gap-2" dir="ltr">
       <CustomDropdown
         country={country}
         setCountry={setCountry}
-        defaultCountries={countries}
+        defaultCountries={countries.length > 0 ? countries : defaultCountries}
         parseCountry={parseCountry}
       />{" "}
       <div className="flex-grow">
