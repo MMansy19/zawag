@@ -4,24 +4,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { Upload, X, User } from "lucide-react";
-import { RegistrationStepProps } from "@/lib/types/auth.types";
-
-interface Step7PhotoProps extends RegistrationStepProps {
-  profilePicture: File | null;
-  setProfilePicture: (file: File | null) => void;
-}
 
 // Note: This component is only shown for male users
 // Female users skip this step for Islamic modesty requirements
-const Step7Photo: React.FC<Step7PhotoProps> = ({
-  data,
-  updateData,
-  isSubmitting,
-  error,
-  clearError,
-  profilePicture,
-  setProfilePicture,
-}) => {
+const StepPhoto = ({ data, clearError, profilePicture, setProfilePicture }) => {
   // Additional safeguard: This component should not render for female users
   if (data.gender === "female") {
     return (
@@ -121,4 +107,4 @@ const Step7Photo: React.FC<Step7PhotoProps> = ({
   );
 };
 
-export default Step7Photo;
+export default StepPhoto;

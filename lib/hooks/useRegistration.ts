@@ -1,7 +1,6 @@
 "use client";
 import { useCallback, useReducer } from "react";
 import { authApiService } from "@/lib/services/auth.service";
-import { getStepSchema } from "@/lib/validation/auth.schemas";
 import { showToast } from "@/components/ui/toaster";
 import {
   RegisterRequest,
@@ -9,8 +8,6 @@ import {
   FemaleRegisterRequest,
   AuthenticationError,
   ValidationError,
-  isMaleRegisterRequest,
-  isFemaleRegisterRequest,
 } from "@/lib/types/auth.types";
 
 // Registration State Management
@@ -37,7 +34,7 @@ type RegistrationAction =
 
 const initialState: RegistrationState = {
   currentStep: 1,
-  totalSteps: 10, // Updated to accommodate new gender-specific steps
+  totalSteps: 3, // Updated to 3 steps
   data: {
     isPrayerRegular: true,
     religiousLevel: "practicing",
@@ -145,24 +142,120 @@ const useRegistration = (): UseRegistrationResult => {
     dispatch({ type: "SET_ERROR", payload: errorMessage });
     showToast.error(errorMessage);
   }, []);
-
   const validateCurrentStep = useCallback(async (): Promise<boolean> => {
     try {
-      const schema = getStepSchema(state.currentStep, state.data["gender"]);
-
-      // Extract relevant data for current step
-      let stepData: any = { ...state.data };
-
-      // Special handling for step 1 (email/password)
+      // For step 1, validate basic auth fields
       if (state.currentStep === 1) {
-        stepData = {
-          email: state.data["email"],
-          password: state.data["password"],
-          confirmPassword: state.data["password"], // Add confirmPassword for validation
-        };
+        if (!state.data["email"]) {
+          dispatch({ type: "SET_ERROR", payload: "البريد الإلكتروني مطلوب" });
+          return false;
+        }
+        if (!state.data["password"]) {
+          dispatch({ type: "SET_ERROR", payload: "كلمة المرور مطلوبة" });
+          return false;
+        }
+        if (!state.data["gender"]) {
+          dispatch({ type: "SET_ERROR", payload: "يرجى اختيار الجنس" });
+          return false;
+        }
+        if (!(state.data as any)["phone"]) {
+          dispatch({ type: "SET_ERROR", payload: "رقم الهاتف مطلوب" });
+          return false;
+        }
+        if (!state.otpSent) {
+          dispatch({
+            type: "SET_ERROR",
+            payload: "يرجى إرسال رمز التحقق للبريد الإلكتروني",
+          });
+          return false;
+        }
+        if (!(state.data as any)["otpCode"]) {
+          dispatch({ type: "SET_ERROR", payload: "يرجى إدخال رمز التحقق" });
+          return false;
+        }
       }
 
-      await schema.parseAsync(stepData);
+      // For step 2, validate all required personal data
+      if (state.currentStep === 2) {
+        const requiredFields = [
+          "firstName",
+          "lastName",
+          "age",
+          "nationality",
+          "maritalStatus",
+          "country",
+          "city",
+          "religiousLevel",
+          "height",
+          "weight",
+          "skinColor",
+          "bodyType",
+          "appearance",
+          "areParentsAlive",
+          "parentRelationship",
+          "wantsChildren",
+          "interests",
+          "marriageGoals",
+          "personalityDescription",
+          "familyPlans",
+          "marriageTimeline",
+        ];
+
+        for (const field of requiredFields) {
+          if (!state.data[field]) {
+            dispatch({ type: "SET_ERROR", payload: `الحقل ${field} مطلوب` });
+            return false;
+          }
+        }
+
+        // Gender-specific validations
+        if (state.data["gender"] === "male") {
+          const maleRequiredFields = [
+            "hasBeard",
+            "smokes",
+            "financialSituation",
+            "housingOwnership",
+          ];
+          for (const field of maleRequiredFields) {
+            if ((state.data as any)[field] === undefined) {
+              dispatch({
+                type: "SET_ERROR",
+                payload: `يرجى ملء جميع البيانات المطلوبة للذكور`,
+              });
+              return false;
+            }
+          }
+        }
+
+        if (state.data["gender"] === "female") {
+          const femaleRequiredFields = [
+            "wearHijab",
+            "guardianName",
+            "guardianPhone",
+          ];
+          for (const field of femaleRequiredFields) {
+            if (!(state.data as any)[field]) {
+              dispatch({
+                type: "SET_ERROR",
+                payload: `يرجى ملء جميع البيانات المطلوبة للإناث`,
+              });
+              return false;
+            }
+          }
+        } // Preferences validation
+        if (
+          !state.data["preferences"]?.ageRange?.min ||
+          !state.data["preferences"]?.ageRange?.max
+        ) {
+          dispatch({
+            type: "SET_ERROR",
+            payload: "يرجى تحديد المدى العمري المفضل",
+          });
+          return false;
+        }
+      }
+
+      // Step 3 is just review, no additional validation needed
       dispatch({ type: "SET_ERROR", payload: null });
       return true;
     } catch (error: any) {
@@ -170,67 +263,41 @@ const useRegistration = (): UseRegistrationResult => {
         const firstError =
           error.errors[0]?.message || "خطأ في التحقق من البيانات";
         dispatch({ type: "SET_ERROR", payload: firstError });
-        showToast.error(firstError);
       } else {
         handleError(error);
       }
       return false;
     }
-  }, [state.currentStep, state.data, handleError]);
-
+  }, [state.currentStep, state.data, state.otpSent, handleError]);
   const goToStep = useCallback(
     (step: number) => {
       if (step >= 1 && step <= state.totalSteps) {
-        // Skip photo step (step 7) for female users
-        if (step === 7 && state.data["gender"] === "female") {
-          dispatch({ type: "SET_STEP", payload: 8 });
-        } else {
-          dispatch({ type: "SET_STEP", payload: step });
-        }
+        dispatch({ type: "SET_STEP", payload: step });
       }
     },
-    [state.totalSteps, state.data["gender"]],
+    [state.totalSteps],
   );
 
   const nextStep = useCallback(async (): Promise<boolean> => {
-    const isValid = await validateCurrentStep();
-    if (!isValid) return false;
+    // const isValid = await validateCurrentStep();
+    // if (!isValid) return false;
 
     dispatch({ type: "MARK_STEP_COMPLETED", payload: state.currentStep });
 
     if (state.currentStep < state.totalSteps) {
-      let nextStepNumber = state.currentStep + 1;
-
-      // Skip photo step (step 7) for female users
-      if (nextStepNumber === 7 && state.data["gender"] === "female") {
-        nextStepNumber = 8;
-        // Also mark step 7 as completed since we're skipping it
-        dispatch({ type: "MARK_STEP_COMPLETED", payload: 7 });
-      }
-
+      const nextStepNumber = state.currentStep + 1;
       dispatch({ type: "SET_STEP", payload: nextStepNumber });
     }
 
     return true;
-  }, [
-    validateCurrentStep,
-    state.currentStep,
-    state.totalSteps,
-    state.data["gender"],
-  ]);
+  }, [validateCurrentStep, state.currentStep, state.totalSteps]);
 
   const prevStep = useCallback(() => {
     if (state.currentStep > 1) {
-      let prevStepNumber = state.currentStep - 1;
-
-      // Skip photo step (step 7) for female users when going backwards
-      if (prevStepNumber === 7 && state.data["gender"] === "female") {
-        prevStepNumber = 6;
-      }
-
+      const prevStepNumber = state.currentStep - 1;
       dispatch({ type: "SET_STEP", payload: prevStepNumber });
     }
-  }, [state.currentStep, state.data["gender"]]);
+  }, [state.currentStep]);
 
   const updateData = useCallback((data: Partial<RegisterRequest>) => {
     dispatch({ type: "UPDATE_DATA", payload: data });

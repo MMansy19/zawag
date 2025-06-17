@@ -16,35 +16,11 @@ import { Loader2 } from "lucide-react";
 const Step1Auth = lazy(
   () => import("@/components/auth/registration-steps/step1-auth"),
 );
-const Step2BasicInfo = lazy(
-  () => import("@/components/auth/registration-steps/step2-basic-info"),
+const Step2AllData = lazy(
+  () => import("@/components/auth/registration-steps/step2-all-data"),
 );
-const Step3Religious = lazy(
-  () => import("@/components/auth/registration-steps/step3-religious"),
-);
-const Step4Education = lazy(
-  () => import("@/components/auth/registration-steps/step4-education"),
-);
-const Step5Bio = lazy(
-  () => import("@/components/auth/registration-steps/step5-bio"),
-);
-const Step6Preferences = lazy(
-  () => import("@/components/auth/registration-steps/step6-preferences"),
-);
-const Step7Photo = lazy(
-  () => import("@/components/auth/registration-steps/step7-photo"),
-);
-const Step8Guardian = lazy(
-  () => import("@/components/auth/registration-steps/step8-guardian"),
-);
-const StepMaleFinancial = lazy(
-  () => import("@/components/auth/registration-steps/step-male-financial"),
-);
-const StepFemalePreferences = lazy(
-  () => import("@/components/auth/registration-steps/step-female-preferences"),
-);
-const Step9Review = lazy(
-  () => import("@/components/auth/registration-steps/step9-review"),
+const Step3Review = lazy(
+  () => import("@/components/auth/registration-steps/step3-review"),
 );
 
 interface RegistrationWizardProps {
@@ -59,58 +35,6 @@ const StepLoader = () => (
     </div>
   </div>
 );
-
-const SkipPhotoMessage = ({ onSkip }: { onSkip: () => void }) => {
-  React.useEffect(() => {
-    const timer = setTimeout(() => onSkip(), 1500);
-    return () => clearTimeout(timer);
-  }, [onSkip]);
-
-  return (
-    <div className="text-center py-12">
-      <div className="mb-6">
-        <div className="w-20 h-20 mx-auto bg-green-100 rounded-full flex items-center justify-center mb-4">
-          <span className="text-3xl">✓</span>
-        </div>
-      </div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-4">
-        تم تخطي خطوة الصورة الشخصية
-      </h3>
-      <p className="text-gray-600 mb-2">
-        احتراماً لتعاليم الإسلام والحشمة، تم تخطي خطوة إضافة الصورة الشخصية
-      </p>
-      <p className="text-sm text-gray-500">
-        جاري الانتقال إلى الخطوة التالية...
-      </p>
-    </div>
-  );
-};
-
-const SkipGuardianMessage = ({ onSkip }: { onSkip: () => void }) => {
-  React.useEffect(() => {
-    const timer = setTimeout(() => onSkip(), 1500);
-    return () => clearTimeout(timer);
-  }, [onSkip]);
-
-  return (
-    <div className="text-center py-12">
-      <div className="mb-6">
-        <div className="w-20 h-20 mx-auto bg-blue-100 rounded-full flex items-center justify-center mb-4">
-          <span className="text-3xl">👤</span>
-        </div>
-      </div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-4">
-        تم تخطي خطوة معلومات الولي
-      </h3>
-      <p className="text-gray-600 mb-2">
-        معلومات الولي مطلوبة للنساء فقط حسب التقاليد الإسلامية
-      </p>
-      <p className="text-sm text-gray-500">
-        جاري الانتقال إلى الخطوة التالية...
-      </p>
-    </div>
-  );
-};
 
 export function RegistrationWizard({
   className = "",
@@ -127,7 +51,6 @@ export function RegistrationWizard({
     goToStep,
     updateData,
     profilePicture,
-    setProfilePicture,
     sendOTP,
     otpSent,
     submitRegistration,
@@ -135,66 +58,27 @@ export function RegistrationWizard({
     isStepCompleted,
     canProceedToStep,
   } = useRegistration();
-
   // Dynamic steps based on gender
   const getSteps = () => {
-    const userGender = data["gender"];
-    const baseSteps = [
+    const steps = [
       {
         id: 1,
         title: "إنشاء الحساب",
-        description: "البريد الإلكتروني وكلمة المرور",
+        description: "البريد الإلكتروني، الهاتف، كلمة المرور والجنس",
       },
       {
         id: 2,
-        title: "المعلومات الأساسية",
-        description: "الاسم والعمر والجنس",
+        title: "المعلومات الشخصية",
+        description: "جميع البيانات المطلوبة للملف الشخصي",
       },
       {
         id: 3,
-        title: "المعلومات الدينية",
-        description: "مستوى التدين والممارسات",
-      },
-      {
-        id: 4,
-        title: "التعليم والعمل",
-        description: "المؤهلات والمهنة والموقع",
-      },
-    ];
-
-    // Add gender-specific step after education
-    if (userGender === "male") {
-      baseSteps.push({
-        id: 5,
-        title: "المعلومات المالية والسكن",
-        description: "الوضع المالي ومعلومات السكن",
-      });
-    } else if (userGender === "female") {
-      baseSteps.push({
-        id: 5,
-        title: "تفضيلات العمل والأسرة",
-        description: "رغباتك في العمل وتكوين الأسرة",
-      });
-    }
-
-    // Continue with remaining steps
-    const remainingSteps = [
-      { id: 6, title: "نبذة شخصية", description: "معلومات إضافية ووصف شخصي" },
-      {
-        id: 7,
-        title: "تفضيلات الزواج",
-        description: "المواصفات المرغوبة في شريك الحياة",
-      },
-      { id: 8, title: "الصورة الشخصية", description: "رفع صورة (اختياري)" },
-      { id: 9, title: "معلومات الولي", description: "بيانات الولي (اختياري)" },
-      {
-        id: 10,
         title: "مراجعة وإرسال",
         description: "مراجعة المعلومات وإنشاء الملف",
       },
     ];
 
-    return [...baseSteps, ...remainingSteps];
+    return steps;
   };
 
   const steps = getSteps();
@@ -215,45 +99,10 @@ export function RegistrationWizard({
           <Step1Auth {...stepProps} onSendOTP={sendOTP} otpSent={otpSent} />
         );
       case 2:
-        return <Step2BasicInfo {...stepProps} />;
+        return <Step2AllData {...stepProps} />;
       case 3:
-        return <Step3Religious {...stepProps} />;
-      case 4:
-        return <Step4Education {...stepProps} />;
-      case 5:
-        // Gender-specific step after education
-        if (data["gender"] === "male") {
-          return <StepMaleFinancial {...stepProps} />;
-        } else if (data["gender"] === "female") {
-          return <StepFemalePreferences {...stepProps} />;
-        }
-        // Fallback to bio step if gender not set
-        return <Step5Bio {...stepProps} />;
-      case 6:
-        return <Step5Bio {...stepProps} />;
-      case 7:
-        return <Step6Preferences {...stepProps} />;
-      case 8:
-        // Skip photo step for female users (Islamic modesty requirements)
-        if (data["gender"] === "female") {
-          return <SkipPhotoMessage onSkip={nextStep} />;
-        }
         return (
-          <Step7Photo
-            {...stepProps}
-            profilePicture={profilePicture}
-            setProfilePicture={setProfilePicture}
-          />
-        );
-      case 9:
-        // Skip guardian step for male users
-        if (data["gender"] === "male") {
-          return <SkipGuardianMessage onSkip={nextStep} />;
-        }
-        return <Step8Guardian {...stepProps} />;
-      case 10:
-        return (
-          <Step9Review
+          <Step3Review
             {...stepProps}
             profilePicture={profilePicture}
             onEdit={goToStep}

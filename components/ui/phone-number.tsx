@@ -12,11 +12,16 @@ import {
 import React, { useRef, useState } from "react";
 import ReactCountryFlag from "react-country-flag";
 
-// List of Arabic and Islamic country ISO2 codes
+// List of Arabic and Islamic country ISO2 codes (sorted with Arabic countries first)
 const arabicIslamicCountryCodes = [
-  // Arab League Countries
-  'ae', 'sa', 'eg', 'ma', 'dz', 'tn', 'ly', 'sd', 'sy', 'lb', 'jo', 'iq', 'ye', 'om', 
-  'qa', 'bh', 'kw', 'ps', 'dj', 'so', 'km',
+  // Gulf Arab Countries
+  'sa', 'ae', 'qa', 'kw', 'bh', 'om',
+  // Levant Arab Countries  
+  'sy', 'lb', 'jo', 'ps', 'iq',
+  // North African Arab Countries
+  'eg', 'ly', 'tn', 'dz', 'ma', 'sd',
+  // Other Arab Countries
+  'ye', 'dj', 'so', 'km',
   // Major Islamic Countries
   'tr', 'ir', 'pk', 'bd', 'id', 'my', 'af', 'bn', 'mv',
   // Central Asian Islamic Countries
@@ -25,26 +30,34 @@ const arabicIslamicCountryCodes = [
   'sn', 'ml', 'ne', 'bf', 'ci', 'gm', 'gn', 'sl', 'lr', 'gh', 'tg', 'bj', 'ng', 'td', 'cf', 'cm', 'er', 'et'
 ];
 
-// Arabic names mapping
+// Arabic names mapping (sorted with Arabic countries first)
 const arabicNames: Record<string, string> = {
-  'ae': 'الإمارات',
+  // Gulf Arab Countries
   'sa': 'السعودية',
-  'eg': 'مصر',
-  'ma': 'المغرب',
-  'dz': 'الجزائر',
-  'tn': 'تونس',
-  'ly': 'ليبيا',
-  'sd': 'السودان',
+  'ae': 'الإمارات',
+  'qa': 'قطر',
+  'kw': 'الكويت',
+  'bh': 'البحرين',
+  'om': 'عمان',
+  // Levant Arab Countries
   'sy': 'سوريا',
   'lb': 'لبنان',
   'jo': 'الأردن',
-  'iq': 'العراق',
-  'ye': 'اليمن',
-  'om': 'عمان',
-  'qa': 'قطر',
-  'bh': 'البحرين',
-  'kw': 'الكويت',
   'ps': 'فلسطين',
+  'iq': 'العراق',
+  // North African Arab Countries
+  'eg': 'مصر',
+  'ly': 'ليبيا',
+  'tn': 'تونس',
+  'dz': 'الجزائر',
+  'ma': 'المغرب',
+  'sd': 'السودان',
+  // Other Arab Countries
+  'ye': 'اليمن',
+  'dj': 'جيبوتي',
+  'so': 'الصومال',
+  'km': 'جزر القمر',
+  // Major Islamic Countries
   'tr': 'تركيا',
   'ir': 'إيران',
   'pk': 'باكستان',
@@ -52,14 +65,16 @@ const arabicNames: Record<string, string> = {
   'id': 'إندونيسيا',
   'my': 'ماليزيا',
   'af': 'أفغانستان',
+  'bn': 'بروناي',
+  'mv': 'المالديف',
+  // Central Asian Islamic Countries
   'az': 'أذربيجان',
   'kz': 'كازاخستان',
-  'kg': 'القيرغيزية',
+  'kg': 'قيرغيزستان',
   'tj': 'طاجيكستان',
   'tm': 'تركمانستان',
   'uz': 'أوزبكستان',
-  'bn': 'بروناي',
-  'mv': 'المالديف',
+  // African Islamic Countries
   'sn': 'السنغال',
   'ml': 'مالي',
   'ne': 'النيجر',
@@ -70,15 +85,12 @@ const arabicNames: Record<string, string> = {
   'sl': 'سيراليون',
   'lr': 'ليبيريا',
   'gh': 'غانا',
-  'tg': 'التوغو',
+  'tg': 'توغو',
   'bj': 'بنين',
   'ng': 'نيجيريا',
   'td': 'تشاد',
   'cf': 'أفريقيا الوسطى',
   'cm': 'الكاميرون',
-  'dj': 'جيبوتي',
-  'so': 'الصومال',
-  'km': 'جزر القمر',
   'er': 'إريتريا',
   'et': 'إثيوبيا'
 };
@@ -116,14 +128,14 @@ const getArabicIslamicCountries = (): CountryData[] => {
 
 const countries: CountryData[] = getArabicIslamicCountries();
 
-interface ICPhoneProps {
+interface PhoneProps {
   value: string;
   onChange: (phone: string) => void;
   style_inline?: React.CSSProperties;
   defaultCountry: CountryIso2;
 }
 
-const ICPhone: React.FC<ICPhoneProps> = ({
+const Phone: React.FC<PhoneProps> = ({
   value,
   onChange,
   style_inline,
@@ -185,7 +197,7 @@ const ICPhone: React.FC<ICPhoneProps> = ({
     </div>
   );
 };
-export default ICPhone;
+export default Phone;
 
 const CustomDropdown = ({
   country,
