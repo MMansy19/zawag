@@ -14,14 +14,21 @@ import ReactCountryFlag from "react-country-flag";
 
 // List of Arabic and Islamic country ISO2 codes
 const arabicIslamicCountryCodes = [
+  // Arab League Countries
   'ae', 'sa', 'eg', 'ma', 'dz', 'tn', 'ly', 'sd', 'sy', 'lb', 'jo', 'iq', 'ye', 'om', 
-  'qa', 'bh', 'kw', 'ps', 'tr', 'ir', 'pk', 'bd', 'id', 'my'
+  'qa', 'bh', 'kw', 'ps', 'dj', 'so', 'km',
+  // Major Islamic Countries
+  'tr', 'ir', 'pk', 'bd', 'id', 'my', 'af', 'bn', 'mv',
+  // Central Asian Islamic Countries
+  'az', 'kz', 'kg', 'tj', 'tm', 'uz',
+  // African Islamic Countries
+  'sn', 'ml', 'ne', 'bf', 'ci', 'gm', 'gn', 'sl', 'lr', 'gh', 'tg', 'bj', 'ng', 'td', 'cf', 'cm', 'er', 'et'
 ];
 
 // Arabic names mapping
 const arabicNames: Record<string, string> = {
   'ae': 'الإمارات',
-  'sa': 'السعودية', 
+  'sa': 'السعودية',
   'eg': 'مصر',
   'ma': 'المغرب',
   'dz': 'الجزائر',
@@ -43,42 +50,61 @@ const arabicNames: Record<string, string> = {
   'pk': 'باكستان',
   'bd': 'بنغلاديش',
   'id': 'إندونيسيا',
-  'my': 'ماليزيا'
+  'my': 'ماليزيا',
+  'af': 'أفغانستان',
+  'az': 'أذربيجان',
+  'kz': 'كازاخستان',
+  'kg': 'القيرغيزية',
+  'tj': 'طاجيكستان',
+  'tm': 'تركمانستان',
+  'uz': 'أوزبكستان',
+  'bn': 'بروناي',
+  'mv': 'المالديف',
+  'sn': 'السنغال',
+  'ml': 'مالي',
+  'ne': 'النيجر',
+  'bf': 'بوركينا فاسو',
+  'ci': 'ساحل العاج',
+  'gm': 'غامبيا',
+  'gn': 'غينيا',
+  'sl': 'سيراليون',
+  'lr': 'ليبيريا',
+  'gh': 'غانا',
+  'tg': 'التوغو',
+  'bj': 'بنين',
+  'ng': 'نيجيريا',
+  'td': 'تشاد',
+  'cf': 'أفريقيا الوسطى',
+  'cm': 'الكاميرون',
+  'dj': 'جيبوتي',
+  'so': 'الصومال',
+  'km': 'جزر القمر',
+  'er': 'إريتريا',
+  'et': 'إثيوبيا'
 };
 
 // Use memoization to create countries list once
 const getArabicIslamicCountries = (): CountryData[] => {
   try {
-    // Debug: Log the structure of defaultCountries
-    console.log('First few default countries:', defaultCountries.slice(0, 5));
-    console.log('Looking for Saudi Arabia in defaultCountries:', 
-      defaultCountries.find(c => c[2] === 'sa' || c[2] === 'SA' || c[0]?.toLowerCase().includes('saudi'))
-    );
-    
     const filtered = defaultCountries.filter((country) => 
-      arabicIslamicCountryCodes.includes(country[2])
+      arabicIslamicCountryCodes.includes(country[1]) // ISO2 code is at index 1
     );
-    
-    console.log('Filtered countries:', filtered.length);
-    console.log('Filtered countries list:', filtered.map(c => `${c[0]} (${c[2]})`));
     
     // Ensure we have at least Saudi Arabia - manually add if not found
-    const hasSaudiArabia = filtered.find(c => c[2] === 'sa');
+    const hasSaudiArabia = filtered.find(c => c[1] === 'sa');
     if (!hasSaudiArabia) {
-      console.warn('Saudi Arabia not found in filtered list, adding manually');
-      const saudiFromDefault = defaultCountries.find(c => c[2] === 'sa' || c[0]?.toLowerCase().includes('saudi'));
+      const saudiFromDefault = defaultCountries.find(c => c[1] === 'sa' || c[0]?.toLowerCase().includes('saudi'));
       if (saudiFromDefault) {
         filtered.unshift(saudiFromDefault); // Add Saudi Arabia at the beginning
       } else {
         // Manual fallback for Saudi Arabia
-        filtered.unshift(['Saudi Arabia', '', 'sa', '966']);
+        filtered.unshift(['Saudi Arabia', 'sa', '966']);
       }
     }
     
     // Ensure we have at least Saudi Arabia
     if (filtered.length === 0) {
-      console.warn('No Arabic/Islamic countries found in defaultCountries, using fallback');
-      return [['Saudi Arabia', '', 'sa', '966'], ...defaultCountries.slice(0, 9)]; // Ensure SA is first
+      return [['Saudi Arabia', 'sa', '966'], ...defaultCountries.slice(0, 9)]; // Ensure SA is first
     }
     
     return filtered;
@@ -104,15 +130,9 @@ const ICPhone: React.FC<ICPhoneProps> = ({
   defaultCountry,
 }) => {
   // Ensure the default country exists in our filtered list (case insensitive)
-  const safeDefaultCountry = countries.find(c => c[2]?.toLowerCase() === defaultCountry?.toLowerCase()) 
+  const safeDefaultCountry = countries.find(c => c[1]?.toLowerCase() === defaultCountry?.toLowerCase()) 
     ? defaultCountry 
     : 'sa' as CountryIso2;
-    
-  if (typeof window !== 'undefined') {
-    console.log('Default country:', defaultCountry, 'Safe default:', safeDefaultCountry);
-    console.log('Countries available:', countries.length);
-    console.log('SA country found:', countries.find(c => c[2]?.toLowerCase() === 'sa'));
-  }
   
   // Wrap usePhoneInput in try-catch to handle any library errors
   let phoneHookResult;
@@ -144,7 +164,7 @@ const ICPhone: React.FC<ICPhoneProps> = ({
     <div className="flex w-full items-center gap-2" dir="ltr">
       <CustomDropdown
         country={country}
-        setCountry={setCountry}
+        setCountry= {setCountry}
         defaultCountries={countries.length > 0 ? countries : defaultCountries}
         parseCountry={parseCountry}
       />{" "}
@@ -269,7 +289,10 @@ const CustomDropdown = ({
                   style={{ width: "20px", height: "15px" }}
                 />
                 <span style={{ fontSize: "14px", whiteSpace: "nowrap" }}>
-                  {arabicName} ({englishName}) +{country.dialCode}
+                  {arabicName} 
+                  {/* ({englishName}) */}
+                  {" "}
+                  ({country.dialCode}+)
                 </span>
               </li>
             );
