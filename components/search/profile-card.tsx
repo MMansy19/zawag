@@ -225,11 +225,13 @@ export function ProfileCard({
                   <div className="col-span-2 flex items-center gap-2">
                     <span className="text-gray-600">نوع السكن:</span>
                     <span className="text-xs font-medium">
-                      {profile.housingType === "independent"
-                        ? "🏡 مستقل"
+                      {profile.housingType === "owned"
+                        ? "🏡 ملك"
                         : profile.housingType === "with-family"
                           ? "👨‍👩‍👧‍👦 مع العائلة"
-                          : "👥 مشترك"}
+                          : profile.housingType === "rented"
+                            ? "🏠 إيجار"
+                            : "👥 عائلي"}
                     </span>
                   </div>
                 </div>
@@ -302,11 +304,13 @@ export function ProfileCard({
             <div className="mb-4">
               <p className="text-sm text-gray-600 mb-2">الاهتمامات:</p>
               <div className="flex flex-wrap gap-1">
-                {profile.interests.slice(0, 3).map((interest, index) => (
-                  <Badge key={index} variant="outline" className="text-xs">
-                    {interest}
-                  </Badge>
-                ))}
+                {profile.interests
+                  .slice(0, 3)
+                  .map((interest: string, index: number) => (
+                    <Badge key={index} variant="outline" className="text-xs">
+                      {interest}
+                    </Badge>
+                  ))}
                 {profile.interests.length > 3 && (
                   <Badge variant="outline" className="text-xs">
                     +{profile.interests.length - 3} أخرى

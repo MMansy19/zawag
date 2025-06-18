@@ -379,7 +379,7 @@ export class AuthApiService {
           financialSituation: "good" as const,
           housingLocation: "family_home" as const,
           housingOwnership: "family-owned" as const,
-          housingType: "with-family" as const,
+          housingType: "family" as const,
           carOwnership: "owned" as const,
           lifeStyle: "simple" as const,
           personalityTraits: ["kind", "honest"],

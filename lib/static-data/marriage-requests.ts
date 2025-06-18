@@ -1,12 +1,12 @@
 import {
   MarriageRequest,
   Profile,
-  PrivacySettings,
   MaleProfile,
   FemaleProfile,
   isMaleProfile,
   isFemaleProfile,
 } from "@/lib/types";
+import { PrivacySettings } from "@/lib/types/auth.types";
 
 // Helper function to create complete profile objects
 const createProfile = (profileData: Partial<Profile>): Profile => {
@@ -77,17 +77,8 @@ const createProfile = (profileData: Partial<Profile>): Profile => {
       // Female-specific required fields with defaults
       guardianName: (profileData as any).guardianName || "الوالد",
       guardianPhone: (profileData as any).guardianPhone || "+966500000000",
-      guardianEmail: (profileData as any).guardianEmail || "",
-      guardianRelationship:
-        (profileData as any).guardianRelationship || "father",
-      guardianNotes: (profileData as any).guardianNotes || "",
       wearHijab: (profileData as any).wearHijab ?? true,
       wearNiqab: (profileData as any).wearNiqab ?? false,
-      clothingStyle: (profileData as any).clothingStyle || "modest-covering",
-      prayingLocation: (profileData as any).prayingLocation || "home",
-      mahramAvailable: (profileData as any).mahramAvailable ?? true,
-      workAfterMarriage: (profileData as any).workAfterMarriage || "undecided",
-      childcarePreference: (profileData as any).childcarePreference || "self",
     };
     return femaleProfile;
   } else {

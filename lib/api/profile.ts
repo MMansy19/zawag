@@ -44,11 +44,11 @@ export async function getProfile(userId: string): Promise<Profile | null> {
     isApproved: true,
     isVerified: true,
     privacySettings: {
-      showProfilePicture: "matches-only",
       showAge: true,
       showLocation: true,
       showOccupation: true,
       allowMessagesFrom: "matches-only",
+      showProfilePicture: "matches-only",
     },
 
     // Common religious & family fields
@@ -83,7 +83,7 @@ export async function getProfile(userId: string): Promise<Profile | null> {
     financialSituation: "good",
     housingLocation: "الرياض - حي النخيل",
     housingOwnership: "owned",
-    housingType: "independent",
+    housingType: "family",
     monthlyIncome: 8000,
     providerView: "sole provider",
     householdChores: "willing",
@@ -139,11 +139,11 @@ export async function createProfile(
     isApproved: profileData.isApproved || false,
     isVerified: profileData.isVerified || false,
     privacySettings: profileData.privacySettings || {
-      showProfilePicture: "matches-only",
       showAge: true,
       showLocation: true,
       showOccupation: true,
       allowMessagesFrom: "matches-only",
+      showProfilePicture: "matches-only",
     },
   };
 
@@ -201,7 +201,7 @@ export async function createProfile(
       financialSituation: maleData.financialSituation || "average",
       housingLocation: maleData.housingLocation || "",
       housingOwnership: maleData.housingOwnership || "rented",
-      housingType: maleData.housingType || "with-family",
+      housingType: maleData.housingType || "family",
     };
 
     // Add optional fields only if they have values

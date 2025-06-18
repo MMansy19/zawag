@@ -3,10 +3,10 @@ import {
   MaleProfile,
   FemaleProfile,
   SearchFilters,
-  PrivacySettings,
   isMaleProfile,
   isFemaleProfile,
 } from "@/lib/types";
+import { PrivacySettings } from "@/lib/types/auth.types";
 import {
   filterProfilesByPrivacy,
   ViewerContext,
@@ -79,7 +79,7 @@ const createMaleProfile = (profileData: Partial<MaleProfile>): MaleProfile => {
     financialSituation: profileData.financialSituation || "good",
     housingLocation: profileData.housingLocation || "family home",
     housingOwnership: profileData.housingOwnership || "family-owned",
-    housingType: profileData.housingType || "with-family",
+    housingType: profileData.housingType || "family",
     ...(profileData.monthlyIncome !== undefined && {
       monthlyIncome: profileData.monthlyIncome,
     }),
@@ -193,7 +193,7 @@ export const staticMaleProfiles: Profile[] = [
     financialSituation: "good",
     housingLocation: "منزل مستقل",
     housingOwnership: "owned",
-    housingType: "independent",
+    housingType: "family",
   }),
   createMaleProfile({
     id: "search_male_002",
@@ -571,7 +571,7 @@ export const searchProfilesForUser = (
       filters.guardianRelationship.length > 0
     ) {
       filteredProfiles = femaleProfiles.filter((profile) =>
-        filters.guardianRelationship!.includes(profile.guardianRelationship),
+        filters.guardianRelationship!.includes(profile.guardianRelationship!),
       );
     }
   } else {
@@ -602,7 +602,7 @@ export const searchProfilesForUser = (
     // Apply housing type filter
     if (filters.housingType && filters.housingType.length > 0) {
       filteredProfiles = maleProfiles.filter((profile) =>
-        filters.housingType!.includes(profile.housingType),
+        filters.housingType!.includes(profile.housingType!),
       );
     }
   }

@@ -106,7 +106,7 @@ export function ProfileView() {
         financialSituation: "good",
         housingLocation: "القاهرة - مدينة نصر",
         housingOwnership: "owned",
-        housingType: "independent",
+        housingType: "family",
         monthlyIncome: 8000,
       };
 
@@ -379,10 +379,10 @@ export function ProfileView() {
                   }
                   className="w-full p-2 border border-gray-300 rounded-md"
                 >
-                  <option value={SKIN_COLORS.FAIR}>فاتح</option>
-                  <option value={SKIN_COLORS.MEDIUM}>متوسط</option>
-                  <option value={SKIN_COLORS.OLIVE}>زيتوني</option>
-                  <option value={SKIN_COLORS.DARK}>داكن</option>
+                  <option value="fair">فاتح</option>
+                  <option value="medium">متوسط</option>
+                  <option value="olive">زيتوني</option>
+                  <option value="dark">داكن</option>
                 </select>
               )}
             </div>
@@ -408,10 +408,10 @@ export function ProfileView() {
                   }
                   className="w-full p-2 border border-gray-300 rounded-md"
                 >
-                  <option value={BODY_TYPES.SLIM}>نحيف</option>
-                  <option value={BODY_TYPES.AVERAGE}>متوسط</option>
-                  <option value={BODY_TYPES.ATHLETIC}>رياضي</option>
-                  <option value={BODY_TYPES.HEAVY}>ممتلئ</option>
+                  <option value="slim">نحيف</option>
+                  <option value="average">متوسط</option>
+                  <option value="athletic">رياضي</option>
+                  <option value="heavy">ممتلئ</option>
                 </select>
               )}
             </div>
@@ -602,7 +602,7 @@ export function ProfileView() {
                       نوع السكن
                     </label>
                     <p className="text-sm font-medium">
-                      {profile.housingType === "independent"
+                      {profile.housingType === "family"
                         ? "🏡 مستقل"
                         : profile.housingType === "with-family"
                           ? "👨‍👩‍👧‍👦 مع العائلة"
@@ -1054,7 +1054,7 @@ export function ProfileView() {
                   نوع السكن
                 </label>
                 <p className="text-lg">
-                  {profile.housingType === "independent"
+                  {profile.housingType === "family"
                     ? "مستقل"
                     : profile.housingType === "with-family"
                       ? "مع الأسرة"

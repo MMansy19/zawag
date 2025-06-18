@@ -7,7 +7,17 @@ import { Upload, X, User } from "lucide-react";
 
 // Note: This component is only shown for male users
 // Female users skip this step for Islamic modesty requirements
-const StepPhoto = ({ data, clearError, profilePicture, setProfilePicture }) => {
+const StepPhoto = ({
+  data,
+  clearError,
+  profilePicture,
+  setProfilePicture,
+}: {
+  data: any;
+  clearError: () => void;
+  profilePicture: File | null;
+  setProfilePicture: (file: File | null) => void;
+}) => {
   // Additional safeguard: This component should not render for female users
   if (data.gender === "female") {
     return (

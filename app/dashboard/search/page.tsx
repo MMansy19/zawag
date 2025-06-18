@@ -80,7 +80,7 @@ function filterProfiles(profiles: Profile[], filters: FilterValues): Profile[] {
     // Physical appearance filters
     if (
       filters.minHeight &&
-      profile.  height &&
+      profile.height &&
       profile.height < filters.minHeight
     )
       return false;

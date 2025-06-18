@@ -182,12 +182,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
                     {isMaleProfile(profile) ? "أخ" : "أخت"}
                   </Badge>
                 </div>
-                <p className="text-lg text-gray-600 mb-1">
-                  {profile.birthDate
-                    ? calculateAge(profile.birthDate)
-                    : profile.age}{" "}
-                  سنة
-                </p>
+                <p className="text-lg text-gray-600 mb-1">{profile.age} سنة</p>
                 <p className="text-gray-600">
                   {profile.city}, {profile.country}
                 </p>
@@ -448,7 +443,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
                   نوع السكن
                 </span>
                 <span className="text-sm font-medium">
-                  {profile.housingType === "independent"
+                  {profile.housingType === "family"
                     ? "🏡 مستقل"
                     : profile.housingType === "with-family"
                       ? "👨‍👩‍👧‍👦 مع العائلة"

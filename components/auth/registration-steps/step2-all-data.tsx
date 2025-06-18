@@ -830,7 +830,7 @@ export default function NewStep2AllData({
                   disabled={isSubmitting}
                 />
               </div>
-              
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   label="مكان العمل"

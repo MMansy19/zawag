@@ -847,34 +847,32 @@ export function FilterSidebar({
                   className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
                 >
                   <option value="">جميع الأنماط</option>
-                  <option value={CLOTHING_STYLES.NIQAB_FULL}>
+                  <option value="niqab-full">
                     نقاب كامل - تغطية الوجه والكفين
                   </option>
-                  <option value={CLOTHING_STYLES.NIQAB_HANDS}>
-                    نقاب مع كشف الكفين فقط
-                  </option>
-                  <option value={CLOTHING_STYLES.KHIMAR}>
+                  <option value="niqab-hands">نقاب مع كشف الكفين فقط</option>
+                  <option value="khimar">
                     خمار - غطاء رأس طويل يغطي الصدر مع ملابس واسعة
                   </option>
-                  <option value={CLOTHING_STYLES.TARHA_LOOSE}>
+                  <option value="tarha-loose">
                     غطاء رأس مع ملابس واسعة وطويلة
                   </option>
-                  <option value={CLOTHING_STYLES.HIJAB_CONSERVATIVE}>
+                  <option value="hijab-conservative">
                     حجاب مع ملابس واسعة لا تُظهر تفاصيل الجسم
                   </option>
-                  <option value={CLOTHING_STYLES.HIJAB_MODEST}>
+                  <option value="hijab-modest">
                     حجاب مع ملابس مناسبة الحجم وليست ضيقة
                   </option>
-                  <option value={CLOTHING_STYLES.TARHA_FITTED}>
+                  <option value="tarha-fitted">
                     غطاء رأس مع ملابس مناسبة الحجم
                   </option>
-                  <option value={CLOTHING_STYLES.HIJAB_MODERN}>
+                  <option value="hijab-modern">
                     حجاب مع ملابس عصرية قد تُظهر شكل الجسم
                   </option>
-                  <option value={CLOTHING_STYLES.LOOSE_COVERING}>
+                  <option value="loose-covering">
                     ملابس واسعة وطويلة بدون غطاء رأس
                   </option>
-                  <option value={CLOTHING_STYLES.MODEST_COVERING}>
+                  <option value="modest-covering">
                     ملابس عادية تُظهر الذراعين أو جزء من الساقين
                   </option>
                 </select>

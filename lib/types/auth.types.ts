@@ -1,4 +1,36 @@
 // Authentication Types
+export interface PrivacySettings {
+  showProfilePicture: "everyone" | "matches-only" | "none";
+  showAge: boolean;
+  showLocation: boolean;
+  showOccupation: boolean;
+  allowMessagesFrom: "everyone" | "matches-only" | "none";
+
+  // Enhanced privacy controls for females
+  profileVisibility?:
+    | "everyone"
+    | "verified-only"
+    | "premium-only"
+    | "guardian-approved"
+    | "matches-only";
+  allowProfileViews?:
+    | "everyone"
+    | "verified-males"
+    | "premium-males"
+    | "guardian-approved"
+    | "matches-only";
+  showBasicInfo?: "everyone" | "verified-only" | "matches-only";
+  showDetailedInfo?: "matches-only" | "guardian-approved" | "none";
+  requireGuardianApproval?: boolean;
+  requirePhoneVerification?: boolean;
+  minimumAge?: number;
+  maximumAge?: number;
+  allowFavorites?: boolean;
+  allowBlocking?: boolean;
+  showOnlineStatus?: boolean;
+  allowProfileDownload?: boolean;
+}
+
 export interface User {
   id: string;
   email: string;
@@ -285,9 +317,24 @@ export interface BaseProfile {
 
   // Religious practice
   isPrayerRegular?: boolean;
-  
-  // Life goals
+  prays?: boolean;
+  fasts?: boolean;
+
+  // Life goals and personal information
   wantsChildren?: "yes" | "no" | "maybe";
+  interests?: string[];
+  marriageGoals?: string;
+  personalityDescription?: string;
+  familyPlans?: string;
+  relocationPlans?: string;
+  marriageTimeline?: string;
+
+  // Family information
+  areParentsAlive?: "both" | "father" | "mother" | "none";
+  parentRelationship?: "excellent" | "good" | "average" | "poor";
+
+  // Privacy settings
+  privacySettings?: PrivacySettings;
 }
 
 // Female Profile
@@ -295,23 +342,48 @@ export interface FemaleProfile extends BaseProfile {
   gender: "female";
   guardianName: string;
   guardianPhone: string;
+  guardianEmail?: string;
+  guardianRelationship?: "father" | "brother" | "uncle" | "other";
+  guardianNotes?: string;
   wearHijab: boolean;
   wearNiqab: boolean;
   clothingStyle?: string;
   workAfterMarriage?: "yes" | "no" | "undecided";
+  prayingLocation?: "home" | "mosque-when-possible";
+  hasHijab?: boolean;
+  hijab?: string;
+  mahramAvailable?: boolean;
+  childcarePreference?: string;
 }
 
 // Male Profile
 export interface MaleProfile extends BaseProfile {
   gender: "male";
   hasBeard: boolean;
+  beard?: boolean;
   financialSituation: "excellent" | "good" | "average" | "struggling";
   smokes?: boolean;
-  housingType?: "owned" | "rented" | "family";
+  housingType?: "owned" | "rented" | "family" | "with-family";
+  prayingLocation?: "mosque" | "home" | "both";
+  isRegularAtMosque?: boolean;
+  housingLocation?: string;
+  housingOwnership?: "owned" | "rented" | "family-owned";
+  monthlyIncome?: number;
+  providerView?: string;
+  householdChores?: string;
 }
 
 // Union type for Profile
 export type Profile = MaleProfile | FemaleProfile;
+
+// Type guard functions
+export function isMaleProfile(profile: Profile): profile is MaleProfile {
+  return profile.gender === "male";
+}
+
+export function isFemaleProfile(profile: Profile): profile is FemaleProfile {
+  return profile.gender === "female";
+}
 
 // Auth API Response Types
 export interface LoginRequest {
@@ -433,9 +505,76 @@ export interface ResetPasswordFormData {
 }
 
 // Constants
-export const GUARDIAN_RELATIONSHIPS = {
-  FATHER: "father",
-  BROTHER: "brother",
-  UNCLE: "uncle",
-  OTHER: "other",
-} as const;
+export const RELIGIOUS_LEVELS = [
+  "basic",
+  "practicing",
+  "very-religious",
+  "moderate",
+] as const;
+
+export const MARITAL_STATUS = ["single", "divorced", "widowed"] as const;
+
+export const PARENT_STATUS = ["both", "father", "mother", "none"] as const;
+
+export const PARENT_RELATIONSHIP = [
+  "excellent",
+  "good",
+  "average",
+  "poor",
+] as const;
+
+export const CHILDREN_PREFERENCE = ["yes", "no", "maybe"] as const;
+
+export const APPEARANCE_LEVELS = [
+  "very-attractive",
+  "attractive",
+  "average",
+  "simple",
+] as const;
+
+export const SKIN_COLORS = ["fair", "medium", "olive", "dark"] as const;
+
+export const BODY_TYPES = ["slim", "average", "athletic", "heavy"] as const;
+
+export const CLOTHING_STYLES = [
+  "niqab-full",
+  "niqab-hands",
+  "khimar",
+  "tarha-loose",
+  "hijab-conservative",
+  "hijab-modest",
+  "tarha-fitted",
+  "hijab-modern",
+  "loose-covering",
+  "modest-covering",
+] as const;
+
+export const FEMALE_PRAYER_LOCATIONS = [
+  "home",
+  "mosque-when-possible",
+] as const;
+
+export const GUARDIAN_RELATIONSHIPS = [
+  "father",
+  "brother",
+  "uncle",
+  "other",
+] as const;
+
+export const MALE_PRAYER_LOCATIONS = ["mosque", "home", "both"] as const;
+
+export const FINANCIAL_SITUATIONS = [
+  "excellent",
+  "good",
+  "average",
+  "struggling",
+] as const;
+
+export const HOUSING_OWNERSHIP = ["owned", "rented", "family-owned"] as const;
+
+export const HOUSING_TYPES = [
+  "owned",
+  "rented",
+  "family",
+  "with-family",
+] as const;
