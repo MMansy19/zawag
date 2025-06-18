@@ -157,6 +157,25 @@ export interface BaseRegisterRequest {
   hobbiesAndInterests: string;
   religiousScholarsFollowed: string;
 
+  // Work Information
+  workField?: string;
+  jobTitle?: string;
+  workplace?: string;
+  experienceYears?: string;
+  workType?: string;
+  workDescription?: string;
+
+  // Lifestyle Information
+  housingPreference?: string;
+  smokingPreference?: string;
+  travelingPreference?: string;
+  technologicalLevel?: string;
+  socialLevel?: string;
+
+  // Goals and Vision
+  marriageGoal?: string;
+  futurePlans?: string;
+
   // Additional Personal Information
   interests: string[];
   familyPlans: string;
@@ -256,6 +275,19 @@ export interface BaseProfile {
   isComplete?: boolean;
   isApproved?: boolean;
   isVerified?: boolean;
+
+  // Physical appearance
+  height?: number;
+  weight?: number;
+  appearance?: "very-attractive" | "attractive" | "average" | "simple";
+  skinColor?: "fair" | "medium" | "olive" | "dark";
+  bodyType?: "slim" | "average" | "athletic" | "heavy";
+
+  // Religious practice
+  isPrayerRegular?: boolean;
+  
+  // Life goals
+  wantsChildren?: "yes" | "no" | "maybe";
 }
 
 // Female Profile
@@ -265,6 +297,8 @@ export interface FemaleProfile extends BaseProfile {
   guardianPhone: string;
   wearHijab: boolean;
   wearNiqab: boolean;
+  clothingStyle?: string;
+  workAfterMarriage?: "yes" | "no" | "undecided";
 }
 
 // Male Profile
@@ -272,6 +306,8 @@ export interface MaleProfile extends BaseProfile {
   gender: "male";
   hasBeard: boolean;
   financialSituation: "excellent" | "good" | "average" | "struggling";
+  smokes?: boolean;
+  housingType?: "owned" | "rented" | "family";
 }
 
 // Union type for Profile

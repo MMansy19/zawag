@@ -121,6 +121,7 @@ export default function NewStep2AllData({
           <TabsTrigger value="religious">الدينية</TabsTrigger>
           <TabsTrigger value="physical">الجسدية</TabsTrigger>
           <TabsTrigger value="personal">الشخصية</TabsTrigger>
+          <TabsTrigger value="work">العمل</TabsTrigger>
           <TabsTrigger value="goals">الأهداف</TabsTrigger>
           <TabsTrigger value="preferences">التفضيلات</TabsTrigger>
         </TabsList>
@@ -780,6 +781,163 @@ export default function NewStep2AllData({
           </Card>
         </TabsContent>
 
+        {/* Work Tab */}
+        <TabsContent value="work" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <h4 className="text-lg font-medium">معلومات العمل</h4>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    مجال العمل
+                  </label>
+                  <select
+                    value={(data as any).workField || ""}
+                    onChange={(e) =>
+                      updateData({
+                        ...data,
+                        workField: e.target.value,
+                      } as any)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  >
+                    <option value="">اختر مجال العمل</option>
+                    <option value="healthcare">الرعاية الصحية</option>
+                    <option value="education">التعليم</option>
+                    <option value="engineering">الهندسة</option>
+                    <option value="technology">التكنولوجيا</option>
+                    <option value="business">الأعمال</option>
+                    <option value="government">الحكومة</option>
+                    <option value="finance">المالية</option>
+                    <option value="legal">القانون</option>
+                    <option value="media">الإعلام</option>
+                    <option value="arts">الفنون</option>
+                    <option value="other">أخرى</option>
+                  </select>
+                </div>
+                <Input
+                  label="المسمى الوظيفي"
+                  value={(data as any).jobTitle || ""}
+                  onChange={(e) =>
+                    updateData({
+                      ...data,
+                      jobTitle: e.target.value,
+                    } as any)
+                  }
+                  placeholder="أدخل مسماك الوظيفي"
+                  disabled={isSubmitting}
+                />
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  label="مكان العمل"
+                  value={(data as any).workplace || ""}
+                  onChange={(e) =>
+                    updateData({
+                      ...data,
+                      workplace: e.target.value,
+                    } as any)
+                  }
+                  placeholder="أدخل مكان عملك"
+                  disabled={isSubmitting}
+                />
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    سنوات الخبرة
+                  </label>
+                  <select
+                    value={(data as any).experienceYears || ""}
+                    onChange={(e) =>
+                      updateData({
+                        ...data,
+                        experienceYears: e.target.value,
+                      } as any)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  >
+                    <option value="">اختر سنوات الخبرة</option>
+                    <option value="0-1">أقل من سنة</option>
+                    <option value="1-3">1-3 سنوات</option>
+                    <option value="3-5">3-5 سنوات</option>
+                    <option value="5-10">5-10 سنوات</option>
+                    <option value="10+">أكثر من 10 سنوات</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    نوع العمل
+                  </label>
+                  <select
+                    value={(data as any).workType || ""}
+                    onChange={(e) =>
+                      updateData({
+                        ...data,
+                        workType: e.target.value,
+                      } as any)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  >
+                    <option value="">اختر نوع العمل</option>
+                    <option value="full-time">دوام كامل</option>
+                    <option value="part-time">دوام جزئي</option>
+                    <option value="freelance">عمل حر</option>
+                    <option value="business-owner">صاحب عمل</option>
+                    <option value="student">طالب</option>
+                    <option value="unemployed">غير موظف</option>
+                  </select>
+                </div>
+                {isFemale && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-2">
+                      العمل بعد الزواج
+                    </label>
+                    <select
+                      value={(data as any).workAfterMarriage || ""}
+                      onChange={(e) =>
+                        updateData({
+                          ...data,
+                          workAfterMarriage: e.target.value,
+                        } as any)
+                      }
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                    >
+                      <option value="">اختر موقفك من العمل بعد الزواج</option>
+                      <option value="yes">نعم، أريد الاستمرار في العمل</option>
+                      <option value="no">لا، أفضل التفرغ للمنزل</option>
+                      <option value="maybe">حسب الظروف</option>
+                      <option value="discuss">سأناقش مع زوجي</option>
+                    </select>
+                  </div>
+                )}
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  وصف العمل والمسؤوليات
+                </label>
+                <textarea
+                  value={(data as any).workDescription || ""}
+                  onChange={(e) =>
+                    updateData({
+                      ...data,
+                      workDescription: e.target.value,
+                    } as any)
+                  }
+                  placeholder="اكتب وصفاً موجزاً عن طبيعة عملك ومسؤولياتك..."
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  rows={3}
+                />
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
         {/* Preferences Tab */}
         <TabsContent value="preferences" className="space-y-6">
           <Card>
@@ -831,26 +989,29 @@ export default function NewStep2AllData({
                   max="60"
                 />
               </div>
-            {isFemale && (
+              {isFemale && (
                 <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  بيت الزوجية
-                </label>
-                <select
-                  value={(data as any).housingPreference || ""}
-                  onChange={(e) =>
-                    updateData({ ...data, housingPreference: e.target.value } as any)
-                  }
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                >
-                  <option value="">اختر بيت الزوجية</option>
-                  <option value="apartment">تمليك</option>
-                  <option value="independent">إيجار</option>
-                  <option value="with_family">بيت العائلة</option>
-                  <option value="flexible">حسب الظروف</option>
-                </select>
-              </div>
-            )}
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    بيت الزوجية
+                  </label>
+                  <select
+                    value={(data as any).housingPreference || ""}
+                    onChange={(e) =>
+                      updateData({
+                        ...data,
+                        housingPreference: e.target.value,
+                      } as any)
+                    }
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
+                  >
+                    <option value="">اختر بيت الزوجية</option>
+                    <option value="apartment">تمليك</option>
+                    <option value="independent">إيجار</option>
+                    <option value="with_family">بيت العائلة</option>
+                    <option value="flexible">حسب الظروف</option>
+                  </select>
+                </div>
+              )}
               <div className="grid grid-cols-1 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -926,14 +1087,19 @@ export default function NewStep2AllData({
                   <select
                     value={(data as any).marriageGoal || ""}
                     onChange={(e) =>
-                      updateData({ ...data, marriageGoal: e.target.value } as any)
+                      updateData({
+                        ...data,
+                        marriageGoal: e.target.value,
+                      } as any)
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   >
                     <option value="">اختر الهدف الأساسي</option>
                     <option value="family">تكوين عائلة مسلمة</option>
                     <option value="companionship">الرفقة والاستقرار</option>
-                    <option value="religious_growth">النمو الديني المشترك</option>
+                    <option value="religious_growth">
+                      النمو الديني المشترك
+                    </option>
                     <option value="complete_deen">إكمال نصف الدين</option>
                     <option value="children">إنجاب الأطفال</option>
                     <option value="support">الدعم المتبادل</option>
@@ -947,7 +1113,10 @@ export default function NewStep2AllData({
                   <select
                     value={(data as any).futurePlans || ""}
                     onChange={(e) =>
-                      updateData({ ...data, futurePlans: e.target.value } as any)
+                      updateData({
+                        ...data,
+                        futurePlans: e.target.value,
+                      } as any)
                     }
                     className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   >
@@ -968,7 +1137,10 @@ export default function NewStep2AllData({
                 <textarea
                   value={(data as any).marriageVision || ""}
                   onChange={(e) =>
-                    updateData({ ...data, marriageVision: e.target.value } as any)
+                    updateData({
+                      ...data,
+                      marriageVision: e.target.value,
+                    } as any)
                   }
                   placeholder="شارك رؤيتك وتطلعاتك للحياة الزوجية..."
                   className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"

@@ -15,113 +15,162 @@ import ReactCountryFlag from "react-country-flag";
 // List of Arabic and Islamic country ISO2 codes (sorted with Arabic countries first)
 const arabicIslamicCountryCodes = [
   // Gulf Arab Countries
-  'sa', 'ae', 'qa', 'kw', 'bh', 'om',
-  // Levant Arab Countries  
-  'sy', 'lb', 'jo', 'ps', 'iq',
+  "sa",
+  "ae",
+  "qa",
+  "kw",
+  "bh",
+  "om",
+  // Levant Arab Countries
+  "sy",
+  "lb",
+  "jo",
+  "ps",
+  "iq",
   // North African Arab Countries
-  'eg', 'ly', 'tn', 'dz', 'ma', 'sd',
+  "eg",
+  "ly",
+  "tn",
+  "dz",
+  "ma",
+  "sd",
   // Other Arab Countries
-  'ye', 'dj', 'so', 'km',
+  "ye",
+  "dj",
+  "so",
+  "km",
   // Major Islamic Countries
-  'tr', 'ir', 'pk', 'bd', 'id', 'my', 'af', 'bn', 'mv',
+  "tr",
+  "ir",
+  "pk",
+  "bd",
+  "id",
+  "my",
+  "af",
+  "bn",
+  "mv",
   // Central Asian Islamic Countries
-  'az', 'kz', 'kg', 'tj', 'tm', 'uz',
+  "az",
+  "kz",
+  "kg",
+  "tj",
+  "tm",
+  "uz",
   // African Islamic Countries
-  'sn', 'ml', 'ne', 'bf', 'ci', 'gm', 'gn', 'sl', 'lr', 'gh', 'tg', 'bj', 'ng', 'td', 'cf', 'cm', 'er', 'et'
+  "sn",
+  "ml",
+  "ne",
+  "bf",
+  "ci",
+  "gm",
+  "gn",
+  "sl",
+  "lr",
+  "gh",
+  "tg",
+  "bj",
+  "ng",
+  "td",
+  "cf",
+  "cm",
+  "er",
+  "et",
 ];
 
 // Arabic names mapping (sorted with Arabic countries first)
 const arabicNames: Record<string, string> = {
   // Gulf Arab Countries
-  'sa': 'السعودية',
-  'ae': 'الإمارات',
-  'qa': 'قطر',
-  'kw': 'الكويت',
-  'bh': 'البحرين',
-  'om': 'عمان',
+  sa: "السعودية",
+  ae: "الإمارات",
+  qa: "قطر",
+  kw: "الكويت",
+  bh: "البحرين",
+  om: "عمان",
   // Levant Arab Countries
-  'sy': 'سوريا',
-  'lb': 'لبنان',
-  'jo': 'الأردن',
-  'ps': 'فلسطين',
-  'iq': 'العراق',
+  sy: "سوريا",
+  lb: "لبنان",
+  jo: "الأردن",
+  ps: "فلسطين",
+  iq: "العراق",
   // North African Arab Countries
-  'eg': 'مصر',
-  'ly': 'ليبيا',
-  'tn': 'تونس',
-  'dz': 'الجزائر',
-  'ma': 'المغرب',
-  'sd': 'السودان',
+  eg: "مصر",
+  ly: "ليبيا",
+  tn: "تونس",
+  dz: "الجزائر",
+  ma: "المغرب",
+  sd: "السودان",
   // Other Arab Countries
-  'ye': 'اليمن',
-  'dj': 'جيبوتي',
-  'so': 'الصومال',
-  'km': 'جزر القمر',
+  ye: "اليمن",
+  dj: "جيبوتي",
+  so: "الصومال",
+  km: "جزر القمر",
   // Major Islamic Countries
-  'tr': 'تركيا',
-  'ir': 'إيران',
-  'pk': 'باكستان',
-  'bd': 'بنغلاديش',
-  'id': 'إندونيسيا',
-  'my': 'ماليزيا',
-  'af': 'أفغانستان',
-  'bn': 'بروناي',
-  'mv': 'المالديف',
+  tr: "تركيا",
+  ir: "إيران",
+  pk: "باكستان",
+  bd: "بنغلاديش",
+  id: "إندونيسيا",
+  my: "ماليزيا",
+  af: "أفغانستان",
+  bn: "بروناي",
+  mv: "المالديف",
   // Central Asian Islamic Countries
-  'az': 'أذربيجان',
-  'kz': 'كازاخستان',
-  'kg': 'قيرغيزستان',
-  'tj': 'طاجيكستان',
-  'tm': 'تركمانستان',
-  'uz': 'أوزبكستان',
+  az: "أذربيجان",
+  kz: "كازاخستان",
+  kg: "قيرغيزستان",
+  tj: "طاجيكستان",
+  tm: "تركمانستان",
+  uz: "أوزبكستان",
   // African Islamic Countries
-  'sn': 'السنغال',
-  'ml': 'مالي',
-  'ne': 'النيجر',
-  'bf': 'بوركينا فاسو',
-  'ci': 'ساحل العاج',
-  'gm': 'غامبيا',
-  'gn': 'غينيا',
-  'sl': 'سيراليون',
-  'lr': 'ليبيريا',
-  'gh': 'غانا',
-  'tg': 'توغو',
-  'bj': 'بنين',
-  'ng': 'نيجيريا',
-  'td': 'تشاد',
-  'cf': 'أفريقيا الوسطى',
-  'cm': 'الكاميرون',
-  'er': 'إريتريا',
-  'et': 'إثيوبيا'
+  sn: "السنغال",
+  ml: "مالي",
+  ne: "النيجر",
+  bf: "بوركينا فاسو",
+  ci: "ساحل العاج",
+  gm: "غامبيا",
+  gn: "غينيا",
+  sl: "سيراليون",
+  lr: "ليبيريا",
+  gh: "غانا",
+  tg: "توغو",
+  bj: "بنين",
+  ng: "نيجيريا",
+  td: "تشاد",
+  cf: "أفريقيا الوسطى",
+  cm: "الكاميرون",
+  er: "إريتريا",
+  et: "إثيوبيا",
 };
 
 // Use memoization to create countries list once
 const getArabicIslamicCountries = (): CountryData[] => {
   try {
-    const filtered = defaultCountries.filter((country) => 
-      arabicIslamicCountryCodes.includes(country[1]) // ISO2 code is at index 1
+    const filtered = defaultCountries.filter(
+      (country) => arabicIslamicCountryCodes.includes(country[1]), // ISO2 code is at index 1
     );
-    
+
     // Ensure we have at least Saudi Arabia - manually add if not found
-    const hasSaudiArabia = filtered.find(c => c[1] === 'sa');
+    const hasSaudiArabia = filtered.find((c) => c[1] === "sa");
     if (!hasSaudiArabia) {
-      const saudiFromDefault = defaultCountries.find(c => c[1] === 'sa' || c[0]?.toLowerCase().includes('saudi'));
+      const saudiFromDefault = defaultCountries.find(
+        (c) => c[1] === "sa" || c[0]?.toLowerCase().includes("saudi"),
+      );
       if (saudiFromDefault) {
         filtered.unshift(saudiFromDefault); // Add Saudi Arabia at the beginning
       } else {
         // Manual fallback for Saudi Arabia
-        filtered.unshift(['Saudi Arabia', 'sa', '966']);
+        filtered.unshift(["Saudi Arabia", "sa", "966"]);
       }
     }
-    
+
     // Ensure we have at least Saudi Arabia
     if (filtered.length === 0) {
-      return [['Saudi Arabia', 'sa', '966'], ...defaultCountries.slice(0, 9)]; // Ensure SA is first
+      return [["Saudi Arabia", "sa", "966"], ...defaultCountries.slice(0, 9)]; // Ensure SA is first
     }
-    
+
     return filtered;
   } catch (error) {
-    console.error('Error filtering countries:', error);
+    console.error("Error filtering countries:", error);
     return defaultCountries.slice(0, 10); // Fallback
   }
 };
@@ -142,10 +191,12 @@ const Phone: React.FC<PhoneProps> = ({
   defaultCountry,
 }) => {
   // Ensure the default country exists in our filtered list (case insensitive)
-  const safeDefaultCountry = countries.find(c => c[1]?.toLowerCase() === defaultCountry?.toLowerCase()) 
-    ? defaultCountry 
-    : 'sa' as CountryIso2;
-  
+  const safeDefaultCountry = countries.find(
+    (c) => c[1]?.toLowerCase() === defaultCountry?.toLowerCase(),
+  )
+    ? defaultCountry
+    : ("sa" as CountryIso2);
+
   // Wrap usePhoneInput in try-catch to handle any library errors
   let phoneHookResult;
   try {
@@ -158,10 +209,10 @@ const Phone: React.FC<PhoneProps> = ({
       },
     });
   } catch (error) {
-    console.error('Error with usePhoneInput:', error);
+    console.error("Error with usePhoneInput:", error);
     // Fallback to using all default countries if our filtered list has issues
     phoneHookResult = usePhoneInput({
-      defaultCountry: 'sa' as CountryIso2,
+      defaultCountry: "sa" as CountryIso2,
       value,
       countries: defaultCountries,
       onChange: (data: any) => {
@@ -169,14 +220,15 @@ const Phone: React.FC<PhoneProps> = ({
       },
     });
   }
-  
-  const { phone, handlePhoneValueChange, inputRef, country, setCountry } = phoneHookResult;
+
+  const { phone, handlePhoneValueChange, inputRef, country, setCountry } =
+    phoneHookResult;
 
   return (
     <div className="flex w-full items-center gap-2" dir="ltr">
       <CustomDropdown
         country={country}
-        setCountry= {setCountry}
+        setCountry={setCountry}
         defaultCountries={countries.length > 0 ? countries : defaultCountries}
         parseCountry={parseCountry}
       />{" "}
@@ -301,10 +353,8 @@ const CustomDropdown = ({
                   style={{ width: "20px", height: "15px" }}
                 />
                 <span style={{ fontSize: "14px", whiteSpace: "nowrap" }}>
-                  {arabicName} 
-                  {/* ({englishName}) */}
-                  {" "}
-                  ({country.dialCode}+)
+                  {arabicName}
+                  {/* ({englishName}) */} ({country.dialCode}+)
                 </span>
               </li>
             );
