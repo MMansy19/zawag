@@ -23,7 +23,7 @@ export function LandingSocial() {
       name: "فيسبوك",
       icon: Facebook,
       url: "https://www.facebook.com/Al.Zawaj2",
-      color: "bg-blue-50 border-blue-200 text-blue-700 hover:bg-blue-100",
+      color: "bg-primary-subtle border-primary-light text-primary hover:bg-primary-subtle/70",
       description: "تابعنا للحصول على التحديثات",
     },
     {
@@ -51,7 +51,7 @@ export function LandingSocial() {
   ];
 
   return (
-    <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50">
+    <section className="py-20 bg-gradient-to-br from-primary-subtle/30 to-purple-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">تابعنا</h2>
