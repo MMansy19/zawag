@@ -81,7 +81,7 @@ export const metadata: Metadata = {
       { url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" },
     ],
     other: [
-      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#32CD32" },
+      { rel: "mask-icon", url: "/safari-pinned-tab.svg", color: "#5d1a78" },
     ],
   },
   manifest: "/site.webmanifest",
@@ -138,8 +138,8 @@ export const metadata: Metadata = {
     "apple-mobile-web-app-status-bar-style": "default",
     "apple-mobile-web-app-title": "الزواج السعيد",
     "application-name": "الزواج السعيد",
-    "msapplication-TileColor": "#32CD32",
-    "theme-color": "#32CD32",
+    "msapplication-TileColor": "#5d1a78",
+    "theme-color": "#5d1a78",
   },
   ...(process.env["GOOGLE_VERIFICATION_ID"] && {
     verification: {
