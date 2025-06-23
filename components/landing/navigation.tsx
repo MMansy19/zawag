@@ -134,7 +134,7 @@ export function LandingNavigation() {
                 quality={100}
                 sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
               />
-              <span className="inline font-display">الزواج السعيد</span>
+              <span className="inline font-display sm:text-xl text-lg">الزواج السعيد</span>
             </Link>
           </div>
 
