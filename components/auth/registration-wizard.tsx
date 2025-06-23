@@ -122,11 +122,13 @@ export function RegistrationWizard({
       }
     } else {
       await nextStep();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
   const handlePrev = () => {
     prevStep();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleCancel = () => {
@@ -135,15 +137,15 @@ export function RegistrationWizard({
 
   return (
     <div
-      className={`w-full max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 ${className}`}
+      className={`w-full max-w-4xl mx-auto px-0 sm:px-2 lg:px-4 ${className}`}
     >
       {/* Progress Indicator */}
       <div className="mb-6 sm:mb-8">
-        <div className="flex justify-between items-center mb-4 sm:mb-6 overflow-x-auto">
+        <div className="flex justify-center lg:gap-20 md:gap-10 gap-5 items-center mb-4 sm:mb-6 overflow-x-auto">
           {steps.map((step) => (
             <button
               key={step.id}
-              className={`flex items-center justify-center w-5 h-6 sm:w-10 sm:h-12 mx-2 rounded-full text-xs sm:text-sm font-medium transition-colors flex-shrink-0 ${
+              className={`flex items-center justify-center w-10 h-12 mx-2 rounded-full text-sm font-medium transition-colors flex-shrink-0 ${
                 step.id === currentStep
                   ? "bg-primary text-white"
                   : isStepCompleted(step.id)
@@ -175,7 +177,7 @@ export function RegistrationWizard({
 
       {/* Step Content */}
       <Card className="shadow-sm sm:shadow-md">
-        <CardHeader className="pb-4 px-4 sm:px-6">
+        <CardHeader className="pb-4 px-2 sm:px-4">
           {error && (
             <Alert variant="destructive">
               <AlertDescription className="text-sm">{error}</AlertDescription>
@@ -183,7 +185,7 @@ export function RegistrationWizard({
           )}
         </CardHeader>
 
-        <CardContent className="px-4 sm:px-6 py-4">
+        <CardContent className="px-2 sm:px-4 py-4">
           <Suspense fallback={<StepLoader />}>{renderStep()}</Suspense>
         </CardContent>
 

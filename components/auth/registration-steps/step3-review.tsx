@@ -472,22 +472,6 @@ export default function NewStep3Review({
                 <AlertDescription>{error}</AlertDescription>
               </Alert>
             )}
-
-            <Button
-              onClick={handleSubmit}
-              disabled={isSubmitting}
-              size="lg"
-              className="w-full md:w-auto min-w-48"
-            >
-              {isSubmitting ? (
-                <>
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                  جارٍ إنشاء الحساب...
-                </>
-              ) : (
-                "إنشاء الحساب والذهاب إلى لوحة التحكم"
-              )}
-            </Button>
           </div>
         </CardContent>
       </Card>

@@ -6,7 +6,6 @@ import Phone from "@/components/ui/phone-number";
 import { RegisterRequest } from "@/lib/types/auth.types";
 import { getCountriesByGroup } from "@/lib/static-data";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Upload, X } from "lucide-react";
 
 interface NewStep2AllDataProps {
@@ -24,7 +23,6 @@ export default function NewStep2AllData({
   clearError,
   isSubmitting,
 }: NewStep2AllDataProps) {
-  const [activeTab, setActiveTab] = useState("basic");
   const [profilePicturePreview, setProfilePicturePreview] = useState<
     string | null
   >(null);
@@ -73,7 +71,7 @@ export default function NewStep2AllData({
           </h3>
         </CardHeader>
         <CardContent>
-          <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-4">
+          <div className="bg-amber-50 border border-amber-200 rounded-lg sm:p-4 p-2 mb-4">
             <p className="text-sm text-amber-800">
               {isMale
                 ? "أقسم بالله العظيم أنني رجل مسلم من أهل السنة والجماعة، مخلص في تقديمي على هذا الموقع، وأسعى للزواج الحلال فقط. أتعهد بأن جميع المعلومات التي أقدمها صحيحة، خالية من أي غش أو تدليس، وملتزم بالصدق التام مع نفسي ومع من يقدره الله لي شريكا في الحياة. كما أتعهد بالحفاظ على سرية أي معلومات تصلني، فلا أطلع عليها إلا من أثق به من أهلي ومعارفي. والله على ما أقول شهيد"
@@ -111,23 +109,9 @@ export default function NewStep2AllData({
         </p>
       </div>
 
-      <Tabs
-        value={activeTab}
-        onValueChange={setActiveTab}
-        className="space-y-6"
-      >
-        <TabsList className="grid w-full grid-cols-7">
-          <TabsTrigger value="basic">الأساسية</TabsTrigger>
-          <TabsTrigger value="religious">الدينية</TabsTrigger>
-          <TabsTrigger value="physical">الجسدية</TabsTrigger>
-          <TabsTrigger value="personal">الشخصية</TabsTrigger>
-          <TabsTrigger value="work">العمل</TabsTrigger>
-          <TabsTrigger value="goals">الأهداف</TabsTrigger>
-          <TabsTrigger value="preferences">التفضيلات</TabsTrigger>
-        </TabsList>
-
-        {/* Basic Information Tab */}
-        <TabsContent value="basic" className="space-y-6">
+      <div className="space-y-6">
+        {/* Basic Information Section */}
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <h4 className="text-lg font-medium">المعلومات الأساسية</h4>
@@ -266,10 +250,10 @@ export default function NewStep2AllData({
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
 
-        {/* Religious Information Tab */}
-        <TabsContent value="religious" className="space-y-6">
+        {/* Religious Information Section */}
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <h4 className="text-lg font-medium">المعلومات الدينية</h4>
@@ -397,10 +381,10 @@ export default function NewStep2AllData({
               )}
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
 
-        {/* Physical Information Tab */}
-        <TabsContent value="physical" className="space-y-6">
+        {/* Physical Information Section */}
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <h4 className="text-lg font-medium">المعلومات الجسدية</h4>
@@ -548,10 +532,10 @@ export default function NewStep2AllData({
               )}
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
 
-        {/* Personal Information Tab */}
-        <TabsContent value="personal" className="space-y-6">
+        {/* Personal Information Section */}
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <h4 className="text-lg font-medium">المعلومات الشخصية</h4>
@@ -779,10 +763,10 @@ export default function NewStep2AllData({
               )}
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
 
-        {/* Work Tab */}
-        <TabsContent value="work" className="space-y-6">
+        {/* Work Section */}
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <h4 className="text-lg font-medium">معلومات العمل</h4>
@@ -936,10 +920,10 @@ export default function NewStep2AllData({
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
 
-        {/* Preferences Tab */}
-        <TabsContent value="preferences" className="space-y-6">
+        {/* Preferences Section */}
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <h4 className="text-lg font-medium">تفضيلات شريك الحياة</h4>
@@ -1070,10 +1054,10 @@ export default function NewStep2AllData({
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
+        </div>
 
-        {/* Goals Tab */}
-        <TabsContent value="goals" className="space-y-6">
+        {/* Goals Section */}
+        <div className="space-y-6">
           <Card>
             <CardHeader>
               <h4 className="text-lg font-medium">الأهداف من الزواج</h4>
@@ -1149,8 +1133,8 @@ export default function NewStep2AllData({
               </div>
             </CardContent>
           </Card>
-        </TabsContent>
-      </Tabs>
+        </div>
+      </div>
 
       {/* Validation Summary */}
       {error && (

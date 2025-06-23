@@ -58,7 +58,7 @@ export function AuthLayout({
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex items-center justify-center px-4 py-8">
+      <main className="flex-1 flex items-center justify-center sm:px-4 px-0 py-8">
         <div className="w-full max-w-6xl mx-auto">
           {(title || subtitle) && (
             <div className="text-center mb-8">
