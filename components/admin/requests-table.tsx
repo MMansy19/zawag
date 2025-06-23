@@ -99,11 +99,11 @@ export function RequestsTable() {
             إدارة طلبات الزواج
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-4">
-            <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">
+            <div className="text-center p-3 bg-primary-subtle rounded-lg">
+              <div className="text-2xl font-bold text-primary">
                 {statusCounts.all}
               </div>
-              <div className="text-sm text-blue-600">إجمالي الطلبات</div>
+              <div className="text-sm text-primary">إجمالي الطلبات</div>
             </div>
             <div className="text-center p-3 bg-yellow-50 rounded-lg">
               <div className="text-2xl font-bold text-yellow-600">

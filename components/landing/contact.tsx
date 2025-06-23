@@ -147,8 +147,8 @@ export function LandingContact() {
             <Card>
               <CardContent className="p-6">
                 <div className="flex items-center mb-4">
-                  <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center ml-4">
-                    <Mail className="h-6 w-6 text-blue-600" />
+                  <div className="w-12 h-12 bg-primary-subtle rounded-full flex items-center justify-center ml-4">
+                    <Mail className="h-6 w-6 text-primary" />
                   </div>
                   <div>
                     <h3 className="text-xl font-semibold text-gray-900">
@@ -157,10 +157,10 @@ export function LandingContact() {
                     <p className="text-gray-600">للاستفسارات والدعم</p>
                   </div>
                 </div>
-                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div className="bg-primary-subtle border border-primary-light rounded-lg p-4">
                   <a
                     href="mailto:alzawajalsaeid1@gmail.com"
-                    className="flex items-center justify-center text-blue-700 font-medium hover:text-blue-800 transition-colors"
+                    className="flex items-center justify-center text-primary font-medium hover:text-primary-hover transition-colors"
                   >
                     <Mail className="h-5 w-5 ml-2" />
                     alzawajalsaeid1@gmail.com

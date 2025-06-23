@@ -305,7 +305,7 @@ function DesktopChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
                       </span>
                     </div>
                     {isTyping && (
-                      <span className="text-blue-500 italic hidden sm:inline">
+                      <span className="text-primary italic hidden sm:inline">
                         جاري الكتابة...
                       </span>
                     )}
@@ -334,7 +334,7 @@ function DesktopChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
           </div>
 
           {/* Chat Info Bar */}
-          <div className="mt-2 sm:mt-3 p-2 sm:p-3 bg-blue-50 rounded-lg border border-blue-200">
+          <div className="mt-2 sm:mt-3 p-2 sm:p-3 bg-primary-subtle rounded-lg border border-primary-light">
             <div className="flex items-center justify-between text-xs sm:text-sm">
               <div className="flex items-center space-x-2 sm:space-x-4 space-x-reverse text-gray-600">
                 <div className="flex items-center">
@@ -350,7 +350,7 @@ function DesktopChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
                   <span className="sm:hidden">7 أيام</span>
                 </div>
               </div>
-              <div className="text-blue-600 font-medium text-xs sm:text-sm">
+              <div className="text-primary font-medium text-xs sm:text-sm">
                 #{requestId.substring(0, 6)}
               </div>
             </div>
@@ -377,7 +377,9 @@ function DesktopChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
                   </p>
                   <div
                     className={`flex items-center justify-between mt-1 sm:mt-2 text-xs ${
-                      message.isCurrentUser ? "text-blue-100" : "text-gray-500"
+                      message.isCurrentUser
+                        ? "text-primary-lighter"
+                        : "text-gray-500"
                     }`}
                   >
                     <span>{formatTime(message.createdAt)}</span>
@@ -407,7 +409,7 @@ function DesktopChatInterface({ requestId, chatRoomId }: ChatInterfaceProps) {
                 onChange={handleInputChange}
                 onKeyPress={handleKeyPress}
                 placeholder="اكتب رسالتك هنا..."
-                className="w-full resize-none border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent min-h-[40px] sm:min-h-[44px] max-h-24 sm:max-h-32 text-sm sm:text-base"
+                className="w-full resize-none border border-gray-300 rounded-lg px-3 sm:px-4 py-2 sm:py-3 focus:ring-2 focus:ring-primary focus:border-transparent min-h-[40px] sm:min-h-[44px] max-h-24 sm:max-h-32 text-sm sm:text-base"
                 rows={1}
                 disabled={isSending}
               />

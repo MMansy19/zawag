@@ -332,7 +332,7 @@ islamic-zawaj-platform/
 
 ### Colors
 
-- **Primary**: `#1E88E5` (Blue) - Buttons, links, highlights
+- **Primary**: `#371048` (Deep Purple) - Buttons, links, highlights
 - **Secondary**: `#4CAF50` (Green) - Success states, secondary actions
 - **Accent**: `#FBC02D` (Yellow) - Warnings, callouts
 - **Error**: `#D32F2F` (Red) - Error states, danger actions

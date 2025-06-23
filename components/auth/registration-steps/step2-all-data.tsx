@@ -1144,9 +1144,9 @@ export default function NewStep2AllData({
       )}
 
       {/* Progress Indicator */}
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h4 className="font-medium text-blue-900 mb-2">إكمال البيانات:</h4>
-        <p className="text-sm text-blue-700">
+      <div className="bg-primary-subtle p-4 rounded-lg">
+        <h4 className="font-medium text-primary mb-2">إكمال البيانات:</h4>
+        <p className="text-sm text-primary-safe">
           يرجى ملء جميع الحقول المطلوبة في كل قسم قبل المتابعة إلى المراجعة
           النهائية.
         </p>

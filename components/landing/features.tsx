@@ -90,7 +90,7 @@ export function LandingFeatures() {
                 <CardContent className="p-6">
                   <div className="text-center mb-4">
                     <div className="flex justify-center mb-3">
-                      <IconComponent className="w-12 h-12 text-blue-600" />
+                      <IconComponent className="w-12 h-12 text-primary" />
                     </div>
                     <h3 className="text-card-title font-heading text-text mb-3 arabic-optimized">
                       {feature.title}

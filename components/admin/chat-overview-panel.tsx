@@ -102,15 +102,15 @@ export function ChatOverviewPanel() {
       <Card>
         <CardHeader>
           <h2 className="text-2xl font-bold flex items-center gap-2">
-            <MessageCircle className="h-6 w-6 text-blue-500" />
+            <MessageCircle className="h-6 w-6 text-primary" />
             المحادثات النشطة
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-4">
-            <div className="text-center p-3 bg-blue-50 rounded-lg">
-              <div className="text-2xl font-bold text-blue-600">
+            <div className="text-center p-3 bg-primary-subtle rounded-lg">
+              <div className="text-2xl font-bold text-primary">
                 {counts.active}
               </div>
-              <div className="text-sm text-blue-600">محادثات نشطة</div>
+              <div className="text-sm text-primary">محادثات نشطة</div>
             </div>
             <div className="text-center p-3 bg-orange-50 rounded-lg">
               <div className="text-2xl font-bold text-orange-600">

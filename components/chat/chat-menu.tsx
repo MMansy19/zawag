@@ -120,7 +120,7 @@ export function ChatMenu({
                 <label className="block text-sm font-medium mb-2">
                   نوع المشكلة
                 </label>
-                <select className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                <select className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm focus:ring-2 focus:ring-primary focus:border-transparent">
                   <option value="">اختر نوع المشكلة</option>
                   <option value="inappropriate">محتوى غير لائق</option>
                   <option value="spam">رسائل مزعجة</option>
@@ -135,7 +135,7 @@ export function ChatMenu({
                   تفاصيل المشكلة
                 </label>
                 <textarea
-                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 text-sm resize-none focus:ring-2 focus:ring-primary focus:border-transparent"
                   rows={3}
                   placeholder="اكتب وصفاً مفصلاً للمشكلة..."
                   maxLength={500}

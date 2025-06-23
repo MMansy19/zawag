@@ -129,11 +129,11 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
           <p className="text-sm font-medium text-gray-700 mb-2">
             معلومات الملف الشخصي:
           </p>
-          <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg p-4">
+          <div className="bg-gradient-to-r from-gray-50 to-primary-subtle rounded-lg p-4">
             {type === "received" && request.sender && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center">
-                  <span className="text-blue-600 ml-2">🎂</span>
+                  <span className="text-primary ml-2">🎂</span>
                   <span className="text-gray-700">
                     العمر: {request.sender.age} سنة
                   </span>
@@ -189,7 +189,7 @@ function RequestCard({ request, type, onUpdate }: RequestCardProps) {
             {type === "sent" && request.receiver && (
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
                 <div className="flex items-center">
-                  <span className="text-blue-600 ml-2">🎂</span>
+                  <span className="text-primary ml-2">🎂</span>
                   <span className="text-gray-700">
                     العمر: {request.receiver.age} سنة
                   </span>

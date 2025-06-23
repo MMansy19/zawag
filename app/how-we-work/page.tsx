@@ -182,7 +182,7 @@ export default function HowWeWorkPage() {
             <Card className="bg-white shadow-lg">
               <CardHeader>
                 <CardTitle className="flex items-center gap-2 text-xl">
-                  <Shield className="w-6 h-6 text-blue-600" />
+                  <Shield className="w-6 h-6 text-primary" />
                   سياسة الخصوصية في عرض الملفات
                 </CardTitle>
               </CardHeader>
@@ -357,8 +357,8 @@ export default function HowWeWorkPage() {
             </h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
               <div className="text-center">
-                <div className="w-20 h-20 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
-                  <BookOpen className="w-10 h-10 text-blue-600" />
+                <div className="w-20 h-20 mx-auto mb-4 bg-primary-subtle rounded-full flex items-center justify-center">
+                  <BookOpen className="w-10 h-10 text-primary" />
                 </div>
                 <h3 className="font-semibold mb-2">البحث والفهم</h3>
                 <p className="text-sm text-gray-600">

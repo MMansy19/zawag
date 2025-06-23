@@ -32,7 +32,7 @@ export function FlaggedList() {
       low: {
         label: "منخفض",
         variant: "secondary" as const,
-        className: "bg-blue-100 text-blue-800",
+        className: "bg-primary-subtle text-primary",
       },
       medium: {
         label: "متوسط",

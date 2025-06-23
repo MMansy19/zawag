@@ -510,9 +510,9 @@ export function ProfileView() {
 
             {/* Gender-specific religious info */}
             {profile && isMaleProfile(profile) && (
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
+              <div className="bg-gradient-to-r from-primary-subtle to-primary-subtle/50 p-6 rounded-xl border border-primary-light">
                 <div className="flex items-center gap-2 mb-4">
-                  <div className="w-2 h-6 bg-blue-500 rounded"></div>
+                  <div className="w-2 h-6 bg-primary rounded"></div>
                   <h4 className="font-semibold text-gray-800 text-lg">
                     معلومات خاصة بالأخ
                   </h4>

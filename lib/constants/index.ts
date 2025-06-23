@@ -282,7 +282,7 @@ export const ABUSIVE_WORDS_AR = [
 
 export const DEFAULT_THEME = {
   colors: {
-    primary: "#1E88E5",
+    primary: "#371048",
     secondary: "#4CAF50",
     accent: "#FBC02D",
     background: "#F5F5F5",

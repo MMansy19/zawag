@@ -151,13 +151,13 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
       </div>
       {/* Profile Header */}
       <Card
-        className={`border-l-4 ${isMaleProfile(profile) ? "border-l-blue-500 bg-gradient-to-r from-blue-50 to-white" : "border-l-pink-500 bg-gradient-to-r from-pink-50 to-white"}`}
+        className={`border-l-4 ${isMaleProfile(profile) ? "border-l-primary bg-gradient-to-r from-primary-subtle to-white" : "border-l-pink-500 bg-gradient-to-r from-pink-50 to-white"}`}
       >
         <CardContent className="p-6">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center space-x-4 space-x-reverse">
               <div
-                className={`w-20 h-20 ${isMaleProfile(profile) ? "bg-gradient-to-br from-blue-400 to-blue-600" : "bg-gradient-to-br from-pink-400 to-pink-600"} rounded-full flex items-center justify-center text-white text-2xl font-bold`}
+                className={`w-20 h-20 ${isMaleProfile(profile) ? "bg-gradient-to-br from-primary-light to-primary" : "bg-gradient-to-br from-pink-400 to-pink-600"} rounded-full flex items-center justify-center text-white text-2xl font-bold`}
               >
                 {isMaleProfile(profile) ? "👨" : "👩"}
               </div>
@@ -175,7 +175,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
                     variant={isMaleProfile(profile) ? "secondary" : "outline"}
                     className={
                       isMaleProfile(profile)
-                        ? "bg-blue-100 text-blue-800"
+                        ? "bg-primary-subtle text-primary"
                         : "bg-pink-100 text-pink-800"
                     }
                   >
@@ -208,7 +208,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
               <div className="flex gap-2">
                 <Button
                   onClick={() => setShowRequestModal(true)}
-                  className={`flex items-center gap-2 ${isMaleProfile(profile) ? "bg-blue-600 hover:bg-blue-700" : "bg-pink-600 hover:bg-pink-700"}`}
+                  className={`flex items-center gap-2 ${isMaleProfile(profile) ? "bg-primary hover:bg-primary-hover" : "bg-pink-600 hover:bg-pink-700"}`}
                   disabled={!user}
                 >
                   <Heart className="h-4 w-4" />
@@ -355,10 +355,10 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
       </div>
       {/* Gender-specific Information */}
       {isMaleProfile(profile) && (
-        <Card className="border-blue-200 bg-gradient-to-r from-blue-50 to-indigo-50">
+        <Card className="border-primary-light bg-gradient-to-r from-primary-subtle to-primary-subtle/50">
           <CardHeader>
             <h3 className="text-xl font-semibold flex items-center gap-2">
-              <span className="text-blue-500">👨</span>
+              <span className="text-primary">👨</span>
               معلومات خاصة بالأخ
             </h3>
           </CardHeader>

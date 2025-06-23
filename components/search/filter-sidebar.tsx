@@ -266,10 +266,10 @@ export function FilterSidebar({
         )}
 
         {/* Basic Demographics */}
-        <Card className="border-2 border-blue-100">
+        <Card className="border-2 border-primary-light">
           <CardHeader className="pb-3">
             <h4 className="font-semibold text-gray-900 flex items-center gap-2">
-              <span className="w-2 h-2 bg-blue-500 rounded-full"></span>
+              <span className="w-2 h-2 bg-primary rounded-full"></span>
               المعلومات الأساسية
             </h4>
           </CardHeader>
@@ -576,10 +576,10 @@ export function FilterSidebar({
 
         {/* Gender-Specific Filters for Males */}
         {searchingForGender === "male" && (
-          <Card className="border-2 border-blue-200 bg-blue-50">
+          <Card className="border-2 border-primary-light bg-primary-subtle">
             <CardHeader className="pb-3">
-              <h4 className="font-semibold text-blue-900 flex items-center gap-2">
-                <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+              <h4 className="font-semibold text-primary-safe flex items-center gap-2">
+                <span className="w-2 h-2 bg-primary rounded-full"></span>
                 معايير خاصة بالأخوة
               </h4>
             </CardHeader>
@@ -596,7 +596,7 @@ export function FilterSidebar({
                       name="hasBeard"
                       checked={filters.hasBeard === true}
                       onChange={() => handleFilterChange("hasBeard", true)}
-                      className="text-blue-500"
+                      className="text-primary"
                     />
                     <span className="text-sm">يرتدي لحية</span>
                   </label>
@@ -606,7 +606,7 @@ export function FilterSidebar({
                       name="hasBeard"
                       checked={filters.hasBeard === false}
                       onChange={() => handleFilterChange("hasBeard", false)}
-                      className="text-blue-500"
+                      className="text-primary"
                     />
                     <span className="text-sm">بدون لحية</span>
                   </label>
@@ -616,7 +616,7 @@ export function FilterSidebar({
                       name="hasBeard"
                       checked={filters.hasBeard === undefined}
                       onChange={() => handleFilterChange("hasBeard", undefined)}
-                      className="text-blue-500"
+                      className="text-primary"
                     />
                     <span className="text-sm">غير محدد</span>
                   </label>
@@ -635,7 +635,7 @@ export function FilterSidebar({
                       name="smokes"
                       checked={filters.smokes === false}
                       onChange={() => handleFilterChange("smokes", false)}
-                      className="text-blue-500"
+                      className="text-primary"
                     />
                     <span className="text-sm">لا يدخن</span>
                   </label>
@@ -645,7 +645,7 @@ export function FilterSidebar({
                       name="smokes"
                       checked={filters.smokes === true}
                       onChange={() => handleFilterChange("smokes", true)}
-                      className="text-blue-500"
+                      className="text-primary"
                     />
                     <span className="text-sm">يدخن</span>
                   </label>
@@ -655,7 +655,7 @@ export function FilterSidebar({
                       name="smokes"
                       checked={filters.smokes === undefined}
                       onChange={() => handleFilterChange("smokes", undefined)}
-                      className="text-blue-500"
+                      className="text-primary"
                     />
                     <span className="text-sm">غير محدد</span>
                   </label>
@@ -672,7 +672,7 @@ export function FilterSidebar({
                   onChange={(e) =>
                     handleFilterChange("financialSituation", e.target.value)
                   }
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 >
                   <option value="">جميع الأوضاع</option>
                   <option value="excellent">ممتاز</option>
@@ -692,7 +692,7 @@ export function FilterSidebar({
                   onChange={(e) =>
                     handleFilterChange("housingType", e.target.value)
                   }
-                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary"
                 >
                   <option value="">جميع الأنواع</option>
                   <option value="independent">مستقل</option>

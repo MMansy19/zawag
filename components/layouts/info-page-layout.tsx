@@ -33,7 +33,7 @@ export function InfoPageLayout({
             <h1 className="text-4xl md:text-5xl font-bold mb-6 font-amiri text-white">
               {title}
             </h1>
-            <p className="text-xl text-blue-100 leading-relaxed max-w-3xl mx-auto">
+            <p className="text-xl text-primary-lighter leading-relaxed max-w-3xl mx-auto">
               {subtitle}
             </p>
           </div>

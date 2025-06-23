@@ -175,9 +175,9 @@ export function ProfileCard({
 
             {/* Gender-specific Information */}
             {isMaleProfile(profile) && (
-              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
-                <h4 className="text-sm font-semibold text-blue-800 mb-3 flex items-center gap-1">
-                  <span className="text-blue-500">👨</span>
+              <div className="bg-gradient-to-r from-primary-subtle to-primary-100 p-4 rounded-lg border border-primary-light">
+                <h4 className="text-sm font-semibold text-primary-safe mb-3 flex items-center gap-1">
+                  <span className="text-primary">👨</span>
                   معلومات الأخ
                 </h4>
                 <div className="grid grid-cols-2 gap-3 text-xs">

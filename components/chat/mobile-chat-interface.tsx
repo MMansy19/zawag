@@ -252,7 +252,7 @@ export function MobileChatInterface({
           </Button>
 
           <div className="flex items-center flex-1 min-w-0">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full sm:flex hidden items-center justify-center mr-3">
+            <div className="w-10 h-10 bg-gradient-to-br from-primary to-purple-500 rounded-full sm:flex hidden items-center justify-center mr-3">
               <User className="h-5 w-5 text-white" />
             </div>
 
@@ -268,7 +268,7 @@ export function MobileChatInterface({
                   {isConnected ? "متصل" : "غير متصل"}
                 </div>
                 {isTyping && (
-                  <span className="text-blue-500 italic">يكتب...</span>
+                  <span className="text-primary italic">يكتب...</span>
                 )}
               </div>
             </div>
@@ -298,7 +298,7 @@ export function MobileChatInterface({
 
         {/* Collapsible Chat Info */}
         {showChatInfo && (
-          <div className="px-3 pb-3 border-t bg-blue-50">
+          <div className="px-3 pb-3 border-t bg-primary-subtle">
             <div className="flex items-center justify-between text-xs text-gray-600 py-2">
               <div className="flex items-center gap-3">
                 <div className="flex items-center">
@@ -309,7 +309,7 @@ export function MobileChatInterface({
                   <Clock className="h-3 w-3 ml-1" />7 أيام
                 </div>
               </div>
-              <div className="text-blue-600 font-medium">
+              <div className="text-primary font-medium">
                 #{requestId.substring(0, 6)}
               </div>
             </div>
@@ -332,14 +332,16 @@ export function MobileChatInterface({
               <div
                 className={`max-w-[85%] px-3 py-2 rounded-2xl shadow-sm ${
                   message.isCurrentUser
-                    ? "bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-br-md"
+                    ? "bg-gradient-to-r from-primary to-primary-hover text-white rounded-br-md"
                     : "bg-white text-gray-800 border border-gray-200 rounded-bl-md"
                 }`}
               >
                 <p className="text-sm leading-relaxed">{message.content}</p>
                 <div
                   className={`flex items-center justify-between mt-1 text-xs ${
-                    message.isCurrentUser ? "text-blue-100" : "text-gray-500"
+                    message.isCurrentUser
+                      ? "text-primary-lighter"
+                      : "text-gray-500"
                   }`}
                 >
                   <span>{formatTime(message.createdAt)}</span>

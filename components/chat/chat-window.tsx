@@ -43,7 +43,7 @@ function MessageBubble({
         </p>
         <div className="flex items-center justify-between mt-1 sm:mt-2">
           <span
-            className={`text-caption ${isCurrentUser ? "text-blue-100" : "text-gray-500"} arabic-optimized`}
+            className={`text-caption ${isCurrentUser ? "text-primary-lighter" : "text-gray-500"} arabic-optimized`}
           >
             {formatTime(message.createdAt)}
           </span>

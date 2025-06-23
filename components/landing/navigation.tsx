@@ -134,7 +134,9 @@ export function LandingNavigation() {
                 quality={100}
                 sizes="(max-width: 768px) 64px, (max-width: 1280px) 80px, 96px"
               />
-              <span className="inline font-display sm:text-xl text-lg">الزواج السعيد</span>
+              <span className="inline font-display sm:text-xl text-lg">
+                الزواج السعيد
+              </span>
             </Link>
           </div>
 
@@ -327,7 +329,7 @@ export function LandingNavigation() {
                   <Link
                     href="/#features"
                     onClick={(e) => handleAnchorClick(e, "features")}
-                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-primary-subtle rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     <Star className="h-6 w-6 text-yellow-500" />
                     <span>المميزات</span>
@@ -335,15 +337,15 @@ export function LandingNavigation() {
                   <Link
                     href="/about"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-primary-subtle rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
-                    <Info className="h-6 w-6 text-blue-500" />
+                    <Info className="h-6 w-6 text-primary" />
                     <span>حولنا</span>
                   </Link>
                   <Link
                     href="/how-we-work"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-primary-subtle rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     <Cog className="h-6 w-6 text-gray-500" />
                     <span>كيف نعمل</span>
@@ -351,7 +353,7 @@ export function LandingNavigation() {
                   <Link
                     href="/terms-privacy"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-primary-subtle rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     <Shield className="h-6 w-6 text-green-500" />
                     <span>الشروط والخصوصية</span>
@@ -359,7 +361,7 @@ export function LandingNavigation() {
                   <Link
                     href="/tips-guidance"
                     onClick={closeMobileMenu}
-                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-primary-subtle rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     <Lightbulb className="h-6 w-6 text-amber-500" />
                     <span>نصائح وإرشادات</span>
@@ -367,7 +369,7 @@ export function LandingNavigation() {
                   <Link
                     href="/#faq"
                     onClick={(e) => handleAnchorClick(e, "faq")}
-                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-primary-subtle rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     <HelpCircle className="h-6 w-6 text-purple-500" />
                     <span>الأسئلة الشائعة</span>
@@ -375,7 +377,7 @@ export function LandingNavigation() {
                   <Link
                     href="/#contact"
                     onClick={(e) => handleAnchorClick(e, "contact")}
-                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-blue-50 rounded-lg transition-all duration-200 hover:translate-x-1"
+                    className="flex items-center gap-4 p-4 text-base font-lg text-gray-700 hover:text-primary hover:bg-primary-subtle rounded-lg transition-all duration-200 hover:translate-x-1"
                   >
                     <Phone className="h-6 w-6 text-emerald-500" />
                     <span>تواصل معنا</span>

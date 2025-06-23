@@ -62,8 +62,8 @@ export function RequestModal({
               </div>
             </div>
 
-            <div className="bg-blue-50 p-3 rounded-md">
-              <p className="text-sm text-blue-800">
+            <div className="bg-primary-subtle p-3 rounded-md">
+              <p className="text-sm text-primary-safe">
                 💡 نصيحة: اكتب رسالة مهذبة ومختصرة تعرف فيها بنفسك ونواياك
                 الجدية
               </p>

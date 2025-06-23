@@ -104,9 +104,9 @@ export default function AboutPage() {
       >
         {/* Mission Statement */}
         <div className="max-w-4xl mx-auto mb-16">
-          <Card className="border-2 border-blue-100 shadow-lg">
+          <Card className="border-2 border-primary-light shadow-lg">
             <CardHeader className="text-center pb-4">
-              <CardTitle className="text-section-title font-heading text-blue-800 mb-2 arabic-optimized">
+              <CardTitle className="text-section-title font-heading text-primary mb-2 arabic-optimized">
                 رسالتنا ورؤيتنا
               </CardTitle>
             </CardHeader>
@@ -133,15 +133,15 @@ export default function AboutPage() {
                 على مجتمعاتنا خاصة منها العربية الاسلامية.
               </p>
 
-              <div className="bg-blue-50 p-6 rounded-lg border border-blue-200 mt-8">
-                <p className="text-body font-medium text-blue-800 mb-4 arabic-optimized text-pretty">
+              <div className="bg-primary-subtle p-6 rounded-lg border border-primary-light mt-8">
+                <p className="text-body font-medium text-primary mb-4 arabic-optimized text-pretty">
                   باختصار نحن نعتزم أن نكون قائدين ونبراسا في هذا الخير لغيرنا و
                   أن يكون نصب أعيننا دوما الالتزام بقيمنا الاسلامية الراقية
                   الأصيلة وتعاليمه الحكيمة المُحكمة المستمدة من كتاب الله وسنة
                   رسوله عليه الصلاة والسلام.
                 </p>
 
-                <p className="text-body text-blue-700 arabic-optimized text-pretty">
+                <p className="text-body text-primary-safe arabic-optimized text-pretty">
                   جاهدين في ذلك أن نحقق النفع لإخواننا وأخواتنا من أهل الصلاح
                   والالتزام خاصة و أن نلبي حاجتهم و حاجة مجتمعنا المسلم عامّة
                   للعفاف والاحصان سائلين المولى عزوجل التوفيق في ذلك والمعونة
@@ -172,7 +172,7 @@ export default function AboutPage() {
               >
                 <CardHeader className="text-center">
                   <div className="w-16 h-16 mx-auto mb-4 bg-white rounded-full flex items-center justify-center shadow-md">
-                    <value.icon className="w-8 h-8 text-blue-600" />
+                    <value.icon className="w-8 h-8 text-primary" />
                   </div>
                   <CardTitle className="text-lg font-bold text-gray-800">
                     {value.title}
@@ -207,8 +207,8 @@ export default function AboutPage() {
               >
                 <CardContent className="p-6">
                   <div className="flex items-start space-x-4 space-x-reverse">
-                    <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
-                      <goal.icon className="w-6 h-6 text-blue-600" />
+                    <div className="w-12 h-12 bg-primary-subtle rounded-full flex items-center justify-center flex-shrink-0">
+                      <goal.icon className="w-6 h-6 text-primary" />
                     </div>
                     <div>
                       <h3 className="text-xl font-bold text-gray-800 mb-3">

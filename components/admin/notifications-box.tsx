@@ -139,7 +139,7 @@ export function NotificationsBox() {
                   key={notification.id}
                   className={`p-4 hover:bg-gray-50 transition-colors ${
                     !notification.read
-                      ? "bg-blue-50 border-r-4 border-blue-400"
+                      ? "bg-primary-subtle border-r-4 border-primary-light"
                       : ""
                   }`}
                 >
@@ -182,7 +182,7 @@ export function NotificationsBox() {
                                 variant="ghost"
                                 size="sm"
                                 onClick={() => markAsRead(notification.id)}
-                                className="text-xs text-blue-600 hover:text-blue-800"
+                                className="text-xs text-primary hover:text-primary-hover"
                               >
                                 تعليم كمقروء
                               </Button>

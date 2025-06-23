@@ -112,7 +112,7 @@ export default function NewStep1Auth({
 
       {/* OTP Verification */}
       {otpSent && (
-        <div className="border rounded-lg p-4 bg-blue-50">
+        <div className="border rounded-lg p-4 bg-primary-subtle">
           <Alert className="mb-4">
             <AlertDescription>
               تم إرسال رمز التحقق إلى بريدك الإلكتروني. يرجى إدخال الرمز أدناه.
@@ -279,9 +279,9 @@ export default function NewStep1Auth({
       )}
 
       {/* Requirements Info */}
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h4 className="font-medium text-blue-900 mb-2">متطلبات هذه الخطوة:</h4>
-        <ul className="space-y-1 text-sm text-blue-700 list-disc list-inside">
+      <div className="bg-primary-subtle p-4 rounded-lg">
+        <h4 className="font-medium text-primary mb-2">متطلبات هذه الخطوة:</h4>
+        <ul className="space-y-1 text-sm text-primary-safe list-disc list-inside">
           <li>بريد إلكتروني صحيح وتأكيده برمز التحقق</li>
           <li>رقم هاتف مع رمز البلد</li>
           <li>كلمة مرور قوية (8 أحرف على الأقل)</li>

@@ -9,7 +9,7 @@ export function LandingStats() {
       number: "1495",
       label: "عدد المتقدمين",
       icon: User,
-      color: "from-blue-500 to-blue-600",
+      color: "from-primary to-primary-hover",
     },
     {
       number: "742",
@@ -68,7 +68,7 @@ export function LandingStats() {
         </div>
 
         <div className="text-center mt-12">
-          <div className="inline-flex items-center bg-gradient-to-r from-green-50 to-blue-50 rounded-full px-8 py-4 shadow-md">
+          <div className="inline-flex items-center bg-gradient-to-r from-green-50 to-primary-subtle rounded-full px-8 py-4 shadow-md">
             <TrendingUp className="w-6 h-6 ml-3 text-green-600" />
             <span className="text-gray-700 font-medium">
               الأرقام في نمو مستمر بفضل الله

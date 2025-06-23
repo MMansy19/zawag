@@ -75,7 +75,7 @@ export function ReportTable() {
 
   const getPriorityBadge = (priority: UserReport["priority"]) => {
     const priorityConfig = {
-      low: { label: "منخفض", className: "bg-blue-100 text-blue-800" },
+      low: { label: "منخفض", className: "bg-primary-subtle text-primary" },
       medium: { label: "متوسط", className: "bg-yellow-100 text-yellow-800" },
       high: { label: "عالي", className: "bg-orange-100 text-orange-800" },
       urgent: { label: "عاجل", className: "bg-red-100 text-red-800" },
@@ -334,7 +334,7 @@ export function ReportTable() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
                       {report.reportDate}
                       {report.assignedTo && (
-                        <div className="text-xs text-blue-600">
+                        <div className="text-xs text-primary">
                           مُسند إلى: {report.assignedTo}
                         </div>
                       )}
@@ -444,7 +444,7 @@ export function ReportTable() {
               {selectedReport.evidence && (
                 <div className="space-y-2">
                   <h4 className="font-medium text-gray-900">الأدلة</h4>
-                  <div className="bg-blue-50 p-3 rounded-lg text-sm">
+                  <div className="bg-primary-subtle p-3 rounded-lg text-sm">
                     {selectedReport.evidence}
                   </div>
                 </div>

@@ -40,9 +40,9 @@ export function DashboardHome() {
       description: "ابحث عن الشريك المناسب باستخدام الفلاتر",
       href: "/dashboard/search",
       icon: "🔍",
-      gradient: "from-blue-500 to-blue-600",
-      bgColor: "bg-gradient-to-br from-blue-50 to-blue-100",
-      hoverColor: "hover:from-blue-100 hover:to-blue-200",
+      gradient: "from-primary to-primary-hover",
+      bgColor: "bg-gradient-to-br from-primary-subtle to-primary-subtle/50",
+      hoverColor: "hover:from-primary-subtle/70 hover:to-primary-subtle",
     },
     {
       title: "طلبات الزواج",
@@ -100,7 +100,7 @@ export function DashboardHome() {
                 📊
               </div>
               <div className="mr-2 sm:mr-3 lg:mr-4 min-w-0 flex-1">
-                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-blue-600 truncate font-display">
+                <p className="text-lg sm:text-xl lg:text-2xl font-bold text-primary truncate font-display">
                   {stats.profileViews}
                 </p>
                 <p className="text-body-small text-text-secondary truncate arabic-optimized">
@@ -282,7 +282,7 @@ export function DashboardHome() {
       </div>
 
       {/* Tips and Guidelines */}
-      <Card className="shadow-xl border-0 bg-gradient-to-br from-white via-gray-50 to-blue-50 overflow-hidden">
+      <Card className="shadow-xl border-0 bg-gradient-to-br from-white via-gray-50 to-primary-subtle overflow-hidden">
         <CardHeader className="bg-gradient-to-r from-primary to-primary-600 text-white p-3 sm:p-4 lg:p-6">
           <h3 className="text-base sm:text-lg lg:text-xl font-semibold flex items-center">
             <span className="text-lg sm:text-xl lg:text-2xl ml-2">💡</span>
@@ -291,7 +291,7 @@ export function DashboardHome() {
         </CardHeader>
         <CardContent className="p-3 sm:p-4 lg:p-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 lg:gap-6">
-            <div className="text-center p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200 hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+            <div className="text-center p-3 sm:p-4 lg:p-6 bg-gradient-to-br from-primary-subtle to-primary-subtle/50 rounded-xl border border-primary-light hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
               <div className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 badge-primary rounded-full flex items-center justify-center text-lg sm:text-xl lg:text-2xl text-white mx-auto mb-2 sm:mb-3 shadow-lg">
                 📝
               </div>

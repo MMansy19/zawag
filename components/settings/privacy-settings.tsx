@@ -65,7 +65,7 @@ export function PrivacySettingsComponent({
   };
 
   const privacyLevels = [
-    { value: "everyone", label: "الجميع", icon: Users, color: "bg-blue-500" },
+    { value: "everyone", label: "الجميع", icon: Users, color: "bg-primary" },
     {
       value: "verified-only",
       label: "الأعضاء المتحققين فقط",
@@ -100,7 +100,7 @@ export function PrivacySettingsComponent({
 
   const getPrivacyColor = (value: string) => {
     const level = privacyLevels.find((l) => l.value === value);
-    return level ? level.color : "bg-blue-500";
+    return level ? level.color : "bg-primary";
   };
 
   const getPrivacyLabel = (value: string) => {

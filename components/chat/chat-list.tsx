@@ -29,7 +29,9 @@ function ChatRoomItem({
     <div
       onClick={onClick}
       className={`p-3 sm:p-4 border-b border-gray-200 cursor-pointer hover:bg-gray-50 transition-colors duration-200 ${
-        isActive ? "bg-blue-50 border-l-4 border-l-primary shadow-sm" : ""
+        isActive
+          ? "bg-primary-subtle border-l-4 border-l-primary shadow-sm"
+          : ""
       }`}
     >
       <div className="flex justify-between items-start mb-2">
