@@ -486,7 +486,7 @@ export const mockSystemSettings: SystemSettings = {
     supportPhone: "+966501234567",
   },
   theme: {
-    primaryColor: "#371048",
+    primaryColor: "#5d1a78",
     secondaryColor: "#4CAF50",
     accentColor: "#FF9800",
     backgroundColor: "#FFFFFF",

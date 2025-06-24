@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --primary-color: #5d1a78;
-  --primary-hover: #4a1660;
-  --primary-light: #7a1e8f;
-  --primary-lighter: #c9a9d4;
-  --primary-dark: #1a0a24;
+  --primary-color: #5d1a78 !important;
+  --primary-hover: #4a1660 !important;
+  --primary-light: #7a1e8f !important;
+  --primary-lighter: #c9a9d4 !important;
+  --primary-dark: #1a0a24 !important;
   --primary-subtle: rgba(55, 16, 72, 0.05);
 
   --primary-50: #f8f5fa;
@@ -1267,7 +1267,6 @@ a:focus-visible {
   }
 }
 
-/* Enhanced Color Utilities for Primary Color System */
 .text-primary {
   color: var(--primary-color);
 }
@@ -1382,7 +1381,6 @@ a:focus-visible {
 .text-primary-contrast {
   color: var(--primary-50);
 }
-
 
 /* Mobile responsive utilities */
 .safe-area-pb {
