@@ -277,18 +277,6 @@ export default function NewStep1Auth({
           <AlertDescription>{error}</AlertDescription>
         </Alert>
       )}
-
-      {/* Requirements Info */}
-      <div className="bg-primary-subtle p-4 rounded-lg">
-        <h4 className="font-medium text-primary mb-2">متطلبات هذه الخطوة:</h4>
-        <ul className="space-y-1 text-sm text-primary-safe list-disc list-inside">
-          <li>بريد إلكتروني صحيح وتأكيده برمز التحقق</li>
-          <li>رقم هاتف مع رمز البلد</li>
-          <li>كلمة مرور قوية (8 أحرف على الأقل)</li>
-          <li>تأكيد كلمة المرور</li>
-          <li>اختيار الجنس</li>
-        </ul>
-      </div>
     </div>
   );
 }

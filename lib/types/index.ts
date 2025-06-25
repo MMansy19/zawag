@@ -382,3 +382,11 @@ export interface ProfileFormData {
     education?: string[];
   };
 }
+
+export interface TermsSection {
+  title: string;
+  items: {
+    label: string;
+    description: string;
+  }[];
+}

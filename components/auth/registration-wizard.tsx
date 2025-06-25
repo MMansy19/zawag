@@ -1,5 +1,5 @@
 "use client";
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
   Card,
@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { useRegistration } from "@/lib/hooks/useRegistration";
 import { Loader2 } from "lucide-react";
+import { TermsDialog } from "@/components/auth/terms-dialog";
 
 // Lazy load step components for code splitting
 const Step1Auth = lazy(
@@ -40,6 +41,9 @@ export function RegistrationWizard({
   className = "",
 }: RegistrationWizardProps) {
   const router = useRouter();
+  const [showTermsDialog, setShowTermsDialog] = useState(true);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+
   const {
     currentStep,
     totalSteps,
@@ -134,6 +138,26 @@ export function RegistrationWizard({
   const handleCancel = () => {
     router.push("/");
   };
+
+  const handleTermsAccept = () => {
+    setTermsAccepted(true);
+    setShowTermsDialog(false);
+  };
+
+  const handleTermsClose = () => {
+    router.push("/");
+  };
+
+  // Show terms dialog first if not accepted
+  if (!termsAccepted) {
+    return (
+      <TermsDialog
+        isOpen={showTermsDialog}
+        onAccept={handleTermsAccept}
+        onClose={handleTermsClose}
+      />
+    );
+  }
 
   return (
     <div
