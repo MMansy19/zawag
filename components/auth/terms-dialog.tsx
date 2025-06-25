@@ -75,9 +75,9 @@ export function TermsDialog({ isOpen, onAccept, onClose }: TermsDialogProps) {
             <h2 className="text-lg sm:text-xl font-bold text-right">
               شروط التسجيل
             </h2>
-            <p className="text-xs sm:text-sm text-gray-600 text-right mt-1">
+            <div className="text-xs sm:text-sm text-gray-600 text-right">
               يرجى القراءة والموافقة على الشروط
-            </p>
+            </div>
           </div>
           <Button
             variant="ghost"
@@ -91,7 +91,7 @@ export function TermsDialog({ isOpen, onAccept, onClose }: TermsDialogProps) {
 
         <CardContent className="flex-1 overflow-hidden p-0">
           <div
-            className="h-96 overflow-y-auto sm:p-6 p-3 text-right"
+            className="md:h-96 h-[55vh] overflow-y-auto sm:p-6 p-3 text-right"
             onScroll={handleScroll}
             dir="rtl"
           >
