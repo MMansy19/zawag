@@ -86,15 +86,18 @@ export default function NewStep2AllData({
               onChange={(e) =>
                 handleInputChange("acceptDeclaration", e.target.checked)
               }
-              className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+              className="h-4 w-4 accent-primary-600 focus:ring-primary-500 border-gray-300 rounded disabled:opacity-50"
+              style={{
+                accentColor: 'var(--primary-color, #5d1a78)'
+              }}
               required
             />
             <label
               htmlFor="acceptDeclaration"
-              className="text-sm text-gray-700 mt-3"
+              className="text-xs sm:text-sm font-medium leading-none transition-colors mt-2"
             >
               أوافق على الإقرار والتعهد أعلاه{" "}
-              <span className="text-red-500">*</span>
+  <span className="text-red-500 mr-1">*</span>
             </label>
           </div>
         </CardContent>
