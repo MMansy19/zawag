@@ -143,7 +143,7 @@ export function TermsDialog({ isOpen, onAccept, onClose }: TermsDialogProps) {
                 disabled={!hasScrolledToBottom}
                 className="h-4 w-4 accent-primary-600 focus:ring-primary-500 border-gray-300 rounded disabled:opacity-50"
                 style={{
-                  accentColor: 'var(--primary-color, #5d1a78)'
+                  accentColor: "var(--primary-color, #5d1a78)",
                 }}
                 required
               />

@@ -88,7 +88,7 @@ export default function NewStep2AllData({
               }
               className="h-4 w-4 accent-primary-600 focus:ring-primary-500 border-gray-300 rounded disabled:opacity-50"
               style={{
-                accentColor: 'var(--primary-color, #5d1a78)'
+                accentColor: "var(--primary-color, #5d1a78)",
               }}
               required
             />
@@ -97,7 +97,7 @@ export default function NewStep2AllData({
               className="text-xs sm:text-sm font-medium leading-none transition-colors mt-2"
             >
               أوافق على الإقرار والتعهد أعلاه{" "}
-  <span className="text-red-500 mr-1">*</span>
+              <span className="text-red-500 mr-1">*</span>
             </label>
           </div>
         </CardContent>
