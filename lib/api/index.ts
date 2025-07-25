@@ -52,7 +52,11 @@ export const authApi = {
     ApiClient.post<void>(
       API_ENDPOINTS.AUTH.LOGOUT, // POST /logout
       {},
-      { headers: { Authorization: `Bearer ${localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)}` } }
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem(STORAGE_KEYS.AUTH_TOKEN)}`,
+        },
+      },
     ),
 
   verifyOTP: (data: OTPFormData) =>
@@ -96,7 +100,10 @@ export const profileApi = {
   updateEducationWork: (data: EducationWorkFormData) =>
     ApiClient.patch<Profile>(`${API_ENDPOINTS.PROFILE.UPDATE}/education`, data),
   updatePreferences: (data: PreferencesFormData) =>
-    ApiClient.patch<Profile>(`${API_ENDPOINTS.PROFILE.UPDATE}/preferences`, data),
+    ApiClient.patch<Profile>(
+      `${API_ENDPOINTS.PROFILE.UPDATE}/preferences`,
+      data,
+    ),
   updateGuardianInfo: (data: GuardianInfoFormData) =>
     ApiClient.patch<Profile>(`${API_ENDPOINTS.PROFILE.UPDATE}/guardian`, data),
   updateBio: (data: BioFormData) =>
@@ -120,7 +127,12 @@ export const searchApi = {
   searchProfiles: (filters: SearchFilters, page = 1, limit = 20) =>
     ApiClient.post<{
       profiles: Profile[];
-      pagination: { page: number; limit: number; total: number; totalPages: number };
+      pagination: {
+        page: number;
+        limit: number;
+        total: number;
+        totalPages: number;
+      };
     }>(API_ENDPOINTS.SEARCH.PROFILES, { filters, page, limit }),
   getFilterOptions: () =>
     ApiClient.get<{
@@ -148,7 +160,9 @@ export const requestsApi = {
   respondToRequest: (data: RespondToRequestFormData) =>
     ApiClient.post<MarriageRequest>(API_ENDPOINTS.REQUESTS.RESPOND, data),
   getRequestById: (requestId: string) =>
-    ApiClient.get<MarriageRequest>(`${API_ENDPOINTS.REQUESTS.GET_BY_ID}/${requestId}`),
+    ApiClient.get<MarriageRequest>(
+      `${API_ENDPOINTS.REQUESTS.GET_BY_ID}/${requestId}`,
+    ),
 };
 
 // Chat API (unchanged)
@@ -158,7 +172,9 @@ export const chatApi = {
     ApiClient.get<{
       messages: Message[];
       pagination: any;
-    }>(`${API_ENDPOINTS.CHAT.GET_MESSAGES}/${chatRoomId}?page=${page}&limit=${limit}`),
+    }>(
+      `${API_ENDPOINTS.CHAT.GET_MESSAGES}/${chatRoomId}?page=${page}&limit=${limit}`,
+    ),
   sendMessage: (data: SendMessageFormData) =>
     ApiClient.post<Message>(API_ENDPOINTS.CHAT.SEND_MESSAGE, data),
   getChatLimits: () => ApiClient.get<ChatLimits>(API_ENDPOINTS.CHAT.GET_LIMITS),
@@ -172,10 +188,14 @@ export const notificationsApi = {
       pagination: any;
     }>(`${API_ENDPOINTS.NOTIFICATIONS.GET}?page=${page}&limit=${limit}`),
   markAsRead: (notificationId: string) =>
-    ApiClient.patch(`${API_ENDPOINTS.NOTIFICATIONS.MARK_READ}/${notificationId}`),
+    ApiClient.patch(
+      `${API_ENDPOINTS.NOTIFICATIONS.MARK_READ}/${notificationId}`,
+    ),
   markAllAsRead: () => ApiClient.patch(API_ENDPOINTS.NOTIFICATIONS.MARK_READ),
   getUnreadCount: () =>
-    ApiClient.get<{ count: number }>(API_ENDPOINTS.NOTIFICATIONS.GET_UNREAD_COUNT),
+    ApiClient.get<{ count: number }>(
+      API_ENDPOINTS.NOTIFICATIONS.GET_UNREAD_COUNT,
+    ),
 };
 
 // Reports API (unchanged)
@@ -190,24 +210,32 @@ export const adminApi = {
     ApiClient.get<{
       users: User[];
       pagination: any;
-    }>(`${API_ENDPOINTS.ADMIN.USERS}?page=${page}&limit=${limit}&${new URLSearchParams(filters).toString()}`),
+    }>(
+      `${API_ENDPOINTS.ADMIN.USERS}?page=${page}&limit=${limit}&${new URLSearchParams(filters).toString()}`,
+    ),
   getUserById: (userId: string) =>
     ApiClient.get<User>(`${API_ENDPOINTS.ADMIN.USERS}/${userId}`),
   performUserAction: (data: AdminUserActionFormData) =>
     ApiClient.post(`${API_ENDPOINTS.ADMIN.USERS}/action`, data),
   suspendUser: (userId: string, reason?: string) =>
-    ApiClient.post(`${API_ENDPOINTS.ADMIN.USERS}/${userId}/suspend`, { reason }),
+    ApiClient.post(`${API_ENDPOINTS.ADMIN.USERS}/${userId}/suspend`, {
+      reason,
+    }),
   activateUser: (userId: string) =>
     ApiClient.post(`${API_ENDPOINTS.ADMIN.USERS}/${userId}/activate`),
   getMarriageRequests: (page = 1, limit = 20, filters?: any) =>
     ApiClient.get<{
       requests: MarriageRequest[];
       pagination: any;
-    }>(`${API_ENDPOINTS.ADMIN.REQUESTS}?page=${page}&limit=${limit}&${new URLSearchParams(filters).toString()}`),
+    }>(
+      `${API_ENDPOINTS.ADMIN.REQUESTS}?page=${page}&limit=${limit}&${new URLSearchParams(filters).toString()}`,
+    ),
   approveRequest: (requestId: string) =>
     ApiClient.post(`${API_ENDPOINTS.ADMIN.REQUESTS}/${requestId}/approve`),
   rejectRequest: (requestId: string, reason?: string) =>
-    ApiClient.post(`${API_ENDPOINTS.ADMIN.REQUESTS}/${requestId}/reject`, { reason }),
+    ApiClient.post(`${API_ENDPOINTS.ADMIN.REQUESTS}/${requestId}/reject`, {
+      reason,
+    }),
   getPendingMessages: (page = 1, limit = 20) =>
     ApiClient.get<{
       messages: Message[];
@@ -221,16 +249,24 @@ export const adminApi = {
   approveMessage: (messageId: string) =>
     ApiClient.post(`${API_ENDPOINTS.ADMIN.MESSAGES}/${messageId}/approve`),
   rejectMessage: (messageId: string, reason?: string) =>
-    ApiClient.post(`${API_ENDPOINTS.ADMIN.MESSAGES}/${messageId}/reject`, { reason }),
+    ApiClient.post(`${API_ENDPOINTS.ADMIN.MESSAGES}/${messageId}/reject`, {
+      reason,
+    }),
   getReports: (page = 1, limit = 20, filters?: any) =>
     ApiClient.get<{
       reports: Report[];
       pagination: any;
-    }>(`${API_ENDPOINTS.ADMIN.REPORTS}?page=${page}&limit=${limit}&${new URLSearchParams(filters).toString()}`),
+    }>(
+      `${API_ENDPOINTS.ADMIN.REPORTS}?page=${page}&limit=${limit}&${new URLSearchParams(filters).toString()}`,
+    ),
   resolveReport: (reportId: string, resolution: string) =>
-    ApiClient.post(`${API_ENDPOINTS.ADMIN.REPORTS}/${reportId}/resolve`, { resolution }),
+    ApiClient.post(`${API_ENDPOINTS.ADMIN.REPORTS}/${reportId}/resolve`, {
+      resolution,
+    }),
   dismissReport: (reportId: string, reason?: string) =>
-    ApiClient.post(`${API_ENDPOINTS.ADMIN.REPORTS}/${reportId}/dismiss`, { reason }),
+    ApiClient.post(`${API_ENDPOINTS.ADMIN.REPORTS}/${reportId}/dismiss`, {
+      reason,
+    }),
   getSettings: () => ApiClient.get<AdminSettings>(API_ENDPOINTS.ADMIN.SETTINGS),
   updateSettings: (data: AdminSettingsFormData) =>
     ApiClient.put<AdminSettings>(API_ENDPOINTS.ADMIN.SETTINGS, data),

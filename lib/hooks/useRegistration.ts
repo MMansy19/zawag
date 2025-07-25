@@ -381,7 +381,7 @@ const useRegistration = (): UseRegistrationResult => {
       }
 
       // Common registration data
-      const baseData: Omit<RegisterRequest, "gender"> = {
+      const baseData = {
         email: state.data.email,
         password: state.data.password,
         firstName: state.data.firstName,
@@ -411,28 +411,34 @@ const useRegistration = (): UseRegistrationResult => {
         preferences: state.data.preferences,
         education: state.data.education,
         occupation: state.data.occupation,
-        prayingLocation: (["both", "mosque", "home", "mosque-when-possible"].includes(state.data.prayingLocation ?? "")
+        prayingLocation: ([
+          "both",
+          "mosque",
+          "home",
+          "mosque-when-possible",
+        ].includes(state.data.prayingLocation ?? "")
           ? state.data.prayingLocation
           : "both") as "both" | "mosque" | "home" | "mosque-when-possible",
-        preferredQualities: typeof state.data.preferredQualities === "string" ? state.data.preferredQualities : "",
-        unpreferredQualities: typeof state.data.unpreferredQualities === "string" ? state.data.unpreferredQualities : "",
-        mahramAvailable: state.data.mahramAvailable ?? false,
-        workAfterMarriage: state.data.workAfterMarriage ?? "",
-        childcarePreference: state.data.childcarePreference ?? "",
-        smokes: state.data.smokes ?? false,
-        financialSituation: state.data.financialSituation ?? "",
+        preferredQualities:
+          typeof state.data.preferredQualities === "string"
+            ? state.data.preferredQualities
+            : "",
+        unpreferredQualities:
+          typeof state.data.unpreferredQualities === "string"
+            ? state.data.unpreferredQualities
+            : "",
+        financialStatus:
+          (state.data.financialSituation as
+            | "good"
+            | "excellent"
+            | "average"
+            | "struggling") ?? "average",
         housingLocation: state.data.housingLocation ?? "",
-        housingOwnership: state.data.housingOwnership ?? "",
-        housingType: state.data.housingType ?? "",
-        isRegularAtMosque: state.data.isRegularAtMosque ?? false,
-        hasBeard: state.data.hasBeard ?? false,
-        otpCode: state.data.otpCode ?? "",
       };
 
       // Gender-specific data
       let registrationData: RegisterRequest;
 
-  
       if (state.data.gender === "female") {
         registrationData = {
           ...baseData,

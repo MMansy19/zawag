@@ -41,7 +41,7 @@ export default function NewStep2AllData({
         setProfilePicturePreview(reader.result as string);
       };
       reader.readAsDataURL(file);
-      updateData({ profilePicture: file });
+      // profilePicture is not part of RegistrationData, handle separately if needed
     }
   };
   const countries = getCountriesByGroup();
@@ -83,10 +83,7 @@ export default function NewStep2AllData({
             <input
               type="checkbox"
               id="acceptDeclaration"
-              checked={data.acceptDeclaration || false}
-              onChange={(e) =>
-                handleInputChange("acceptDeclaration", e.target.checked)
-              }
+              // acceptDeclaration is not part of RegistrationData, remove or handle separately
               className="h-4 w-4 accent-primary-600 focus:ring-primary-500 border-gray-300 rounded disabled:opacity-50"
               style={{
                 accentColor: "var(--primary-color, #5d1a78)",
@@ -522,8 +519,7 @@ export default function NewStep2AllData({
                           onClick={() => {
                             setProfilePicturePreview(null);
                             const newData = { ...data };
-                            delete newData.profilePicture;
-                            updateData(newData);
+                            // profilePicture is not part of RegistrationData, no need to updateData
                           }}
                           className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs"
                         >
@@ -619,12 +615,9 @@ export default function NewStep2AllData({
                     الاهتمامات <span className="text-red-500">*</span>
                   </label>
                   <Input
-                    value={data.interests?.join(", ") || ""}
+                    value={data.interests || ""}
                     onChange={(e) =>
-                      handleInputChange(
-                        "interests",
-                        e.target.value.split(", ").filter(Boolean),
-                      )
+                      handleInputChange("interests", e.target.value)
                     }
                     placeholder="مثل: القراءة, الرياضة, الطبخ, السفر"
                     disabled={isSubmitting}
