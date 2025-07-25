@@ -4,7 +4,7 @@ import { STORAGE_KEYS, ERROR_MESSAGES } from "@/lib/constants";
 
 // Create axios instance with default configuration
 const api: AxiosInstance = axios.create({
-  baseURL: process.env["NEXT_PUBLIC_API_BASE_URL"] || "http://localhost:3000",
+  baseURL: process.env["NEXT_PUBLIC_API_BASE_URL"] || "/api",
   timeout: 10000,
   headers: {
     "Content-Type": "application/json",
@@ -62,7 +62,7 @@ api.interceptors.response.use(
         // Try to refresh token
         const refreshToken = localStorage.getItem(STORAGE_KEYS.REFRESH_TOKEN);
         if (refreshToken) {
-          const response = await axios.post("/api/auth/refresh", {
+          const response = await axios.post(`${process.env["NEXT_PUBLIC_API_BASE_URL"] || "/api"}/auth/refresh`, {
             refreshToken,
           });
 

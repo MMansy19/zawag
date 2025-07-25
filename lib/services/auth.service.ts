@@ -13,7 +13,7 @@ import {
   ValidationError,
 } from "../types/auth.types";
 
-const API_BASE_URL = process.env["NEXT_PUBLIC_API_URL"] || "/api";
+const API_BASE_URL = process.env["NEXT_PUBLIC_API_BASE_URL"] || "/api";
 
 // API Error Handler
 class ApiError extends Error {
