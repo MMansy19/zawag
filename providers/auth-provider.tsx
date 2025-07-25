@@ -143,11 +143,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const response = await authApi.register(data);
 
       if (response.success && response.data) {
-        const { user, token, refreshToken } = response.data;
+        const { user, token } = response.data;
+        // Some APIs may not return refreshToken, so check before using
+        const refreshToken =
+          "refreshToken" in response.data
+            ? response.data.refreshToken
+            : undefined;
 
         // Store auth data
         localStorage.setItem(STORAGE_KEYS.AUTH_TOKEN, token);
-        localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+        if (typeof refreshToken === "string") {
+          localStorage.setItem(STORAGE_KEYS.REFRESH_TOKEN, refreshToken);
+        }
         localStorage.setItem(STORAGE_KEYS.USER_DATA, JSON.stringify(user));
 
         dispatch({ type: "SET_USER", payload: { user } });

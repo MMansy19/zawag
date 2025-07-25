@@ -12,6 +12,7 @@ import {
   AuthenticationError,
   ValidationError,
 } from "../types/auth.types";
+import axios, { AxiosResponse } from 'axios';
 
 const API_BASE_URL = process.env["NEXT_PUBLIC_API_BASE_URL"] || "/api";
 
@@ -27,187 +28,28 @@ class ApiError extends Error {
     this.name = "ApiError";
   }
 }
-
-// HTTP Client with error handling
-class HttpClient {
-  private baseURL: string;
-  private defaultHeaders: Record<string, string>;
-
-  constructor(baseURL: string) {
-    this.baseURL = baseURL;
-    this.defaultHeaders = {
-      "Content-Type": "application/json",
-      Accept: "application/json",
-    };
-  }
-
-  private async request<T>(
-    endpoint: string,
-    options: RequestInit = {},
-  ): Promise<T> {
-    const url = `${this.baseURL}${endpoint}`;
-
-    // Get auth token if available
-    const token =
-      typeof window !== "undefined" ? localStorage.getItem("auth_token") : null;
-
-    const config: RequestInit = {
-      ...options,
-      headers: {
-        ...this.defaultHeaders,
-        ...(token && { Authorization: `Bearer ${token}` }),
-        ...options.headers,
-      },
-    };
-
-    try {
-      const response = await fetch(url, config);
-
-      if (!response.ok) {
-        await this.handleError(response);
-      }
-
-      // Handle empty responses
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        return await response.json();
-      }
-
-      return {} as T;
-    } catch (error) {
-      if (error instanceof ApiError) {
-        throw error;
-      }
-
-      // Network or other errors
-      throw new ApiError(0, "NETWORK_ERROR", "فشل في الاتصال بالخادم", {
-        originalError: error,
-      });
-    }
-  }
-
-  private async handleError(response: Response): Promise<never> {
-    let errorData: any = {};
-
-    try {
-      errorData = await response.json();
-    } catch {
-      // Response doesn't contain JSON
-    }
-
-    const { status } = response;
-    const code = errorData.code || `HTTP_${status}`;
-    const message = errorData.message || this.getDefaultErrorMessage(status);
-    const details = errorData.details || {};
-
-    switch (status) {
-      case 400:
-        if (errorData.fields) {
-          throw new ValidationError(message, errorData.fields);
-        }
-        throw new ApiError(status, code, message, details);
-
-      case 401:
-        // Clear invalid tokens
-        if (typeof window !== "undefined") {
-          localStorage.removeItem("auth_token");
-          localStorage.removeItem("refresh_token");
-        }
-        throw new AuthenticationError(code, message, details);
-
-      case 403:
-        throw new AuthenticationError(code, message, details);
-
-      case 429:
-        throw new ApiError(
-          status,
-          "RATE_LIMIT",
-          "تم تجاوز حد الطلبات، حاول مرة أخرى لاحقاً",
-          details,
-        );
-
-      case 500:
-        throw new ApiError(
-          status,
-          "SERVER_ERROR",
-          "خطأ في الخادم، حاول مرة أخرى لاحقاً",
-          details,
-        );
-
-      default:
-        throw new ApiError(status, code, message, details);
-    }
-  }
-
-  private getDefaultErrorMessage(status: number): string {
-    switch (status) {
-      case 400:
-        return "طلب غير صحيح";
-      case 401:
-        return "غير مصرح لك بهذا الإجراء";
-      case 403:
-        return "ممنوع الوصول";
-      case 404:
-        return "المورد غير موجود";
-      case 429:
-        return "تم تجاوز حد الطلبات";
-      case 500:
-        return "خطأ في الخادم";
-      default:
-        return "حدث خطأ غير متوقع";
-    }
-  }
-
-  async get<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    return this.request<T>(endpoint, { ...options, method: "GET" });
-  }
-  async post<T>(
-    endpoint: string,
-    data?: any,
-    options?: RequestInit,
-  ): Promise<T> {
-    return this.request<T>(endpoint, {
-      ...options,
-      method: "POST",
-      body: data ? JSON.stringify(data) : null,
+const httpClient = {
+  async post<T>(url: string, data: any): Promise<T> {
+    const response: AxiosResponse<T> = await axios.post(url, data, {
+      headers: { 'Content-Type': 'application/json' },
     });
-  }
+    return response.data;
+  },
 
-  async put<T>(
-    endpoint: string,
-    data?: any,
-    options?: RequestInit,
-  ): Promise<T> {
-    return this.request<T>(endpoint, {
-      ...options,
-      method: "PUT",
-      body: data ? JSON.stringify(data) : null,
+  async postFormData<T>(url: string, data: FormData): Promise<T> {
+    const response: AxiosResponse<T> = await axios.post(url, data, {
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
-  }
+    return response.data;
+  },
 
-  async delete<T>(endpoint: string, options?: RequestInit): Promise<T> {
-    return this.request<T>(endpoint, { ...options, method: "DELETE" });
-  }
-
-  async postFormData<T>(
-    endpoint: string,
-    formData: FormData,
-    options?: RequestInit,
-  ): Promise<T> {
-    const headers = { ...options?.headers };
-    delete (headers as any)["Content-Type"]; // Let browser set content-type for FormData
-
-    return this.request<T>(endpoint, {
-      ...options,
-      method: "POST",
-      headers,
-      body: formData,
+  async get<T>(url: string): Promise<T> {
+    const response: AxiosResponse<T> = await axios.get(url, {
+      headers: { 'Content-Type': 'application/json' },
     });
-  }
-}
-
-// Create HTTP client instance
-const httpClient = new HttpClient(API_BASE_URL);
+    return response.data;
+  },
+};
 
 // Auth API Service
 export class AuthApiService {
@@ -217,7 +59,7 @@ export class AuthApiService {
   async login(data: LoginRequest): Promise<LoginResponse> {
     try {
       const response = await httpClient.post<LoginResponse>(
-        "/auth/login",
+        `${API_BASE_URL}/login`,
         data,
       );
 
@@ -241,62 +83,29 @@ export class AuthApiService {
     }
   }
 
-  /**
+ /**
    * User registration
    */
-  async register(data: RegisterRequest): Promise<RegisterResponse> {
+  async register(data: FormData): Promise<RegisterResponse> {
     try {
-      // TEMPORARY MOCK - Remove when backend is ready
-      console.log("Mock registration data:", data);
-
-      // Simulate API delay
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      // Return mock successful response
-      return {
-        message: "تم إنشاء الحساب بنجاح",
-        user: {
-          id: "mock-user-" + Date.now(),
-          email: data.email,
-          emailVerified: true,
-          firstName: data.firstName,
-          lastName: data.lastName,
-          role: "user" as const,
-          status: "active" as const,
-          createdAt: new Date().toISOString(),
-          updatedAt: new Date().toISOString(),
-        },
-        requiresVerification: false,
-      };
-
-      // END MOCK - Original code below (commented out)
-      /*
-      const formData = new FormData();
-
-      // Add text fields
-      Object.entries(data).forEach(([key, value]) => {
-        if (key === "profilePicture") return; // Handle separately
-        if (key === "preferences") {
-          formData.append(key, JSON.stringify(value));
-        } else if (value !== null && value !== undefined) {
-          formData.append(key, String(value));
-        }
-      });
-
-      // Add profile picture if exists
-      if (data.profilePicture) {
-        formData.append("profilePicture", data.profilePicture);
-      }
-
       const response = await httpClient.postFormData<RegisterResponse>(
-        "/auth/register",
-        formData,
+        `${API_BASE_URL}/register`,
+        data,
       );
       return response;
-      */
-    } catch (error) {
+    } catch (error: any) {
       console.error("Registration error:", error);
-      throw error;
+      if (error.code === "ERR_NETWORK") {
+        throw new Error("Network error: Unable to connect to the registration server. Please check your internet connection or contact support.");
+      }
+      if (error.response?.data) {
+        const { message, fields } = error.response.data;
+        if (fields) {
+          throw new ValidationError(message || "Validation failed", fields);
+        }
+        throw new AuthenticationError("REGISTRATION_FAILED", message || "Registration failed");
+      }
+      throw new Error("An unexpected error occurred during registration");
     }
   }
 
@@ -425,7 +234,7 @@ export class AuthApiService {
       // END MOCK - Original code below (commented out)
       /*
       const response = await httpClient.post<VerifyOTPResponse>(
-        "/auth/verify-otp",
+        "/verify-otp",
         data,
       );
 
@@ -460,7 +269,7 @@ export class AuthApiService {
 
       // END MOCK - Original code below (commented out)
       /*
-      return await httpClient.post("/auth/resend-otp", { email });
+      return await httpClient.post("/resend-otp", { email });
       */
     } catch (error) {
       console.error("Resend OTP error:", error);
@@ -474,7 +283,7 @@ export class AuthApiService {
   async refreshToken(refreshToken: string): Promise<RefreshTokenResponse> {
     try {
       const response = await httpClient.post<RefreshTokenResponse>(
-        "/auth/refresh",
+        `${API_BASE_URL}/refresh`,
         {
           refreshToken,
         },
@@ -509,7 +318,8 @@ export class AuthApiService {
     data: ForgotPasswordRequest,
   ): Promise<{ message: string }> {
     try {
-      return await httpClient.post("/auth/forgot-password", data);
+      return await httpClient.post(
+        `${API_BASE_URL}//forgot-password`, data);
     } catch (error) {
       console.error("Forgot password error:", error);
       throw error;
@@ -523,7 +333,8 @@ export class AuthApiService {
     data: ResetPasswordRequest,
   ): Promise<{ message: string }> {
     try {
-      return await httpClient.post("/auth/reset-password", data);
+      return await httpClient.post(
+        `${API_BASE_URL}/reset-password`, data);
     } catch (error) {
       console.error("Reset password error:", error);
       throw error;
@@ -541,7 +352,7 @@ export class AuthApiService {
           : null;
 
       if (refreshToken) {
-        await httpClient.post("/auth/logout", { refreshToken });
+        await httpClient.post(`${API_BASE_URL}/logout`, { refreshToken });
       }
     } catch (error) {
       console.error("Logout error:", error);
@@ -562,7 +373,7 @@ export class AuthApiService {
    */
   async getCurrentUser(): Promise<{ user: any; profile: any }> {
     try {
-      return await httpClient.get("/auth/me");
+      return await httpClient.get(`${API_BASE_URL}/me`);
     } catch (error) {
       console.error("Get current user error:", error);
       throw error;

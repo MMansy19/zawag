@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     "الخطوبة",
     "الزفاف الإسلامي",
   ],
-  authors: [{ name: "فريق الزواج السعيد", url: "https://zawaj.com" }],
+  authors: [{ name: "فريق الزواج السعيد", url: "https://alzawajalsaeid.vercel.app/" }],
   creator: "الزواج السعيد",
   publisher: "الزواج السعيد",
   applicationName: "الزواج السعيد",

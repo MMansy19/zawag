@@ -317,7 +317,7 @@ const useRegistration = (): UseRegistrationResult => {
 
   const nextStep = useCallback(async (): Promise<boolean> => {
     const isValid = await validateCurrentStep();
-    if (!isValid) return false;
+    // if (!isValid) return false;
 
     dispatch({ type: "MARK_STEP_COMPLETED", payload: state.currentStep });
 
@@ -466,9 +466,36 @@ const useRegistration = (): UseRegistrationResult => {
         } as MaleRegisterRequest;
       }
 
-      // Call API (expects RegisterRequest object)
-      const response = await authApiService.register(registrationData);
-
+      // Convert registrationData to FormData
+      const formData = new FormData();
+      Object.entries(registrationData).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((item, idx) => {
+            formData.append(`${key}[${idx}]`, item);
+          });
+        } else if (typeof value === "object" && value !== null) {
+          // For nested objects like preferences
+          Object.entries(value).forEach(([subKey, subValue]) => {
+            if (typeof subValue === "object" && subValue !== null) {
+              Object.entries(subValue).forEach(([deepKey, deepValue]) => {
+                formData.append(`${key}[${subKey}][${deepKey}]`, deepValue as any);
+              });
+            } else {
+              formData.append(`${key}[${subKey}]`, subValue as any);
+            }
+          });
+        } else {
+          formData.append(key, value as any);
+        }
+      });
+      // Attach profile picture if present
+      if (state.profilePicture) {
+        formData.append("profilePicture", state.profilePicture);
+      }
+      // Call API (expects FormData object)
+      const response = await authApiService.register(formData);
+      console.log("Submitting registration with data:", registrationData);
+      console.log("Registration response:", response);
       if (response.requiresVerification) {
         showToast.success("تم إنشاء الحساب، يرجى تأكيد بريدك الإلكتروني");
       } else {

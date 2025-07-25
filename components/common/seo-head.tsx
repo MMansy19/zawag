@@ -29,7 +29,7 @@ export function SEOHead({
   keywords = [],
   structuredData,
 }: SEOProps) {
-  const baseUrl = process.env["NEXT_PUBLIC_APP_URL"] || "http://localhost:3000";
+  const baseUrl = process.env["NEXT_PUBLIC_APP_URL"];
   const fullTitle = title
     ? `${title} | الزواج السعيد`
     : "الزواج السعيد - منصة الزواج الإسلامية";
