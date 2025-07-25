@@ -3,8 +3,6 @@ import {
   Profile,
   MaleProfile,
   FemaleProfile,
-  isMaleProfile,
-  isFemaleProfile,
 } from "@/lib/types";
 import { PrivacySettings } from "@/lib/types/auth.types";
 

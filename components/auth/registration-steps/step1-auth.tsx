@@ -7,11 +7,12 @@ import { OTPInput } from "@/components/ui/otp-input";
 import Phone from "@/components/ui/phone-number";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { RegisterRequest } from "@/lib/types/auth.types";
+import { RegistrationData } from "@/lib/types";
 import { getCountriesByGroup } from "@/lib/static-data";
 
 interface NewStep1AuthProps {
-  data: Partial<RegisterRequest>;
-  updateData: (data: Partial<RegisterRequest>) => void;
+  data: RegistrationData;
+  updateData: (data: Partial<RegistrationData>) => void;
   error: string | null;
   clearError: () => void;
   isSubmitting: boolean;

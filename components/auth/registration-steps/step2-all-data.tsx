@@ -4,13 +4,14 @@ import { Input } from "@/components/ui/input";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import Phone from "@/components/ui/phone-number";
 import { RegisterRequest } from "@/lib/types/auth.types";
+import { RegistrationData } from "@/lib/types";
 import { getCountriesByGroup } from "@/lib/static-data";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Upload, X } from "lucide-react";
 
 interface NewStep2AllDataProps {
-  data: Partial<RegisterRequest>;
-  updateData: (data: Partial<RegisterRequest>) => void;
+  data: RegistrationData;
+  updateData: (data: Partial<RegistrationData>) => void;
   error: string | null;
   clearError: () => void;
   isSubmitting: boolean;

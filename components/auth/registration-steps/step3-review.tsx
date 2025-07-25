@@ -3,12 +3,13 @@ import React from "react";
 import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { RegisterRequest } from "@/lib/types/auth.types";
+import { RegistrationData } from "@/lib/types";
 import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Edit, User, MapPin, Heart, Settings, Info } from "lucide-react";
 
 interface NewStep3ReviewProps {
-  data: Partial<RegisterRequest>;
-  updateData: (data: Partial<RegisterRequest>) => void;
+  data: RegistrationData;
+  updateData: (data: Partial<RegistrationData>) => void;
   error: string | null;
   clearError: () => void;
   isSubmitting: boolean;
@@ -336,7 +337,11 @@ export default function NewStep3Review({
               <label className="text-sm font-medium text-gray-500">
                 الاهتمامات
               </label>
-              <p className="text-gray-900">{data.interests?.join(", ")}</p>
+              <p className="text-gray-900">
+                {Array.isArray(data.interests)
+                  ? data.interests.join(", ")
+                  : data.interests || ""}
+              </p>
             </div>
             <div>
               <label className="text-sm font-medium text-gray-500">

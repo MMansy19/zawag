@@ -225,12 +225,72 @@ export interface ApiResponse<T = any> {
   };
 }
 
-// Form Types
-export interface RegisterFormData {
-  emailOrPhone: string;
+interface ProfilePreferences {
+  ageRange: { min: number; max: number };
+}
+
+export interface RegistrationData {
+  preferredQualities?: string;
+  unpreferredQualities?: string;
+  // Common fields
+  email: string;
   password: string;
-  confirmPassword: string;
-  agreeToTerms: boolean;
+  firstName: string;
+  lastName: string;
+  age: number;
+  gender: 'male' | 'female';
+  country: string;
+  city: string;
+  nationality: string;
+  maritalStatus: 'single' | 'divorced' | 'widowed';
+  religiousLevel: 'practicing' | 'basic' | 'very-religious' | 'moderate';
+  isPrayerRegular: boolean;
+  areParentsAlive: 'both' | 'father' | 'mother' | 'none';
+  parentRelationship: 'excellent' | 'good' | 'average' | 'poor';
+  wantsChildren: 'yes' | 'no' | 'maybe';
+  height: number;
+  weight: number;
+  appearance: 'average' | 'very-attractive' | 'attractive' | 'simple';
+  skinColor: 'fair' | 'medium' | 'olive' | 'dark';
+  bodyType: 'average' | 'slim' | 'athletic' | 'heavy';
+  interests: string; // Comma-separated string
+  marriageGoals: string;
+  personalityDescription: string;
+  familyPlans: string;
+  relocationPlans: string;
+  marriageTimeline: string;
+  preferences: ProfilePreferences;
+  education?: string;
+  occupation?: string;
+  bio?: string;
+  phone?: string;
+  otpCode?: string;
+
+  // Female-specific fields
+  guardianName?: string;
+  guardianPhone?: string;
+  guardianRelationship?: string;
+  guardianEmail?: string;
+  guardianNotes?: string;
+  wearHijab?: boolean;
+  wearNiqab?: boolean;
+  clothingStyle?: string;
+  prayingLocation?: string;
+  mahramAvailable?: boolean;
+  workAfterMarriage?: string;
+  childcarePreference?: string;
+
+  // Male-specific fields
+  hasBeard?: boolean;
+  isRegularAtMosque?: boolean;
+  smokes?: boolean;
+  financialSituation?: string;
+  housingLocation?: string;
+  housingOwnership?: string;
+  housingType?: string;
+  monthlyIncome?: number;
+  providerView?: string;
+  householdChores?: string;
 }
 
 export interface OTPVerificationData {
