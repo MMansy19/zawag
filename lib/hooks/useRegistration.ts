@@ -10,7 +10,6 @@ import {
   ValidationError,
 } from "@/lib/types/auth.types";
 import { RegistrationData, RequestBody  } from "@/lib/types";
-import { escape } from "querystring";
 
 
 // Registration State Management
@@ -153,7 +152,7 @@ interface UseRegistrationResult {
   updateData: (data: Partial<RegistrationData>) => void;
   setProfilePicture: (file: File | null) => void;
   sendOTP: () => Promise<boolean>;
-  submitRegistration: (step?: string) => Promise<boolean>;
+  submitRegistration: () => Promise<boolean>;
   reset: () => void;
   clearError: () => void;
   validateCurrentStep: () => Promise<boolean>;
@@ -379,7 +378,7 @@ const useRegistration = (): UseRegistrationResult => {
     }
   }, [state.data.email, handleError]);
 
-  const submitRegistration = useCallback(async (step?: string): Promise<boolean> => {
+  const submitRegistration = useCallback(async (): Promise<boolean> => {
     try {
       dispatch({ type: "SET_SUBMITTING", payload: true });
       dispatch({ type: "SET_ERROR", payload: null });
@@ -390,7 +389,6 @@ const useRegistration = (): UseRegistrationResult => {
         showToast.error("يرجى ملء جميع الحقول المطلوبة بشكل صحيح");
         return false;
       }
-      if (step === "step1") {
         let registrationData: RequestBody = {
           firstname: state.data.firstname,
           lastname: state.data.lastname,
@@ -434,133 +432,6 @@ const useRegistration = (): UseRegistrationResult => {
       }
 
       return true;
-      }
-else{
-      // Common registration data
-      const baseData = {
-        email: state.data.email,
-        password: state.data.password,
-        firstname: state.data.firstname,
-        lastname: state.data.lastname,
-        age: state.data.age,
-        phone: state.data.phone ?? "",
-        country: state.data.country,
-        city: state.data.city,
-        nationality: state.data.nationality,
-        maritalStatus: state.data.maritalStatus,
-        religiousLevel: state.data.religiousLevel,
-        isPrayerRegular: state.data.isPrayerRegular,
-        areParentsAlive: state.data.areParentsAlive,
-        parentRelationship: state.data.parentRelationship,
-        wantsChildren: state.data.wantsChildren,
-        height: state.data.height,
-        weight: state.data.weight,
-        appearance: state.data.appearance,
-        skinColor: state.data.skinColor,
-        bodyType: state.data.bodyType,
-        interests: state.data.interests.split(",").map((item) => item.trim()),
-        marriageGoals: state.data.marriageGoals,
-        personalityDescription: state.data.personalityDescription,
-        familyPlans: state.data.familyPlans,
-        relocationPlans: state.data.relocationPlans,
-        marriageTimeline: state.data.marriageTimeline,
-        preferences: state.data.preferences,
-        education: state.data.education,
-        occupation: state.data.occupation,
-        prayingLocation: ([
-          "both",
-          "mosque",
-          "home",
-          "mosque-when-possible",
-        ].includes(state.data.prayingLocation ?? "")
-          ? state.data.prayingLocation
-          : "both") as "both" | "mosque" | "home" | "mosque-when-possible",
-        preferredQualities:
-          typeof state.data.preferredQualities === "string"
-            ? state.data.preferredQualities
-            : "",
-        unpreferredQualities:
-          typeof state.data.unpreferredQualities === "string"
-            ? state.data.unpreferredQualities
-            : "",
-        financialStatus:
-          (state.data.financialSituation as
-            | "good"
-            | "excellent"
-            | "average"
-            | "struggling") ?? "average",
-        housingLocation: state.data.housingLocation ?? "",
-      };
-
-      // Gender-specific data
-      let registrationData: RegisterRequest;
-
-      if (state.data.gender === "f") {
-        registrationData = {
-          ...baseData,
-          gender: "f",
-          guardianName: state.data.guardianName ?? "",
-          guardianPhone: state.data.guardianPhone ?? "",
-          guardianRelationship: state.data.guardianRelationship ?? "",
-          wearHijab: state.data.wearHijab ?? false,
-          wearNiqab: state.data.wearNiqab ?? false,
-          clothingStyle: state.data.clothingStyle ?? "",
-          prayingLocation: state.data.prayingLocation,
-          guardianEmail: state.data.guardianEmail ?? "",
-          guardianNotes: state.data.guardianNotes ?? "",
-          workAfterMarriage: state.data.workAfterMarriage ?? "",
-        } as FemaleRegisterRequest;
-      } else {
-        registrationData = {
-          ...baseData,
-          hasBeard: state.data.hasBeard,
-          prayingLocation: state.data.prayingLocation,
-          financialSituation: state.data.financialSituation,
-          housingLocation: state.data.housingLocation,
-          housingOwnership: state.data.housingOwnership,
-          monthlyIncome: state.data.monthlyIncome,
-        } as MaleRegisterRequest;
-      }
-
-      // Convert registrationData to FormData
-      const formData = new FormData();
-      Object.entries(registrationData).forEach(([key, value]) => {
-        if (Array.isArray(value)) {
-          value.forEach((item, idx) => {
-            formData.append(`${key}[${idx}]`, item);
-          });
-        } else if (typeof value === "object" && value !== null) {
-          // For nested objects like preferences
-          Object.entries(value).forEach(([subKey, subValue]) => {
-            if (typeof subValue === "object" && subValue !== null) {
-              Object.entries(subValue).forEach(([deepKey, deepValue]) => {
-                formData.append(`${key}[${subKey}][${deepKey}]`, deepValue as any);
-              });
-            } else {
-              formData.append(`${key}[${subKey}]`, subValue as any);
-            }
-          });
-        } else {
-          formData.append(key, value as any);
-        }
-      });
-      // Attach profile picture if present
-      if (state.profilePicture) {
-        formData.append("profilePicture", state.profilePicture);
-      }
-      // Call API (expects FormData object)
-      const response = await authApiService.register(formData);
-      console.log("Submitting registration with data:", registrationData);
-      console.log("Registration response:", response);
-      if (response.requiresVerification) {
-        showToast.success("تم إنشاء الحساب، يرجى تأكيد بريدك الإلكتروني");
-      } else {
-        showToast.success("تم إنشاء الحساب بنجاح");
-      }
-
-      return true;
-}
-
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || "فشل التسجيل، يرجى المحاولة مرة أخرى";
