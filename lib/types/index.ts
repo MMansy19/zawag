@@ -229,16 +229,26 @@ interface ProfilePreferences {
   ageRange: { min: number; max: number };
 }
 
+export interface RequestBody {
+  firstname: string;
+  lastname: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+  gender: "m" | "f";
+  agree: boolean;
+}
+
 export interface RegistrationData {
   preferredQualities?: string;
   unpreferredQualities?: string;
   // Common fields
   email: string;
   password: string;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   age: number;
-  gender: "male" | "female";
+  gender: "m" | "f";
   country: string;
   city: string;
   nationality: string;
@@ -303,7 +313,7 @@ export interface ProfileBuilderData {
   basicInfo: {
     name: string;
     age: number;
-    gender: "male" | "female";
+    gender: "m" | "f";
     country: string;
     city: string;
     nationality: string;
@@ -416,7 +426,7 @@ export interface ThemeConfig {
 export interface ProfileFormData {
   name?: string;
   age?: number;
-  gender?: "male" | "female";
+  gender?: "m" | "f";
   maritalStatus?: "single" | "divorced" | "widowed";
   country?: string;
   city?: string;

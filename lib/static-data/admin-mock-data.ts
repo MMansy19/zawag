@@ -4,7 +4,7 @@ export interface User {
   id: string;
   name: string;
   email: string;
-  gender: "male" | "female";
+  gender: "m" | "f";
   age: number;
   country: string;
   city: string;
@@ -56,7 +56,7 @@ export interface ActiveChat {
   participants: {
     id: string;
     name: string;
-    gender: "male" | "female";
+    gender: "m" | "f";
     age: number;
   }[];
   startDate: string;
@@ -149,7 +149,7 @@ export const mockUsers: User[] = [
     id: "1",
     name: "أحمد محمد علي",
     email: "ahmed.mohamed@example.com",
-    gender: "male",
+    gender: "m",
     age: 28,
     country: "السعودية",
     city: "الرياض",
@@ -165,7 +165,7 @@ export const mockUsers: User[] = [
     id: "2",
     name: "فاطمة عبدالله",
     email: "fatima.abdullah@example.com",
-    gender: "female",
+    gender: "f",
     age: 25,
     country: "الإمارات",
     city: "دبي",
@@ -181,7 +181,7 @@ export const mockUsers: User[] = [
     id: "3",
     name: "محمد عبدالرحمن",
     email: "mohammed.abdelrahman@example.com",
-    gender: "male",
+    gender: "m",
     age: 32,
     country: "مصر",
     city: "القاهرة",
@@ -197,7 +197,7 @@ export const mockUsers: User[] = [
     id: "4",
     name: "عائشة حسن",
     email: "aisha.hassan@example.com",
-    gender: "female",
+    gender: "f",
     age: 27,
     country: "الأردن",
     city: "عمان",
@@ -213,7 +213,7 @@ export const mockUsers: User[] = [
     id: "5",
     name: "يوسف أحمد",
     email: "youssef.ahmed@example.com",
-    gender: "male",
+    gender: "m",
     age: 30,
     country: "المغرب",
     city: "الرباط",
@@ -334,8 +334,8 @@ export const mockActiveChats: ActiveChat[] = [
   {
     id: "chat_1",
     participants: [
-      { id: "1", name: "أحمد محمد علي", gender: "male", age: 28 },
-      { id: "2", name: "فاطمة عبدالله", gender: "female", age: 25 },
+      { id: "1", name: "أحمد محمد علي", gender: "m", age: 28 },
+      { id: "2", name: "فاطمة عبدالله", gender: "f", age: 25 },
     ],
     startDate: "2024-12-10",
     lastMessageDate: "2024-12-15",
@@ -347,8 +347,8 @@ export const mockActiveChats: ActiveChat[] = [
   {
     id: "chat_2",
     participants: [
-      { id: "5", name: "يوسف أحمد", gender: "male", age: 30 },
-      { id: "2", name: "فاطمة عبدالله", gender: "female", age: 25 },
+      { id: "5", name: "يوسف أحمد", gender: "m", age: 30 },
+      { id: "2", name: "فاطمة عبدالله", gender: "f", age: 25 },
     ],
     startDate: "2024-12-02",
     lastMessageDate: "2024-12-14",
@@ -360,8 +360,8 @@ export const mockActiveChats: ActiveChat[] = [
   {
     id: "chat_3",
     participants: [
-      { id: "3", name: "محمد عبدالرحمن", gender: "male", age: 32 },
-      { id: "4", name: "عائشة حسن", gender: "female", age: 27 },
+      { id: "3", name: "محمد عبدالرحمن", gender: "m", age: 32 },
+      { id: "4", name: "عائشة حسن", gender: "f", age: 27 },
     ],
     startDate: "2024-12-08",
     lastMessageDate: "2024-12-12",

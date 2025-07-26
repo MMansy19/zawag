@@ -53,13 +53,13 @@ export const registrationStep1Schema = z
   });
 
 export const registrationStep2Schema = z.object({
-  firstName: nameSchema,
-  lastName: nameSchema,
+  firstname: nameSchema,
+  lastname: nameSchema,
   age: z
     .number()
     .min(18, "العمر يجب أن يكون 18 سنة على الأقل")
     .max(80, "العمر يجب أن يكون أقل من 80 سنة"),
-  gender: z.enum(["male", "female"], {
+  gender: z.enum(["m", "f"], {
     required_error: "الجنس مطلوب",
   }),
   country: z.string().min(1, "البلد مطلوب"),
@@ -177,13 +177,13 @@ export const registrationStepFemalePreferencesSchema = z.object({
 export const completeRegistrationSchema = z.object({
   email: emailSchema,
   password: passwordSchema,
-  firstName: nameSchema,
-  lastName: nameSchema,
+  firstname: nameSchema,
+  lastname: nameSchema,
   age: z
     .number()
     .min(18, "العمر يجب أن يكون 18 سنة على الأقل")
     .max(80, "العمر يجب أن يكون أقل من 80 سنة"),
-  gender: z.enum(["male", "female"], {
+  gender: z.enum(["m", "f"], {
     required_error: "الجنس مطلوب",
   }),
   country: z.string().min(1, "البلد مطلوب"),
@@ -257,8 +257,8 @@ export const resetPasswordSchema = z
 
 // Update Profile Schema
 export const updateProfileSchema = z.object({
-  firstName: nameSchema.optional(),
-  lastName: nameSchema.optional(),
+  firstname: nameSchema.optional(),
+  lastname: nameSchema.optional(),
   age: z.number().min(18).max(80).optional(),
   city: z.string().min(1).optional(),
   nationality: z.string().min(1).optional(),
@@ -318,9 +318,9 @@ export const getStepSchema = (step: number, gender?: string) => {
       return registrationStep4Schema;
     case 5:
       // Gender-specific step
-      if (gender === "male") {
+      if (gender === "m") {
         return registrationStepMaleFinancialSchema;
-      } else if (gender === "female") {
+      } else if (gender === "f") {
         return registrationStepFemalePreferencesSchema;
       }
       return registrationStep5Schema; // Fallback to bio step

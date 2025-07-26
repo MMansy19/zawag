@@ -19,7 +19,7 @@ const StepPhoto = ({
   setProfilePicture: (file: File | null) => void;
 }) => {
   // Additional safeguard: This component should not render for female users
-  if (data.gender === "female") {
+  if (data.gender === "f") {
     return (
       <div className="text-center py-8">
         <p className="text-gray-600">هذه الخطوة مخصصة للمستخدمين للإخوة فقط</p>

@@ -30,7 +30,7 @@ const createMaleProfile = (profileData: Partial<MaleProfile>): MaleProfile => {
     userId: profileData.userId || "",
     name: profileData.name || "",
     age: profileData.age || 25,
-    gender: "male",
+    gender: "m",
     country: profileData.country || "السعودية",
     city: profileData.city || "الرياض",
     nationality: profileData.nationality || "سعودي",
@@ -104,7 +104,7 @@ const createFemaleProfile = (
     userId: profileData.userId || "",
     name: profileData.name || "",
     age: profileData.age || 23,
-    gender: "female",
+    gender: "f",
     country: profileData.country || "السعودية",
     city: profileData.city || "الرياض",
     nationality: profileData.nationality || "سعودي",
@@ -200,7 +200,7 @@ export const staticMaleProfiles: Profile[] = [
     userId: "search_male_002",
     name: "د. محمد سعد الغامدي",
     age: 33,
-    gender: "male",
+    gender: "m",
     city: "جدة",
     country: "السعودية",
     nationality: "سعودي",
@@ -222,7 +222,7 @@ export const staticMaleProfiles: Profile[] = [
     userId: "search_male_003",
     name: "خالد عمر الحربي",
     age: 27,
-    gender: "male",
+    gender: "m",
     city: "الدمام",
     country: "السعودية",
     nationality: "سعودي",
@@ -244,7 +244,7 @@ export const staticMaleProfiles: Profile[] = [
     userId: "search_male_004",
     name: "أحمد محمد الشهري",
     age: 31,
-    gender: "male",
+    gender: "m",
     city: "أبها",
     country: "السعودية",
     nationality: "سعودي",
@@ -266,7 +266,7 @@ export const staticMaleProfiles: Profile[] = [
     userId: "search_male_005",
     name: "يوسف علي القحطاني",
     age: 26,
-    gender: "male",
+    gender: "m",
     city: "الطائف",
     country: "السعودية",
     nationality: "سعودي",
@@ -288,7 +288,7 @@ export const staticMaleProfiles: Profile[] = [
     userId: "search_male_006",
     name: "سالم راشد الزهراني",
     age: 35,
-    gender: "male",
+    gender: "m",
     city: "مكة المكرمة",
     country: "السعودية",
     nationality: "سعودي",
@@ -314,7 +314,7 @@ export const staticFemaleProfiles: Profile[] = [
     userId: "search_female_001",
     name: "فاطمة عبدالله السليمان",
     age: 25,
-    gender: "female",
+    gender: "f",
     city: "الرياض",
     country: "السعودية",
     nationality: "سعودية",
@@ -336,7 +336,7 @@ export const staticFemaleProfiles: Profile[] = [
     userId: "search_female_002",
     name: "عائشة محمد الدوسري",
     age: 28,
-    gender: "female",
+    gender: "f",
     city: "الخبر",
     country: "السعودية",
     nationality: "سعودية",
@@ -358,7 +358,7 @@ export const staticFemaleProfiles: Profile[] = [
     userId: "search_female_003",
     name: "خديجة سعد النجار",
     age: 24,
-    gender: "female",
+    gender: "f",
     city: "جدة",
     country: "السعودية",
     nationality: "سعودية",
@@ -380,7 +380,7 @@ export const staticFemaleProfiles: Profile[] = [
     userId: "search_female_004",
     name: "مريم أحمد الحربي",
     age: 30,
-    gender: "female",
+    gender: "f",
     city: "المدينة المنورة",
     country: "السعودية",
     nationality: "سعودية",
@@ -402,7 +402,7 @@ export const staticFemaleProfiles: Profile[] = [
     userId: "search_female_005",
     name: "زينب عمر الشمري",
     age: 26,
-    gender: "female",
+    gender: "f",
     city: "حائل",
     country: "السعودية",
     nationality: "سعودية",
@@ -424,7 +424,7 @@ export const staticFemaleProfiles: Profile[] = [
     userId: "search_female_006",
     name: "أسماء محمد الغامدي",
     age: 27,
-    gender: "female",
+    gender: "f",
     city: "الباحة",
     country: "السعودية",
     nationality: "سعودية",
@@ -519,10 +519,10 @@ export const filterProfiles = (
 
 // Gender-based filtering functions
 export const getProfilesForUser = (
-  userGender: "male" | "female",
+  userGender: "m" | "f",
 ): Profile[] => {
   // Males can only see female profiles, females can only see male profiles
-  if (userGender === "male") {
+  if (userGender === "m") {
     return staticFemaleProfiles;
   } else {
     return staticMaleProfiles;
@@ -532,7 +532,7 @@ export const getProfilesForUser = (
 // Enhanced search function with gender-based filtering
 export const searchProfilesForUser = (
   filters: SearchFilters,
-  userGender: "male" | "female",
+  userGender: "m" | "f",
   viewer?: ViewerContext,
 ): Profile[] => {
   // Get the appropriate profiles based on user gender
@@ -547,7 +547,7 @@ export const searchProfilesForUser = (
   filteredProfiles = filterProfiles(filteredProfiles, filters);
 
   // Apply gender-specific filters
-  if (userGender === "male") {
+  if (userGender === "m") {
     // Male user viewing female profiles - apply female-specific filters
     const femaleProfiles = filteredProfiles as FemaleProfile[];
 
@@ -613,7 +613,7 @@ export const searchProfilesForUser = (
 // Quick filter presets with gender-based filtering
 export const getQuickFilteredProfiles = (
   filterType: string,
-  userGender: "male" | "female",
+  userGender: "m" | "f",
   count: number = 6,
 ): Profile[] => {
   const profiles = getProfilesForUser(userGender);
@@ -657,7 +657,7 @@ export const getQuickFilteredProfiles = (
 
 // Get total count of available profiles for a user
 export const getTotalProfilesCountForUser = (
-  userGender: "male" | "female",
+  userGender: "m" | "f",
 ): number => {
   return getProfilesForUser(userGender).length;
 };
@@ -665,7 +665,7 @@ export const getTotalProfilesCountForUser = (
 // Get profiles by city for a specific user gender
 export const getProfilesByCityForUser = (
   city: string,
-  userGender: "male" | "female",
+  userGender: "m" | "f",
 ): Profile[] => {
   return getProfilesForUser(userGender).filter(
     (profile) => profile.city.toLowerCase() === city.toLowerCase(),
@@ -729,7 +729,7 @@ export const mockSearchApi = {
 // Helper function to get profiles by different criteria for testing with gender-based filtering
 export const getProfilesByCategory = (
   category: string,
-  userGender: "male" | "female",
+  userGender: "m" | "f",
   count: number = 6,
 ) => {
   const profiles = getProfilesForUser(userGender);

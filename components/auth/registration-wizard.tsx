@@ -87,6 +87,16 @@ export function RegistrationWizard({
 
   const steps = getSteps();
   const renderStep = () => {
+    // Ensure all required fields for Step1Auth are present
+    const step1Data = {
+      firstname: "",
+      lastname: "",
+      password_confirmation: "",
+      agree: false,
+      ...data,
+      gender: data.gender,
+    };
+
     const stepProps = {
       data,
       updateData,
@@ -100,7 +110,14 @@ export function RegistrationWizard({
     switch (currentStep) {
       case 1:
         return (
-          <Step1Auth {...stepProps} onSendOTP={sendOTP} otpSent={otpSent} />
+          <Step1Auth
+            {...stepProps}
+            data={step1Data}
+            onSendOTP={sendOTP}
+            // otpSent={otpSent}
+            otpSent={false} // Temporary fix, should be replaced with actual state
+
+          />
         );
       case 2:
         return <Step2AllData {...stepProps} />;
@@ -124,7 +141,14 @@ export function RegistrationWizard({
       if (success) {
         router.push("/dashboard");
       }
-    } else {
+    } else if (currentStep === 1) {
+      const success = await submitRegistration("step1");
+      if (success) {
+        await nextStep();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+    else {
       await nextStep();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -245,11 +269,11 @@ export function RegistrationWizard({
             {isSubmitting ? (
               <>
                 <Loader2 className="ml-2 h-4 w-4 animate-spin" />
-                {currentStep === totalSteps
+                {currentStep === totalSteps || currentStep === 1
                   ? "جارٍ الإنشاء..."
                   : "جارٍ المتابعة..."}
               </>
-            ) : currentStep === totalSteps ? (
+            ) : currentStep === totalSteps  || currentStep === 1 ? (
               "إنشاء الحساب"
             ) : (
               "التالي"

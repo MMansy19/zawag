@@ -84,7 +84,7 @@ interface DatabaseSchema {
     user_id: string;
     name: string;
     age: number;
-    gender: "male" | "female";
+    gender: "m" | "f";
     city: string;
     country: string;
     marital_status: string;
@@ -933,8 +933,8 @@ test('complete registration flow', async ({ page }) => {
   await page.click('[data-testid="verify-otp"]');
 
   // Step 2: Basic Info
-  await page.fill('[data-testid="firstName"]', 'أحمد');
-  await page.fill('[data-testid="lastName"]', 'محمد');
+  await page.fill('[data-testid="firstname"]', 'أحمد');
+  await page.fill('[data-testid="lastname"]', 'محمد');
   await page.selectOption('[data-testid="gender"]', 'male');
   await page.click('[data-testid="next-step"]');
 

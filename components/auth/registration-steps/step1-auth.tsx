@@ -7,12 +7,12 @@ import { OTPInput } from "@/components/ui/otp-input";
 import Phone from "@/components/ui/phone-number";
 import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { RegisterRequest } from "@/lib/types/auth.types";
-import { RegistrationData } from "@/lib/types";
+import { RequestBody } from "@/lib/types";
 import { getCountriesByGroup } from "@/lib/static-data";
 
 interface NewStep1AuthProps {
-  data: RegistrationData;
-  updateData: (data: Partial<RegistrationData>) => void;
+  data: RequestBody;
+  updateData: (data: Partial<RequestBody>) => void;
   error: string | null;
   clearError: () => void;
   isSubmitting: boolean;
@@ -34,7 +34,7 @@ export default function NewStep1Auth({
   const [confirmPassword, setConfirmPassword] = useState("");
   const [otp, setOtp] = useState("");
 
-  const handleInputChange = (field: keyof RegisterRequest, value: any) => {
+  const handleInputChange = (field: keyof RequestBody, value: any): void => {
     clearError();
     updateData({ [field]: value });
   };
@@ -58,10 +58,33 @@ export default function NewStep1Auth({
   };
 
   const countries = getCountriesByGroup();
-  const arabCountries = countries["arab"] || [];
 
   return (
     <div className="space-y-6">
+      {/* firstname and lastname */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div>
+          <Input
+            label="الاسم الأول"
+            value={data.firstname || ""}
+            onChange={(e) => handleInputChange("firstname", e.target.value)}
+            placeholder="أدخل اسمك الأول"
+            disabled={isSubmitting}
+            required
+          />
+        </div>
+        <div>
+          <Input
+            label="اسم العائلة"
+            value={data.lastname || ""}
+            onChange={(e) => handleInputChange("lastname", e.target.value)}
+            placeholder="أدخل اسم عائلتك"
+            disabled={isSubmitting}
+            required
+          />
+        </div>
+      </div>
+
       {/* Email and Phone */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
@@ -94,9 +117,9 @@ export default function NewStep1Auth({
             </Button>
           )}
         </div>{" "}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3.5">
-            رقم الهاتف <span className="text-red-500">*</span>
+        {/* <div>
+          <label className="block text-sm font-medium text-gray-700">
+            رقم الهاتف (اختياري)
           </label>
           <Phone
             value={(data as any).phone || ""}
@@ -108,7 +131,7 @@ export default function NewStep1Auth({
           <p className="text-sm text-gray-500 mt-1">
             اختر البلد وأدخل رقم هاتفك
           </p>
-        </div>
+        </div> */}
       </div>
 
       {/* OTP Verification */}
@@ -212,8 +235,8 @@ export default function NewStep1Auth({
             <input
               type="radio"
               name="gender"
-              value="male"
-              checked={data.gender === "male"}
+              value="m"
+              checked={data.gender === "m"}
               onChange={(e) => handleInputChange("gender", e.target.value)}
               disabled={isSubmitting}
               className="sr-only"
@@ -221,12 +244,12 @@ export default function NewStep1Auth({
             <div className="flex items-center">
               <div
                 className={`w-4 h-4 rounded-full border-2 ml-3 ${
-                  data.gender === "male"
+                  data.gender === "m"
                     ? "border-primary bg-primary"
                     : "border-gray-300"
                 }`}
               >
-                {data.gender === "male" && (
+                {data.gender === "m" && (
                   <div className="w-2 h-2 rounded-full bg-white mx-auto mt-0.5"></div>
                 )}
               </div>
@@ -243,8 +266,8 @@ export default function NewStep1Auth({
             <input
               type="radio"
               name="gender"
-              value="female"
-              checked={data.gender === "female"}
+              value="f"
+              checked={data.gender === "f"}
               onChange={(e) => handleInputChange("gender", e.target.value)}
               disabled={isSubmitting}
               className="sr-only"
@@ -252,12 +275,12 @@ export default function NewStep1Auth({
             <div className="flex items-center">
               <div
                 className={`w-4 h-4 rounded-full border-2 ml-3 ${
-                  data.gender === "female"
+                  data.gender === "f"
                     ? "border-primary bg-primary"
                     : "border-gray-300"
                 }`}
               >
-                {data.gender === "female" && (
+                {data.gender === "f" && (
                   <div className="w-2 h-2 rounded-full bg-white mx-auto mt-0.5"></div>
                 )}
               </div>

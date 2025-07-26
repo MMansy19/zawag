@@ -48,8 +48,8 @@ export default function NewStep2AllData({
   const allCountries = Object.values(countries).flat();
 
   const isGenderSelected = data.gender;
-  const isMale = data.gender === "male";
-  const isFemale = data.gender === "female";
+  const isMale = data.gender === "m";
+  const isFemale = data.gender === "f";
 
   if (!isGenderSelected) {
     return (
@@ -121,9 +121,9 @@ export default function NewStep2AllData({
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   label="الاسم الأول"
-                  value={data.firstName || ""}
+                  value={data.firstname || ""}
                   onChange={(e) =>
-                    handleInputChange("firstName", e.target.value)
+                    handleInputChange("firstname", e.target.value)
                   }
                   placeholder="أدخل اسمك الأول"
                   disabled={isSubmitting}
@@ -131,9 +131,9 @@ export default function NewStep2AllData({
                 />
                 <Input
                   label="اسم العائلة"
-                  value={data.lastName || ""}
+                  value={data.lastname || ""}
                   onChange={(e) =>
-                    handleInputChange("lastName", e.target.value)
+                    handleInputChange("lastname", e.target.value)
                   }
                   placeholder="أدخل اسم العائلة"
                   disabled={isSubmitting}

@@ -239,7 +239,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
                 الجنس
               </label>
               <p className="mt-1 text-sm text-gray-900">
-                {profile.gender === "male" ? "ذكر" : "أنثى"}
+                {profile.gender === "m" ? "ذكر" : "أنثى"}
               </p>
             </div>
             <div>
@@ -323,7 +323,7 @@ export function PublicProfileView({ userId }: PublicProfileViewProps) {
           </CardContent>
         </Card>{" "}
         {/* Contact Information - Only show for female profiles */}
-        {profile.gender === "female" && profile.guardianName && (
+        {profile.gender === "f" && profile.guardianName && (
           <Card>
             <CardHeader>
               <h3 className="text-xl font-semibold">معلومات الولي</h3>

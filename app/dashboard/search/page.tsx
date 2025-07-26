@@ -21,7 +21,7 @@ import { Badge } from "@/components/ui/badge";
 // Mock user data - in real app, get from auth context
 const mockCurrentUser = {
   id: "current-user",
-  gender: "male" as const,
+  gender: "m" as const,
 };
 
 const { staticMaleProfiles, staticFemaleProfiles } = await import(
@@ -109,7 +109,7 @@ function filterProfiles(profiles: Profile[], filters: FilterValues): Profile[] {
       return false;
 
     // Gender-specific filters
-    if (profile.gender === "male") {
+    if (profile.gender === "m") {
       const maleProfile = profile as MaleProfile;
       if (
         filters.hasBeard !== undefined &&
@@ -130,7 +130,7 @@ function filterProfiles(profiles: Profile[], filters: FilterValues): Profile[] {
         return false;
     }
 
-    if (profile.gender === "female") {
+    if (profile.gender === "f") {
       const femaleProfile = profile as FemaleProfile;
       if (
         filters.wearHijab !== undefined &&
@@ -230,7 +230,7 @@ function SearchPageContent() {
   // Mock profile data - replace with API call
   const allProfiles: Profile[] = useMemo(
     () =>
-      mockCurrentUser.gender === "male"
+      mockCurrentUser.gender === "m"
         ? staticFemaleProfiles.map((profile) => ({
             ...profile,
             isFavorite: false,

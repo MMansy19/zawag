@@ -8,7 +8,7 @@ const registerSchema = z
     confirmPassword: z.string(),
     name: z.string().min(2, "الاسم يجب أن يكون حرفين على الأقل"),
     phone: z.string().min(10, "رقم الهاتف غير صحيح"),
-    gender: z.enum(["male", "female"], {
+    gender: z.enum(["m", "f"], {
       required_error: "يرجى تحديد الجنس",
     }),
     age: z.number().min(18, "العمر يجب أن يكون 18 سنة على الأقل"),
@@ -54,7 +54,7 @@ const basicInfoSchema = z.object({
     .number()
     .min(18, "العمر يجب أن يكون 18 سنة على الأقل")
     .max(80, "العمر يجب أن يكون أقل من 80 سنة"),
-  gender: z.enum(["male", "female"], {
+  gender: z.enum(["m", "f"], {
     required_error: "يرجى تحديد الجنس",
   }),
   country: z.string().min(2, "يرجى إدخال البلد"),

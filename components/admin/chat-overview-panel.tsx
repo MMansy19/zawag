@@ -317,7 +317,7 @@ export function ChatOverviewPanel() {
                     </div>
                     <div>
                       <strong>الجنس:</strong>{" "}
-                      {selectedChat.participants[0]?.gender === "male"
+                      {selectedChat.participants[0]?.gender === "m"
                         ? "ذكر"
                         : "أنثى"}
                     </div>
@@ -340,7 +340,7 @@ export function ChatOverviewPanel() {
                     </div>
                     <div>
                       <strong>الجنس:</strong>{" "}
-                      {selectedChat.participants[1]?.gender === "male"
+                      {selectedChat.participants[1]?.gender === "m"
                         ? "ذكر"
                         : "أنثى"}
                     </div>

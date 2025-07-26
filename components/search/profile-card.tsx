@@ -18,7 +18,7 @@ import { useProfilePrivacyCheck } from "@/providers/profile-privacy-provider";
 interface ProfileCardProps {
   profile: Profile;
   onSendRequest?: (profileId: string, message: string) => Promise<void>;
-  currentUserGender?: "male" | "female";
+  currentUserGender?: "m" | "f";
 }
 
 export function ProfileCard({

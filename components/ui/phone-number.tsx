@@ -15,6 +15,7 @@ import ReactCountryFlag from "react-country-flag";
 // List of Arabic and Islamic country ISO2 codes (sorted with Arabic countries first)
 const arabicIslamicCountryCodes = [
   // Gulf Arab Countries
+  "eg",
   "sa",
   "ae",
   "qa",
@@ -28,7 +29,6 @@ const arabicIslamicCountryCodes = [
   "ps",
   "iq",
   // North African Arab Countries
-  "eg",
   "ly",
   "tn",
   "dz",
@@ -80,6 +80,7 @@ const arabicIslamicCountryCodes = [
 // Arabic names mapping (sorted with Arabic countries first)
 const arabicNames: Record<string, string> = {
   // Gulf Arab Countries
+  eg: "مصر",
   sa: "السعودية",
   ae: "الإمارات",
   qa: "قطر",
@@ -93,7 +94,6 @@ const arabicNames: Record<string, string> = {
   ps: "فلسطين",
   iq: "العراق",
   // North African Arab Countries
-  eg: "مصر",
   ly: "ليبيا",
   tn: "تونس",
   dz: "الجزائر",
@@ -149,23 +149,23 @@ const getArabicIslamicCountries = (): CountryData[] => {
       (country) => arabicIslamicCountryCodes.includes(country[1]), // ISO2 code is at index 1
     );
 
-    // Ensure we have at least Saudi Arabia - manually add if not found
-    const hasSaudiArabia = filtered.find((c) => c[1] === "sa");
-    if (!hasSaudiArabia) {
-      const saudiFromDefault = defaultCountries.find(
-        (c) => c[1] === "sa" || c[0]?.toLowerCase().includes("saudi"),
+    // Ensure we have at least Egypt - manually add if not found
+    const hasEgypt = filtered.find((c) => c[1] === "eg");
+    if (!hasEgypt) {
+      const egyptFromDefault = defaultCountries.find(
+        (c) => c[1] === "eg" || c[0]?.toLowerCase().includes("egypt"),
       );
-      if (saudiFromDefault) {
-        filtered.unshift(saudiFromDefault); // Add Saudi Arabia at the beginning
+      if (egyptFromDefault) {
+        filtered.unshift(egyptFromDefault); // Add Egypt at the beginning
       } else {
-        // Manual fallback for Saudi Arabia
-        filtered.unshift(["Saudi Arabia", "sa", "966"]);
+        // Manual fallback for Egypt
+        filtered.unshift(["Egypt", "eg", "20"]);
       }
     }
 
-    // Ensure we have at least Saudi Arabia
+    // Ensure we have at least Egypt
     if (filtered.length === 0) {
-      return [["Saudi Arabia", "sa", "966"], ...defaultCountries.slice(0, 9)]; // Ensure SA is first
+      return [["Egypt", "eg", "20"], ...defaultCountries.slice(0, 9)]; // Ensure Egypt is first
     }
 
     return filtered;
@@ -195,7 +195,7 @@ const Phone: React.FC<PhoneProps> = ({
     (c) => c[1]?.toLowerCase() === defaultCountry?.toLowerCase(),
   )
     ? defaultCountry
-    : ("sa" as CountryIso2);
+    : ("eg" as CountryIso2);
 
   // Wrap usePhoneInput in try-catch to handle any library errors
   let phoneHookResult;
@@ -212,7 +212,7 @@ const Phone: React.FC<PhoneProps> = ({
     console.error("Error with usePhoneInput:", error);
     // Fallback to using all default countries if our filtered list has issues
     phoneHookResult = usePhoneInput({
-      defaultCountry: "sa" as CountryIso2,
+      defaultCountry: "eg" as CountryIso2,
       value,
       countries: defaultCountries,
       onChange: (data: any) => {

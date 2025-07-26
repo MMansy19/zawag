@@ -10,7 +10,7 @@ import {
 // Interface for the current viewing user context
 export interface ViewerContext {
   id: string;
-  gender: "male" | "female";
+  gender: "m" | "f";
   isVerified?: boolean;
   isPremium?: boolean;
   isGuardianApproved?: boolean;
@@ -86,9 +86,9 @@ function checkProfileViewPermission(
       case "everyone":
         return true;
       case "verified-males":
-        return viewer.gender === "male" && viewer.isVerified === true;
+        return viewer.gender === "m" && viewer.isVerified === true;
       case "premium-males":
-        return viewer.gender === "male" && viewer.isPremium === true;
+        return viewer.gender === "m" && viewer.isPremium === true;
       case "guardian-approved":
         return viewer.isGuardianApproved === true;
       case "matches-only":

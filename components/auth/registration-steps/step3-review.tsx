@@ -26,8 +26,8 @@ export default function NewStep3Review({
   onEdit,
   onSubmit,
 }: NewStep3ReviewProps) {
-  const isMale = data.gender === "male";
-  const isFemale = data.gender === "female";
+  const isMale = data.gender === "m";
+  const isFemale = data.gender === "f";
 
   const handleSubmit = async () => {
     const success = await onSubmit();
@@ -71,7 +71,7 @@ export default function NewStep3Review({
                 الاسم الكامل
               </label>
               <p className="text-gray-900">
-                {data.firstName} {data.lastName}
+                {data.firstname} {data.lastname}
               </p>
             </div>
             <div>

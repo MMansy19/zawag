@@ -9,7 +9,9 @@ import {
   AuthenticationError,
   ValidationError,
 } from "@/lib/types/auth.types";
-import { RegistrationData } from "@/lib/types";
+import { RegistrationData, RequestBody  } from "@/lib/types";
+import { escape } from "querystring";
+
 
 // Registration State Management
 interface RegistrationState {
@@ -39,10 +41,10 @@ const initialState: RegistrationState = {
   data: {
     email: "",
     password: "",
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     age: 18,
-    gender: "male",
+    gender: "m",
     phone: "",
     otpCode: "",
     country: "",
@@ -151,7 +153,7 @@ interface UseRegistrationResult {
   updateData: (data: Partial<RegistrationData>) => void;
   setProfilePicture: (file: File | null) => void;
   sendOTP: () => Promise<boolean>;
-  submitRegistration: () => Promise<boolean>;
+  submitRegistration: (step?: string) => Promise<boolean>;
   reset: () => void;
   clearError: () => void;
   validateCurrentStep: () => Promise<boolean>;
@@ -197,28 +199,37 @@ const useRegistration = (): UseRegistrationResult => {
           dispatch({ type: "SET_ERROR", payload: "يرجى اختيار الجنس" });
           return false;
         }
-        if (!state.data.phone) {
-          dispatch({ type: "SET_ERROR", payload: "رقم الهاتف مطلوب" });
+        if(!state.data.firstname) {
+          dispatch({ type: "SET_ERROR", payload: "الاسم الأول مطلوب" });
           return false;
         }
-        if (!state.otpSent) {
-          dispatch({
-            type: "SET_ERROR",
-            payload: "يرجى إرسال رمز التحقق للبريد الإلكتروني",
-          });
+        if(!state.data.lastname) {
+          dispatch({ type: "SET_ERROR", payload: "الاسم الأخير مطلوب" });
           return false;
         }
-        if (!state.data.otpCode) {
-          dispatch({ type: "SET_ERROR", payload: "يرجى إدخال رمز التحقق" });
-          return false;
-        }
+        
+        // if (!state.data.phone) {
+        //   dispatch({ type: "SET_ERROR", payload: "رقم الهاتف مطلوب" });
+        //   return false;
+        // }
+        // if (!state.otpSent) {
+          // dispatch({
+          //   type: "SET_ERROR",
+          //   payload: "يرجى إرسال رمز التحقق للبريد الإلكتروني",
+          // });
+          // return false;
+        // }
+        // if (!state.data.otpCode) {
+        //   dispatch({ type: "SET_ERROR", payload: "يرجى إدخال رمز التحقق" });
+        //   return false;
+        // }
       }
 
       // Step 2: Validate personal data
       if (state.currentStep === 2) {
         const requiredFields: (keyof RegistrationData)[] = [
-          "firstName",
-          "lastName",
+          "firstname",
+          "lastname",
           "age",
           "nationality",
           "maritalStatus",
@@ -248,7 +259,7 @@ const useRegistration = (): UseRegistrationResult => {
         }
 
         // Gender-specific validations
-        if (state.data.gender === "male") {
+        if (state.data.gender === "m") {
           const maleRequiredFields: (keyof RegistrationData)[] = [
             "hasBeard",
             "smokes",
@@ -267,7 +278,7 @@ const useRegistration = (): UseRegistrationResult => {
           }
         }
 
-        if (state.data.gender === "female") {
+        if (state.data.gender === "f") {
           const femaleRequiredFields: (keyof RegistrationData)[] = [
             "wearHijab",
             "guardianName",
@@ -368,7 +379,7 @@ const useRegistration = (): UseRegistrationResult => {
     }
   }, [state.data.email, handleError]);
 
-  const submitRegistration = useCallback(async (): Promise<boolean> => {
+  const submitRegistration = useCallback(async (step?: string): Promise<boolean> => {
     try {
       dispatch({ type: "SET_SUBMITTING", payload: true });
       dispatch({ type: "SET_ERROR", payload: null });
@@ -379,13 +390,58 @@ const useRegistration = (): UseRegistrationResult => {
         showToast.error("يرجى ملء جميع الحقول المطلوبة بشكل صحيح");
         return false;
       }
+      if (step === "step1") {
+        let registrationData: RequestBody = {
+          firstname: state.data.firstname,
+          lastname: state.data.lastname,
+          email: state.data.email,
+          password: state.data.password,
+          password_confirmation: state.data.password,
+          gender: state.data.gender,
+          agree: true,
+          // phone: state.data.phone ?? "",
+        };
+      // Convert registrationData to FormData
+      const formData = new FormData();
+      Object.entries(registrationData).forEach(([key, value]) => {
+        if (Array.isArray(value)) {
+          value.forEach((item, idx) => {
+            formData.append(`${key}[${idx}]`, item);
+          });
+        } else if (typeof value === "object" && value !== null) {
+          // For nested objects like preferences
+          Object.entries(value).forEach(([subKey, subValue]) => {
+            if (typeof subValue === "object" && subValue !== null) {
+              Object.entries(subValue).forEach(([deepKey, deepValue]) => {
+                formData.append(`${key}[${subKey}][${deepKey}]`, deepValue as any);
+              });
+            } else {
+              formData.append(`${key}[${subKey}]`, subValue as any);
+            }
+          });
+        } else {
+          formData.append(key, value as any);
+        }
+      });
+      // Call API (expects FormData object)
+      const response = await authApiService.register(formData);
+      console.log("Submitting registration with data:", registrationData);
+      console.log("Registration response:", response);
+      if (response.requiresVerification) {
+        showToast.success("تم إنشاء الحساب، يرجى تأكيد بريدك الإلكتروني");
+      } else {
+        showToast.success("تم إنشاء الحساب بنجاح");
+      }
 
+      return true;
+      }
+else{
       // Common registration data
       const baseData = {
         email: state.data.email,
         password: state.data.password,
-        firstName: state.data.firstName,
-        lastName: state.data.lastName,
+        firstname: state.data.firstname,
+        lastname: state.data.lastname,
         age: state.data.age,
         phone: state.data.phone ?? "",
         country: state.data.country,
@@ -439,10 +495,10 @@ const useRegistration = (): UseRegistrationResult => {
       // Gender-specific data
       let registrationData: RegisterRequest;
 
-      if (state.data.gender === "female") {
+      if (state.data.gender === "f") {
         registrationData = {
           ...baseData,
-          gender: "female",
+          gender: "f",
           guardianName: state.data.guardianName ?? "",
           guardianPhone: state.data.guardianPhone ?? "",
           guardianRelationship: state.data.guardianRelationship ?? "",
@@ -503,6 +559,8 @@ const useRegistration = (): UseRegistrationResult => {
       }
 
       return true;
+}
+
     } catch (error: any) {
       const errorMessage =
         error.response?.data?.message || "فشل التسجيل، يرجى المحاولة مرة أخرى";

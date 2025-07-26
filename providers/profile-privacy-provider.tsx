@@ -47,7 +47,7 @@ export function ProfilePrivacyProvider({
       // Create viewer context from current user
       const context: ViewerContext = {
         id: user.id,
-        gender: isFemaleProfile(profile) ? "female" : "male",
+        gender: isFemaleProfile(profile) ? "f" : "m",
         isVerified: user.isEmailVerified && user.isPhoneVerified,
         isPremium: false, // TODO: Check premium status
         isGuardianApproved: false, // TODO: Check guardian approval status

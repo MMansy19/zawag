@@ -19,7 +19,7 @@ export async function getProfile(userId: string): Promise<Profile | null> {
     userId,
     name: "محمد أحمد",
     age: 28,
-    gender: "male",
+    gender: "m",
     country: "SA",
     city: "الرياض",
     nationality: "SA",
@@ -148,11 +148,11 @@ export async function createProfile(
   };
 
   // Create gender-specific profile
-  if (profileData.gender === "female") {
+  if (profileData.gender === "f") {
     const femaleData = profileData as Partial<FemaleProfile>;
     const femaleProfile: FemaleProfile = {
       ...baseFields,
-      gender: "female" as const,
+      gender: "f" as const,
 
       // Required female-specific fields
       guardianName: femaleData.guardianName || "",
@@ -191,7 +191,7 @@ export async function createProfile(
     const maleData = profileData as Partial<MaleProfile>;
     const maleProfile: MaleProfile = {
       ...baseFields,
-      gender: "male" as const,
+      gender: "m" as const,
 
       // Required male-specific fields
       hasBeard: maleData.hasBeard || false,

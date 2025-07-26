@@ -38,7 +38,7 @@ import {
 // Mock user data
 const mockUser = {
   id: "mock-user-123",
-  gender: "male" as const,
+  gender: "m" as const,
 };
 
 export function ProfileView() {
@@ -61,7 +61,7 @@ export function ProfileView() {
         userId: mockUser.id,
         name: "أحمد محمد الشاذلي",
         age: 28,
-        gender: "male",
+        gender: "m",
         city: "القاهرة",
         country: "مصر",
         nationality: "مصري",

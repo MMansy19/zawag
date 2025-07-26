@@ -88,13 +88,13 @@ interface FilterValues {
 }
 
 interface FilterSidebarProps {
-  userGender?: "male" | "female";
+  userGender?: "m" | "f";
   onClose?: () => void;
   isMobile?: boolean;
 }
 
 export function FilterSidebar({
-  userGender = "male",
+  userGender = "m",
   onClose,
   isMobile = false,
 }: FilterSidebarProps) {
@@ -105,7 +105,7 @@ export function FilterSidebar({
   const [activeFiltersCount, setActiveFiltersCount] = useState(0);
 
   // Determine which gender we're searching for (opposite of user's gender)
-  const searchingForGender = userGender === "male" ? "female" : "male";
+  const searchingForGender = userGender === "m" ? "f" : "m";
 
   // Initialize filters from URL params
   useEffect(() => {
@@ -575,7 +575,7 @@ export function FilterSidebar({
         </Card>
 
         {/* Gender-Specific Filters for Males */}
-        {searchingForGender === "male" && (
+        {searchingForGender === "m" && (
           <Card className="border-2 border-primary-light bg-primary-subtle">
             <CardHeader className="pb-3">
               <h4 className="font-semibold text-primary-safe flex items-center gap-2">
@@ -743,7 +743,7 @@ export function FilterSidebar({
         )}
 
         {/* Gender-Specific Filters for Females */}
-        {searchingForGender === "female" && (
+        {searchingForGender === "f" && (
           <Card className="border-2 border-pink-200 bg-pink-50">
             <CardHeader className="pb-3">
               <h4 className="font-semibold text-pink-900 flex items-center gap-2">

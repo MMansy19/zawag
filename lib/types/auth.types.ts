@@ -35,8 +35,8 @@ export interface User {
   id: string;
   email: string;
   emailVerified: boolean;
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   role: "user" | "admin" | "moderator";
   status: "active" | "pending" | "suspended";
   createdAt: string;
@@ -71,10 +71,10 @@ export interface BaseRegisterRequest {
 
   // Basic Information
   applicantStatus: "self" | "parent" | "guardian" | "other";
-  firstName: string;
-  lastName: string;
+  firstname: string;
+  lastname: string;
   age: number;
-  gender: "male" | "female";
+  gender: "m" | "f";
   country: string;
   city: string;
   nationality: string;
@@ -224,7 +224,7 @@ export interface BaseRegisterRequest {
 
 // Female Registration Request
 export interface FemaleRegisterRequest extends BaseRegisterRequest {
-  gender: "female";
+  gender: "f";
 
   // Guardian Information
   guardianName: string;
@@ -255,7 +255,7 @@ export interface FemaleRegisterRequest extends BaseRegisterRequest {
 
 // Male Registration Request
 export interface MaleRegisterRequest extends BaseRegisterRequest {
-  gender: "male";
+  gender: "m";
 
   // Male-specific religious fields
   hasBeard: boolean;
@@ -290,7 +290,7 @@ export interface BaseProfile {
   userId: string;
   name: string;
   age: number;
-  gender: "male" | "female";
+  gender: "m" | "f";
   country: string;
   city: string;
   nationality: string;
@@ -339,7 +339,7 @@ export interface BaseProfile {
 
 // Female Profile
 export interface FemaleProfile extends BaseProfile {
-  gender: "female";
+  gender: "f";
   guardianName: string;
   guardianPhone: string;
   guardianEmail?: string;
@@ -358,7 +358,7 @@ export interface FemaleProfile extends BaseProfile {
 
 // Male Profile
 export interface MaleProfile extends BaseProfile {
-  gender: "male";
+  gender: "m";
   hasBeard: boolean;
   beard?: boolean;
   financialSituation: "excellent" | "good" | "average" | "struggling";
@@ -378,11 +378,11 @@ export type Profile = MaleProfile | FemaleProfile;
 
 // Type guard functions
 export function isMaleProfile(profile: Profile): profile is MaleProfile {
-  return profile.gender === "male";
+  return profile.gender === "m";
 }
 
 export function isFemaleProfile(profile: Profile): profile is FemaleProfile {
-  return profile.gender === "female";
+  return profile.gender === "f";
 }
 
 // Auth API Response Types
