@@ -9,8 +9,7 @@ import {
   AuthenticationError,
   ValidationError,
 } from "@/lib/types/auth.types";
-import { RegistrationData, RequestBody  } from "@/lib/types";
-
+import { RegistrationData, RequestBody } from "@/lib/types";
 
 // Registration State Management
 interface RegistrationState {
@@ -198,25 +197,25 @@ const useRegistration = (): UseRegistrationResult => {
           dispatch({ type: "SET_ERROR", payload: "يرجى اختيار الجنس" });
           return false;
         }
-        if(!state.data.firstname) {
+        if (!state.data.firstname) {
           dispatch({ type: "SET_ERROR", payload: "الاسم الأول مطلوب" });
           return false;
         }
-        if(!state.data.lastname) {
+        if (!state.data.lastname) {
           dispatch({ type: "SET_ERROR", payload: "الاسم الأخير مطلوب" });
           return false;
         }
-        
+
         // if (!state.data.phone) {
         //   dispatch({ type: "SET_ERROR", payload: "رقم الهاتف مطلوب" });
         //   return false;
         // }
         // if (!state.otpSent) {
-          // dispatch({
-          //   type: "SET_ERROR",
-          //   payload: "يرجى إرسال رمز التحقق للبريد الإلكتروني",
-          // });
-          // return false;
+        // dispatch({
+        //   type: "SET_ERROR",
+        //   payload: "يرجى إرسال رمز التحقق للبريد الإلكتروني",
+        // });
+        // return false;
         // }
         // if (!state.data.otpCode) {
         //   dispatch({ type: "SET_ERROR", payload: "يرجى إدخال رمز التحقق" });
@@ -389,16 +388,16 @@ const useRegistration = (): UseRegistrationResult => {
         showToast.error("يرجى ملء جميع الحقول المطلوبة بشكل صحيح");
         return false;
       }
-        let registrationData: RequestBody = {
-          firstname: state.data.firstname,
-          lastname: state.data.lastname,
-          email: state.data.email,
-          password: state.data.password,
-          password_confirmation: state.data.password,
-          gender: state.data.gender,
-          agree: true,
-          // phone: state.data.phone ?? "",
-        };
+      let registrationData: RequestBody = {
+        firstname: state.data.firstname,
+        lastname: state.data.lastname,
+        email: state.data.email,
+        password: state.data.password,
+        password_confirmation: state.data.password,
+        gender: state.data.gender,
+        agree: true,
+        // phone: state.data.phone ?? "",
+      };
       // Convert registrationData to FormData
       const formData = new FormData();
       Object.entries(registrationData).forEach(([key, value]) => {
@@ -411,7 +410,10 @@ const useRegistration = (): UseRegistrationResult => {
           Object.entries(value).forEach(([subKey, subValue]) => {
             if (typeof subValue === "object" && subValue !== null) {
               Object.entries(subValue).forEach(([deepKey, deepValue]) => {
-                formData.append(`${key}[${subKey}][${deepKey}]`, deepValue as any);
+                formData.append(
+                  `${key}[${subKey}][${deepKey}]`,
+                  deepValue as any,
+                );
               });
             } else {
               formData.append(`${key}[${subKey}]`, subValue as any);

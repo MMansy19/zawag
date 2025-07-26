@@ -290,7 +290,7 @@ export default function NewStep2AllData({
                     onChange={(e) =>
                       handleInputChange(
                         "isPrayerRegular",
-                        e.target.value as any
+                        e.target.value as any,
                       )
                     }
                     disabled={isSubmitting}

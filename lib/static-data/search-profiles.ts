@@ -518,9 +518,7 @@ export const filterProfiles = (
 };
 
 // Gender-based filtering functions
-export const getProfilesForUser = (
-  userGender: "m" | "f",
-): Profile[] => {
+export const getProfilesForUser = (userGender: "m" | "f"): Profile[] => {
   // Males can only see female profiles, females can only see male profiles
   if (userGender === "m") {
     return staticFemaleProfiles;
@@ -656,9 +654,7 @@ export const getQuickFilteredProfiles = (
 };
 
 // Get total count of available profiles for a user
-export const getTotalProfilesCountForUser = (
-  userGender: "m" | "f",
-): number => {
+export const getTotalProfilesCountForUser = (userGender: "m" | "f"): number => {
   return getProfilesForUser(userGender).length;
 };
 

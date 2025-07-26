@@ -12,7 +12,7 @@ import {
   AuthenticationError,
   ValidationError,
 } from "../types/auth.types";
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
 
 const API_BASE_URL = process.env["NEXT_PUBLIC_API_BASE_URL"] || "/api";
 
@@ -31,21 +31,21 @@ class ApiError extends Error {
 const httpClient = {
   async post<T>(url: string, data: any): Promise<T> {
     const response: AxiosResponse<T> = await axios.post(url, data, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
     return response.data;
   },
 
   async postFormData<T>(url: string, data: FormData): Promise<T> {
     const response: AxiosResponse<T> = await axios.post(url, data, {
-      headers: { 'Content-Type': 'multipart/form-data' },
+      headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
   },
 
   async get<T>(url: string): Promise<T> {
     const response: AxiosResponse<T> = await axios.get(url, {
-      headers: { 'Content-Type': 'application/json' },
+      headers: { "Content-Type": "application/json" },
     });
     return response.data;
   },
@@ -83,7 +83,7 @@ export class AuthApiService {
     }
   }
 
- /**
+  /**
    * User registration
    */
   async register(data: FormData): Promise<RegisterResponse> {
@@ -96,14 +96,19 @@ export class AuthApiService {
     } catch (error: any) {
       console.error("Registration error:", error);
       if (error.code === "ERR_NETWORK") {
-        throw new Error("Network error: Unable to connect to the registration server. Please check your internet connection or contact support.");
+        throw new Error(
+          "Network error: Unable to connect to the registration server. Please check your internet connection or contact support.",
+        );
       }
       if (error.response?.data) {
         const { message, fields } = error.response.data;
         if (fields) {
           throw new ValidationError(message || "Validation failed", fields);
         }
-        throw new AuthenticationError("REGISTRATION_FAILED", message || "Registration failed");
+        throw new AuthenticationError(
+          "REGISTRATION_FAILED",
+          message || "Registration failed",
+        );
       }
       throw new Error("An unexpected error occurred during registration");
     }
@@ -318,8 +323,7 @@ export class AuthApiService {
     data: ForgotPasswordRequest,
   ): Promise<{ message: string }> {
     try {
-      return await httpClient.post(
-        `${API_BASE_URL}//forgot-password`, data);
+      return await httpClient.post(`${API_BASE_URL}//forgot-password`, data);
     } catch (error) {
       console.error("Forgot password error:", error);
       throw error;
@@ -333,8 +337,7 @@ export class AuthApiService {
     data: ResetPasswordRequest,
   ): Promise<{ message: string }> {
     try {
-      return await httpClient.post(
-        `${API_BASE_URL}/reset-password`, data);
+      return await httpClient.post(`${API_BASE_URL}/reset-password`, data);
     } catch (error) {
       console.error("Reset password error:", error);
       throw error;

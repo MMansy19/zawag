@@ -114,7 +114,6 @@ export function RegistrationWizard({
             onSendOTP={sendOTP}
             // otpSent={otpSent}
             otpSent={false} // Temporary fix, should be replaced with actual state
-
           />
         );
       case 2:
@@ -135,15 +134,14 @@ export function RegistrationWizard({
 
   const handleNext = async () => {
     if (currentStep === totalSteps) {
-        router.push("/dashboard");
+      router.push("/dashboard");
     } else if (currentStep === 1) {
       const success = await submitRegistration();
       if (success) {
         await nextStep();
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
-    }
-    else {
+    } else {
       await nextStep();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
@@ -268,7 +266,7 @@ export function RegistrationWizard({
                   ? "جارٍ الإنشاء..."
                   : "جارٍ المتابعة..."}
               </>
-            ) : currentStep === totalSteps  || currentStep === 1 ? (
+            ) : currentStep === totalSteps || currentStep === 1 ? (
               "إنشاء الحساب"
             ) : (
               "التالي"
