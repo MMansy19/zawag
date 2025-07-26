@@ -89,11 +89,9 @@ export function RegistrationWizard({
   const renderStep = () => {
     // Ensure all required fields for Step1Auth are present
     const step1Data = {
-      firstname: "",
-      lastname: "",
+      ...data,
       password_confirmation: "",
       agree: false,
-      ...data,
       gender: data.gender,
     };
 
