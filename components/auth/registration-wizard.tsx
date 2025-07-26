@@ -135,12 +135,9 @@ export function RegistrationWizard({
 
   const handleNext = async () => {
     if (currentStep === totalSteps) {
-      const success = await submitRegistration();
-      if (success) {
         router.push("/dashboard");
-      }
     } else if (currentStep === 1) {
-      const success = await submitRegistration("step1");
+      const success = await submitRegistration();
       if (success) {
         await nextStep();
         window.scrollTo({ top: 0, behavior: "smooth" });
